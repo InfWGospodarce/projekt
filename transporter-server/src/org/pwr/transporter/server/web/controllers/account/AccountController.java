@@ -103,6 +103,6 @@ public class AccountController {
         LOGGER.debug("email: " + accountForm.getUser().getEmail());
         LOGGER.debug("salt: " + accountForm.getUser().getSalt());
 
-        return "/index";
+        return "redirect: /index";
     }
 }

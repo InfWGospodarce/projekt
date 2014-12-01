@@ -3,7 +3,7 @@
 <%@ include file="headers.jsp" %>
 <div class="sidebar">
 <c:choose>
-	<c:when test="${empty username}">
+	<c:when test="${empty user.username}">
 	</c:when>
 	<c:otherwise>
          	test bar
