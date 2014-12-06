@@ -10,6 +10,7 @@
 					Kliknij "Zaloguj" w menu na górze aby przejść do oprogramu.<br>
 				</p>
 			</c:when>
+			
 			<c:otherwise>
 				<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
 				<h2>

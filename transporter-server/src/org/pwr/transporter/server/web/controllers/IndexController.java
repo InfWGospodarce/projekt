@@ -38,5 +38,7 @@ public class IndexController {
         LOGGER.debug("Get index");
         return "index";
     }
+    
+    
 
 }
