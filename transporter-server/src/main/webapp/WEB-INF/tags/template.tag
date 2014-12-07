@@ -20,8 +20,8 @@
 	<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
 	</div>
 	<div class="wrapper">
-		<div id="menuleft" ><jsp:include page="/WEB-INF/jsp/template/actorsMenus/logistyk.jsp" /></div>
-		<div id="content">rrrr<jsp:doBody /></div>
+		<div id="menuleft" ><jsp:include page="/WEB-INF/jsp/template/actorsMenus/admin.jsp" /></div>
+		<div id="content"><jsp:doBody /></div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/template/footer.jsp" />
 	</body>
