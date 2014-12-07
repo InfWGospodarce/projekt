@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-
 /**
  * <pre>
  *    Define user roles.
@@ -24,42 +23,38 @@ import javax.persistence.Table;
 @Table(name = NamesForHibernate.USER_ROLES)
 public class UserRoles extends GenericEntity {
 
-    /**  */
-    private static final long serialVersionUID = -1624679923069024257L;
+	/**  */
+	private static final long serialVersionUID = -1624679923069024257L;
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** FIELDS
+	// *******************************************************************************************************************************
 
-    @ManyToOne
-    @JoinColumn(name = NamesForHibernate.USERS_ID, nullable = false)
-    private Users users;
+	@ManyToOne
+	@JoinColumn(name = NamesForHibernate.USERS_ID, nullable = false)
+	private Users users;
 
-    @ManyToOne
-    @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false)
-    private Role role;
+	@ManyToOne
+	@JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false)
+	private Role role;
 
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	public Users getUsers() {
+		return this.users;
+	}
 
-    public Users getUsers() {
-        return this.users;
-    }
+	public Role getRole() {
+		return this.role;
+	}
 
+	public void setUsers( Users user ) {
+		this.users = user;
+	}
 
-    public Role getRole() {
-        return this.role;
-    }
-
-
-    public void setUsers(Users user) {
-        this.users = user;
-    }
-
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+	public void setRole( Role role ) {
+		this.role = role;
+	}
 }

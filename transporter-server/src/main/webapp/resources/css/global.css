@@ -1,5 +1,37 @@
 @CHARSET "UTF-8";
 
+/* Main menu
+------------------------------------------*/
+#coolMenu, #coolMenu ul {
+	/* list-style: none; */
+}
+#coolMenu {
+	float: left;
+}
+#coolMenu > li {
+	float: left;
+}
+#coolMenu li a {
+	display: block;
+	height: 2em;
+	line-height: 2em;
+	padding: 0 1.5em;
+	text-decoration: none;
+}
+#coolMenu ul {
+	position: absolute;
+	display: none;
+	z-index: 999;
+}
+#coolMenu ul li a {
+	width: 80px;
+}
+#coolMenu li:hover ul {
+	display: block;
+}
+/* END MENU
+------------------------------------------*/
+
 html, body {
 	height: 100%;
 }
