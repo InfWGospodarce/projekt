@@ -19,9 +19,112 @@
 		<property name="customerDAO" ref="customerDAO" />
 	</bean>
 	
-	<bean id="customerService" class="org.pwr.transporter.server.web.services.CustomerService">
-		<property name="customerLogic" ref="customerLogic" />
+	<bean id="customerService" class="org.pwr.transporter.server.web.services.CustomerService" />
+	
+	<bean id="customerAccountValidator" class="org.pwr.transporter.server.web.validators.forms.CustomerAccountValidator" />
+	
+	<!-- Streat prefix -->
+	<bean id="addrStreetPrefixDAO" class="org.pwr.transporter.server.dao.impl.enums.AddrStreetPrefixDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
 	</bean>
+	
+	<bean id="addrStreetPrefixLogic" class="org.pwr.transporter.server.business.enums.AddrStreetPrefixLogic">
+		<property name="addrStreetPrefixDAO" ref="addrStreetPrefixDAO" />
+	</bean>
+	
+	<bean id="addrStreetPrefixService" class="org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService" />
+	
+	<!-- Country -->
+	<bean id="countryDAO" class="org.pwr.transporter.server.dao.impl.CountryDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="countryLogic" class="org.pwr.transporter.server.business.CountryLogic">
+		<property name="countryDAO" ref="countryDAO" />
+		<property name="companyDataDAO" ref="companyDataDAO" />
+	</bean>
+	
+	<bean id="countryService" class="org.pwr.transporter.server.web.services.CountryService" />
+	
+	<!-- Company Data -->
+	<bean id="companyDataDAO" class="org.pwr.transporter.server.dao.impl.CompanyDataDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="companyDataLogic" class="org.pwr.transporter.server.business.CompanyDataLogic">
+		<property name="companyDataDAO" ref="companyDataDAO" />
+	</bean>
+	
+	<bean id="companyDataService" class="org.pwr.transporter.server.web.services.CompanyDataService" />
 			
-			
+
+	<!-- Address -->
+	<bean id="addressDAO" class="org.pwr.transporter.server.dao.impl.AddressDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="addressLogic" class="org.pwr.transporter.server.business.AddressLogic">
+		<property name="addressDAO" ref="addressDAO" />
+		<property name="countryDAO" ref="countryDAO" />
+		<property name="addrStreetPrefixDAO" ref="addrStreetPrefixDAO" />
+	</bean>
+	
+	<bean id="addressService" class="org.pwr.transporter.server.web.services.AddressService" />
+	<bean id="addressValidator" class="org.pwr.transporter.server.web.validators.AddressValidator" />
+	
+	<!-- Users -->
+	<bean id="usersDAO" class="org.pwr.transporter.server.dao.impl.UsersDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="usersLogic" class="org.pwr.transporter.server.business.UsersLogic">
+		<property name="usersDAO" ref="usersDAO" />
+	</bean>
+	
+	<bean id="usersService" class="org.pwr.transporter.server.web.services.UsersService" />
+	
+	<!-- Role -->
+	<bean id="roleDAO" class="org.pwr.transporter.server.dao.impl.RoleDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="roleLogic" class="org.pwr.transporter.server.business.RoleLogic">
+		<property name="roleDAO" ref="roleDAO" />
+	</bean>
+	
+	<bean id="roleService" class="org.pwr.transporter.server.web.services.RoleService" />
+	
+	<!-- UserRoles -->
+	<bean id="userRolesDAO" class="org.pwr.transporter.server.dao.impl.UserRolesDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="userRolesLogic" class="org.pwr.transporter.server.business.UserRolesLogic">
+		<property name="userRolesDAO" ref="userRolesDAO" />
+	</bean>
+	
+	<bean id="userRolesService" class="org.pwr.transporter.server.web.services.UserRolesService" />
+	
+	<!-- Employee -->
+	<bean id="employeeDAO" class="org.pwr.transporter.server.dao.impl.EmployeeDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="employeeLogic" class="org.pwr.transporter.server.business.EmployeeLogic">
+		<property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	
+	<bean id="employeeService" class="org.pwr.transporter.server.web.services.EmployeeService" />
+	
+	<!-- Task -->
+	<bean id="taskDAO" class="org.pwr.transporter.server.dao.impl.logistic.TaskDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="taskLogic" class="org.pwr.transporter.server.business.logistic.TaskLogic">
+		<property name="taskDAO" ref="taskDAO" />
+	</bean>
+	
+	<bean id="taskService" class="org.pwr.transporter.server.web.services.logistic.TaskService" />
+	
 </beans>

@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.entity.base;
 
 
@@ -7,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
@@ -22,7 +21,7 @@ import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.5
+ * @version 0.1.0
  */
 @Entity
 @Table(name = "address")
@@ -34,14 +33,17 @@ public class Address extends GenericEntity {
     // *******************************************************************************************************************************
     // ****** FIELDS
     // *******************************************************************************************************************************
-    @OneToOne(optional = false)
-    private AddrStreetPrefix enumAddrStreetPrefix;
+    @ManyToOne(optional = false)
+    private AddrStreetPrefix addrStreetPrefix;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Country country;
 
     @Column(name = "zip_code")
     private String zipCode;
+
+    @Column(name = "street")
+    private String street;
 
     @Column(name = "local")
     private String local;
@@ -55,17 +57,24 @@ public class Address extends GenericEntity {
     @ManyToOne(optional = true)
     private Customer customer;
 
+    @Transient
+    private String countryId;
+
+    @Transient
+    private String addrStreetPrefixId;
+
 
     // *******************************************************************************************************************************
     // ****** GETTERS & SETTERS
     // *******************************************************************************************************************************
-    public AddrStreetPrefix getEnumAddrStreetPrefix() {
-        return enumAddrStreetPrefix;
+
+    public AddrStreetPrefix getAddrStreetPrefix() {
+        return this.addrStreetPrefix;
     }
 
 
-    public void setEnumAddrStreetPrefix(AddrStreetPrefix enumAddrStreetPrefix) {
-        this.enumAddrStreetPrefix = enumAddrStreetPrefix;
+    public void setAddrStreetPrefix(AddrStreetPrefix addrStreetPrefix) {
+        this.addrStreetPrefix = addrStreetPrefix;
     }
 
 
@@ -118,4 +127,33 @@ public class Address extends GenericEntity {
         this.postCity = postCity;
     }
 
+
+    public String getStreet() {
+        return this.street;
+    }
+
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+
+    public String getCountryId() {
+        return this.countryId;
+    }
+
+
+    public void setCountryId(String countryId) {
+        this.countryId = countryId;
+    }
+
+
+    public String getAddrStreetPrefixId() {
+        return this.addrStreetPrefixId;
+    }
+
+
+    public void setAddrStreetPrefixId(String addrStreetPrefixId) {
+        this.addrStreetPrefixId = addrStreetPrefixId;
+    }
 }

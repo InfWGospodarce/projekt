@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.entity.logistic;
 
 
@@ -9,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.pwr.transporter.entity.GenericEntity;
-import org.pwr.transporter.entity.base.Emplyee;
+import org.pwr.transporter.entity.base.Employee;
 
 
 
@@ -20,7 +19,7 @@ import org.pwr.transporter.entity.base.Emplyee;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.3
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -35,7 +34,7 @@ public class Task extends GenericEntity {
     // *******************************************************************************************************************************
 
     @ManyToOne(optional = false)
-    private Emplyee emplyee;
+    private Employee employee;
 
     @ManyToOne(optional = false)
     private Vehicle vehicle;
@@ -45,13 +44,13 @@ public class Task extends GenericEntity {
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
 
-    public Emplyee getEmplyee() {
-        return this.emplyee;
+    public Employee getEmployee() {
+        return this.employee;
     }
 
 
-    public void setEmplyee(Emplyee emplyee) {
-        this.emplyee = emplyee;
+    public void setEmployee(Employee emplyee) {
+        this.employee = emplyee;
     }
 
 

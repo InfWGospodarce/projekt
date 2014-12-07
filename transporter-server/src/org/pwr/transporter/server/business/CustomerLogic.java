@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.business;
 
 
@@ -41,6 +40,7 @@ public class CustomerLogic {
 
 
     public Long insert(Customer entity) {
+        entity.setSearchKey(entity.getName() + " " + entity.getSurname());
         return this.customerDAO.insert(entity);
     }
 

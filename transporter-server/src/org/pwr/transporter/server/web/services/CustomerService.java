@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.web.services;
 
 
@@ -7,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.server.business.CustomerLogic;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 
@@ -24,13 +24,9 @@ public class CustomerService {
     CustomerLogic customerLogic;
 
 
+    @Autowired
     public void setCustomerLogic(CustomerLogic customerLogic) {
         this.customerLogic = customerLogic;
-    }
-
-
-    public CustomerService() {
-        System.out.println("Creating Customer service");
     }
 
 

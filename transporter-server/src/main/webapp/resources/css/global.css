@@ -1,0 +1,174 @@
+@CHARSET "UTF-8";
+/* Main menu
+------------------------------------------*/
+#coolMenu, #coolMenu ul {
+	/* list-style: none; */
+}
+#coolMenu {
+	float: left;
+}
+#coolMenu > li {
+	float: left;
+}
+#coolMenu li a {
+	display: block;
+	height: 2em;
+	line-height: 2em;
+	padding: 0 1.5em;
+	text-decoration: none;
+}
+#coolMenu ul {
+	position: absolute;
+	display: none;
+	z-index: 999;
+}
+#coolMenu ul li a {
+	width: 80px;
+}
+#coolMenu li:hover ul {
+	display: block;
+}
+/* END MENU
+------------------------------------------*/
+
+/* Main menu
+------------------------------------------*/
+#coolMenu, #coolMenu ul {
+	/* list-style: none; */
+}
+#coolMenu {
+	float: left;
+}
+#coolMenu > li {
+	float: left;
+}
+#coolMenu li a {
+	display: block;
+	height: 2em;
+	line-height: 2em;
+	padding: 0 1.5em;
+	text-decoration: none;
+}
+#coolMenu ul {
+	position: absolute;
+	display: none;
+	z-index: 999;
+}
+#coolMenu ul li a {
+	width: 80px;
+}
+#coolMenu li:hover ul {
+	display: block;
+}
+/* END MENU
+------------------------------------------*/
+
+html, body {
+	height: 100%;
+}
+
+.error {
+	color: rgb(255,0,0);
+}
+
+.errorBc {
+	background: rgb(255,0,0);
+	color: rgb(0,0,0);
+}
+.std table{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wrapper {
+	margin-left:10%;
+	margin-right:10%;
+	height:100%;
+	min-height:100%;
+	padding-bottom: 16em;
+}
+
+#body{
+	min-height:100%;
+	position: relative;
+}
+
+.login {
+	background-color:rgb(120,100,250);
+	margin-left: auto;
+    margin-right: auto;
+    float: center;
+    width: 80%;
+}
+
+#tophead {
+	margin-left:10%;
+	margin-right:10%;
+	background-color:rgb(120,255,150);
+	position: top;
+	text-align:centre;
+}
+
+.menu {
+	position: fixed;
+    display: block;
+    float: left;
+}
+
+#menuleft {
+	float:left;
+}
+
+#content {
+	
+}
+
+ul, ul li {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	width: 200px;
+}
+
+
+.panelmenu {
+		display: block;
+	width: 186px;
+	text-decoration: none;
+	background-color: gray;
+	color: #000;
+	padding: 5px;
+	border: 2px outset #ccc;
+}
+
+ul a:link, ul a:visited {
+	display: block;
+	width: 186px;
+	text-decoration: none;
+	background-color: #ccc;
+	color: #000;
+	padding: 5px;
+	border: 2px outset #ccc;
+}
+
+ul a:hover {
+	border-style: inset;
+	padding: 7px 3px 3px 7px;
+}
+
+#footer {
+	font-size:4pt;
+	text-align:center;
+	height:16pt;
+	width:80%;
+	margin-left:10%;
+	margin-right:10%;
+    position: fixed;
+    display: block;
+    bottom:0;
+	background:rgb(255,100,100);
+}

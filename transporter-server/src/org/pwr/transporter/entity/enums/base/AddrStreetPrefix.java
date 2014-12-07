@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.entity.enums.base;
 
 
@@ -22,7 +21,7 @@ import org.pwr.transporter.entity.enums.GenericEnum;
  * @version 0.0.3
  */
 @Entity
-@Table(name = "enum_addr_street_prefix")
+@Table(name = "addr_street_prefix")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class AddrStreetPrefix extends GenericEnum {
 

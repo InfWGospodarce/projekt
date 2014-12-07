@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.entity.base;
 
 
@@ -23,8 +22,8 @@ import org.pwr.transporter.entity.enums.base.EmplyeeType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = "emplyee")
-public class Emplyee extends Person {
+@Table(name = "employee")
+public class Employee extends Person {
 
     /**  */
     private static final long serialVersionUID = 8855580555292412125L;

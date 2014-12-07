@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.web.controllers;
 
 
@@ -36,7 +35,7 @@ public class TestController { // extends HttpServlet {
     }
 
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    @RequestMapping(value = "/tests/test", method = RequestMethod.GET)
     public String doGet(Model model, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.debug("Test get");
         List<Customer> customerList = customerService.getList();

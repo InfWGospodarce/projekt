@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+		
 		xmlns:context="http://www.springframework.org/schema/context"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:tx="http://www.springframework.org/schema/tx"
 		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:sec="http://www.springframework.org/schema/security"
 		xsi:schemaLocation="
 			http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
@@ -11,12 +13,16 @@
 			http://www.springframework.org/schema/context/spring-context-4.0.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
 			http://www.springframework.org/schema/mvc
-        	http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        	http://www.springframework.org/schema/security
+			http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
     <!-- Enable @Controller annotation support -->
     <mvc:annotation-driven />
     <context:annotation-config />
  	<context:component-scan base-package="org.pwr.transporter.server.web.controllers" />
+ 	<mvc:default-servlet-handler />
+ 	<mvc:resources mapping="/resources/**" location="/resources/" /> 
 	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -26,6 +32,10 @@
 		<property name="suffix">
 			<value>.jsp</value>
 		</property>
+	</bean>
+	
+	<bean class="org.springframework.context.support.ResourceBundleMessageSource" id="messageSource">
+		<property name="basename" value="messages" />
 	</bean>
  
 	<bean id="defaultLocale" class="java.util.Locale">
@@ -60,9 +70,56 @@
 		<property name="sessionFactory" ref="sessionFactory" />
     </bean>
     
-    <bean id="test" class="main.webapp.Test">
-    </bean>
-   
+    <sec:global-method-security secured-annotations="enabled" />
+    <sec:http security='none' pattern="/log/**"/>
+    <sec:http security='none' pattern="/errors/**"/>
+    <sec:http security='none' pattern="/resources/**"/>
+    <sec:http pattern="/user/**" security='none' />
+ 		<sec:http pattern="/customer/**" security='none' />
+		<sec:http pattern="/admin/**" security='none' />
+		<sec:http pattern="/mag/**" security='none' />
+		<sec:http pattern="/sales/**" security='none' />
+		<sec:http pattern="/logistic/**" security='none' />
+		<sec:http pattern="/account/**" security='none' />
+		<sec:http pattern="/tests/**" security='none' />
+		<sec:http pattern="/driver/**" security='none' />
+    
+    <sec:http use-expressions="true">
+<!--  		<sec:intercept-url pattern="/user/**" access="hasRole('USER')" />
+ 		<sec:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
+		<sec:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/mag/**" access="hasRole('MAG')" />
+		<sec:intercept-url pattern="/sales/**" access="hasRole('SALES')" />
+		<sec:intercept-url pattern="/logistic/**" access="hasRole('LOGISTIC')" />
+		<sec:intercept-url pattern="/account/**" access="hasRole('ACCOUNT')" />
+		<sec:intercept-url pattern="/tests/**" access="hasRole('DEV')" />
+		<sec:intercept-url pattern="/driver/**" access="hasRole('DRIVER')" /> -->
+ 
+		<!-- access denied page -->
+		<sec:access-denied-handler error-page="/errors/403" />
+ 
+		<sec:form-login 
+		    login-page="/log/login" 
+		    default-target-url="/index" 
+			authentication-failure-url="/log/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<sec:logout logout-success-url="/log/logout"  />
+		<!-- enable csrf protection -->
+		<sec:csrf/>
+	</sec:http>
+ 
+	<!-- Select users and user_roles from database -->
+	<sec:authentication-manager>
+	  <sec:authentication-provider>
+		<sec:jdbc-user-service data-source-ref="dataSource"
+		  users-by-username-query=
+		    "select username,password, enabled from users where username=?"
+		  authorities-by-username-query=
+		    "select user, role from users_role where username=?  " />
+	  </sec:authentication-provider>
+	</sec:authentication-manager>
+    
 	<import resource="beans.xml"/>
 	
 </beans>

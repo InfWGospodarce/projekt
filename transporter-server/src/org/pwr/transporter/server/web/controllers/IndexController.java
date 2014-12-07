@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.web.controllers;
 
 
@@ -14,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * <pre>
- * 
+ * Show welcome page
  * </pre>
  * <hr/>
  * 
- * @author x0r
+ * @author W.S.
  * @version 0.0.1
  */
 @Controller
@@ -39,5 +38,7 @@ public class IndexController {
         LOGGER.debug("Get index");
         return "index";
     }
+    
+    
 
 }

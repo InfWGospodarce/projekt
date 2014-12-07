@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.entity;
 
 
@@ -9,9 +8,18 @@ package org.pwr.transporter.entity;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.1
+ * @version 0.0.6
  */
 public class NamesForHibernate {
+
+    public static final String COMPANY_DATA = "company_data";
+
+    public static final String USERS = "users";
+    public static final String USERS_ID = "users_id";
+    public static final String ROLE = "role";
+    public static final String ROLE_ID = "role_id";
+    public static final String USER_ROLES_ID = "users_id";
+    public static final String USER_ROLES = "user_roles";
 
     public static final String GENERIC_WARE = "generic_ware";
     public static final String GENERIC_WARE_ID = "generic_ware_id";
