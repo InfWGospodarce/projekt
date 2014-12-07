@@ -34,6 +34,11 @@
         	<enabled>false</enabled>
         </snapshots>
     </repository>
+      <repository>
+	    <id>spring-snapshot</id>
+	    <name>Spring Snapshot Repository</name>
+	    <url>http://repo.springsource.org/snapshot</url>
+	  </repository>
   </repositories>
 
   <pluginRepositories>  
@@ -142,7 +147,21 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.0.6.RELEASE</version>
 		</dependency>	
-		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>
+		    <version>3.2.6.CI-SNAPSHOT</version>
+		  </dependency>
+		  <dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>
+		    <version>3.2.6.CI-SNAPSHOT</version>
+		  </dependency>
+		  <dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>1.1.0.Final</version>
+			</dependency>
 		<!-- Sprinf DB -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -196,6 +215,9 @@
     <resources>
     	<resource>
     		<directory>resources</directory>
+    	</resource>
+    	<resource>
+    		<directory>src/main/webapp/resources/</directory>
     	</resource>
     </resources>
 	<finalName>transporter-server</finalName>
