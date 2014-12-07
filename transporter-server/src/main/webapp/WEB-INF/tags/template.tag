@@ -9,16 +9,19 @@
 		<meta http-equiv="Cache-Control" content="no-cache; no-store; must-revalidate" />
 		<meta http-equiv="Pragma" content="no-cache" /> 
 		<meta http-equiv="Expires" content="-1" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"  />
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<meta name="Classification" content="" />
 		<meta name="Owner" content="transporter" />
 		<meta name="Language" content="pl" />
 		<link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/resources/css/global.css"/>
 	</head>
 	<body>
+	<div>
 	<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
+	</div>
 	<div class="wrapper">
-		<div id="body"><jsp:doBody /></div>
+		<div id="menuleft" ><jsp:include page="/WEB-INF/jsp/template/actorsMenus/logistyk.jsp" /></div>
+		<div id="content">rrrr<jsp:doBody /></div>
 	</div>
 	<jsp:include page="/WEB-INF/jsp/template/footer.jsp" />
 	</body>

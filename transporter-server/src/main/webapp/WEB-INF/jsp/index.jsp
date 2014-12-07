@@ -4,7 +4,7 @@
 	<div class="view">
 		<h1>Transporter strona główna</h1>
 		<c:choose>
-			<c:when test="${empty user}">
+			<c:when test="${empty user.username}">
 				<p>
 					Witaj na stronie programu transporter.<br>
 					Kliknij "Zaloguj" w menu na górze aby przejść do oprogramu.<br>
