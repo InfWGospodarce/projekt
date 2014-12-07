@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.Users;
 import org.pwr.transporter.server.web.form.UserForm;
 import org.pwr.transporter.server.web.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +44,6 @@ public class LoginController {
 	public String doPostLogin( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") UserForm user,
 			BindingResult bindings, Model model ) {
 
-		Users newUser = new Users();
-		newUser.setUsername(user.getUsername());
-		newUser.setPassword(user.getPassword());
 		if ( !usersService.checkUserLogin(user) ) {
 			bindings.rejectValue("username", "login.failed");
 			model.addAttribute("user", user);
@@ -55,17 +51,17 @@ public class LoginController {
 			return "/Views/log/login";
 		}
 
-		request.getSession().setAttribute("user", usersService.getByUserName(user.getUsername()));
+		request.getSession().setAttribute("userctx", usersService.getByUserName(user.getUsername()));
 		// model.addAttribute("user",
 		// usersService.getByUserName(user.getUsername()));
 
 		LOGGER.debug("POST login");
-		return "/index";
+		return "redirect:../index";
 	}
 
 	@RequestMapping(value = "/log/logout", method = RequestMethod.GET)
 	public String doGetLogout( HttpServletRequest request, HttpServletResponse response ) {
-
+		request.getSession().removeAttribute("userctx");
 		return "/Views/log/logout";
 	}
 }
