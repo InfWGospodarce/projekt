@@ -7,13 +7,13 @@
 	</c:when>
 	<c:otherwise>
          	<ul id="coolMenu">
-         		<c:choose>
-	         		<c:when test="${userctx.hasRole('ADMIN')}">
+ <%--         		<c:choose> --%>
+	   <%--       		<c:when test="${userctx.hasRole('ADMIN')}"> --%>
 	         			<li><a href="#">Opcje administracyjne</a><ul>
 	         				<%@ include file="../Views/roleMenuView/adminItems.jsp" %>
 	         			</ul></li>
-					</c:when>
-				</c:choose>
+		<%-- 			</c:when> --%>
+	<%-- 			</c:choose> --%>
 			    <li><a href="#">Lorem</a></li>
 			    <li><a href="#">Mauricii</a></li>
 			    <li>
