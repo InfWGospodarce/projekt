@@ -11,7 +11,7 @@
 				</p>
 			</c:when>
 			
-			<c:otherwise>  
+			<c:otherwise>
 				<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
 				<h2>
 					Hail ${userctx.username} !<br/>
