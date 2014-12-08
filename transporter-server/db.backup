@@ -21,7 +21,7 @@ SET search_path = public, pg_catalog;
 -- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY address (id, active, search_key, city, local, post_city, street, zip_code, country_id, customer_id, enumaddrstreetprefix_id) FROM stdin;
+COPY address (id, active, search_key, city, local, post_city, street, zip_code, country_id, customer_id, addrstreetprefix_id) FROM stdin;
 \.
 
 
@@ -62,9 +62,9 @@ COPY company_data (id, active, search_key, address, name, nip, regon) FROM stdin
 --
 
 COPY country (id, active, search_key, iso_code, code, code_eu, name, native_name) FROM stdin;
-1	t	POL	POL	PL	PL	Polska	Polska
-2	t	Nie	DEU	DE	DE	Niemcy	Deutchland
-3	t	Brytania	GBR	GB	GB	Wilka brytania	United Kingdom
+3	t	POL	POL	PL	PL	Polska	Polska
+4	t	Nie	DEU	DE	DE	Niemcy	Deutchland
+5	t	Brytania	GBR	GB	GB	Wilka brytania	United Kingdom
 \.
 
 
@@ -94,7 +94,7 @@ COPY employee (id, active, search_key, email, name, nip, surname, baseaddress_id
 -- Data for Name: enum_addr_street_prefix; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY enum_addr_street_prefix (id, active, search_key, name, value, nprefix) FROM stdin;
+COPY addr_street_prefix (id, active, search_key, name, value, nprefix) FROM stdin;
 1	t	ul	Ul.	1	Ul.
 2	t	pl	Pl.	2	Pl.
 \.
@@ -383,7 +383,7 @@ COPY users (id, active, search_key, email, password, salt, username, customer_id
 -- Data for Name: users_role; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY users_role (users_id, roles_id) FROM stdin;
+COPY user_roles (users_id, role_id) FROM stdin;
 \.
 
 

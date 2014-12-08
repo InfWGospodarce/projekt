@@ -1,3 +1,4 @@
+<%@tag import="org.pwr.transporter.entity.Users"%>
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <%@ attribute name="bodyOnload" required="false"%>

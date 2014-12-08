@@ -19,7 +19,6 @@ import org.pwr.transporter.server.web.form.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 /**
  * <pre>
  *    Service for {@link Users} entity.
@@ -31,96 +30,85 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class UsersService {
 
-    @Autowired
-    UsersLogic usersLogic;
+	@Autowired
+	UsersLogic usersLogic;
 
-    @Autowired
-    CustomerLogic customerLogic;
+	@Autowired
+	CustomerLogic customerLogic;
 
-    @Autowired
-    AddressLogic addressLogic;
+	@Autowired
+	AddressLogic addressLogic;
 
-    @Autowired
-    UserRolesLogic userRolesLogic;
+	@Autowired
+	UserRolesLogic userRolesLogic;
 
-    @Autowired
-    RoleLogic roleLogic;
+	@Autowired
+	RoleLogic roleLogic;
 
+	public Users getByID( Long id ) {
+		return this.usersLogic.getByID(id);
+	}
 
-    public Users getByID(Long id) {
-        return this.usersLogic.getByID(id);
-    }
+	public List<Users> getList() {
+		return this.usersLogic.getList();
+	}
 
+	public List<Users> search( Map<String, Object> parameterMap ) {
+		return this.usersLogic.search(parameterMap);
+	}
 
-    public List<Users> getList() {
-        return this.usersLogic.getList();
-    }
+	public Long insert( CustomerAccountForm accountForm ) {
+		Long baseAddresId = addressLogic.insert(accountForm.getBaseAddress());
+		Long correAddresId = addressLogic.insert(accountForm.getCorrespondeAddress());
+		Customer customer = accountForm.getCustomer();
+		customer.setBaseAddress(addressLogic.getByID(baseAddresId));
+		customer.setContacAddress(addressLogic.getByID(correAddresId));
+		Long customerId = customerLogic.insert(customer);
 
+		Users user = accountForm.getUser();
+		user.setPassword(accountForm.getPassword());
+		user.setCustomer(customerLogic.getByID(customerId));
+		Long userId = this.usersLogic.insert(user);
+		Users userL = usersLogic.getByID(userId);
+		Role userRole = roleLogic.getByName("USER");
+		Role customerRole = roleLogic.getByName("CUSTOMER");
+		UserRoles userRoles = new UserRoles();
+		userRoles.setRole(userRole);
+		userRoles.setUsers(userL);
+		userRolesLogic.insert(userRoles);
 
-    public List<Users> search(Map<String, Object> parameterMap) {
-        return this.usersLogic.search(parameterMap);
-    }
+		UserRoles userRoles2 = new UserRoles();
+		userRoles2.setRole(customerRole);
+		userRoles2.setUsers(userL);
+		userRolesLogic.insert(userRoles2);
+		return userId;
+	}
 
+	public void update( Users entity ) {
+		this.usersLogic.update(entity);
+	}
 
-    public Long insert(CustomerAccountForm accountForm) {
-        Long baseAddresId = addressLogic.insert(accountForm.getBaseAddress());
-        Long correAddresId = addressLogic.insert(accountForm.getCorrespondeAddress());
-        Customer customer = accountForm.getCustomer();
-        customer.setBaseAddress(addressLogic.getByID(baseAddresId));
-        customer.setContacAddress(addressLogic.getByID(correAddresId));
-        Long customerId = customerLogic.insert(customer);
+	public void delete( Users entity ) {
+		this.usersLogic.delete(entity);
+	}
 
-        Users user = accountForm.getUser();
-        user.setPassword(accountForm.getPassword());
-        user.setCustomer(customerLogic.getByID(customerId));
-        Long userId = this.usersLogic.insert(user);
-        Users userL = usersLogic.getByID(userId);
-        Role userRole = roleLogic.getByName("USER");
-        Role customerRole = roleLogic.getByName("CUSTOMER");
-        UserRoles userRoles = new UserRoles();
-        userRoles.setRole(userRole);
-        userRoles.setUsers(userL);
-        userRolesLogic.insert(userRoles);
+	public void deleteById( Long id ) {
+		this.usersLogic.deleteById(id);
+	}
 
-        UserRoles userRoles2 = new UserRoles();
-        userRoles2.setRole(customerRole);
-        userRoles2.setUsers(userL);
-        userRolesLogic.insert(userRoles2);
-        return userId;
-    }
+	public void setUsersDAO( UsersDAO usersDAO ) {
+		this.usersLogic.setUsersDAO(usersDAO);
+	}
 
+	public Users getByUserName( String username ) {
+		return this.usersLogic.getByUserName(username);
+	}
 
-    public void update(Users entity) {
-        this.usersLogic.update(entity);
-    }
+	public Users getByUserEmail( String email ) {
+		return this.usersLogic.getByUserEmail(email);
+	}
 
-
-    public void delete(Users entity) {
-        this.usersLogic.delete(entity);
-    }
-
-
-    public void deleteById(Long id) {
-        this.usersLogic.deleteById(id);
-    }
-
-
-    public void setUsersDAO(UsersDAO usersDAO) {
-        this.usersLogic.setUsersDAO(usersDAO);
-    }
-
-
-    public Users getByUserName(String username) {
-        return this.usersLogic.getByUserName(username);
-    }
-
-
-    public Users getByUserEmail(String email) {
-        return this.usersLogic.getByUserEmail(email);
-    }
-
-
-    public boolean checkUserLogin(UserForm user) {
-        return this.usersLogic.checkUserLogin(user.getUsername(), user.getPassword());
-    }
+	public boolean checkUserLogin( UserForm user ) {
+		return this.usersLogic.checkUserLogin(user.getUsername(), user.getPassword());
+	}
 }

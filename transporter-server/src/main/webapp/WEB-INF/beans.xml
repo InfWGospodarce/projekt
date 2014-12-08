@@ -115,4 +115,16 @@
 	</bean>
 	
 	<bean id="employeeService" class="org.pwr.transporter.server.web.services.EmployeeService" />
+	
+	<!-- Task -->
+	<bean id="taskDAO" class="org.pwr.transporter.server.dao.impl.logistic.TaskDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="taskLogic" class="org.pwr.transporter.server.business.logistic.TaskLogic">
+		<property name="taskDAO" ref="taskDAO" />
+	</bean>
+	
+	<bean id="taskService" class="org.pwr.transporter.server.web.services.logistic.TaskService" />
+	
 </beans>
