@@ -1,24 +1,25 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <ul>
 <li class="panelmenu" >Zarzadzaj kontem - Logistyk</li>
 <li>
-<a href="">Zobacz zamowienie </a>
+<a href="/transporter-server/logistics/logistics">Zobacz zamowienie </a>
 </li>
 <li>
-<a href="">Rezerwuj terminy wydania </a>
+<a href="/transporter-server/logistics/logistics">Rezerwuj terminy wydania </a>
 </li>
 <li>
-<a href="">Zarzadzaj flota</a>
+<a href="/transporter-server/logistics/logistics">Zarzadzaj flota</a>
 </li>
 <li>
-<a href=""> Wylistuj/wyszukaj kierowcow  </a>
+<a href="/transporter-server/logistics/logisticsShowDrivers"> Wylistuj/wyszukaj kierowcow  </a>
 </li>
 
 <li>
-<a href="">Wylistuj pojazdy</a>
+<a href="/transporter-server/logistics/logisticsShowCars">Wylistuj pojazdy</a>
 </li>
 <li>
-<a href="">Utworz dokument WZ *</a>
+<a href="/transporter-server/logistics/logisticsCreatedocument">Utworz dokument WZ *</a>
 </li>
 
 </ul>
