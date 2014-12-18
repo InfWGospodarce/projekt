@@ -127,4 +127,15 @@
 	
 	<bean id="taskService" class="org.pwr.transporter.server.web.services.logistic.TaskService" />
 	
+		<!-- Vehicle -->
+	<bean id="vehicleDAO" class="org.pwr.transporter.server.dao.impl.logistic.VehicleDAOImpl">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+	
+	<bean id="vehicleLogic" class="org.pwr.transporter.server.business.logistic.VehicleLogic">
+		<property name="vehicleDAO" ref="vehicleDAO" />
+	</bean>
+	
+	<bean id="vehicleService" class="org.pwr.transporter.server.web.services.logistic.VehicleService" />
+	
 </beans>

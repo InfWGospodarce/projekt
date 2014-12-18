@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  *    Account show / edit controller.
@@ -38,69 +39,71 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AccountController {
 
-	private static Logger LOGGER = Logger.getLogger(AccountController.class);
+    private static Logger LOGGER = Logger.getLogger(AccountController.class);
 
-	@Autowired
-	private AddrStreetPrefixService addrStreetPrefixService;
+    @Autowired
+    private AddrStreetPrefixService addrStreetPrefixService;
 
-	@Autowired
-	private CountryService countryService;
+    @Autowired
+    private CountryService countryService;
 
-	@Autowired
-	private UsersService usersService;
+    @Autowired
+    private UsersService usersService;
 
-	@Autowired
-	private AddressService addressService;
+    @Autowired
+    private AddressService addressService;
 
-	@Autowired
-	private CustomerService customerService;
+    @Autowired
+    private CustomerService customerService;
 
-	@Autowired
-	private CustomerAccountValidator validator;
+    @Autowired
+    private CustomerAccountValidator validator;
 
-	@RequestMapping(value = "/log/register", method = RequestMethod.GET)
-	public String doGetRegister( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
-		List<Country> countires = countryService.getList();
+    @RequestMapping(value = "/log/register", method = RequestMethod.GET)
+    public String doGetRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		for( Country c : countires ) {
-			LOGGER.debug(c.getName());
-		}
+        List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
+        List<Country> countires = countryService.getList();
 
-		model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
-		model.addAttribute("countries", countires);
-		model.addAttribute("customerAccountForm", new CustomerAccountForm());
+        for( Country c : countires ) {
+            LOGGER.debug(c.getName());
+        }
 
-		return "/Views/log/register";
-	}
+        model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
+        model.addAttribute("countries", countires);
+        model.addAttribute("customerAccountForm", new CustomerAccountForm());
 
-	@RequestMapping(value = "/log/register", method = RequestMethod.POST)
-	public String doPostRegister( HttpServletRequest request, @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm,
-			BindingResult formBindeings, Model model ) {
+        return "/Views/log/register";
+    }
 
-		validator.validate(accountForm, formBindeings);
 
-		if ( formBindeings.hasErrors() ) {
-			LOGGER.info("Validation fails");
-			List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
-			List<Country> countires = countryService.getList();
-			model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
-			model.addAttribute("countries", countires);
-			model.addAttribute("customerAccountForm", accountForm);
-			LOGGER.debug(formBindeings.getFieldErrors().toString());
-			return "/Views/log/register";
-		}
+    @RequestMapping(value = "/log/register", method = RequestMethod.POST)
+    public String doPostRegister(HttpServletRequest request, @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm,
+            BindingResult formBindeings, Model model) {
 
-		Long id = usersService.insert(accountForm);
-		// model.addAttribute("user", usersService.getByID(id));
-		request.getSession().setAttribute("user", usersService.getByID(id));
+        validator.validate(accountForm, formBindeings);
 
-		LOGGER.debug("Password: " + accountForm.getUser().getPassword());
-		LOGGER.debug("Userame: " + accountForm.getUser().getUsername());
-		LOGGER.debug("email: " + accountForm.getUser().getEmail());
-		LOGGER.debug("salt: " + accountForm.getUser().getSalt());
+        if( formBindeings.hasErrors() ) {
+            LOGGER.info("Validation fails");
+            List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
+            List<Country> countires = countryService.getList();
+            model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
+            model.addAttribute("countries", countires);
+            model.addAttribute("customerAccountForm", accountForm);
+            LOGGER.debug(formBindeings.getFieldErrors().toString());
+            return "/Views/log/register";
+        }
 
-		return "redirect: /index";
-	}
+        Long id = usersService.insert(accountForm);
+        // model.addAttribute("user", usersService.getByID(id));
+        request.getSession().setAttribute("userctx", usersService.getByID(id));
+
+        LOGGER.debug("Password: " + accountForm.getUser().getPassword());
+        LOGGER.debug("Userame: " + accountForm.getUser().getUsername());
+        LOGGER.debug("email: " + accountForm.getUser().getEmail());
+        LOGGER.debug("salt: " + accountForm.getUser().getSalt());
+
+        return "redirect:../index";
+    }
 }
