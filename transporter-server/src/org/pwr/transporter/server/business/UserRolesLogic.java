@@ -44,7 +44,7 @@ public class UserRolesLogic {
 
 
     public Long insert(UserRoles entity) {
-        entity.setSearchKey(entity.getRole().getName() + " " + entity.getUsers().getUsername());
+        entity.setSearchKey(entity.getRole().getName() + " " + entity.getUserAcc().getUsername());
         return this.userRolesDAO.insert(entity);
     }
 

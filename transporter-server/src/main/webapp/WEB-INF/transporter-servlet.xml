@@ -74,7 +74,8 @@
     <sec:http security='none' pattern="/log/**"/>
     <sec:http security='none' pattern="/errors/**"/>
     <sec:http security='none' pattern="/resources/**"/>
-    <sec:http pattern="/user/**" security='none' />
+    <sec:http security='none' pattern="/index"/>
+    <!-- <sec:http pattern="/user/**" security='none' />
  		<sec:http pattern="/customer/**" security='none' />
 		<sec:http pattern="/admin/**" security='none' />
 		<sec:http pattern="/mag/**" security='none' />
@@ -82,19 +83,20 @@
 		<sec:http pattern="/logistic/**" security='none' />
 		<sec:http pattern="/account/**" security='none' />
 		<sec:http pattern="/tests/**" security='none' />
-		<sec:http pattern="/driver/**" security='none' />
+		<sec:http pattern="/driver/**" security='none' /> -->
     
     <sec:http use-expressions="true">
-<!--  		<sec:intercept-url pattern="/user/**" access="hasRole('USER')" />
- 		<sec:intercept-url pattern="/customer/**" access="hasRole('CUSTOMER')" />
-		<sec:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-		<sec:intercept-url pattern="/mag/**" access="hasRole('MAG')" />
-		<sec:intercept-url pattern="/sales/**" access="hasRole('SALES')" />
-		<sec:intercept-url pattern="/logistic/**" access="hasRole('LOGISTIC')" />
-		<sec:intercept-url pattern="/account/**" access="hasRole('ACCOUNT')" />
-		<sec:intercept-url pattern="/tests/**" access="hasRole('DEV')" />
-		<sec:intercept-url pattern="/driver/**" access="hasRole('DRIVER')" /> -->
- 
+ 		<sec:intercept-url pattern="/user/**" access="hasRole('USER')" />
+ 		<sec:intercept-url pattern="/customer/**" access="hasAnyRole('DEV','CUSTOMER')" />
+		<sec:intercept-url pattern="/admin/**" access="hasAnyRole('DEV','ADMIN')" />
+		<sec:intercept-url pattern="/mag/**" access="hasAnyRole('DEV','MAG')" />
+		<sec:intercept-url pattern="/sales/**" access="hasAnyRole('DEV','SALES')" />
+		<sec:intercept-url pattern="/logistic/**" access="hasAnyRole('DEV','LOGISTIC')" />
+		<sec:intercept-url pattern="/account/**" access="hasAnyRole('DEV','ACCOUNT')" />
+		<sec:intercept-url pattern="/tests/**" access="hasAnyRole('DEV','DEV')" />
+		<sec:intercept-url pattern="/driver/**" access="hasAnyRole('DEV','DRIVER')" />
+		<sec:intercept-url pattern="/dev/**" access="hasRole('DEV')" />
+		
 		<!-- access denied page -->
 		<sec:access-denied-handler error-page="/errors/403" />
  
@@ -102,8 +104,8 @@
 		    login-page="/log/login" 
 		    default-target-url="/index" 
 			authentication-failure-url="/log/login?error" 
-			username-parameter="username"
-			password-parameter="password" />
+			username-parameter="userctx.username"
+			password-parameter="userctx.password" />
 		<sec:logout logout-success-url="/log/logout"  />
 		<!-- enable csrf protection -->
 		<sec:csrf/>
@@ -114,9 +116,9 @@
 	  <sec:authentication-provider>
 		<sec:jdbc-user-service data-source-ref="dataSource"
 		  users-by-username-query=
-		    "select username,password, enabled from users where username=?"
+		    "select username,password, enabled from useracc where username=?"
 		  authorities-by-username-query=
-		    "select user, role from users_role where username=?  " />
+		    "select useracc, role from useracc_role where username=?  " />
 	  </sec:authentication-provider>
 	</sec:authentication-manager>
     

@@ -10,8 +10,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,15 +31,15 @@ import org.springframework.security.crypto.codec.Hex;
  * @version 0.1.2
  */
 @Entity
-@Table(name = NamesForHibernate.USERS)
-public class Users extends GenericEntity {
+@Table(name = NamesForHibernate.USER)
+public class UserAcc extends GenericEntity {
 
     /**  */
     private static final long serialVersionUID = 911729503700444961L;
 
     private static final int SALT_LENGTH = 16;
 
-    private static final Logger LOGGER = Logger.getLogger(Users.class);
+    private static final Logger LOGGER = Logger.getLogger(UserAcc.class);
 
     // *******************************************************************************************************************************
     // ****** FIELDS
@@ -56,9 +54,11 @@ public class Users extends GenericEntity {
     @Column(name = "salt", nullable = false)
     private String salt;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, targetEntity = UserRoles.class)
-    @JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = NamesForHibernate.USER_ROLES_ID, nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false, updatable = false) })
-    private List<Role> roles;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // , targetEntity = UserRoles.class)
+    // @JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = NamesForHibernate.USER_ROLES_ID, nullable = false, updatable = false) },
+    // inverseJoinColumns = { @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false, updatable = false) })
+    private List<Role> role;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -124,9 +124,9 @@ public class Users extends GenericEntity {
 
     public boolean hasRole(String roleName) {
         LOGGER.debug("Lokking for role: " + roleName);
-        for( Role role : roles ) {
-            LOGGER.debug("\ttest: " + role.getName());
-            if( role.getName().equals(roleName) ) {
+        for( Role rol : role ) {
+            LOGGER.debug("\ttest: " + rol.getName());
+            if( rol.getName().equals(roleName) ) {
                 return true;
             }
         }
@@ -153,12 +153,12 @@ public class Users extends GenericEntity {
 
 
     public List<Role> getRoles() {
-        return this.roles;
+        return this.role;
     }
 
 
     public void setRoles(List<Role> roles) {
-        this.roles = roles;
+        this.role = roles;
     }
 
 

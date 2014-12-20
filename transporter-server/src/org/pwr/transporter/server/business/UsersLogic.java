@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.Users;
+import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.server.dao.UsersDAO;
 
 
 /**
  * <pre>
- *    Business logic for {@link Users} entity.
+ *    Business logic for {@link UserAcc} entity.
  * </pre>
  * <hr/>
  * 
@@ -24,29 +24,29 @@ public class UsersLogic {
 
 	UsersDAO usersDAO;
 
-	public Users getByID( Long id ) {
-		Users user = this.usersDAO.getByID(id);
+	public UserAcc getByID( Long id ) {
+		UserAcc user = this.usersDAO.getByID(id);
 		return user;
 	}
 
-	public List<Users> getList() {
+	public List<UserAcc> getList() {
 		return this.usersDAO.getList();
 	}
 
-	public List<Users> search( Map<String, Object> parameterMap ) {
+	public List<UserAcc> search( Map<String, Object> parameterMap ) {
 		return this.usersDAO.search(parameterMap);
 	}
 
-	public Long insert( Users entity ) {
+	public Long insert( UserAcc entity ) {
 		entity.setSearchKey(entity.getUsername());
 		return this.usersDAO.insert(entity);
 	}
 
-	public void update( Users entity ) {
+	public void update( UserAcc entity ) {
 		this.usersDAO.update(entity);
 	}
 
-	public void delete( Users entity ) {
+	public void delete( UserAcc entity ) {
 		this.usersDAO.delete(entity);
 	}
 
@@ -58,11 +58,11 @@ public class UsersLogic {
 		this.usersDAO = usersDAO;
 	}
 
-	public Users getByUserName( String username ) {
+	public UserAcc getByUserName( String username ) {
 		return this.usersDAO.getByUserName(username);
 	}
 
-	public Users getByUserEmail( String email ) {
+	public UserAcc getByUserEmail( String email ) {
 		return this.usersDAO.getByUserEmail(email);
 	}
 
@@ -70,7 +70,7 @@ public class UsersLogic {
 		if ( username == null || username.isEmpty() ) {
 			return false;
 		}
-		Users checkUser = this.usersDAO.getByUserName(username);
+		UserAcc checkUser = this.usersDAO.getByUserName(username);
 		if ( checkUser == null ) {
 			LOGGER.debug("User not found");
 			return false;

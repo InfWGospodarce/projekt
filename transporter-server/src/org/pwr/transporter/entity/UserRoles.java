@@ -21,7 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@Table(name = NamesForHibernate.USER_ROLES)
+@Table(name = NamesForHibernate.USER_ROLE)
 public class UserRoles extends GenericEntity {
 
     /**  */
@@ -32,8 +32,8 @@ public class UserRoles extends GenericEntity {
     // *******************************************************************************************************************************
 
     @ManyToOne
-    @JoinColumn(name = NamesForHibernate.USERS_ID, nullable = false)
-    private Users users;
+    @JoinColumn(name = NamesForHibernate.USER_ID, nullable = false)
+    private UserAcc useracc;
 
     @ManyToOne
     @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false)
@@ -44,8 +44,8 @@ public class UserRoles extends GenericEntity {
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
 
-    public Users getUsers() {
-        return this.users;
+    public UserAcc getUserAcc() {
+        return this.useracc;
     }
 
 
@@ -54,8 +54,8 @@ public class UserRoles extends GenericEntity {
     }
 
 
-    public void setUsers(Users user) {
-        this.users = user;
+    public void setUserAcc(UserAcc user) {
+        this.useracc = user;
     }
 
 

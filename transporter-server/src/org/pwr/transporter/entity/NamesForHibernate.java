@@ -14,12 +14,12 @@ public class NamesForHibernate {
 
     public static final String COMPANY_DATA = "company_data";
 
-    public static final String USERS = "users";
-    public static final String USERS_ID = "users_id";
+    public static final String USER = "useracc";
+    public static final String USER_ID = "useracc_id";
     public static final String ROLE = "role";
     public static final String ROLE_ID = "role_id";
-    public static final String USER_ROLES_ID = "users_id";
-    public static final String USER_ROLES = "user_roles";
+    public static final String USER_ROLE_ID = "user_id";
+    public static final String USER_ROLE = "useracc_role";
 
     public static final String GENERIC_WARE = "generic_ware";
     public static final String GENERIC_WARE_ID = "generic_ware_id";

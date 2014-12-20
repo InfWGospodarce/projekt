@@ -1,7 +1,7 @@
 package org.pwr.transporter.server.web.form;
 
 
-import org.pwr.transporter.entity.Users;
+import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.Customer;
 
@@ -21,7 +21,7 @@ public class CustomerAccountForm {
     Customer customer;
     Address baseAddress;
     Address correspondeAddress;
-    Users user;
+    UserAcc user;
     String password;
     String password2;
     boolean corespondeAddress;
@@ -31,7 +31,7 @@ public class CustomerAccountForm {
         customer = new Customer();
         baseAddress = new Address();
         correspondeAddress = new Address();
-        user = new Users();
+        user = new UserAcc();
     }
 
 
@@ -65,12 +65,12 @@ public class CustomerAccountForm {
     }
 
 
-    public Users getUser() {
+    public UserAcc getUser() {
         return this.user;
     }
 
 
-    public void setUser(Users user) {
+    public void setUser(UserAcc user) {
         this.user = user;
     }
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.Users;
+import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.logistic.Task;
 import org.pwr.transporter.server.web.services.logistic.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class DriverSheduleController {
 	@RequestMapping(value = "/driver/driverShedule", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		Users user = (Users) request.getSession().getAttribute("userctx");
+		UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
 		// if ( user != null ) {
 		// List<Task> taskList =
 		// taskService.getByUserId(user.getEmplyee().getId());
