@@ -2,7 +2,9 @@
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <trans:template>
 	<div class="login">
-		<form:form action="/transporter-server/log/login" method="post" commandName="user">
+	
+		<form:form action="/transporter-server/j_spring_security_check" method="post" commandName="user">
+		<%-- <form:form action="/transporter-server/log/login" method="post" commandName="user"> --%>
 		<table>
 			<tr>
 				<td><h1> Login </h1></td>
@@ -25,6 +27,8 @@
 				</td>
 			</tr>
 		</table>
+		<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 		</form:form>
 	</div>
 </trans:template>

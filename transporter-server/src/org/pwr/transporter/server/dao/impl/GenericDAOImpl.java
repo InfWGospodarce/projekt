@@ -8,13 +8,14 @@ import java.util.Set;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.server.dao.GenericDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
 
 
 
@@ -24,19 +25,19 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
  * </pre>
  * <hr/>
  * 
- * @author x0r, copied from examples
- * @version 0.0.8
+ * @author W.S., copied from examples
+ * @version 0.1.1
  */
 public abstract class GenericDAOImpl<T extends GenericEntity> implements GenericDAO<T> {
 
     protected Class<T> clazz;
 
     @Autowired
-    protected HibernateTransactionManager transactionManager;
+    protected SessionFactory sessionFactory;
 
 
-    public void setTransactionManager(HibernateTransactionManager transactionManager) {
-        this.transactionManager = transactionManager;
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
     }
 
 
@@ -66,6 +67,25 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         Transaction tx = session.beginTransaction();
         String cname = clazz.getName();
         Query query = session.createQuery("from " + cname);
+        List<T> resultList = query.list();
+        // Hibernate.initialize();
+        tx.commit();
+        return resultList;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<T> getListRest(long amount, long fromRow) {
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        String cname = clazz.getName();
+        String limit = "";
+        if( fromRow <= 1 ) {
+            limit = " LIMIT " + amount;
+        } else {
+            limit = " OFFSET " + String.valueOf(fromRow - 1) + " ROWS FETCH NEXT " + amount + " ROWS ONLY";
+        }
+        Query query = session.createQuery("from " + cname + limit);
         List<T> resultList = query.list();
         // Hibernate.initialize();
         tx.commit();
@@ -126,8 +146,17 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
 
 
     protected Session getCurrentSession() {
-        Session session = transactionManager.getSessionFactory().getCurrentSession();
-        return session;
+        return sessionFactory.getCurrentSession();
     }
 
+
+    @Override
+    public long count() {
+        Session session = getCurrentSession();
+        Transaction tx = session.beginTransaction();
+        Criteria criteria = session.createCriteria(clazz);
+        Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
+        tx.commit();
+        return count;
+    }
 }

@@ -8,7 +8,21 @@
 			<td><h1>Zakładanie konta użytkownika</h1></td>
 		</tr>
 		<tr>
-			<td><%@ include file="../base/accountSimpleEdit.jsp" %></td>
+			<form:form action="/transporter-server/log/register" method="post" commandName="customerAccountForm">
+				<table>
+					<tr>
+						<td><form:label path="user.username">Użytkownik</form:label></td>
+						<td><form:input path="user.username" cssErrorClass="errorBc" /></td>
+						<td><form:errors path="user.username" cssClass="error" /></td>
+					</tr>
+					<%@ include file="../base/accountSimpleEdit.jsp" %>
+					<tr>
+						<td>
+							<input type="submit" value="Utwórz"/>
+						</td>
+					</tr>
+				</table>
+			</form:form>
 		</tr>
 	</table>
 </div>

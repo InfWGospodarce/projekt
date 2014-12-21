@@ -2,7 +2,6 @@ package org.pwr.transporter.server.dao.enums;
 
 
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
-import org.pwr.transporter.server.dao.GenericDAO;
 
 
 
@@ -15,6 +14,6 @@ import org.pwr.transporter.server.dao.GenericDAO;
  * @author W.S.
  * @version 0.0.1
  */
-public interface AddrStreetPrefixDAO extends GenericDAO<AddrStreetPrefix> {
+public interface AddrStreetPrefixDAO extends EnumDAO<AddrStreetPrefix> {
 
 }

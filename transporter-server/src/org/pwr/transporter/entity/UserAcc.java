@@ -4,7 +4,7 @@ package org.pwr.transporter.entity;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -28,7 +28,7 @@ import org.springframework.security.crypto.codec.Hex;
  * <hr/>
  * 
  * @author x0r
- * @version 0.1.2
+ * @version 0.1.5
  */
 @Entity
 @Table(name = NamesForHibernate.USER)
@@ -58,7 +58,7 @@ public class UserAcc extends GenericEntity {
     // , targetEntity = UserRoles.class)
     // @JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = NamesForHibernate.USER_ROLES_ID, nullable = false, updatable = false) },
     // inverseJoinColumns = { @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false, updatable = false) })
-    private List<Role> role;
+    private Set<Role> role;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -68,6 +68,14 @@ public class UserAcc extends GenericEntity {
 
     @OneToOne
     private Employee emplyee;
+
+    @Column(name = "rows_per_page", nullable = false)
+    private int rowsPerPage;
+
+
+    public UserAcc() {
+        rowsPerPage = 20;
+    }
 
 
     // *******************************************************************************************************************************
@@ -87,12 +95,12 @@ public class UserAcc extends GenericEntity {
         byte[] salt = Hex.decode(this.salt);
         LOGGER.debug("Salts: \nold: \t" + this.salt + "\ndeco: \t" + String.valueOf(Hex.encode(salt)));
         byte[] input = new byte[username.getBytes().length + password.getBytes().length + salt.length];
-        System.arraycopy(salt, 0, input, 0, salt.length);
-        System.arraycopy(username.getBytes(), 0, input, salt.length, username.getBytes().length);
-        System.arraycopy(password.getBytes(), 0, input, salt.length + username.getBytes().length, password.getBytes().length);
+        System.arraycopy(password.getBytes(), 0, input, 0, password.getBytes().length);
+        System.arraycopy(salt, 0, input, password.getBytes().length, salt.length);
+
         MessageDigest digest;
         try {
-            digest = MessageDigest.getInstance("SHA-512");
+            digest = MessageDigest.getInstance("SHA-256");
             byte[] enPass = digest.digest(input);
             String passwordEn = String.valueOf(Hex.encode(enPass));
             LOGGER.debug("Compare passwords: \nWrote: " + passwordEn + "n\nSawed: " + this.password + "\n"
@@ -110,27 +118,46 @@ public class UserAcc extends GenericEntity {
 
     private void trySetPassword(String password) throws NoSuchAlgorithmException {
         LOGGER.debug("Setting password, username: " + username);
-        MessageDigest digest = MessageDigest.getInstance("SHA-512");
+        MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] salt = nextSalt();
-        this.salt = String.valueOf(Hex.encode(salt));
-        byte[] input = new byte[username.getBytes().length + password.getBytes().length + salt.length];
-        System.arraycopy(salt, 0, input, 0, salt.length);
-        System.arraycopy(username.getBytes(), 0, input, salt.length, username.getBytes().length);
-        System.arraycopy(password.getBytes(), 0, input, salt.length + username.getBytes().length, password.getBytes().length);
+        byte[] salt2 = new byte[username.getBytes().length + salt.length];
+        System.arraycopy(salt, 0, salt2, 0, salt.length);
+        System.arraycopy(username.getBytes(), 0, salt2, salt.length, username.getBytes().length);
+        this.salt = String.valueOf(Hex.encode(salt2));
+        byte[] input = new byte[username.getBytes().length + password.getBytes().length + salt2.length];
+        System.arraycopy(password.getBytes(), 0, input, 0, password.getBytes().length);
+        System.arraycopy(salt2, 0, input, password.getBytes().length, salt2.length);
         byte[] enPass = digest.digest(input);
         this.password = String.valueOf(Hex.encode(enPass));
     }
 
 
     public boolean hasRole(String roleName) {
-        LOGGER.debug("Lokking for role: " + roleName);
+        LOGGER.trace("Lokking for role: " + roleName);
         for( Role rol : role ) {
-            LOGGER.debug("\ttest: " + rol.getName());
+            LOGGER.trace("\ttest: " + rol.getName());
             if( rol.getName().equals(roleName) ) {
                 return true;
             }
         }
         return false;
+    }
+
+
+    public void setPassAndSalt(String password, String salt2) {
+        MessageDigest digest;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] salt = Hex.decode(salt2);
+            byte[] input = new byte[username.getBytes().length + password.getBytes().length + salt.length];
+            System.arraycopy(password.getBytes(), 0, input, 0, password.getBytes().length);
+            System.arraycopy(salt, 0, input, password.getBytes().length, salt.length);
+            byte[] enPass = digest.digest(input);
+            this.password = String.valueOf(Hex.encode(enPass));
+        } catch ( NoSuchAlgorithmException e ) {
+            LOGGER.error("Cannot declare encryptor", e);
+        }
+
     }
 
 
@@ -152,12 +179,12 @@ public class UserAcc extends GenericEntity {
     }
 
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return this.role;
     }
 
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.role = roles;
     }
 
@@ -206,4 +233,23 @@ public class UserAcc extends GenericEntity {
         this.emplyee = emplyee;
     }
 
+
+    public int getRowsPerPage() {
+        return this.rowsPerPage;
+    }
+
+
+    public void setRowsPerPage(int rowsPerPage) {
+        this.rowsPerPage = rowsPerPage;
+    }
+
+
+    public Set<Role> getRole() {
+        return this.role;
+    }
+
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
+    }
 }

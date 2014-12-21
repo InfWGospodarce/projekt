@@ -16,7 +16,7 @@ import org.pwr.transporter.server.dao.enums.AddrStreetPrefixDAO;
  * <hr/>
  * 
  * @author x0r
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class AddrStreetPrefixLogic {
 
@@ -60,6 +60,16 @@ public class AddrStreetPrefixLogic {
 
     public void deleteById(Long id) {
         this.addrStreetPrefixDAO.deleteById(id);
+    }
+
+
+    public List<AddrStreetPrefix> getListRest(long amount, long fromRow) {
+        return this.addrStreetPrefixDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.addrStreetPrefixDAO.count();
     }
 
 }

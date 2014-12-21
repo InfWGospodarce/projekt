@@ -2,7 +2,7 @@ package org.pwr.transporter.server.web.validators.forms;
 
 
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
-import org.pwr.transporter.server.web.services.UsersService;
+import org.pwr.transporter.server.web.services.UserService;
 import org.pwr.transporter.server.web.validators.AddressValidator;
 import org.pwr.transporter.server.web.validators.CustomerValidator;
 import org.pwr.transporter.server.web.validators.UserValidator;
@@ -25,7 +25,7 @@ import org.springframework.validation.Validator;
 public class CustomerAccountValidator implements Validator {
 
     @Autowired
-    UsersService usersService;
+    UserService usersService;
 
 
     @Override

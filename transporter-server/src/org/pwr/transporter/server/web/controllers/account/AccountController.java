@@ -7,14 +7,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
+import org.pwr.transporter.entity.enums.base.EmplyeeType;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
 import org.pwr.transporter.server.web.services.AddressService;
 import org.pwr.transporter.server.web.services.CountryService;
 import org.pwr.transporter.server.web.services.CustomerService;
-import org.pwr.transporter.server.web.services.UsersService;
+import org.pwr.transporter.server.web.services.RoleService;
+import org.pwr.transporter.server.web.services.UserService;
 import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
+import org.pwr.transporter.server.web.services.enums.EmployeeTypeService;
 import org.pwr.transporter.server.web.validators.forms.CustomerAccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.6
+ * @version 0.0.7
  */
 @Controller
 public class AccountController {
@@ -48,7 +52,7 @@ public class AccountController {
     private CountryService countryService;
 
     @Autowired
-    private UsersService usersService;
+    private UserService userService;
 
     @Autowired
     private AddressService addressService;
@@ -59,6 +63,12 @@ public class AccountController {
     @Autowired
     private CustomerAccountValidator validator;
 
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private EmployeeTypeService emplyeeTypeService;
+
 
     @RequestMapping(value = "/log/register", method = RequestMethod.GET)
     public String doGetRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -66,12 +76,26 @@ public class AccountController {
         List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
         List<Country> countires = countryService.getList();
 
-        for( Country c : countires ) {
-            LOGGER.debug(c.getName());
-        }
+        model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
+        model.addAttribute("countries", countires);
+        model.addAttribute("customerAccountForm", new CustomerAccountForm());
+
+        return "/Views/log/register";
+    }
+
+
+    @RequestMapping(value = "/admin/createUser", method = RequestMethod.GET)
+    public String doGetEmployeeRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
+        List<Country> countires = countryService.getList();
+        List<Role> roles = roleService.getList();
+        List<EmplyeeType> emplyeeTypes = emplyeeTypeService.getList();
 
         model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
         model.addAttribute("countries", countires);
+        model.addAttribute("roles", roles);
+        model.addAttribute("emplyeeTypes", emplyeeTypes);
         model.addAttribute("customerAccountForm", new CustomerAccountForm());
 
         return "/Views/log/register";
@@ -95,15 +119,15 @@ public class AccountController {
             return "/Views/log/register";
         }
 
-        Long id = usersService.insert(accountForm);
+        Long id = userService.insert(accountForm);
         // model.addAttribute("user", usersService.getByID(id));
-        request.getSession().setAttribute("userctx", usersService.getByID(id));
+        request.getSession().setAttribute("userctx", userService.getByID(id));
 
         LOGGER.debug("Password: " + accountForm.getUser().getPassword());
         LOGGER.debug("Userame: " + accountForm.getUser().getUsername());
         LOGGER.debug("email: " + accountForm.getUser().getEmail());
         LOGGER.debug("salt: " + accountForm.getUser().getSalt());
 
-        return "redirect:../index";
+        return "redirect:/log/login";
     }
 }

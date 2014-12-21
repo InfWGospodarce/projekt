@@ -12,7 +12,7 @@
 			
 	<!-- Customer Beans -->
 	<bean id="customerDAO" class="org.pwr.transporter.server.dao.impl.CustomerDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="customerLogic" class="org.pwr.transporter.server.business.CustomerLogic">
@@ -25,7 +25,7 @@
 	
 	<!-- Streat prefix -->
 	<bean id="addrStreetPrefixDAO" class="org.pwr.transporter.server.dao.impl.enums.AddrStreetPrefixDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="addrStreetPrefixLogic" class="org.pwr.transporter.server.business.enums.AddrStreetPrefixLogic">
@@ -36,7 +36,7 @@
 	
 	<!-- Country -->
 	<bean id="countryDAO" class="org.pwr.transporter.server.dao.impl.CountryDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="countryLogic" class="org.pwr.transporter.server.business.CountryLogic">
@@ -48,7 +48,7 @@
 	
 	<!-- Company Data -->
 	<bean id="companyDataDAO" class="org.pwr.transporter.server.dao.impl.CompanyDataDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="companyDataLogic" class="org.pwr.transporter.server.business.CompanyDataLogic">
@@ -60,7 +60,7 @@
 
 	<!-- Address -->
 	<bean id="addressDAO" class="org.pwr.transporter.server.dao.impl.AddressDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="addressLogic" class="org.pwr.transporter.server.business.AddressLogic">
@@ -73,19 +73,19 @@
 	<bean id="addressValidator" class="org.pwr.transporter.server.web.validators.AddressValidator" />
 	
 	<!-- Users -->
-	<bean id="usersDAO" class="org.pwr.transporter.server.dao.impl.UsersDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+	<bean id="userDAO" class="org.pwr.transporter.server.dao.impl.UserDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="usersLogic" class="org.pwr.transporter.server.business.UsersLogic">
-		<property name="usersDAO" ref="usersDAO" />
+	<bean id="userLogic" class="org.pwr.transporter.server.business.UserLogic">
+		<property name="userDAO" ref="userDAO" />
 	</bean>
 	
-	<bean id="usersService" class="org.pwr.transporter.server.web.services.UsersService" />
+	<bean id="userService" class="org.pwr.transporter.server.web.services.UserService" />
 	
 	<!-- Role -->
 	<bean id="roleDAO" class="org.pwr.transporter.server.dao.impl.RoleDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="roleLogic" class="org.pwr.transporter.server.business.RoleLogic">
@@ -96,7 +96,7 @@
 	
 	<!-- UserRoles -->
 	<bean id="userRolesDAO" class="org.pwr.transporter.server.dao.impl.UserRolesDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="userRolesLogic" class="org.pwr.transporter.server.business.UserRolesLogic">
@@ -105,9 +105,21 @@
 	
 	<bean id="userRolesService" class="org.pwr.transporter.server.web.services.UserRolesService" />
 	
+	<!-- Employee Type -->
+	<bean id="employeeTypeDAO" class="org.pwr.transporter.server.dao.impl.enums.EmployeeTypeDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="employeeTypeLogic" class="org.pwr.transporter.server.business.enums.EmployeeTypeLogic">
+		<property name="employeeTypeDAO" ref="employeeTypeDAO" />
+	</bean>
+	
+	<bean id="employeeTypeService" class="org.pwr.transporter.server.web.services.enums.EmployeeTypeService" />
+	
+
 	<!-- Employee -->
 	<bean id="employeeDAO" class="org.pwr.transporter.server.dao.impl.EmployeeDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="employeeLogic" class="org.pwr.transporter.server.business.EmployeeLogic">
@@ -118,7 +130,7 @@
 	
 	<!-- Task -->
 	<bean id="taskDAO" class="org.pwr.transporter.server.dao.impl.logistic.TaskDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="taskLogic" class="org.pwr.transporter.server.business.logistic.TaskLogic">
@@ -129,7 +141,7 @@
 	
 		<!-- Vehicle -->
 	<bean id="vehicleDAO" class="org.pwr.transporter.server.dao.impl.logistic.VehicleDAOImpl">
-		<property name="transactionManager" ref="transactionManager" />
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
 	<bean id="vehicleLogic" class="org.pwr.transporter.server.business.logistic.VehicleLogic">

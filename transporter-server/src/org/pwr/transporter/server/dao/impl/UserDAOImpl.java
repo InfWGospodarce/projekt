@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.UserAcc;
-import org.pwr.transporter.server.dao.UsersDAO;
+import org.pwr.transporter.server.dao.UserDAO;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +23,12 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 0.0.3
  */
 @Transactional(propagation = Propagation.REQUIRED)
-public class UsersDAOImpl extends GenericDAOImpl<UserAcc> implements UsersDAO {
+public class UserDAOImpl extends GenericDAOImpl<UserAcc> implements UserDAO {
 
-    private static Logger LOGGER = Logger.getLogger(UsersDAOImpl.class);
+    private static Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
 
 
-    public UsersDAOImpl() {
+    public UserDAOImpl() {
         setEntityClass(UserAcc.class);
     }
 
@@ -63,6 +63,12 @@ public class UsersDAOImpl extends GenericDAOImpl<UserAcc> implements UsersDAO {
             return users.get(0);
         }
         return null;
+    }
+
+
+    @Override
+    public UserAcc findByUserName(String username) {
+        return getByUserName(username);
     }
 
 }

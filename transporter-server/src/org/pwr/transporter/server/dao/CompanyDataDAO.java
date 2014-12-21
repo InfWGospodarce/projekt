@@ -11,13 +11,10 @@ import org.pwr.transporter.entity.base.CompanyData;
  * </pre>
  * <hr/>
  * 
- * @author x0r
- * @version 0.0.1
+ * @author W.S.
+ * @version 0.0.2
  */
 public interface CompanyDataDAO extends GenericDAO<CompanyData> {
-
-    public long count();
-
 
     public CompanyData getFirst();
 }

@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.web.services.enums;
 
 
@@ -6,6 +5,7 @@ import java.util.List;
 
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.server.business.enums.AddrStreetPrefixLogic;
+import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -17,9 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.1
+ * @version 0.0.4
  */
-public class AddrStreetPrefixService {
+public class AddrStreetPrefixService implements IService {
 
     @Autowired
     private AddrStreetPrefixLogic addrStreetPrefixLogic;
@@ -52,6 +52,19 @@ public class AddrStreetPrefixService {
 
     public void deleteById(Long id) {
         this.addrStreetPrefixLogic.deleteById(id);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<AddrStreetPrefix> getListRest(long amount, long fromRow) {
+        return this.addrStreetPrefixLogic.getListRest(amount, fromRow);
+    }
+
+
+    @Override
+    public long count() {
+        return this.addrStreetPrefixLogic.count();
     }
 
 }

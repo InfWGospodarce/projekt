@@ -2,7 +2,7 @@ package org.pwr.transporter.server.web.validators;
 
 
 import org.pwr.transporter.entity.UserAcc;
-import org.pwr.transporter.server.web.services.UsersService;
+import org.pwr.transporter.server.web.services.UserService;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
@@ -21,7 +21,7 @@ public class UserValidator implements org.springframework.validation.Validator {
 
     private String prefix;
 
-    UsersService usersService;
+    UserService usersService;
 
 
     @Override
@@ -30,7 +30,7 @@ public class UserValidator implements org.springframework.validation.Validator {
     }
 
 
-    public UserValidator(String prefix, UsersService usersService) {
+    public UserValidator(String prefix, UserService usersService) {
         this.prefix = prefix;
         this.usersService = usersService;
     }
