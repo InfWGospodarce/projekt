@@ -63,7 +63,7 @@ public class AddrStreetPrefixLogic {
     }
 
 
-    public List<AddrStreetPrefix> getListRest(long amount, long fromRow) {
+    public List<AddrStreetPrefix> getListRest(int amount, int fromRow) {
         return this.addrStreetPrefixDAO.getListRest(amount, fromRow);
     }
 

@@ -57,7 +57,7 @@ public class AddrStreetPrefixService implements IService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<AddrStreetPrefix> getListRest(long amount, long fromRow) {
+    public List<AddrStreetPrefix> getListRest(int amount, int fromRow) {
         return this.addrStreetPrefixLogic.getListRest(amount, fromRow);
     }
 

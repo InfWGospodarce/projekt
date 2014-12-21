@@ -6,11 +6,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -23,9 +27,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.4
  */
+@Controller
 public class StreetPrefixController extends GenericController {
+
+    private static Logger LOGGER = Logger.getLogger(StreetPrefixController.class);
 
     @Autowired
     AddrStreetPrefixService addrStreetPrefixService;
@@ -44,7 +51,8 @@ public class StreetPrefixController extends GenericController {
     @RequestMapping(value = "/admin/streetPrefixEdit", method = RequestMethod.GET)
     public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        Long id = (Long) request.getAttribute("id");
+        LOGGER.debug("Get prefix edit");
+        Long id = getId(request.getParameter("id"));
         AddrStreetPrefix streetPrefix = null;
         if( id == null ) {
             streetPrefix = new AddrStreetPrefix();
@@ -55,16 +63,26 @@ public class StreetPrefixController extends GenericController {
             }
         }
 
-        request.setAttribute("prefix", streetPrefix);
+        model.addAttribute("streetPrefix", streetPrefix);
 
-        return "Views/admin/streetPrefixList";
+        return "Views/base/enums/streetPrefixEdit";
     }
 
 
     @RequestMapping(value = "/admin/streetPrefixEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response,
+            @ModelAttribute("streetPrefix")/* @Validated */AddrStreetPrefix streetPrefix, BindingResult formBindeings) {
 
-        return "redirect:Views/admin/streetPrefixList";
+        LOGGER.debug("Post prefix");
+        // FIXME VALIDATION
+        if( streetPrefix.getId() != null ) {
+            LOGGER.debug("Id not null");
+            addrStreetPrefixService.update(streetPrefix);
+        } else {
+            addrStreetPrefixService.insert(streetPrefix);
+        }
+
+        return "redirect:/transporter-server/admin/streetPrefixList";
     }
 
 }

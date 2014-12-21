@@ -63,7 +63,7 @@ public class EmployeeTypeService implements IService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<EmplyeeType> getListRest(long amount, long fromRow) {
+    public List<EmplyeeType> getListRest(int amount, int fromRow) {
         return this.emplyeeTypeLogic.getListRest(amount, fromRow);
     }
 

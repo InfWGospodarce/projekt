@@ -102,7 +102,7 @@ public interface GenericDAO<T extends GenericEntity> {
      * @param fromRow
      * @return
      */
-    public List<T> getListRest(long amount, long fromRow);
+    public List<T> getListRest(int amount, int fromRow);
 
 
     long count();

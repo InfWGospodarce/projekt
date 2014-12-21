@@ -1,6 +1,7 @@
 package org.pwr.transporter.server.web.controllers;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import org.pwr.transporter.server.web.services.IService;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.3
+ * @version 0.0.4
  */
 public class GenericController {
 
@@ -46,9 +47,27 @@ public class GenericController {
             return list;
         }
 
-        int page = (Integer) request.getAttribute(PAGE);
-        request.setAttribute(PAGE_COUNT, service.count());
+        int page = 1;
+        Object ob = request.getParameter(PAGE);
+        if( ob != null ) {
+            page = (Integer) ob;
+        }
+        BigDecimal pages = ( new BigDecimal(service.count()) ).divide(new BigDecimal(user.getRowsPerPage()), BigDecimal.ROUND_UP);
 
-        return service.getListRest(user.getRowsPerPage(), user.getRowsPerPage() * page);
+        request.setAttribute(PAGE_COUNT, pages.intValue());
+
+        return service.getListRest(user.getRowsPerPage(), user.getRowsPerPage() * ( page - 1 ));
+    }
+
+
+    protected Long getId(String parameter) {
+        if( parameter == null ) {
+            return null;
+        }
+        try {
+            return Long.parseLong(parameter);
+        } catch ( NumberFormatException e ) {
+            return null;
+        }
     }
 }

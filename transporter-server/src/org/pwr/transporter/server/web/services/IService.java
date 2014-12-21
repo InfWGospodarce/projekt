@@ -18,7 +18,7 @@ import org.pwr.transporter.entity.GenericEntity;
  */
 public interface IService {
 
-    public <T extends GenericEntity> List<T> getListRest(long amount, long fromRow);
+    public <T extends GenericEntity> List<T> getListRest(int amount, int fromRow);
 
 
     public long count();

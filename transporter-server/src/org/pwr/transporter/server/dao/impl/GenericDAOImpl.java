@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <hr/>
  * 
  * @author W.S., copied from examples
- * @version 0.1.1
+ * @version 0.1.2
  */
 public abstract class GenericDAOImpl<T extends GenericEntity> implements GenericDAO<T> {
 
@@ -75,17 +75,13 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
 
 
     @SuppressWarnings("unchecked")
-    public List<T> getListRest(long amount, long fromRow) {
+    public List<T> getListRest(int amount, int fromRow) {
         Session session = getCurrentSession();
         Transaction tx = session.beginTransaction();
         String cname = clazz.getName();
-        String limit = "";
-        if( fromRow <= 1 ) {
-            limit = " LIMIT " + amount;
-        } else {
-            limit = " OFFSET " + String.valueOf(fromRow - 1) + " ROWS FETCH NEXT " + amount + " ROWS ONLY";
-        }
-        Query query = session.createQuery("from " + cname + limit);
+        Query query = session.createQuery("from " + cname);
+        query.setMaxResults(amount);
+        query.setFirstResult(fromRow);
         List<T> resultList = query.list();
         // Hibernate.initialize();
         tx.commit();

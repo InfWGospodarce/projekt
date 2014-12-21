@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ include file="../../template/headers.jsp" %>
 <trans:template>
-<div class = "std">
+<div class = "view">
 	<table>
 		<tr>
 			<td><h1>Zakładanie konta użytkownika</h1></td>

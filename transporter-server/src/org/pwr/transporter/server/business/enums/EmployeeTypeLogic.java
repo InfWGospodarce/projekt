@@ -63,7 +63,7 @@ public class EmployeeTypeLogic {
     }
 
 
-    public List<EmplyeeType> getListRest(long amount, long fromRow) {
+    public List<EmplyeeType> getListRest(int amount, int fromRow) {
         return this.employeeTypeDAO.getListRest(amount, fromRow);
     }
 
