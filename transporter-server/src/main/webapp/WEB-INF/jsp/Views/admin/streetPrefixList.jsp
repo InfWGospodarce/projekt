@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <trans:template>
-	<div class="view">
+	<div class="content">
 		<c:choose>
 			<c:when test="${empty userctx}">
 			</c:when>
@@ -19,19 +19,26 @@
 					</tr>
 					<tr>
 						<td>
-							<table>
+							<table class="listView">
 								<tr>
+									<th>Lp.</th>
 									<th>Klucz wyszukiwania</th>
 									<th>Nazwa</th>
 									<th>Aktywny</th>
+									<th>Prefiks</th>
 								</tr>
+								<c:set var="i" value="0"></c:set>
 								<c:forEach var="pre" items="${prefixList}">
+									<c:set var="i" value="${i+1}"></c:set>
 									<tr>
+										<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 										<td><c:out value="${pre.searchKey}"></c:out></td>
 										<td><c:out value="${pre.name}"></c:out></td>
 										<td><c:out value="${pre.active}"></c:out></td>
+										<td><c:out value="${pre.prefix}"></c:out></td>
 										<td>
-											<form action="/transporter-server/admin/streetPrefixEdit?id=${pre.id}" method="get">
+											<form action="/transporter-server/admin/streetPrefixEdit" method="get">
+												<input type="hidden" value="${pre.id}" name="id">
 											    <input type="submit" value="Edytuj">
 											</form>
 										</td>

@@ -10,6 +10,7 @@
 		</tr>
 		<tr>
 			<form:form action="/transporter-server/admin/streetPrefixEdit" method="post" commandName="streetPrefix">
+			<form:hidden path="id" value="${id}"></form:hidden>>
 				<table>
 					<tr>
 						<td><form:label path="active">Aktywny</form:label></td>
@@ -25,6 +26,11 @@
 						<td><form:label path="name">Nazwa</form:label></td>
 						<td><form:input path="name" cssErrorClass="errorBc"/> </td>
 						<td><form:errors path="name" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td><form:label path="prefix">Prefiks</form:label></td>
+						<td><form:input path="prefix" cssErrorClass="errorBc"/> </td>
+						<td><form:errors path="prefix" cssClass="error" /></td>
 					</tr>
 					<tr>
 						<td>
