@@ -82,7 +82,7 @@ public class StreetPrefixController extends GenericController {
             addrStreetPrefixService.insert(streetPrefix);
         }
 
-        return "redirect:/transporter-server/admin/streetPrefixList";
+        return "redirect:../admin/streetPrefixList";
     }
 
 }
