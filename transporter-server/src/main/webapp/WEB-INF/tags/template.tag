@@ -14,13 +14,15 @@
 		<meta name="Classification" content="" />
 		<meta name="Owner" content="transporter" />
 		<meta name="Language" content="pl" />
-		<link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/resources/css/global.css"/>
+		<!--<link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/resources/css/global.css"/>-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" media="all" href="${pageContext.request.contextPath}/resources/css/main.css"/>
 	</head>
 	<body>
-	<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
-	<div class="wrapper">
-		<jsp:doBody />
-	</div>
-	<jsp:include page="/WEB-INF/jsp/template/footer.jsp" />
+		<div class="container">
+			<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
+			<jsp:doBody />
+			<jsp:include page="/WEB-INF/jsp/template/footer.jsp" />
+		</div>
 	</body>
 </html>

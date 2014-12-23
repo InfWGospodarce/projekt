@@ -19,19 +19,3 @@
 <li>
 	<a href="/transporter-server/logistics/logisticsCreatedocument">Utworz dokument WZ *</a>
 </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
