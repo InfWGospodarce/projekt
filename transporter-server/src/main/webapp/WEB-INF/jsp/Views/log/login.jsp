@@ -35,7 +35,7 @@
 	</div>
 	</div>
 	<div class="col-md-8">
-	<img src="${pageContext.request.contextPath}/resources/Images/1.jpg" width="500" high="311">
+	<img src="${pageContext.request.contextPath}/resources/Images/1.jpg" width="600" high="311">
 	</div>
 	
 	</div>

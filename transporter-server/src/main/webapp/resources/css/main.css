@@ -1,3 +1,9 @@
 body {
-	background: #49C932;
+	background: #282875;
+	padding-top:60px;
+}
+
+.copyrights{
+	color: white;
+	font-size: 16px;
 }

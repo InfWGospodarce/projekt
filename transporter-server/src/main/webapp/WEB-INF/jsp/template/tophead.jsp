@@ -1,27 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="headers.jsp" %>
-<div class="tophead">
-	<h1>Transporter</h1>
-	<div id="panel">
-	<table>
-		<tr>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+	<a class="navbar-brand" href="#">Transporter</a>
+	
+	
+
 			<c:choose>
 				<c:when test="${empty userctx.username}">
-					<ul>
+					<ul class="nav navbar-nav pull-right">
 						<li>
-							<a href="/transporter-server/log/register">Zarejestruj</a>
+							<a href="/transporter-server/log/login">Zaloguj</a>
 		         		</li>
 		         		<li>
-		         			<a href="/transporter-server/log/login">Zaloguj</a>
+		         			<a href="/transporter-server/log/register">Zarejestruj</a>
 		         		</li>
 		         	</ul>
 				</c:when>
 				<c:otherwise>
-					<ul>
-						<li>
-						<a href="#"><span>${userctx.username}</span></a>
-							<ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${userctx.username} <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
 								<li>
 									<a href="/transporter-server/user/properties"><span>Ustawienia</span></a>
 								</li>
@@ -36,7 +37,5 @@
 		         	</ul>
 				</c:otherwise>
 			</c:choose>
-		</tr>
-	</table>
 	</div>
-</div>
+</nav>
