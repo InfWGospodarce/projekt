@@ -23,7 +23,7 @@ import org.pwr.transporter.entity.enums.GenericEnum;
 @Entity
 @Table(name = "enum_emplyee_type")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class EmplyeeType extends GenericEnum {
+public class EmployeeType extends GenericEnum {
 
     /**  */
     private static final long serialVersionUID = -3757995009029736405L;

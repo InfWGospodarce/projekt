@@ -35,7 +35,13 @@
 										<td><c:out value="${pre.searchKey}"></c:out></td>
 										<td><c:out value="${pre.name}"></c:out></td>
 										<td><c:out value="${pre.active}"></c:out></td>
-										<td><c:out value="${pre.prefix}"></c:out></td>
+										<td>
+											<input type="checkbox" disabled="disabled" 
+												<c:if test="${pre.active eq 'true'}">
+													checked="checked"
+												</c:if>
+											/>
+										</td>
 										<td>
 											<form action="/transporter-server/admin/streetPrefixEdit" method="get">
 												<input type="hidden" value="${pre.id}" name="id">
