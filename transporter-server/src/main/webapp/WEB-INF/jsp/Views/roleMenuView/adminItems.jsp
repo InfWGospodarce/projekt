@@ -12,7 +12,7 @@
     			<a href="/transporter-server/admin/countriesList">Państwa</a>
     		</li>
     		<li>
-    			<a href="/transporter-server/admin/roleList">Role</a>
+    			<a href="/transporter-server/admin/rolesList">Role</a>
     		</li>
     		<li>
     			<a href="/transporter-server/admin/employeeTypeList">Stanowiska pracowników</a>

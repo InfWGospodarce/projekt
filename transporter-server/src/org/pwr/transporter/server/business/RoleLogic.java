@@ -8,7 +8,6 @@ import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.server.dao.RoleDAO;
 
 
-
 /**
  * <pre>
  *    Logic for {@link Role}
@@ -16,55 +15,54 @@ import org.pwr.transporter.server.dao.RoleDAO;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.3
  */
 public class RoleLogic {
 
-    RoleDAO roleDAO;
+	RoleDAO roleDAO;
 
+	public void setRoleDAO( RoleDAO roleDAO ) {
+		this.roleDAO = roleDAO;
+	}
 
-    public void setRoleDAO(RoleDAO roleDAO) {
-        this.roleDAO = roleDAO;
-    }
+	public Role getByID( Long id ) {
+		return this.roleDAO.getByID(id);
+	}
 
+	public List<Role> getList() {
+		return this.roleDAO.getList();
+	}
 
-    public Role getByID(Long id) {
-        return this.roleDAO.getByID(id);
-    }
+	public List<Role> search( Map<String, Object> parameterMap ) {
+		return this.roleDAO.search(parameterMap);
+	}
 
+	public Long insert( Role entity ) {
+		return this.roleDAO.insert(entity);
+	}
 
-    public List<Role> getList() {
-        return this.roleDAO.getList();
-    }
+	public void update( Role entity ) {
+		this.roleDAO.update(entity);
+	}
 
+	public void delete( Role entity ) {
+		this.roleDAO.delete(entity);
+	}
 
-    public List<Role> search(Map<String, Object> parameterMap) {
-        return this.roleDAO.search(parameterMap);
-    }
+	public void deleteById( Long id ) {
+		this.roleDAO.deleteById(id);
+	}
 
+	public Role getByName( String string ) {
+		return this.roleDAO.getByName(string);
+	}
 
-    public Long insert(Role entity) {
-        return this.roleDAO.insert(entity);
-    }
+	public long count() {
+		return this.roleDAO.count();
+	}
 
-
-    public void update(Role entity) {
-        this.roleDAO.update(entity);
-    }
-
-
-    public void delete(Role entity) {
-        this.roleDAO.delete(entity);
-    }
-
-
-    public void deleteById(Long id) {
-        this.roleDAO.deleteById(id);
-    }
-
-
-    public Role getByName(String string) {
-        return this.roleDAO.getByName(string);
-    }
+	public List<Role> getListRest( int amount, int fromRow ) {
+		return this.roleDAO.getListRest(amount, fromRow);
+	}
 
 }

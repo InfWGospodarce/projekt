@@ -20,7 +20,7 @@ import org.pwr.transporter.server.web.services.IService;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.8
+ * @version 0.0.9
  */
 public class GenericController {
 
@@ -73,6 +73,9 @@ public class GenericController {
 
 			}
 		} else {
+			if ( request.getSession().getAttribute(PAGE) == null ) {
+				return page;
+			}
 			ob = request.getSession().getAttribute(PAGE).toString();
 			if ( ob != null ) {
 				try {
