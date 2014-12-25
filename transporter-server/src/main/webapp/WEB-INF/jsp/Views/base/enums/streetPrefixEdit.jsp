@@ -37,6 +37,7 @@
 							<input type="submit" value="Zapisz"/>
 						</td>
 						<td>
+							${page}
 							<input type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/streetPrefixList?page=${page}'" />
 						</td>
 					</tr>

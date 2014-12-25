@@ -13,6 +13,7 @@
 						<td><h2>Lista stanowisk pracowniczych</h2></td>
 						<td>
 							<form action="/transporter-server/admin/employeeTypeEdit" method="get">
+								<input type="hidden" value="${page}" name="page">
 							    <input type="submit" value="Utwórz nowy">
 							</form>
 						</td>
@@ -42,6 +43,7 @@
 										</td>
 										<td>
 											<form action="/transporter-server/admin/employeeTypeEdit" method="get">
+												<input type="hidden" value="${page}" name="page">
 												<input type="hidden" value="${var.id}" name="id">
 											    <input type="submit" value="Edytuj">
 											</form>

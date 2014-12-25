@@ -77,7 +77,7 @@ public class EmployeeTypeController extends GenericController {
 			employeeTypeService.insert(employeeType);
 		}
 
-		return "redirect:../admin/employeeTypeList";
+		return "redirect:../admin/employeeTypeList?page=" + getPage(request);
 	}
 
 }
