@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
-import org.pwr.transporter.entity.enums.base.EmplyeeType;
+import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
 import org.pwr.transporter.server.web.services.AddressService;
 import org.pwr.transporter.server.web.services.CountryService;
@@ -90,7 +90,7 @@ public class AccountController {
         List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
         List<Country> countires = countryService.getList();
         List<Role> roles = roleService.getList();
-        List<EmplyeeType> emplyeeTypes = emplyeeTypeService.getList();
+        List<EmployeeType> emplyeeTypes = emplyeeTypeService.getList();
 
         model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
         model.addAttribute("countries", countires);

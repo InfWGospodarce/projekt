@@ -3,6 +3,13 @@
 <trans:template>
 	<body>
 		<div class="error">
+			<c:choose>
+					<c:when test="${empty userctx}">
+					</c:when>
+					<c:otherwise>
+						<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
+					</c:otherwise>
+			</c:choose>
 			<h1>HTTP Status 404 - Strona nie odnaleziona :(</h1>
 		</div>
 	</body>

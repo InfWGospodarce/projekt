@@ -10,7 +10,7 @@
 		</tr>
 		<tr>
 			<form:form action="/transporter-server/admin/streetPrefixEdit" method="post" commandName="streetPrefix">
-			<form:hidden path="id" value="${id}"></form:hidden>>
+			<form:hidden path="id" value="${id}"></form:hidden>
 				<table>
 					<tr>
 						<td><form:label path="active">Aktywny</form:label></td>
@@ -34,7 +34,11 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="submit" value="Utwórz"/>
+							<input type="submit" value="Zapisz"/>
+						</td>
+						<td>
+							${page}
+							<input type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/streetPrefixList?page=${page}'" />
 						</td>
 					</tr>
 				</table>

@@ -13,6 +13,7 @@
 						<td><h2>Lista prefiksów ulic</h2></td>
 						<td>
 							<form action="/transporter-server/admin/streetPrefixEdit" method="get">
+								<input type="hidden" value="${page}" name="page">
 							    <input type="submit" value="Utwórz nowy">
 							</form>
 						</td>
@@ -35,9 +36,16 @@
 										<td><c:out value="${pre.searchKey}"></c:out></td>
 										<td><c:out value="${pre.name}"></c:out></td>
 										<td><c:out value="${pre.active}"></c:out></td>
-										<td><c:out value="${pre.prefix}"></c:out></td>
+										<td>
+											<input type="checkbox" disabled="disabled" 
+												<c:if test="${pre.active eq 'true'}">
+													checked="checked"
+												</c:if>
+											/>
+										</td>
 										<td>
 											<form action="/transporter-server/admin/streetPrefixEdit" method="get">
+												<input type="hidden" value="${page}" name="page">
 												<input type="hidden" value="${pre.id}" name="id">
 											    <input type="submit" value="Edytuj">
 											</form>

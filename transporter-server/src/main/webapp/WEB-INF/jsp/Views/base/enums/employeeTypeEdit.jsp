@@ -9,7 +9,8 @@
 			<td><h1>Zakładanie konta użytkownika</h1></td>
 		</tr>
 		<tr>
-			<form:form action="/transporter-server/log/register" method="post" commandName="employeeType">
+			<form:form action="/transporter-server/admin/employeeTypeEdit" method="post" commandName="employeeType">
+			<form:hidden path="id" value="${id}"></form:hidden>
 				<table>
 					<tr>
 						<td><form:label path="active">Aktywny</form:label></td>
@@ -28,7 +29,10 @@
 					</tr>
 					<tr>
 						<td>
-							<input type="submit" value="Utwórz"/>
+							<input type="submit" value="Zapisz"/>
+						</td>
+						<td>
+							<input type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/employeeTypeList?page=${page}'" />
 						</td>
 					</tr>
 				</table>

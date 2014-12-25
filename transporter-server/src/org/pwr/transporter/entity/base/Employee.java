@@ -7,7 +7,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.pwr.transporter.entity.enums.base.EmplyeeType;
+import org.pwr.transporter.entity.enums.base.EmployeeType;
 
 
 
@@ -29,7 +29,7 @@ public class Employee extends Person {
     private static final long serialVersionUID = 8855580555292412125L;
 
     @ManyToOne(optional = false)
-    private EmplyeeType emplyeeType;
+    private EmployeeType emplyeeType;
 
     // *******************************************************************************************************************************
     // ****** FIELDS
