@@ -6,10 +6,10 @@
 <div class="col-md-6">
 	<div class="well">	
 		<h2>Lista państw</h2>
-					<form action="/transporter-server/admin/countryEdit" method="get">
-						<input type="hidden" value="${page}" name="page">
-					    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
-					</form>
+		<form action="/transporter-server/admin/countryEdit" method="get">
+			<input type="hidden" value="${page}" name="page">
+		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
+		</form>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>

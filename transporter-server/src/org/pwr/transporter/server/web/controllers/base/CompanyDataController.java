@@ -5,9 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.pwr.transporter.entity.base.CompanyData;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.web.controllers.GenericController;
-import org.pwr.transporter.server.web.services.enums.EmployeeTypeService;
+import org.pwr.transporter.server.web.services.CompanyDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.4
  */
 @Controller
 public class CompanyDataController extends GenericController {
@@ -32,41 +33,52 @@ public class CompanyDataController extends GenericController {
 	private static Logger LOGGER = Logger.getLogger(CompanyDataController.class);
 
 	@Autowired
-	EmployeeTypeService employeeTypeService;
+	CompanyDataService companyDataService;
 
-	@RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/companyData", method = RequestMethod.GET)
 	public String get( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		LOGGER.debug("Get employee type edit");
+		CompanyData companyData = companyDataService.getCompanyData();
+		if ( companyData == null || companyData.getId() == null ) {
+			companyData = new CompanyData();
+		}
+
+		model.addAttribute("companyData", companyData);
+
+		return "Views/admin/companyData";
+	}
+
+	@RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.GET)
+	public String getPost( HttpServletRequest request, HttpServletResponse response, Model model ) {
+
 		Long id = getId(request.getParameter("id"));
-		EmployeeType employeeType = null;
+		CompanyData companyData = null;
 		if ( id == null ) {
-			employeeType = new EmployeeType();
+			companyData = new CompanyData();
 		} else {
-			employeeType = employeeTypeService.getByID(id);
-			if ( employeeType == null || employeeType.getId() == null ) {
-				employeeType = new EmployeeType();
+			companyData = companyDataService.getCompanyData();
+			if ( companyData == null || companyData.getId() == null ) {
+				companyData = new CompanyData();
 			}
 		}
 
-		model.addAttribute("employeeType", employeeType);
+		model.addAttribute("companyData", companyData);
 
-		return "Views/base/enums/employeeTypeEdit";
+		return "Views/admin/companyDataEdit";
 	}
 
 	@RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.POST)
-	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("employeeType") EmployeeType employeeType,
+	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("companyData") CompanyData companyData,
 			BindingResult formBindeings ) {
 
 		// FIXME VALIDATION
-		if ( employeeType.getId() != null ) {
-			LOGGER.debug("Id not null");
-			employeeTypeService.update(employeeType);
+		if ( companyData.getId() != null ) {
+			companyDataService.update(companyData);
 		} else {
-			employeeTypeService.insert(employeeType);
+			companyDataService.insert(companyData);
 		}
 
-		return "redirect:../admin/employeeTypeList?page=" + getPage(request);
+		return "redirect:../admin/companyData";
 	}
 
 }

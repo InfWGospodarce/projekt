@@ -13,7 +13,7 @@
 	</c:choose>
 		<td>
 		<form action="${requestScope['javax.servlet.forward.request_uri']}" method="get">
-			<input class="range" type="number"  value="${page}" min="1" max="${pageCount}" name="page" id="page"><c:out value=" z ${pageCount}" />
+			<input type="number"  value="${page}" min="1" max="${pageCount}" name="page" id="page"><c:out value=" z ${pageCount}" />
 		    <input class="btn btn-primary" class="form-control" type="submit" value="Idź">
 		</form>
 		</td>
