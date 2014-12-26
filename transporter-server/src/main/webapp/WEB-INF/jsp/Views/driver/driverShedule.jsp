@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <trans:template>
 	<div class="view">
-		<h1>Transporter strona główna</h1>
+		<h1 class="Transporter">Transporter strona główna</h1>
 		<c:choose>
 			<c:when test="${empty userctx}">
 			</c:when>

@@ -3,7 +3,7 @@ body {
 	padding-top:60px;
 }
 
-.copyrights{
+.copyrights {
 	color: white;
 	font-size: 16px;
 }
@@ -11,3 +11,11 @@ body {
 .hidden {
 	display: none;
 }
+.Poprawnie {
+	color: white;
+	font-size: 40px;
+		}
+.Transporter {
+	color: white;
+	font-size: 40px;
+	}
