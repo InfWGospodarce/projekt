@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.web.controllers.GenericController;
-import org.pwr.transporter.server.web.services.enums.EmployeeTypeService;
+import org.pwr.transporter.server.web.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,50 +35,49 @@ public class CountryController extends GenericController {
 	private static Logger LOGGER = Logger.getLogger(CountryController.class);
 
 	@Autowired
-	EmployeeTypeService employeeTypeService;
+	CountryService countryService;
 
 	@RequestMapping(value = "/admin/countriesList", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
-		request.setAttribute("employeeTypeList", employeeTypeList);
+		List<EmployeeType> countryList = getList(countryService, request);
+		request.setAttribute("list", countryList);
 
-		return "Views/admin/employeeTypeList";
+		return "Views/admin/countriesList";
 	}
 
 	@RequestMapping(value = "/admin/countryEdit", method = RequestMethod.GET)
 	public String getPrefix( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		LOGGER.debug("Get employee type edit");
 		Long id = getId(request.getParameter("id"));
-		EmployeeType employeeType = null;
+		Country country = null;
 		if ( id == null ) {
-			employeeType = new EmployeeType();
+			country = new Country();
 		} else {
-			employeeType = employeeTypeService.getByID(id);
-			if ( employeeType == null || employeeType.getId() == null ) {
-				employeeType = new EmployeeType();
+			country = countryService.getByID(id);
+			if ( country == null || country.getId() == null ) {
+				country = new Country();
 			}
 		}
 
-		model.addAttribute("employeeType", employeeType);
+		model.addAttribute("country", country);
 
-		return "Views/base/enums/employeeTypeEdit";
+		return "Views/base/countryEdit";
 	}
 
 	@RequestMapping(value = "/admin/countryEdit", method = RequestMethod.POST)
-	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("employeeType") EmployeeType employeeType,
+	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("country") Country country,
 			BindingResult formBindeings ) {
 
 		// FIXME VALIDATION
-		if ( employeeType.getId() != null ) {
+		if ( country.getId() != null ) {
 			LOGGER.debug("Id not null");
-			employeeTypeService.update(employeeType);
+			countryService.update(country);
 		} else {
-			employeeTypeService.insert(employeeType);
+			countryService.insert(country);
 		}
 
-		return "redirect:../admin/employeeTypeList?page=" + getPage(request);
+		return "redirect:../admin/countriesList?page=" + getPage(request);
 	}
 
 }

@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-
 /**
  * <pre>
  *    Customer data model.
@@ -19,75 +18,67 @@ import javax.persistence.Table;
  * <hr/>
  * 
  * @author x0r
- * @version 0.0.6
+ * @version 0.0.7
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "customer")
 public class Customer extends Person {
 
-    /**  */
-    private static final long serialVersionUID = -4846713817748229295L;
+	/**  */
+	private static final long serialVersionUID = -4846713817748229295L;
 
-    public static final String TABLE_NAME = "customer";
+	public static final String TABLE_NAME = "customer";
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** FIELDS
+	// *******************************************************************************************************************************
 
-    @OneToMany(mappedBy = TABLE_NAME)
-    Set<Address> deliveryAddress;
+	@OneToMany(mappedBy = TABLE_NAME)
+	Set<Address> deliveryAddress;
 
-    @Column(name = "regon")
-    private String regon;
+	@Column(name = "regon")
+	private String regon;
 
-    @Column(name = "company", nullable = false)
-    private boolean company;
+	@Column(name = "company", nullable = false)
+	private boolean company;
 
-    @Column(name = "companyName")
-    private String companyName;
+	@Column(name = "companyName")
+	private String companyName;
 
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
-    // *******************************************************************************************************************************
+	public Set<Address> getDeliveryAddress() {
+		return this.deliveryAddress;
+	}
 
-    public Set<Address> getDeliveryAddress() {
-        return this.deliveryAddress;
-    }
+	public void setDeliveryAddress( Set<Address> deliveryAddress ) {
+		this.deliveryAddress = deliveryAddress;
+	}
 
+	public void setRegon( String regon ) {
+		this.regon = regon;
+	}
 
-    public void setDeliveryAddress(Set<Address> deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
-    }
+	public String getRegon() {
+		return this.regon;
+	}
 
+	public boolean isCompany() {
+		return this.company;
+	}
 
-    public void setRegon(String regon) {
-        this.regon = regon;
-    }
+	public void setCompany( boolean company ) {
+		this.company = company;
+	}
 
+	public String getCompanyName() {
+		return this.companyName;
+	}
 
-    public String getRegon() {
-        return this.regon;
-    }
-
-
-    public boolean isCompany() {
-        return this.company;
-    }
-
-
-    public void setCompany(boolean company) {
-        this.company = company;
-    }
-
-
-    public String getCompanyName() {
-        return this.companyName;
-    }
-
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
+	public void setCompanyName( String companyName ) {
+		this.companyName = companyName;
+	}
 }

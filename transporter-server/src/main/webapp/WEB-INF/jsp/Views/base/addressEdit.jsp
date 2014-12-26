@@ -53,7 +53,7 @@
 	
 	<form:label path="${addressPrefix}countryId">Kraj</form:label>
 	
-		<form:select path="${addressPrefix}countryId">
+		<form:select class="form-control" path="${addressPrefix}countryId">
 		    <form:options items="${countries}" itemValue="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
 		</form:select>
 		</div>
