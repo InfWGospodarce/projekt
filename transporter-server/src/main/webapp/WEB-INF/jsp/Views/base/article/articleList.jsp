@@ -10,7 +10,7 @@
 				<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
 				<table>
 					<tr>
-						<td><h2>Lista artykułów</h2></td>
+						<h2 class="Lista">Lista artykułów</h2>
 						<td>
 							<form action="/transporter-server/mag/articleEdit" method="get">
 							    <input type="submit" value="Utwórz nowy">

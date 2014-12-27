@@ -11,6 +11,7 @@
 			<form:form action="/transporter-server/log/register" method="post" commandName="customerAccountForm">
 					
 						<div class="form-group">
+						
      					
      					
 						<form:label path="user.username">Użytkownik</form:label>

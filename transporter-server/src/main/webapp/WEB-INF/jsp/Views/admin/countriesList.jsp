@@ -3,7 +3,7 @@
 <trans:template>
 <%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-8">
 	<div class="well">	
 		<h2>Lista państw</h2>
 		<form action="/transporter-server/admin/countryEdit" method="get">
