@@ -5,11 +5,11 @@
 	<div class="form-group">
 
 	<form:label path="${addressPrefix}addrStreetPrefixId">Ulica</form:label>
-	<!--
+	
 		<form:select path="${addressPrefix}addrStreetPrefixId" >
 		    <form:options items="${addrStreetPrefixs}" itemValue="id" itemLabel="name" cssErrorClass="errorBc"/>
 		</form:select>
-	-->
+	
 	<form:input path="${addressPrefix}street" class="form-control" cssErrorClass="errorBc"></form:input>
 	<form:errors path="${addressPrefix}street" cssClass="error" />
 	

@@ -53,6 +53,7 @@
 	
 	<bean id="companyDataLogic" class="org.pwr.transporter.server.business.CompanyDataLogic">
 		<property name="companyDataDAO" ref="companyDataDAO" />
+		<property name="addressDAO" ref="addressDAO" />
 	</bean>
 	
 	<bean id="companyDataService" class="org.pwr.transporter.server.web.services.CompanyDataService" />

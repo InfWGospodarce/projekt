@@ -80,14 +80,12 @@
 				</div>
 			</div>
 		
-		<%-- <% String addressPrefix = "baseAddress"; %> --%>
 		<c:set var="addressPrefix" scope="session" value="baseAddress."/>
 		
 			<h3>Adres</h3>
 			<%@ include file="addressEdit.jsp" %>
 		
 		<div class="checkbox">
-			<%-- <% addressPrefix = "correspondeAddress"; %> --%>
 			<c:set var="addressPrefix" scope="session" value="correspondeAddress."/>
 			<label>
 				<form:checkbox path="corespondeAddress" class="js_toggle" data-target="#correspondence" />
