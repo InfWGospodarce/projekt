@@ -63,15 +63,9 @@ public class CompanyDataController extends GenericController {
 	@RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.GET)
 	public String getPost( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		Long id = getId(request.getParameter("id"));
-		CompanyData companyData = null;
-		if ( id == null ) {
+		CompanyData companyData = companyDataService.getCompanyData();
+		if ( companyData == null || companyData.getId() == null ) {
 			companyData = new CompanyData();
-		} else {
-			companyData = companyDataService.getCompanyData();
-			if ( companyData == null || companyData.getId() == null ) {
-				companyData = new CompanyData();
-			}
 		}
 
 		List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
@@ -88,10 +82,13 @@ public class CompanyDataController extends GenericController {
 	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("companyData") CompanyData companyData,
 			BindingResult formBindeings ) {
 
+		LOGGER.debug(companyData.getAddress().getCity());
 		// FIXME VALIDATION
 		if ( companyData.getId() != null ) {
+			LOGGER.debug("Update company data");
 			companyDataService.update(companyData);
 		} else {
+			LOGGER.debug("Insert company data");
 			companyDataService.insert(companyData);
 		}
 

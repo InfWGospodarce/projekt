@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../template/headers.jsp" %>
-
+	
+	<form:hidden path="${addressPrefix}id"/>
+	<form:hidden path="${addressPrefix}searchKey"/>
+	
 	<div class="form-group">
 
 	<form:label path="${addressPrefix}addrStreetPrefixId">Ulica</form:label>
 	
-		<form:select path="${addressPrefix}addrStreetPrefixId" >
+		<form:select class="form-control" path="${addressPrefix}addrStreetPrefixId" >
 		    <form:options items="${addrStreetPrefixs}" itemValue="id" itemLabel="name" cssErrorClass="errorBc"/>
 		</form:select>
 	

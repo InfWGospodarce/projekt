@@ -43,7 +43,7 @@
 	<div class="form-group">
 	
 	<form:label path="${addressPrefix}countryId">Kraj</form:label>
-	<form:input disabled="true" path="${addressPrefix}postCity" class="form-control" cssErrorClass="errorBc"/> 
+	<form:input disabled="true" path="${addressPrefix}country.name" class="form-control" cssErrorClass="errorBc"/> 
 	</div>
 	
 

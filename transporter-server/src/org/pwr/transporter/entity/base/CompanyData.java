@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.pwr.transporter.entity.GenericEntity;
@@ -32,7 +33,7 @@ public class CompanyData extends GenericEntity {
 	// ****** Fields
 	// *******************************************************************************************************************************
 
-	@Column(name = "address", nullable = false)
+	@OneToOne(optional = false)
 	private Address address;
 
 	@Column(name = "nip", nullable = false)

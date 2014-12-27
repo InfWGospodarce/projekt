@@ -7,12 +7,8 @@
 	<div class="well">	
 		<h2>Edytuj dane firmy</h2>
 		
-		<form action="/transporter-server/admin/companyDataEdit" method="get">
-			<input type="hidden" value="${page}" name="page">
-		    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
-		</form>
 		<form:form action="/transporter-server/admin/companyDataEdit" method="post" commandName="companyData">
-		
+			<form:hidden path="id"/>
 			<div class="form-group">
 				<form:label path="searchKey">Klucz wyszukiwania</form:label>
 				<form:input path="searchKey"  class="form-control" cssErrorClass="errorBc"/>
