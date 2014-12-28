@@ -7,7 +7,7 @@
 	</c:when>
 	<c:otherwise>
          	
-         		<h1 class="Transporter">Menu</h1>
+         		<h2 class="Transporter">Menu</h2>
          		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
          		<c:choose>
          		<c:when test="${userctx.hasRole('ADMIN') || userctx.hasRole('DEV')}">

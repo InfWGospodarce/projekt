@@ -20,8 +20,5 @@
     	</ul>
     </li>
 <li>
-	<a href="/transporter-server/admin/users">Użytkownicy</a>
-</li>
-<li>
-	<a href="/transporter-server/admin/createUser">Utwórz użytkownika</a>
+	<a href="/transporter-server/admin/userList">Użytkownicy</a>
 </li>

@@ -3,8 +3,6 @@
 <%@ include file="../../template/headers.jsp" %>
 
 
-	
-
 		    <div class="form-group">
     		
     		<form:label path="password">Hasło</form:label>

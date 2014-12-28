@@ -5,8 +5,8 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-			<h1>HTTP Status 404 - Strona nie odnaleziona :(</h1>
+		<h1>HTTP Status 405 - ups... :P</h1>
 	</div>
 </div>
-</div>	
+</div>
 </trans:template>

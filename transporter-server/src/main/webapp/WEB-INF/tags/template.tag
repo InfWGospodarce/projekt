@@ -20,7 +20,7 @@
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	</head>
-	<body>
+	<body class="body">
 		<div class="container">
 			<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
 			<jsp:doBody />

@@ -1,8 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<li>
-	<a href="/transporter-server/customer/customerEdit">Edytuj dane</a>
-</li>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <li>
 	<a href="transporter-server/customer/customerErrand">Zloz zlecenie</a>
 </li>
@@ -12,7 +8,8 @@
 <li>
 	<a href="transporter-server/customer/customerMonitor">Monitoruj paczke</a>
 </li>
-	<li><a href="transporter-server/customer/customer" >Zobacz historie zamowien</a>
+<li>
+	<a href="transporter-server/customer/customer" >Zobacz historie zamowien</a>
 </li>
 <li>
 	<a href="">Zloz reklamacje *</a>
