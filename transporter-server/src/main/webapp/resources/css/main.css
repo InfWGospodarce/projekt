@@ -1,0 +1,36 @@
+body {
+	background: #282875;
+	padding-top:60px;
+}
+
+.copyrights {
+	color: white;
+	font-size: 16px;
+}
+
+.hidden {
+	display: none;
+}
+
+.Poprawnie {
+	color: white;
+	font-size: 40px;
+}
+
+.Lista {
+	color: white;
+}
+
+.Transporter {
+	color: white;
+	font-size: 40px;
+}
+
+.error {
+	color: rgb(255,0,0);
+}
+
+.errorBc {
+	background: rgb(255,0,0);
+	color: rgb(0,0,0);
+}

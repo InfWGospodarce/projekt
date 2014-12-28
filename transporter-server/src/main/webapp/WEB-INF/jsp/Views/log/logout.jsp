@@ -2,6 +2,6 @@
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <trans:template>
 <div class="login">
-	<h1>Poprawnie wylogowano z serwisu</h1>
+	<h1 class="Poprawnie">Poprawnie wylogowano z serwisu</h1>
 </div>
 </trans:template>

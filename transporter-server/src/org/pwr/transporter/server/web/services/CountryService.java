@@ -9,7 +9,6 @@ import org.pwr.transporter.server.business.CountryLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-
 /**
  * <pre>
  *    Country service
@@ -17,51 +16,51 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.1
+ * @version 0.0.2
  */
-public class CountryService {
+public class CountryService implements IService {
 
-    @Autowired
-    CountryLogic countryLogic;
+	@Autowired
+	CountryLogic countryLogic;
 
+	public Country getByID( Long id ) {
+		return this.countryLogic.getByID(id);
+	}
 
-    public Country getByID(Long id) {
-        return this.countryLogic.getByID(id);
-    }
+	public List<Country> getList() {
+		return this.countryLogic.getList();
+	}
 
+	public List<Country> search( Map<String, Object> parameterMap ) {
+		return this.countryLogic.search(parameterMap);
+	}
 
-    public List<Country> getList() {
-        return this.countryLogic.getList();
-    }
+	public Long insert( Country entity ) {
+		return this.countryLogic.insert(entity);
+	}
 
+	public void update( Country entity ) {
+		this.countryLogic.update(entity);
+	}
 
-    public List<Country> search(Map<String, Object> parameterMap) {
-        return this.countryLogic.search(parameterMap);
-    }
+	public void delete( Country entity ) {
+		this.countryLogic.delete(entity);
+	}
 
+	public void deleteById( Long id ) {
+		this.countryLogic.deleteById(id);
+	}
 
-    public Long insert(Country entity) {
-        return this.countryLogic.insert(entity);
-    }
+	public Country getInternalCountry() {
+		return this.countryLogic.getInternalCountry();
+	}
 
+	public List<Country> getListRest( int amount, int fromRow ) {
+		return countryLogic.getListRest(amount, fromRow);
+	}
 
-    public void update(Country entity) {
-        this.countryLogic.update(entity);
-    }
-
-
-    public void delete(Country entity) {
-        this.countryLogic.delete(entity);
-    }
-
-
-    public void deleteById(Long id) {
-        this.countryLogic.deleteById(id);
-    }
-
-
-    public Country getInternalCountry() {
-        return this.countryLogic.getInternalCountry();
-    }
+	public long count() {
+		return countryLogic.count();
+	}
 
 }

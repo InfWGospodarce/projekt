@@ -4,7 +4,7 @@ package org.pwr.transporter.server.web.services.enums;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.enums.base.EmplyeeType;
+import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.business.enums.EmployeeTypeLogic;
 import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <pre>
- *    Service for {@link EmplyeeType}
+ *    Service for {@link EmployeeType}
  * </pre>
  * <hr/>
  * 
@@ -26,32 +26,32 @@ public class EmployeeTypeService implements IService {
     EmployeeTypeLogic emplyeeTypeLogic;
 
 
-    public EmplyeeType getByID(Long id) {
+    public EmployeeType getByID(Long id) {
         return this.emplyeeTypeLogic.getByID(id);
     }
 
 
-    public List<EmplyeeType> getList() {
+    public List<EmployeeType> getList() {
         return this.emplyeeTypeLogic.getList();
     }
 
 
-    public List<EmplyeeType> search(Map<String, Object> parameterMap) {
+    public List<EmployeeType> search(Map<String, Object> parameterMap) {
         return this.emplyeeTypeLogic.search(parameterMap);
     }
 
 
-    public Long insert(EmplyeeType entity) {
+    public Long insert(EmployeeType entity) {
         return this.emplyeeTypeLogic.insert(entity);
     }
 
 
-    public void update(EmplyeeType entity) {
+    public void update(EmployeeType entity) {
         this.emplyeeTypeLogic.update(entity);
     }
 
 
-    public void delete(EmplyeeType entity) {
+    public void delete(EmployeeType entity) {
         this.emplyeeTypeLogic.delete(entity);
     }
 
@@ -63,7 +63,7 @@ public class EmployeeTypeService implements IService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public List<EmplyeeType> getListRest(int amount, int fromRow) {
+    public List<EmployeeType> getListRest(int amount, int fromRow) {
         return this.emplyeeTypeLogic.getListRest(amount, fromRow);
     }
 

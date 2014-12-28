@@ -5,8 +5,8 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="well">
-			<h1>Edycja definicji preiksu ulicy</h1>
-			<form:form action="/transporter-server/admin/streetPrefixEdit" method="post" commandName="streetPrefix">
+			<h1>Edycja typu pracownika</h1>
+			<form:form action="/transporter-server/admin/employeeTypeEdit" method="post" commandName="employeeType">
 				<form:hidden path="id" value="${id}"></form:hidden>
 				<div class="form-group">
 					<form:label path="active">Aktywny</form:label>
@@ -15,7 +15,7 @@
 				</div>
 				<div class="form-group">
 					<form:label path="searchKey">Klucz wyszukiwania</form:label>
-					<form:input path="searchKey" class="form-control" cssErrorClass="errorBc"/>
+					<form:input path="searchKey"  class="form-control" cssErrorClass="errorBc"/>
 					<form:errors path="searchKey" cssClass="error" />
 				</div>
 				<div class="form-group">
@@ -23,13 +23,8 @@
 					<form:input path="name" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="name" cssClass="error" />
 				</div>
-				<div class="form-group">
-					<form:label path="prefix">Prefiks</form:label>
-					<form:input path="prefix" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="prefix" cssClass="error" />
-				</div>
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
-				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/streetPrefixList?page=${page}'" />
+				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/employeeTypeList?page=${page}'" />
 			</form:form>
 		</div>
 	</div>

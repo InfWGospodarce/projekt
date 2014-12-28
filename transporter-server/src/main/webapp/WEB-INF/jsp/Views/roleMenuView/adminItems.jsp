@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <li><a href="#">Podstawowe definicje</a>
     	<ul>
     		<li>
@@ -12,7 +11,7 @@
     			<a href="/transporter-server/admin/countriesList">Państwa</a>
     		</li>
     		<li>
-    			<a href="/transporter-server/admin/roleList">Role</a>
+    			<a href="/transporter-server/admin/rolesList">Role</a>
     		</li>
     		<li>
     			<a href="/transporter-server/admin/employeeTypeList">Stanowiska pracowników</a>

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-
 /**
  * <pre>
  *    Control sites related with {@link AddrStreetPrefix}
@@ -32,57 +31,54 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class StreetPrefixController extends GenericController {
 
-    private static Logger LOGGER = Logger.getLogger(StreetPrefixController.class);
+	private static Logger LOGGER = Logger.getLogger(StreetPrefixController.class);
 
-    @Autowired
-    AddrStreetPrefixService addrStreetPrefixService;
+	@Autowired
+	AddrStreetPrefixService addrStreetPrefixService;
 
+	@RequestMapping(value = "/admin/streetPrefixList", method = RequestMethod.GET)
+	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-    @RequestMapping(value = "/admin/streetPrefixList", method = RequestMethod.GET)
-    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
+		List<AddrStreetPrefix> streetPrefixList = getList(addrStreetPrefixService, request);
+		request.setAttribute("prefixList", streetPrefixList);
 
-        List<AddrStreetPrefix> streetPrefixList = getList(addrStreetPrefixService, request);
-        request.setAttribute("prefixList", streetPrefixList);
+		return "Views/admin/streetPrefixList";
+	}
 
-        return "Views/admin/streetPrefixList";
-    }
+	@RequestMapping(value = "/admin/streetPrefixEdit", method = RequestMethod.GET)
+	public String getPrefix( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
+		LOGGER.debug("Get prefix edit");
+		Long id = getId(request.getParameter("id"));
+		AddrStreetPrefix streetPrefix = null;
+		if ( id == null ) {
+			streetPrefix = new AddrStreetPrefix();
+		} else {
+			streetPrefix = addrStreetPrefixService.getByID(id);
+			if ( streetPrefix == null || streetPrefix.getId() == null ) {
+				streetPrefix = new AddrStreetPrefix();
+			}
+		}
 
-    @RequestMapping(value = "/admin/streetPrefixEdit", method = RequestMethod.GET)
-    public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("streetPrefix", streetPrefix);
 
-        LOGGER.debug("Get prefix edit");
-        Long id = getId(request.getParameter("id"));
-        AddrStreetPrefix streetPrefix = null;
-        if( id == null ) {
-            streetPrefix = new AddrStreetPrefix();
-        } else {
-            streetPrefix = addrStreetPrefixService.getByID(id);
-            if( streetPrefix == null || streetPrefix.getId() == null ) {
-                streetPrefix = new AddrStreetPrefix();
-            }
-        }
+		return "Views/base/enums/streetPrefixEdit";
+	}
 
-        model.addAttribute("streetPrefix", streetPrefix);
+	@RequestMapping(value = "/admin/streetPrefixEdit", method = RequestMethod.POST)
+	public String postPrefix( HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("streetPrefix")/* @Validated */AddrStreetPrefix streetPrefix, BindingResult formBindeings ) {
 
-        return "Views/base/enums/streetPrefixEdit";
-    }
+		LOGGER.debug("Post prefix");
+		// FIXME VALIDATION
+		if ( streetPrefix.getId() != null ) {
+			LOGGER.debug("Id not null");
+			addrStreetPrefixService.update(streetPrefix);
+		} else {
+			addrStreetPrefixService.insert(streetPrefix);
+		}
 
-
-    @RequestMapping(value = "/admin/streetPrefixEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response,
-            @ModelAttribute("streetPrefix")/* @Validated */AddrStreetPrefix streetPrefix, BindingResult formBindeings) {
-
-        LOGGER.debug("Post prefix");
-        // FIXME VALIDATION
-        if( streetPrefix.getId() != null ) {
-            LOGGER.debug("Id not null");
-            addrStreetPrefixService.update(streetPrefix);
-        } else {
-            addrStreetPrefixService.insert(streetPrefix);
-        }
-
-        return "redirect:/transporter-server/admin/streetPrefixList";
-    }
+		return "redirect:../admin/streetPrefixList?page=" + getPage(request);
+	}
 
 }

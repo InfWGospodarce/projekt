@@ -1,21 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="headers.jsp" %>
-<div id="tophead">
-	<table>
-		<tr>
-			<td><h1>Panel</h1></td>
-			
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+	<a class="navbar-brand" href="#">Transporter</a>
+	
+	
+
 			<c:choose>
 				<c:when test="${empty userctx.username}">
-					<td><a href="/transporter-server/log/register"><h2>Zarejestruj</h2></a></td>
-					<td><a href="/transporter-server/log/login"><h2>Zaloguj</h2></a></td>
+					<ul class="nav navbar-nav pull-right">
+						<li>
+							<a href="/transporter-server/log/login">Zaloguj</a>
+		         		</li>
+		         		<li>
+		         			<a href="/transporter-server/log/register">Zarejestruj</a>
+		         		</li>
+		         	</ul>
 				</c:when>
 				<c:otherwise>
-		          	<td><a href="/transporter-server/errors/404"><h2>${user.username}</h2></a>></td>
-		          	<td><a href="/transporter-server/log/logout"><h2>Wyloguj</h2></a></td>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${userctx.username} <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li>
+									<a href="/transporter-server/user/properties"><span>Ustawienia</span></a>
+								</li>
+								<li>
+									<a href="/transporter-server/user/profile"><span>Profil</span></a>
+								</li>
+							</ul>
+		         		</li>
+		         		<li>
+		         			<a href="/transporter-server/log/logout"><span>Wyloguj</span></a>
+		         		</li>
+		         	</ul>
 				</c:otherwise>
 			</c:choose>
-		</tr>
-	</table>
-</div>
+	</div>
+</nav>
