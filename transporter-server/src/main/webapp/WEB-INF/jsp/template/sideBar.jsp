@@ -6,7 +6,7 @@
 	<c:when test="${empty userctx}">
 	</c:when>
 	<c:otherwise>
-         	
+         	<div class="navbar-left">
          		<h2 class="Transporter">Menu</h2>
          		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
          		<c:choose>
@@ -161,6 +161,7 @@
 					</c:when>
 				</c:choose>
 			</div>
+		</div>
 	</c:otherwise>
 </c:choose>
 </div>
