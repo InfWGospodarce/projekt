@@ -3,10 +3,7 @@
 <%@ include file="headers.jsp" %>
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
-	<a class="navbar-brand" href="#">Transporter</a>
-	
-	
-
+	<a class="navbar-brand" href="/transporter-server/index">Transporter</a>
 			<c:choose>
 				<c:when test="${empty userctx.username}">
 					<ul class="nav navbar-nav pull-right">
