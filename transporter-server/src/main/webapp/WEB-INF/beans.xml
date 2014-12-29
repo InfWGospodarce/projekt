@@ -139,6 +139,17 @@
 	
 	<bean id="taskService" class="org.pwr.transporter.server.web.services.logistic.TaskService" />
 	
+		<!-- Article -->
+	<bean id="articleDAO" class="org.pwr.transporter.server.dao.impl.article.ArticleDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="articleLogic" class="org.pwr.transporter.server.business.article.ArticleLogic">
+		<property name="articleDAO" ref="articleDAO" />
+	</bean>
+	
+	<bean id="articleService" class="org.pwr.transporter.server.web.services.article.ArticleService" />
+	
 		<!-- Vehicle -->
 	<bean id="vehicleDAO" class="org.pwr.transporter.server.dao.impl.logistic.VehicleDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />

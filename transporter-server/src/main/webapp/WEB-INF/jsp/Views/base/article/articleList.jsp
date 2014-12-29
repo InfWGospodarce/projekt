@@ -8,9 +8,8 @@
 			</c:when>
 			<c:otherwise>
 				<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
-				<table>
-					<tr>
-						<h2 class="Lista">Lista artykułów</h2>
+					
+						<h1 class="Lista">Lista artykułów</h1>
 						<td>
 							<form action="/transporter-server/mag/articleEdit" method="get">
 							    <input type="submit" value="Utwórz nowy">
@@ -21,9 +20,11 @@
 						<td>
 							<table>
 								<tr>
-									<th>Klucz</th>
-									<th>KOD</th>
-									<th>Nazwa</th>
+								
+									<th class="copyrights">Klucz</th>
+									<th class="copyrights">KOD</th>
+									<th class="copyrights">Nazwa</th>
+								
 								</tr>
 								<c:forEach var="article" items="${articleList}">
 									<tr>
@@ -44,9 +45,9 @@
 						<td>
 							<%@ include file="/WEB-INF/jsp/template/listFooter.jsp" %>
 						</td>
-					</tr>
-				</table>
+					
 			</c:otherwise>
 		</c:choose>
-	</div>
+		</div>
+		
 </trans:template>
