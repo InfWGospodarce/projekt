@@ -14,6 +14,7 @@ import org.pwr.transporter.entity.UserRoles;
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.server.business.AddressLogic;
 import org.pwr.transporter.server.business.CustomerLogic;
+import org.pwr.transporter.server.business.EmployeeLogic;
 import org.pwr.transporter.server.business.RoleLogic;
 import org.pwr.transporter.server.business.UserLogic;
 import org.pwr.transporter.server.business.UserRolesLogic;
@@ -28,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
+
 /**
  * <pre>
  *    Service for {@link UserAcc} entity.
@@ -35,136 +37,176 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.1.1
+ * @version 0.1.3
  */
 public class UserService implements UserDetailsService, IService {
 
-	private static Logger LOGGER = Logger.getLogger(UserService.class);
+    private static Logger LOGGER = Logger.getLogger(UserService.class);
 
-	@Autowired
-	UserLogic userLogic;
+    @Autowired
+    UserLogic userLogic;
 
-	@Autowired
-	CustomerLogic customerLogic;
+    @Autowired
+    CustomerLogic customerLogic;
 
-	@Autowired
-	AddressLogic addressLogic;
+    @Autowired
+    AddressLogic addressLogic;
 
-	@Autowired
-	UserRolesLogic userRolesLogic;
+    @Autowired
+    UserRolesLogic userRolesLogic;
 
-	@Autowired
-	RoleLogic roleLogic;
+    @Autowired
+    RoleLogic roleLogic;
 
-	@Override
-	public CustomUserDetails loadUserByUsername( final String username ) throws UsernameNotFoundException {
+    @Autowired
+    EmployeeLogic employeeLogic;
 
-		UserAcc user = userLogic.findByUserName(username);
-		List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
 
-		return buildUserForAuthentication(user, authorities);
+    @Override
+    public CustomUserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
-	}
+        UserAcc user = userLogic.findByUserName(username);
+        List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
 
-	// Converts com.mkyong.users.model.User user to
-	// org.springframework.security.core.userdetails.User
-	private CustomUserDetails buildUserForAuthentication( UserAcc user, List<GrantedAuthority> authorities ) {
+        return buildUserForAuthentication(user, authorities);
 
-		CustomUserDetails userDetails = new CustomUserDetails(user.getUsername(), user.getPassword(), user.isActive(), true, true, true, authorities,
-				user.getSalt());
-		LOGGER.debug("User salt: " + user.getSalt());
-		LOGGER.debug("Deta salt: " + userDetails.getSalt());
-		return userDetails;
-	}
+    }
 
-	private List<GrantedAuthority> buildUserAuthority( Set<Role> userRoles ) {
 
-		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+    // Converts com.mkyong.users.model.User user to
+    // org.springframework.security.core.userdetails.User
+    private CustomUserDetails buildUserForAuthentication(UserAcc user, List<GrantedAuthority> authorities) {
 
-		// Build user's authorities
-		for( Role userRole : userRoles ) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
-		}
+        CustomUserDetails userDetails = new CustomUserDetails(user.getUsername(), user.getPassword(), user.isActive(), true, true, true, authorities,
+                user.getSalt());
+        LOGGER.debug("User salt: " + user.getSalt());
+        LOGGER.debug("Deta salt: " + userDetails.getSalt());
+        return userDetails;
+    }
 
-		List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 
-		return Result;
-	}
+    private List<GrantedAuthority> buildUserAuthority(Set<Role> userRoles) {
 
-	public UserAcc getByID( Long id ) {
-		return this.userLogic.getByID(id);
-	}
+        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
-	public List<UserAcc> getList() {
-		return this.userLogic.getList();
-	}
+        // Build user's authorities
+        for( Role userRole : userRoles ) {
+            setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
+        }
 
-	public List<UserAcc> search( Map<String, Object> parameterMap ) {
-		return this.userLogic.search(parameterMap);
-	}
+        List<GrantedAuthority> Result = new ArrayList<GrantedAuthority>(setAuths);
 
-	public Long insert( CustomerAccountForm accountForm ) {
-		Long baseAddresId = addressLogic.insert(accountForm.getBaseAddress());
-		Long correAddresId = addressLogic.insert(accountForm.getCorrespondeAddress());
-		Customer customer = accountForm.getCustomer();
-		customer.setBaseAddress(addressLogic.getByID(baseAddresId));
-		customer.setContacAddress(addressLogic.getByID(correAddresId));
-		Long customerId = customerLogic.insert(customer);
+        return Result;
+    }
 
-		UserAcc user = accountForm.getUser();
-		user.setPassword(accountForm.getPassword());
-		user.setCustomer(customerLogic.getByID(customerId));
-		Long userId = this.userLogic.insert(user);
-		UserAcc userL = userLogic.getByID(userId);
-		Role userRole = roleLogic.getByName("USER");
-		Role customerRole = roleLogic.getByName("CUSTOMER");
-		UserRoles userRoles = new UserRoles();
-		userRoles.setRole(userRole);
-		userRoles.setUserAcc(userL);
-		userRolesLogic.insert(userRoles);
 
-		UserRoles userRoles2 = new UserRoles();
-		userRoles2.setRole(customerRole);
-		userRoles2.setUserAcc(userL);
-		userRolesLogic.insert(userRoles2);
-		return userId;
-	}
+    public UserAcc getByID(Long id) {
+        return this.userLogic.getByID(id);
+    }
 
-	public void update( UserAcc entity ) {
-		this.userLogic.update(entity);
-	}
 
-	public void delete( UserAcc entity ) {
-		this.userLogic.delete(entity);
-	}
+    public List<UserAcc> getList() {
+        return this.userLogic.getList();
+    }
 
-	public void deleteById( Long id ) {
-		this.userLogic.deleteById(id);
-	}
 
-	public void setUsersDAO( UserDAO usersDAO ) {
-		this.userLogic.setUserDAO(usersDAO);
-	}
+    public List<UserAcc> search(Map<String, Object> parameterMap) {
+        return this.userLogic.search(parameterMap);
+    }
 
-	public UserAcc getByUserName( String username ) {
-		return this.userLogic.getByUserName(username);
-	}
 
-	public UserAcc getByUserEmail( String email ) {
-		return this.userLogic.getByUserEmail(email);
-	}
+    public Long insert(CustomerAccountForm accountForm) {
+        Long baseAddresId = addressLogic.insert(accountForm.getBaseAddress());
+        Long correAddresId = addressLogic.insert(accountForm.getCorrespondeAddress());
+        Customer customer = accountForm.getCustomer();
+        customer.setBaseAddress(addressLogic.getByID(baseAddresId));
+        customer.setContacAddress(addressLogic.getByID(correAddresId));
+        Long customerId = customerLogic.insert(customer);
 
-	public boolean checkUserLogin( UserForm user ) {
-		return this.userLogic.checkUserLogin(user.getUsername(), user.getPassword());
-	}
+        UserAcc user = accountForm.getUser();
+        user.setPassword(accountForm.getPassword());
+        user.setCustomer(customerLogic.getByID(customerId));
+        Long userId = this.userLogic.insert(user);
+        UserAcc userL = userLogic.getByID(userId);
 
-	@SuppressWarnings("unchecked")
-	public List<UserAcc> getListRest( int amount, int fromRow ) {
-		return userLogic.getListRest(amount, fromRow);
-	}
+        for( Role role : user.getRole() ) {
+            UserRoles userRoles = new UserRoles();
+            userRoles.setRole(role);
+            userRoles.setUserAcc(userL);
+            userRolesLogic.insert(userRoles);
+        }
 
-	public long count() {
-		return userLogic.count();
-	}
+        return userId;
+    }
 
+
+    public void update(UserAcc entity) {
+        this.userLogic.update(entity);
+    }
+
+
+    public void delete(UserAcc entity) {
+        this.userLogic.delete(entity);
+    }
+
+
+    public void deleteById(Long id) {
+        this.userLogic.deleteById(id);
+    }
+
+
+    public void setUsersDAO(UserDAO usersDAO) {
+        this.userLogic.setUserDAO(usersDAO);
+    }
+
+
+    public UserAcc getByUserName(String username) {
+        return this.userLogic.getByUserName(username);
+    }
+
+
+    public UserAcc getByUserEmail(String email) {
+        return this.userLogic.getByUserEmail(email);
+    }
+
+
+    public boolean checkUserLogin(UserForm user) {
+        return this.userLogic.checkUserLogin(user.getUsername(), user.getPassword());
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<UserAcc> getListRest(int amount, int fromRow) {
+        return userLogic.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return userLogic.count();
+    }
+
+
+    public void update(CustomerAccountForm accountForm) {
+        addressLogic.update(accountForm.getBaseAddress());
+
+        UserAcc user = accountForm.getUser();
+        if( user.getEmployee() != null ) {
+            if( !accountForm.isCorespondeAddress() ) {
+                user.getEmployee().setContacAddress(null);
+                accountForm.getCorrespondeAddress().setActive(false);
+            }
+            employeeLogic.update(user.getEmployee());
+        } else {
+            if( !accountForm.isCorespondeAddress() ) {
+                user.getCustomer().setContacAddress(null);
+                accountForm.getCorrespondeAddress().setActive(false);
+            }
+            customerLogic.update(user.getCustomer());
+        }
+
+        addressLogic.update(accountForm.getCorrespondeAddress());
+
+        userLogic.update(user);
+
+    }
 }

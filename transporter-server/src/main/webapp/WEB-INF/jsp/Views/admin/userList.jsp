@@ -51,7 +51,7 @@
 						</c:forEach>
 					</td>
 					<td>
-						<form action="/transporter-server/admin/countryEdit" method="get">
+						<form action="/transporter-server/admin/userEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
 							<input type="hidden" value="${var.id}" name="id">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">

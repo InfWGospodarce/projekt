@@ -10,6 +10,7 @@ import org.pwr.transporter.server.dao.RoleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+
 /**
  * <pre>
  *    Service for roles.
@@ -21,50 +22,65 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class RoleService implements IService {
 
-	@Autowired
-	RoleLogic roleLogic;
+    @Autowired
+    RoleLogic roleLogic;
 
-	public void setRoleDAO( RoleDAO roleDAO ) {
-		this.roleLogic.setRoleDAO(roleDAO);
-	}
 
-	public Role getByID( Long id ) {
-		return this.roleLogic.getByID(id);
-	}
+    public void setRoleDAO(RoleDAO roleDAO) {
+        this.roleLogic.setRoleDAO(roleDAO);
+    }
 
-	public List<Role> getList() {
-		return this.roleLogic.getList();
-	}
 
-	public List<Role> search( Map<String, Object> parameterMap ) {
-		return this.roleLogic.search(parameterMap);
-	}
+    public Role getByID(Long id) {
+        return this.roleLogic.getByID(id);
+    }
 
-	public Long insert( Role entity ) {
-		return this.roleLogic.insert(entity);
-	}
 
-	public void update( Role entity ) {
-		this.roleLogic.update(entity);
-	}
+    public List<Role> getList() {
+        return this.roleLogic.getList();
+    }
 
-	public void delete( Role entity ) {
-		this.roleLogic.delete(entity);
-	}
 
-	public void deleteById( Long id ) {
-		this.roleLogic.deleteById(id);
-	}
+    public List<Role> search(Map<String, Object> parameterMap) {
+        return this.roleLogic.search(parameterMap);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Role> getListRest( int amount, int fromRow ) {
-		return this.roleLogic.getListRest(amount, fromRow);
-	}
 
-	@Override
-	public long count() {
-		return this.roleLogic.count();
-	}
+    public Long insert(Role entity) {
+        return this.roleLogic.insert(entity);
+    }
+
+
+    public void update(Role entity) {
+        this.roleLogic.update(entity);
+    }
+
+
+    public void delete(Role entity) {
+        this.roleLogic.delete(entity);
+    }
+
+
+    public void deleteById(Long id) {
+        this.roleLogic.deleteById(id);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Role> getListRest(int amount, int fromRow) {
+        return this.roleLogic.getListRest(amount, fromRow);
+    }
+
+
+    @Override
+    public long count() {
+        return this.roleLogic.count();
+    }
+
+
+    public Role getByName(String string) {
+        return this.roleLogic.getByName(string);
+    }
 
 }
