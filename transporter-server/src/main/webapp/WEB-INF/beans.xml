@@ -94,6 +94,24 @@
 	
 	<bean id="roleService" class="org.pwr.transporter.server.web.services.RoleService" />
 	
+	
+	<!-- Itinerary -->
+	<bean id="ItineraryDAO" class="org.pwr.transporter.server.dao.impl.logistic.ItineraryDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="ItineraryLogic" class="org.pwr.transporter.server.business.logistic.ItineraryLogic">
+		<property name="ItineraryDAO" ref="ItineraryDAO" />
+	</bean>
+	
+	<bean id="ItineraryService" class="org.pwr.transporter.server.web.services.logistic.ItineraryService" />
+	
+	
+	
+	
+	
+	
+	
 	<!-- UserRoles -->
 	<bean id="userRolesDAO" class="org.pwr.transporter.server.dao.impl.UserRolesDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -104,6 +122,8 @@
 	</bean>
 	
 	<bean id="userRolesService" class="org.pwr.transporter.server.web.services.UserRolesService" />
+	
+	
 	
 	<!-- Employee Type -->
 	<bean id="employeeTypeDAO" class="org.pwr.transporter.server.dao.impl.enums.EmployeeTypeDAOImpl">

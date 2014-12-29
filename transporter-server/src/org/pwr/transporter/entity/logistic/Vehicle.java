@@ -39,4 +39,12 @@ public class Vehicle extends GenericEntity {
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
 
+    
+    public String getPlate() {
+		return plate;
+	}
+    
+    public void setPlate(String plate) {
+		this.plate = plate;
+	}
 }
