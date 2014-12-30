@@ -41,7 +41,7 @@ public class UserDAOImpl extends GenericDAOImpl<UserAcc> implements UserDAO {
         if( users.size() > 1 ) {
             LOGGER.warn("Found more than one user: " + users.size());
             for( UserAcc user : users ) {
-                LOGGER.debug(user.getId() + "\t" + user.getUsername() + " \t" + user.getRoles().toString());
+                LOGGER.debug(user.getId() + "\t" + user.getUsername() + " \t" + user.getRole().toString());
             }
         }
         if( users.size() > 0 ) {

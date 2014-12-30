@@ -63,4 +63,9 @@ public class UserRolesLogic {
         this.userRolesDAO.deleteById(id);
     }
 
+
+    public List<UserRoles> getActiveByUserId(Long id) {
+        return this.userRolesDAO.getByUserId(id);
+    }
+
 }

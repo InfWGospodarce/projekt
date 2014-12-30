@@ -5,11 +5,20 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista użytkowników</h2>
-		<form action="/transporter-server/admin/userEdit" method="get">
-			<input type="hidden" value="${page}" name="page">
-		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
-		</form>
+		<table class="table">
+			<tr>
+				<td><h3>Lista użytkowników</h3></td>
+				<td><form action="/transporter-server/admin/userEdit" method="get">
+					<input type="hidden" value="${page}" name="page">
+				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz pracownika">
+				</form></td>
+				<td><form action="/transporter-server/admin/userEdit" method="get">
+					<input type="hidden" value="${page}" name="page">
+					<input type="hidden" value="1" name="client">
+				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz klienta">
+				</form></td>
+			</tr>
+		</table>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
@@ -51,7 +60,7 @@
 						</c:forEach>
 					</td>
 					<td>
-						<form action="/transporter-server/admin/countryEdit" method="get">
+						<form action="/transporter-server/admin/userEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
 							<input type="hidden" value="${var.id}" name="id">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">

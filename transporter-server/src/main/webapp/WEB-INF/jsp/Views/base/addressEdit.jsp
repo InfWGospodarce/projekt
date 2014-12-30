@@ -3,6 +3,7 @@
 	
 	<form:hidden path="${addressPrefix}id"/>
 	<form:hidden path="${addressPrefix}searchKey"/>
+	<form:hidden path="${addressPrefix}active"/>
 	
 	<div class="form-group">
 
@@ -54,10 +55,9 @@
 	<div class="form-group">
 	
 	<form:label path="${addressPrefix}countryId">Kraj</form:label>
-	
-		<form:select class="form-control" path="${addressPrefix}countryId">
-		    <form:options items="${countries}" itemValue="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
-		</form:select>
-		</div>
+	<form:select class="form-control" path="${addressPrefix}countryId">
+	    <form:options items="${countries}" itemValue="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+	</form:select>
+	</div>
 	
 

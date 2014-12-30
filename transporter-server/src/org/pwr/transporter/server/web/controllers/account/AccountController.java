@@ -1,6 +1,7 @@
 package org.pwr.transporter.server.web.controllers.account;
 
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,9 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.Role;
+import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.Country;
+import org.pwr.transporter.entity.base.Customer;
+import org.pwr.transporter.entity.base.Employee;
+import org.pwr.transporter.entity.base.Person;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
+import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
 import org.pwr.transporter.server.web.services.AddressService;
 import org.pwr.transporter.server.web.services.CountryService;
@@ -38,10 +45,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.7
+ * @version 0.1.1
  */
 @Controller
-public class AccountController {
+public class AccountController extends GenericController {
 
     private static Logger LOGGER = Logger.getLogger(AccountController.class);
 
@@ -73,32 +80,124 @@ public class AccountController {
     @RequestMapping(value = "/log/register", method = RequestMethod.GET)
     public String doGetRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
-        List<Country> countires = countryService.getList();
-
-        model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
-        model.addAttribute("countries", countires);
-        model.addAttribute("customerAccountForm", new CustomerAccountForm());
+        loadData(model, false);
+        CustomerAccountForm customerAccountForm = new CustomerAccountForm();
+        customerAccountForm.setCustomer(new Customer());
+        model.addAttribute("customerAccountForm", customerAccountForm);
 
         return "/Views/log/register";
     }
 
 
-    @RequestMapping(value = "/admin/createUser", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/userEdit", method = RequestMethod.GET)
     public String doGetEmployeeRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
 
+        prepareData(request, model);
+
+        return "/Views/admin/userEdit";
+    }
+
+
+    private void prepareData(HttpServletRequest request, Model model) {
+
+        loadData(model, true);
+
+        CustomerAccountForm customerAccountForm = new CustomerAccountForm();
+
+        Long id = getId(request.getParameter("id"));
+        UserAcc user = null;
+        Employee employee = null;
+        Customer customer = null;
+        Person person = null;
+
+        String custParam = request.getParameter("customer");
+        if( custParam != null && custParam.equals("1") ) {
+            customer = new Customer();
+            person = customer;
+        } else {
+            employee = new Employee();
+            person = employee;
+        }
+
+        if( id == null ) {
+            user = new UserAcc();
+        } else {
+            user = userService.getByID(id);
+            if( user == null || user.getId() == null ) {
+                user = new UserAcc();
+            } else {
+                employee = user.getEmployee();
+                if( employee == null ) {
+                    person = user.getCustomer();
+                } else {
+                    person = employee;
+                    customerAccountForm.setEmployeeTypeId(employee.getEmplyeeType().getId().toString());
+                }
+            }
+        }
+        customerAccountForm.setUser(user);
+        if( person != null ) {
+            customerAccountForm.setBaseAddress(person.getBaseAddress());
+            customerAccountForm.setCorrespondeAddress(person.getContacAddress());
+            customerAccountForm.setCorespondeAddress(person.getContacAddress() != null);
+        } else {
+            customerAccountForm.setBaseAddress(new Address());
+            customerAccountForm.setCorrespondeAddress(new Address());
+            customerAccountForm.setCorespondeAddress(false);
+        }
+
+        customerAccountForm.setCustomer(user.getCustomer());
+        customerAccountForm.setEmployee(employee);
+
+        model.addAttribute("customerAccountForm", customerAccountForm);
+    }
+
+
+    private void loadData(Model model, boolean more) {
         List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
         List<Country> countires = countryService.getList();
-        List<Role> roles = roleService.getList();
-        List<EmployeeType> emplyeeTypes = emplyeeTypeService.getList();
 
         model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
         model.addAttribute("countries", countires);
-        model.addAttribute("roles", roles);
-        model.addAttribute("emplyeeTypes", emplyeeTypes);
-        model.addAttribute("customerAccountForm", new CustomerAccountForm());
 
-        return "/Views/log/register";
+        if( more ) {
+            List<Role> roles = roleService.getList();
+            List<EmployeeType> employeeTypes = emplyeeTypeService.getList();
+            model.addAttribute("roles", roles);
+            model.addAttribute("employeeTypes", employeeTypes);
+        }
+    }
+
+
+    @RequestMapping(value = "/admin/userEdit", method = RequestMethod.POST)
+    public String doPostUser(HttpServletRequest request, @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm,
+            BindingResult formBindeings, Model model) {
+
+        validator.validate(accountForm, formBindeings);
+
+        if( formBindeings.hasErrors() ) {
+            LOGGER.info("Validation fails");
+            loadData(model, true);
+            model.addAttribute("customerAccountForm", accountForm);
+            LOGGER.debug(formBindeings.getFieldErrors().toString());
+            return "/Views/log/register";
+        }
+
+        accountForm.getUser().setRole(new HashSet<Role>());
+        for( String id : accountForm.getUserRoleIds() ) {
+            Long idx = Long.valueOf(id);
+            Role role = roleService.getByID(idx);
+            if( role != null ) {
+                accountForm.getUser().getRole().add(role);
+            }
+        }
+
+        if( accountForm.getUser().getId() == null ) {
+            userService.insert(accountForm);
+        } else {
+            userService.update(accountForm);
+        }
+        return "redirect:../admin/userList?page=" + getPage(request);
     }
 
 
@@ -107,26 +206,22 @@ public class AccountController {
             BindingResult formBindeings, Model model) {
 
         validator.validate(accountForm, formBindeings);
+        accountForm.getUser().setId(null);
 
         if( formBindeings.hasErrors() ) {
             LOGGER.info("Validation fails");
-            List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
-            List<Country> countires = countryService.getList();
-            model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
-            model.addAttribute("countries", countires);
+            loadData(model, false);
             model.addAttribute("customerAccountForm", accountForm);
             LOGGER.debug(formBindeings.getFieldErrors().toString());
             return "/Views/log/register";
         }
 
-        Long id = userService.insert(accountForm);
-        // model.addAttribute("user", usersService.getByID(id));
-        request.getSession().setAttribute("userctx", userService.getByID(id));
-
-        LOGGER.debug("Password: " + accountForm.getUser().getPassword());
-        LOGGER.debug("Userame: " + accountForm.getUser().getUsername());
-        LOGGER.debug("email: " + accountForm.getUser().getEmail());
-        LOGGER.debug("salt: " + accountForm.getUser().getSalt());
+        accountForm.getUser().setRole(new HashSet<Role>());
+        Role userRole = roleService.getByName("USER");
+        Role customerRole = roleService.getByName("CUSTOMER");
+        accountForm.getUser().getRole().add(customerRole);
+        accountForm.getUser().getRole().add(userRole);
+        userService.insert(accountForm);
 
         return "redirect:/log/login";
     }

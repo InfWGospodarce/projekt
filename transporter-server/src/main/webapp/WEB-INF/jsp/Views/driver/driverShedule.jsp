@@ -15,18 +15,20 @@
 			<tr>
 				<th>Lp.</th>
 				<th>Klucz wyszukiwania</th>
-				<th>Nazwa</th>
-				<th>Rejestracja</th>
+				<th>Employee_id</th>
+				<th>Vehicle_id</th>
 				<th>Aktywny</th>
+				<th>Nazwa</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
-			<c:forEach var="var" items="${task}">
+			<c:forEach var="var" items="${taskList}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 					<td><c:out value="${var.searchKey}"></c:out></td>
+					<td><c:out value="${var.employee_id}"></c:out></td>
+					<td><c:out value="${var.vehicle_id}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
-					<td><c:out value="${var.plate}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
 							<c:if test="${var.active eq 'true'}">

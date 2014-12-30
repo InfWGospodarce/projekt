@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import org.pwr.transporter.entity.GenericEntity;
 
 
+
 /**
  * <pre>
  *     Base for other classes using person e.g. Customer.
@@ -23,75 +24,86 @@ import org.pwr.transporter.entity.GenericEntity;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Person extends GenericEntity {
 
-	/**  */
-	private static final long serialVersionUID = 5874687155183652078L;
+    /**  */
+    private static final long serialVersionUID = 5874687155183652078L;
 
-	// *******************************************************************************************************************************
-	// ****** FIELDS
-	// *******************************************************************************************************************************
+    // *******************************************************************************************************************************
+    // ****** FIELDS
+    // *******************************************************************************************************************************
 
-	@Column(name = "surname", nullable = false)
-	private String surname;
+    @Column(name = "surname", nullable = false)
+    private String surname;
 
-	@OneToOne(optional = false)
-	private Address baseAddress;
+    @OneToOne(optional = false)
+    private Address baseAddress;
 
-	@OneToOne(optional = true)
-	private Address contacAddress;
+    @OneToOne(optional = true)
+    private Address contacAddress;
 
-	@Column(name = "nip")
-	private String nip;
+    @Column(name = "nip")
+    private String nip;
 
-	@Column(name = "email")
-	private String email;
+    @Column(name = "email")
+    private String email;
 
-	public Person() {
-		name = null;
-		surname = null;
-	}
 
-	// *******************************************************************************************************************************
-	// ****** GETTERS AND SETTERS
-	// *******************************************************************************************************************************
+    public Person() {
+        name = null;
+        surname = null;
+    }
 
-	public void setSurname( String surname ) {
-		this.surname = surname;
-	}
 
-	public String getSurname() {
-		return this.surname;
-	}
+    // *******************************************************************************************************************************
+    // ****** GETTERS AND SETTERS
+    // *******************************************************************************************************************************
 
-	public Address getBaseAddress() {
-		return this.baseAddress;
-	}
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-	public void setBaseAddress( Address baseAddress ) {
-		this.baseAddress = baseAddress;
-	}
 
-	public Address getContacAddress() {
-		return this.contacAddress;
-	}
+    public String getSurname() {
+        return this.surname;
+    }
 
-	public void setContacAddress( Address contacAddress ) {
-		this.contacAddress = contacAddress;
-	}
 
-	public String getNip() {
-		return this.nip;
-	}
+    public Address getBaseAddress() {
+        return this.baseAddress;
+    }
 
-	public void setNip( String nip ) {
-		this.nip = nip;
-	}
 
-	public void setEmail( String email ) {
-		this.email = email;
-	}
+    public void setBaseAddress(Address baseAddress) {
+        this.baseAddress = baseAddress;
+    }
 
-	public String getEmail() {
-		return this.email;
-	}
+
+    public Address getContacAddress() {
+        return this.contacAddress;
+    }
+
+
+    public void setContacAddress(Address contacAddress) {
+        this.contacAddress = contacAddress;
+    }
+
+
+    public String getNip() {
+        return this.nip;
+    }
+
+
+    public void setNip(String nip) {
+        this.nip = nip;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public String getEmail() {
+        return this.email;
+    }
 
 }

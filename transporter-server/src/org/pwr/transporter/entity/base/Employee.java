@@ -18,7 +18,7 @@ import org.pwr.transporter.entity.enums.base.EmployeeType;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.3
+ * @version 0.0.4
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -31,6 +31,7 @@ public class Employee extends Person {
     @ManyToOne(optional = false)
     private EmployeeType emplyeeType;
 
+
     // *******************************************************************************************************************************
     // ****** FIELDS
     // *******************************************************************************************************************************
@@ -39,4 +40,12 @@ public class Employee extends Person {
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
 
+    public EmployeeType getEmplyeeType() {
+        return this.emplyeeType;
+    }
+
+
+    public void setEmplyeeType(EmployeeType emplyeeType) {
+        this.emplyeeType = emplyeeType;
+    }
 }

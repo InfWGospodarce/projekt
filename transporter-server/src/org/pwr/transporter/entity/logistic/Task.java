@@ -1,6 +1,7 @@
 package org.pwr.transporter.entity.logistic;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -33,10 +34,10 @@ public class Task extends GenericEntity {
     // ****** FIELDS
     // *******************************************************************************************************************************
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Employee employee;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Vehicle vehicle;
 
 
@@ -49,8 +50,8 @@ public class Task extends GenericEntity {
     }
 
 
-    public void setEmployee(Employee emplyee) {
-        this.employee = emplyee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
 
