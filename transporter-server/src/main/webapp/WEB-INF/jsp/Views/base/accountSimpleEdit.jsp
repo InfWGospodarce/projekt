@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../template/headers.jsp" %>
 
+			<form:hidden path="user.id"/>	
+			<form:hidden path="user.searchKey"/>
+			<form:hidden path="user.active"/>
+			
 			<c:choose> 
 				<c:when test="${not empty customerAccountForm.user.id}">
 				</c:when>
@@ -41,13 +45,6 @@
 				<form:errors path="employee.surname" cssClass="error" />
 				</div>
 				
-				<div class="form-group">
-				<form:label path="employeeTypeId">Stanowisko</form:label>
-					<form:select class="form-control" path="employeeTypeId" >
-					    <form:options items="${employeeTypes}" itemValue="id" itemLabel="name" cssErrorClass="errorBc"/>
-					</form:select>
-				<form:errors path="employeeTypeId" cssClass="error" />
-				</div>
 			</c:if>
 			
 			<c:if test="${not empty customerAccountForm.customer}">

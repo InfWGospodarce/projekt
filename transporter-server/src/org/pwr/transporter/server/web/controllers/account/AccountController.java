@@ -1,6 +1,7 @@
 package org.pwr.transporter.server.web.controllers.account;
 
 
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.entity.base.Employee;
@@ -104,11 +106,21 @@ public class AccountController extends GenericController {
 
         Long id = getId(request.getParameter("id"));
         UserAcc user = null;
-        Employee employee = new Employee();
-        Person person = employee;
+        Employee employee = null;
+        Customer customer = null;
+        Person person = null;
+
+        String custParam = request.getParameter("customer");
+        if( custParam != null && custParam.equals("1") ) {
+            customer = new Customer();
+            person = customer;
+        } else {
+            employee = new Employee();
+            person = employee;
+        }
+
         if( id == null ) {
             user = new UserAcc();
-            customerAccountForm.setEmployee(employee);
         } else {
             user = userService.getByID(id);
             if( user == null || user.getId() == null ) {
@@ -117,18 +129,25 @@ public class AccountController extends GenericController {
                 employee = user.getEmployee();
                 if( employee == null ) {
                     person = user.getCustomer();
-                    customerAccountForm.setCustomer(user.getCustomer());
                 } else {
                     person = employee;
-                    customerAccountForm.setEmployee(employee);
                     customerAccountForm.setEmployeeTypeId(employee.getEmplyeeType().getId().toString());
                 }
             }
         }
         customerAccountForm.setUser(user);
-        customerAccountForm.setBaseAddress(person.getBaseAddress());
-        customerAccountForm.setCorrespondeAddress(person.getContacAddress());
-        customerAccountForm.setCorespondeAddress(person.getContacAddress() != null);
+        if( person != null ) {
+            customerAccountForm.setBaseAddress(person.getBaseAddress());
+            customerAccountForm.setCorrespondeAddress(person.getContacAddress());
+            customerAccountForm.setCorespondeAddress(person.getContacAddress() != null);
+        } else {
+            customerAccountForm.setBaseAddress(new Address());
+            customerAccountForm.setCorrespondeAddress(new Address());
+            customerAccountForm.setCorespondeAddress(false);
+        }
+
+        customerAccountForm.setCustomer(user.getCustomer());
+        customerAccountForm.setEmployee(employee);
 
         model.addAttribute("customerAccountForm", customerAccountForm);
     }
@@ -164,6 +183,15 @@ public class AccountController extends GenericController {
             return "/Views/log/register";
         }
 
+        accountForm.getUser().setRole(new HashSet<Role>());
+        for( String id : accountForm.getUserRoleIds() ) {
+            Long idx = Long.valueOf(id);
+            Role role = roleService.getByID(idx);
+            if( role != null ) {
+                accountForm.getUser().getRole().add(role);
+            }
+        }
+
         if( accountForm.getUser().getId() == null ) {
             userService.insert(accountForm);
         } else {
@@ -178,6 +206,7 @@ public class AccountController extends GenericController {
             BindingResult formBindeings, Model model) {
 
         validator.validate(accountForm, formBindeings);
+        accountForm.getUser().setId(null);
 
         if( formBindeings.hasErrors() ) {
             LOGGER.info("Validation fails");
@@ -187,6 +216,7 @@ public class AccountController extends GenericController {
             return "/Views/log/register";
         }
 
+        accountForm.getUser().setRole(new HashSet<Role>());
         Role userRole = roleService.getByName("USER");
         Role customerRole = roleService.getByName("CUSTOMER");
         accountForm.getUser().getRole().add(customerRole);

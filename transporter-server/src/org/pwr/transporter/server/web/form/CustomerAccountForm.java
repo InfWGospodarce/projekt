@@ -1,6 +1,8 @@
 package org.pwr.transporter.server.web.form;
 
 
+import java.util.List;
+
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.Customer;
@@ -26,6 +28,7 @@ public class CustomerAccountForm {
     String password;
     String password2;
     String employeeTypeId;
+    List<String> userRoleIds;
     Employee employee;
     boolean corespondeAddress;
 
@@ -36,6 +39,7 @@ public class CustomerAccountForm {
         baseAddress = new Address();
         correspondeAddress = new Address();
         user = new UserAcc();
+        corespondeAddress = false;
     }
 
 
@@ -126,5 +130,15 @@ public class CustomerAccountForm {
 
     public void setEmployeeTypeId(String employeeTypeId) {
         this.employeeTypeId = employeeTypeId;
+    }
+
+
+    public List<String> getUserRoleIds() {
+        return this.userRoleIds;
+    }
+
+
+    public void setUserRoleIds(List<String> userRoleIds) {
+        this.userRoleIds = userRoleIds;
     }
 }

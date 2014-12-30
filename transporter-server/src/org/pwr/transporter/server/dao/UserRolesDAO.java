@@ -1,6 +1,8 @@
 package org.pwr.transporter.server.dao;
 
 
+import java.util.List;
+
 import org.pwr.transporter.entity.UserRoles;
 
 
@@ -12,8 +14,10 @@ import org.pwr.transporter.entity.UserRoles;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.1
+ * @version 0.0.2
  */
 public interface UserRolesDAO extends GenericDAO<UserRoles> {
+
+    public List<UserRoles> getByUserId(Long id);
 
 }

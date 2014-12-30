@@ -163,6 +163,13 @@ public class UserAcc extends GenericEntity {
     }
 
 
+    public void copyPasswordAndSalt(String password, String salt) {
+        this.password = password;
+        this.salt = salt;
+
+    }
+
+
     // *******************************************************************************************************************************
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************

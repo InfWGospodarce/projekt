@@ -12,12 +12,15 @@ import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.UserRoles;
 import org.pwr.transporter.entity.base.Customer;
+import org.pwr.transporter.entity.base.Employee;
+import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.business.AddressLogic;
 import org.pwr.transporter.server.business.CustomerLogic;
 import org.pwr.transporter.server.business.EmployeeLogic;
 import org.pwr.transporter.server.business.RoleLogic;
 import org.pwr.transporter.server.business.UserLogic;
 import org.pwr.transporter.server.business.UserRolesLogic;
+import org.pwr.transporter.server.business.enums.EmployeeTypeLogic;
 import org.pwr.transporter.server.core.sec.CustomUserDetails;
 import org.pwr.transporter.server.dao.UserDAO;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
@@ -60,6 +63,9 @@ public class UserService implements UserDetailsService, IService {
 
     @Autowired
     EmployeeLogic employeeLogic;
+
+    @Autowired
+    EmployeeTypeLogic employeeTypeLogic;
 
 
     @Override
@@ -117,19 +123,44 @@ public class UserService implements UserDetailsService, IService {
 
     public Long insert(CustomerAccountForm accountForm) {
         Long baseAddresId = addressLogic.insert(accountForm.getBaseAddress());
-        Long correAddresId = addressLogic.insert(accountForm.getCorrespondeAddress());
+
+        Long correAddresId = null;
+        if( accountForm.isCorespondeAddress() ) {
+            correAddresId = addressLogic.insert(accountForm.getCorrespondeAddress());
+        }
         Customer customer = accountForm.getCustomer();
-        customer.setBaseAddress(addressLogic.getByID(baseAddresId));
-        customer.setContacAddress(addressLogic.getByID(correAddresId));
-        Long customerId = customerLogic.insert(customer);
+        Employee employee = accountForm.getEmployee();
 
         UserAcc user = accountForm.getUser();
         user.setPassword(accountForm.getPassword());
-        user.setCustomer(customerLogic.getByID(customerId));
+
+        if( customer != null ) {
+            customer.setBaseAddress(addressLogic.getByID(baseAddresId));
+            if( correAddresId != null ) {
+                customer.setContacAddress(addressLogic.getByID(correAddresId));
+            }
+            Long customerId = customerLogic.insert(customer);
+            user.setCustomer(customerLogic.getByID(customerId));
+        }
+
+        if( employee != null ) {
+            employee.setBaseAddress(addressLogic.getByID(baseAddresId));
+            if( correAddresId != null ) {
+                employee.setContacAddress(addressLogic.getByID(correAddresId));
+            }
+            EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
+            employee.setEmplyeeType(employeeType);
+            Long employeeId = employeeLogic.insert(employee);
+            user.setEmployee(employeeLogic.getByID(employeeId));
+        }
+
+        Set<Role> roleSet = user.getRole();
+        user.setRole(null);
+
         Long userId = this.userLogic.insert(user);
         UserAcc userL = userLogic.getByID(userId);
 
-        for( Role role : user.getRole() ) {
+        for( Role role : roleSet ) {
             UserRoles userRoles = new UserRoles();
             userRoles.setRole(role);
             userRoles.setUserAcc(userL);
@@ -190,23 +221,68 @@ public class UserService implements UserDetailsService, IService {
         addressLogic.update(accountForm.getBaseAddress());
 
         UserAcc user = accountForm.getUser();
-        if( user.getEmployee() != null ) {
+        UserAcc dbUser = userLogic.getByID(user.getId());
+        user.copyPasswordAndSalt(dbUser.getPassword(), dbUser.getSalt());
+
+        if( accountForm.getEmployee() != null ) {
             if( !accountForm.isCorespondeAddress() ) {
-                user.getEmployee().setContacAddress(null);
                 accountForm.getCorrespondeAddress().setActive(false);
+                accountForm.getEmployee().setContacAddress(null);
+            } else {
+                accountForm.getEmployee().setContacAddress(accountForm.getCorrespondeAddress());
             }
-            employeeLogic.update(user.getEmployee());
+            accountForm.getEmployee().setBaseAddress(accountForm.getBaseAddress());
+            EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
+            accountForm.getEmployee().setEmplyeeType(employeeType);
+            employeeLogic.update(accountForm.getEmployee());
+            if( accountForm.getCorrespondeAddress().getId() != null ) {
+                addressLogic.update(accountForm.getCorrespondeAddress());
+            }
         } else {
             if( !accountForm.isCorespondeAddress() ) {
-                user.getCustomer().setContacAddress(null);
                 accountForm.getCorrespondeAddress().setActive(false);
+                accountForm.getCustomer().setContacAddress(null);
+            } else {
+                accountForm.getCustomer().setContacAddress(accountForm.getCorrespondeAddress());
             }
-            customerLogic.update(user.getCustomer());
+            accountForm.getCustomer().setBaseAddress(accountForm.getBaseAddress());
+            customerLogic.update(accountForm.getCustomer());
+            if( accountForm.getCorrespondeAddress().getId() != null ) {
+                addressLogic.update(accountForm.getCorrespondeAddress());
+            }
         }
 
-        addressLogic.update(accountForm.getCorrespondeAddress());
+        Set<Role> roleSet = user.getRole();
+        user.setRole(null);
 
-        userLogic.update(user);
+        Long userId = this.userLogic.insert(user);
+        UserAcc userL = userLogic.getByID(userId);
 
+        List<UserRoles> userroles = userRolesLogic.getActiveByUserId(user.getId());
+        LOGGER.debug("Get user roles: " + userroles.size());
+
+        List<UserRoles> userroles2 = new ArrayList<UserRoles>();
+
+        for( Role role : roleSet ) {
+            UserRoles userRoles = new UserRoles();
+            userRoles.setRole(role);
+            userRoles.setUserAcc(userL);
+            if( userroles.contains(userRoles) ) {
+                UserRoles r = userroles.get(userroles.indexOf(userRoles));
+                userRoles.setId(r.getId());
+                userRoles.setActive(true);
+                userRolesLogic.update(userRoles);
+            } else {
+                userRolesLogic.insert(userRoles);
+            }
+            userroles2.add(userRoles);
+        }
+
+        for( UserRoles role : userroles ) {
+            if( !userroles2.contains(role) ) {
+                role.setActive(false);
+                userRolesLogic.update(role);
+            }
+        }
     }
 }
