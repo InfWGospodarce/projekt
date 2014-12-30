@@ -84,7 +84,8 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         getCurrentSession().getTransaction().commit();
         return resultList;
     }
-    
+
+
     @SuppressWarnings("unchecked")
     public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> parameterMap) {
         Session session = getCurrentSession();
@@ -93,7 +94,12 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
-            criteria.add(Restrictions.ilike(field, parameterMap.get(field)));
+            Object value = parameterMap.get(field);
+            if( value instanceof Boolean ) {
+                criteria.add(Restrictions.eq(field, value));
+            } else {
+                criteria.add(Restrictions.ilike(field, value));
+            }
         }
         criteria.setMaxResults(amount);
         criteria.setFirstResult(fromRow);
@@ -102,7 +108,8 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         getCurrentSession().getTransaction().commit();
         return resultList;
     }
-    
+
+
     @Override
     public long count(Map<String, Object> parameterMap) {
         Session session = getCurrentSession();
@@ -110,7 +117,12 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         Criteria criteria = session.createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
-            criteria.add(Restrictions.ilike(field, parameterMap.get(field)));
+            Object value = parameterMap.get(field);
+            if( value instanceof Boolean ) {
+                criteria.add(Restrictions.eq(field, value));
+            } else {
+                criteria.add(Restrictions.ilike(field, value));
+            }
         }
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
         session.getTransaction().commit();
