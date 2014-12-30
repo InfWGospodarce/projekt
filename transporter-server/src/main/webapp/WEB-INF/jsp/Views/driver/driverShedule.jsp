@@ -6,8 +6,8 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista pojazdów</h2>
-		<form action="/transporter-server/logistic/vehicleEdit" method="get">
+		<h2>Lista zadań</h2>
+		<form action="/transporter-server/driver/driverScheduleEdit" method="get">
 			<input type="hidden" value="${page}" name="page">
 		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
 		</form>
@@ -20,7 +20,7 @@
 				<th>Aktywny</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
-			<c:forEach var="var" items="${vehicleList}">
+			<c:forEach var="var" items="${task}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
@@ -35,7 +35,7 @@
 						/>
 					</td>
 					<td>
-						<form action="/transporter-server/logistic/vehicleEdit" method="get">
+						<form action="/transporter-server/driver/driverScheduleEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
 							<input type="hidden" value="${var.id}" name="id">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">

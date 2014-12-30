@@ -5,8 +5,8 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="well">
-			<h1>Edycja pojazdu</h1>
-			<form:form action="/transporter-server/logistic/vehicleEdit" method="post" commandName="vehicle">
+			<h1>Edycja zadania</h1>
+			<form:form action="/transporter-server/logistic/vehicleEdit" method="post" commandName="task">
 				<form:hidden path="id" value="${id}"></form:hidden>
 				<div class="form-group">
 					<form:label path="active">Aktywny</form:label>
@@ -25,14 +25,10 @@
 					<form:errors path="name" cssClass="error" />
 				</div>
 				
-				<div class="form-group">
-					<form:label path="plate">Nr rejestracyjny</form:label>
-					<form:input path="plate" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="plate" cssClass="error" />
-				</div>
+				
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
-				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/logistic/vehicleList?page=${page}'" />
+				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/driver/driverSchedule?page=${page}'" />
 			</form:form>
 		</div>
 	</div>
