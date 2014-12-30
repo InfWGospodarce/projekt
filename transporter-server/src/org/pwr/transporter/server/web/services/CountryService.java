@@ -4,6 +4,7 @@ package org.pwr.transporter.server.web.services;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.server.business.CountryLogic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,19 @@ public class CountryService implements IService {
 
 	public long count() {
 		return countryLogic.count();
+	}
+
+	@Override
+	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
+			int fromRow, Map<String, Object> criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long count(Map<String, Object> criteria) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

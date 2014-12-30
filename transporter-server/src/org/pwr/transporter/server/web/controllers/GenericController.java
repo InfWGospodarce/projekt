@@ -4,6 +4,7 @@ package org.pwr.transporter.server.web.controllers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,6 +66,31 @@ public class GenericController {
             return new ArrayList<T>();
         }
         return service.getListRest(user.getRowsPerPage(), user.getRowsPerPage() * ( page - 1 ));
+    }
+    
+    public <T extends GenericEntity> List<T> getListWitchCriteria(IService service, HttpServletRequest request, Map<String, Object> criteria) {
+
+        List<T> list = null;
+
+        UserAcc user = (UserAcc) request.getSession().getAttribute(SESION_USER_NAME);
+        if( user == null ) {
+            return list;
+        }
+
+        int page = getPage(request);
+        request.setAttribute(PAGE, page);
+        request.getSession().setAttribute(PAGE, page);
+        BigDecimal pages = ( new BigDecimal(service.count(criteria)) ).divide(new BigDecimal(user.getRowsPerPage()), BigDecimal.ROUND_UP);
+        if( pages.compareTo(BigDecimal.ZERO) == 0 ) {
+            pages = BigDecimal.ONE;
+        }
+
+        request.setAttribute(PAGE_COUNT, pages.intValue());
+
+        if( page < 1 || page > pages.intValue() ) {
+            return new ArrayList<T>();
+        }
+        return service.getListRestCrit(user.getRowsPerPage(), user.getRowsPerPage() * ( page - 1 ), criteria);
     }
 
 

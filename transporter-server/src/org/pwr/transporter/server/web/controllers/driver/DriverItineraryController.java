@@ -2,7 +2,9 @@ package org.pwr.transporter.server.web.controllers.driver;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +43,14 @@ public class DriverItineraryController extends GenericController{
 	@RequestMapping(value = "/driver/driverItinerary", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<Itinerary> itineraryList = getList(itineraryService, request);
+		
+		Long id = getId(request.getParameter("id"));
+		
+		Map<String, Object> criteria = new HashMap<String, Object>();
+		criteria.put("active", true);
+		criteria.put("employee_id" , id);
+		
+		List<Itinerary> itineraryList = getListWitchCriteria(itineraryService, request, criteria);
 		model.addAttribute("list", itineraryList);
 
 		return "/Views/driver/driverItinerary";

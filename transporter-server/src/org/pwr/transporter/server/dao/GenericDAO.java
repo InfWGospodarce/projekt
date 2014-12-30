@@ -105,6 +105,10 @@ public interface GenericDAO<T extends GenericEntity> {
     public List<T> getListRest(int amount, int fromRow);
 
 
-    long count();
+    public long count();
+    
+    public long count(Map<String, Object> criteria);
+    
+    public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria);
 
 }

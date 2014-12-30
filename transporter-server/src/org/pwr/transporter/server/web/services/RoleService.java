@@ -4,6 +4,7 @@ package org.pwr.transporter.server.web.services;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.server.business.RoleLogic;
 import org.pwr.transporter.server.dao.RoleDAO;
@@ -82,5 +83,20 @@ public class RoleService implements IService {
     public Role getByName(String string) {
         return this.roleLogic.getByName(string);
     }
+
+
+	@Override
+	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
+			int fromRow, Map<String, Object> criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public long count(Map<String, Object> criteria) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

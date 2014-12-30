@@ -50,6 +50,19 @@ public class ItineraryService implements IService {
 	public long count() {
 		return itineraryLogic.count();
 	}
+
+	@Override
+	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
+			int fromRow, Map<String, Object> criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public long count(Map<String, Object> criteria) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

@@ -4,13 +4,15 @@ package org.pwr.transporter.server.web.services.logistic;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.logistic.Task;
 import org.pwr.transporter.server.business.logistic.TaskLogic;
 import org.pwr.transporter.server.dao.logistic.TaskDAO;
+import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
-public class TaskService {
+public class TaskService implements IService{
 
 	@Autowired
 	TaskLogic taskLogic;
@@ -51,4 +53,26 @@ public class TaskService {
 		return taskLogic.getByUserId(id);
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Task> getListRest(int amount, int fromRow) {
+		return taskLogic.getListRest(amount, fromRow);
+	}
+
+	@Override
+	public long count() {
+		return taskLogic.count();
+	}
+
+	@Override
+	public long count(Map<String, Object> criteria) {
+		return taskLogic.count(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
+			int fromRow, Map<String, Object> criteria) {
+		return (List<T>) taskLogic.getListRestCrit(amount, fromRow, criteria);
+	}
 }

@@ -48,4 +48,23 @@ public class TaskLogic {
 		return taskDAO.getByUserId(id);
 	}
 
+	public List<Task> getListRest(int amount, int fromRow) {
+		return taskDAO.getListRest(amount, fromRow);
+	}
+
+	public long count() {
+		return taskDAO.count();
+	}
+
+	public long count(Map<String, Object> criteria) {
+		return taskDAO.count(criteria);
+	}
+
+	public List<Task> getListRestCrit(int amount, int fromRow,
+			Map<String, Object> criteria) {
+		return taskDAO.getListRestCrit(amount, fromRow, criteria);
+	}
+	
+	
+
 }

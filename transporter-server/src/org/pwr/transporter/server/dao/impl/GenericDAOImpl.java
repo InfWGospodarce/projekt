@@ -84,6 +84,38 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         getCurrentSession().getTransaction().commit();
         return resultList;
     }
+    
+    @SuppressWarnings("unchecked")
+    public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> parameterMap) {
+        Session session = getCurrentSession();
+        session.getTransaction().begin();
+        String cname = clazz.getName();
+        Criteria criteria = getCurrentSession().createCriteria(clazz);
+        Set<String> fieldName = parameterMap.keySet();
+        for( String field : fieldName ) {
+            criteria.add(Restrictions.ilike(field, parameterMap.get(field)));
+        }
+        criteria.setMaxResults(amount);
+        criteria.setFirstResult(fromRow);
+        List<T> resultList = criteria.list();
+        // Hibernate.initialize();
+        getCurrentSession().getTransaction().commit();
+        return resultList;
+    }
+    
+    @Override
+    public long count(Map<String, Object> parameterMap) {
+        Session session = getCurrentSession();
+        session.getTransaction().begin();
+        Criteria criteria = session.createCriteria(clazz);
+        Set<String> fieldName = parameterMap.keySet();
+        for( String field : fieldName ) {
+            criteria.add(Restrictions.ilike(field, parameterMap.get(field)));
+        }
+        Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
+        session.getTransaction().commit();
+        return count;
+    }
 
 
     @SuppressWarnings("unchecked")
