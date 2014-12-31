@@ -41,7 +41,7 @@ public abstract class GenericWareDAOImpl<T extends GenericWare> implements Gener
     }
 
 
-    public GenericWareDAOImpl() {
+    public GenericDAOImpl() {
     }
 
 
@@ -52,24 +52,22 @@ public abstract class GenericWareDAOImpl<T extends GenericWare> implements Gener
 
     @SuppressWarnings("unchecked")
     public T getByID(Long id) {
-        Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
+        getCurrentSession().getTransaction().begin();
         T t = (T) getCurrentSession().get(clazz, id);
         // Hibernate.initialize(t);
-        tx.commit();
+        getCurrentSession().getTransaction().commit();
         return t;
     }
 
 
     @SuppressWarnings("unchecked")
     public List<T> getList() {
-        Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
+        getCurrentSession().getTransaction().begin();
         String cname = clazz.getName();
-        Query query = session.createQuery("from " + cname);
+        Query query = getCurrentSession().createQuery("from " + cname);
         List<T> resultList = query.list();
         // Hibernate.initialize();
-        tx.commit();
+        getCurrentSession().getTransaction().commit();
         return resultList;
     }
 
@@ -77,22 +75,66 @@ public abstract class GenericWareDAOImpl<T extends GenericWare> implements Gener
     @SuppressWarnings("unchecked")
     public List<T> getListRest(int amount, int fromRow) {
         Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
+        session.getTransaction().begin();
         String cname = clazz.getName();
         Query query = session.createQuery("from " + cname);
         query.setMaxResults(amount);
         query.setFirstResult(fromRow);
         List<T> resultList = query.list();
         // Hibernate.initialize();
-        tx.commit();
+        getCurrentSession().getTransaction().commit();
         return resultList;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> parameterMap) {
+        Session session = getCurrentSession();
+        session.getTransaction().begin();
+        String cname = clazz.getName();
+        Criteria criteria = getCurrentSession().createCriteria(clazz);
+        Set<String> fieldName = parameterMap.keySet();
+        for( String field : fieldName ) {
+            Object value = parameterMap.get(field);
+            if( value instanceof Boolean ) {
+                criteria.add(Restrictions.eq(field, value));
+            } else {
+                criteria.add(Restrictions.ilike(field, value));
+            }
+        }
+        criteria.setMaxResults(amount);
+        criteria.setFirstResult(fromRow);
+        List<T> resultList = criteria.list();
+        // Hibernate.initialize();
+        getCurrentSession().getTransaction().commit();
+        return resultList;
+    }
+
+
+    @Override
+    public long count(Map<String, Object> parameterMap) {
+        Session session = getCurrentSession();
+        session.getTransaction().begin();
+        Criteria criteria = session.createCriteria(clazz);
+        Set<String> fieldName = parameterMap.keySet();
+        for( String field : fieldName ) {
+            Object value = parameterMap.get(field);
+            if( value instanceof Boolean ) {
+                criteria.add(Restrictions.eq(field, value));
+            } else {
+                criteria.add(Restrictions.ilike(field, value));
+            }
+        }
+        Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
+        session.getTransaction().commit();
+        return count;
     }
 
 
     @SuppressWarnings("unchecked")
     public List<T> search(Map<String, Object> parameterMap) {
         Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
+        session.getTransaction().begin();
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
@@ -100,25 +142,23 @@ public abstract class GenericWareDAOImpl<T extends GenericWare> implements Gener
         }
         List<T> resultList = criteria.list();
         // Hibernate.initialize(resultList);
-        tx.commit();
+        getCurrentSession().getTransaction().commit();
         return resultList;
     }
 
 
     public Long insert(T entity) {
-        Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
-        Long id = (Long) session.save(entity);
-        tx.commit();
+        getCurrentSession().getTransaction().begin();
+        Long id = (Long) getCurrentSession().save(entity);
+        getCurrentSession().getTransaction().commit();
         return id;
     }
 
 
     public void update(T entity) {
-        Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
+        getCurrentSession().getTransaction().begin();
         getCurrentSession().update(entity);
-        tx.commit();
+        getCurrentSession().getTransaction().commit();
     }
 
 
@@ -149,10 +189,10 @@ public abstract class GenericWareDAOImpl<T extends GenericWare> implements Gener
     @Override
     public long count() {
         Session session = getCurrentSession();
-        Transaction tx = session.beginTransaction();
+        session.getTransaction().begin();
         Criteria criteria = session.createCriteria(clazz);
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
-        tx.commit();
+        session.getTransaction().commit();
         return count;
     }
 }

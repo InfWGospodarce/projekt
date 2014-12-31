@@ -83,6 +83,21 @@
 	
 	<bean id="userService" class="org.pwr.transporter.server.web.services.UserService" />
 	
+	
+	<!-- Order -->
+	<bean id="orderDAO" class="org.pwr.transporter.server.dao.impl.logistic.OrderDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean id="orderLogic" class="org.pwr.transporter.server.business.logistic.OrderLogic">
+		<property name="orderDAO" ref="orderDAO" />
+	</bean>
+	
+	<bean id="orderService" class="org.pwr.transporter.server.web.services.logistic.OrderService" />
+	
+	
+	
+	
 	<!-- Role -->
 	<bean id="roleDAO" class="org.pwr.transporter.server.dao.impl.RoleDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />

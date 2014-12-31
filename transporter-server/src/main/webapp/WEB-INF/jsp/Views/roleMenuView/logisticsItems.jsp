@@ -7,7 +7,7 @@
 	<a href="/transporter-server/logistics/logistics">Rezerwuj terminy wydania </a>
 </li>
 <li>
-	<a href="/transporter-server/logistics/logistics">Zarzadzaj flota</a>
+	<a href="/transporter-server/logistic/orderList">Zarzadzaj flota</a>
 </li>
 <li>
 	<a href="/transporter-server/logistics/logisticsShowDrivers"> Wylistuj/wyszukaj kierowcow  </a>
