@@ -1,8 +1,11 @@
 package org.pwr.transporter.server.web.controllers.account;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +20,7 @@ import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.entity.base.Person;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
+import org.pwr.transporter.server.core.sec.CustomUserDetails;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
 import org.pwr.transporter.server.web.services.AddressService;
@@ -28,6 +32,8 @@ import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.pwr.transporter.server.web.services.enums.EmployeeTypeService;
 import org.pwr.transporter.server.web.validators.forms.CustomerAccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -76,6 +82,10 @@ public class AccountController extends GenericController {
     @Autowired
     private EmployeeTypeService emplyeeTypeService;
 
+    @Autowired
+    @Qualifier("sessionRegistry")
+    private SessionRegistry sessionRegistry;
+
 
     @RequestMapping(value = "/log/register", method = RequestMethod.GET)
     public String doGetRegister(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -99,12 +109,25 @@ public class AccountController extends GenericController {
 
 
     private void prepareData(HttpServletRequest request, Model model) {
+        prepareData(request, model, true);
+    }
 
-        loadData(model, true);
+
+    private boolean prepareData(HttpServletRequest request, Model model, boolean simpleModel) {
+
+        loadData(model, simpleModel);
 
         CustomerAccountForm customerAccountForm = new CustomerAccountForm();
 
         Long id = getId(request.getParameter("id"));
+        if( simpleModel ) {
+            UserAcc us = (UserAcc) request.getSession().getAttribute("userctx");
+            if( us != null ) {
+                id = us.getId();
+            } else {
+                return false;
+            }
+        }
         UserAcc user = null;
         Employee employee = null;
         Customer customer = null;
@@ -126,6 +149,9 @@ public class AccountController extends GenericController {
             if( user == null || user.getId() == null ) {
                 user = new UserAcc();
             } else {
+                for( Role role : user.getRole() ) {
+                    customerAccountForm.getUserRoleIds().add(role.getId().toString());
+                }
                 employee = user.getEmployee();
                 if( employee == null ) {
                     person = user.getCustomer();
@@ -146,10 +172,12 @@ public class AccountController extends GenericController {
             customerAccountForm.setCorespondeAddress(false);
         }
 
-        customerAccountForm.setCustomer(user.getCustomer());
+        customerAccountForm.setCustomer(customer);
         customerAccountForm.setEmployee(employee);
 
         model.addAttribute("customerAccountForm", customerAccountForm);
+
+        return true;
     }
 
 
@@ -180,16 +208,23 @@ public class AccountController extends GenericController {
             loadData(model, true);
             model.addAttribute("customerAccountForm", accountForm);
             LOGGER.debug(formBindeings.getFieldErrors().toString());
-            return "/Views/log/register";
+            return "/Views/admin/userEdit";
         }
 
         accountForm.getUser().setRole(new HashSet<Role>());
-        for( String id : accountForm.getUserRoleIds() ) {
-            Long idx = Long.valueOf(id);
-            Role role = roleService.getByID(idx);
-            if( role != null ) {
-                accountForm.getUser().getRole().add(role);
+        if( accountForm.getCustomer() == null ) {
+            for( String id : accountForm.getUserRoleIds() ) {
+                Long idx = Long.valueOf(id);
+                Role role = roleService.getByID(idx);
+                if( role != null ) {
+                    accountForm.getUser().getRole().add(role);
+                }
             }
+        } else {
+            Role userRole = roleService.getByName("USER");
+            Role customerRole = roleService.getByName("CUSTOMER");
+            accountForm.getUser().getRole().add(customerRole);
+            accountForm.getUser().getRole().add(userRole);
         }
 
         if( accountForm.getUser().getId() == null ) {
@@ -224,5 +259,60 @@ public class AccountController extends GenericController {
         userService.insert(accountForm);
 
         return "redirect:/log/login";
+    }
+
+
+    @RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
+    public String getUserList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        List<UserAcc> list = getList(userService, request);
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+
+        List<String> usersNamesList = new ArrayList<String>();
+
+        for( Object principal : principals ) {
+            LOGGER.debug("Found: " + principal.toString());
+            if( principal instanceof CustomUserDetails ) {
+                usersNamesList.add(( (CustomUserDetails) principal ).getUsername());
+            }
+        }
+
+        Map<UserAcc, Boolean> loggedUsers = new HashMap<UserAcc, Boolean>();
+        for( UserAcc user : list ) {
+            if( usersNamesList.contains(user.getUsername()) ) {
+                loggedUsers.put(user, true);
+            } else {
+                loggedUsers.put(user, false);
+            }
+        }
+
+        model.addAttribute("list", loggedUsers);
+
+        return "/Views/admin/userList";
+    }
+
+
+    @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
+    public String getUserProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        if( !prepareData(request, model, false) ) {
+            return "/Views/log/login";
+        }
+        return "/Views/user/profile";
+    }
+
+
+    @RequestMapping(value = "/user/profileEdit", method = RequestMethod.GET)
+    public String getUserProfileEdit(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        return "/Views/user/profileEdit";
+    }
+
+
+    @RequestMapping(value = "/user/profileEdit", method = RequestMethod.POST)
+    public String getUserProfileEditPost(HttpServletRequest request, HttpServletResponse response, Model model,
+            @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm, BindingResult formBindeings) {
+
+        return "/Views/user/profileEdit";
     }
 }

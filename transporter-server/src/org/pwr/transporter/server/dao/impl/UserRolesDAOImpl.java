@@ -29,7 +29,7 @@ public class UserRolesDAOImpl extends GenericDAOImpl<UserRoles> implements UserR
     @Override
     public List<UserRoles> getByUserId(Long id) {
         Map<String, Object> search = new HashMap<String, Object>();
-        search.put("useracc_id", id);
+        search.put("useracc.id", id);
         search.put("active", true);
         return search(search);
     }

@@ -1,6 +1,7 @@
 package org.pwr.transporter.server.web.form;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.pwr.transporter.entity.UserAcc;
@@ -39,6 +40,7 @@ public class CustomerAccountForm {
         baseAddress = new Address();
         correspondeAddress = new Address();
         user = new UserAcc();
+        userRoleIds = new ArrayList<String>();
         corespondeAddress = false;
     }
 

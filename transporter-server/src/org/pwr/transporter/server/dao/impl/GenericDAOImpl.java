@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pwr.transporter.entity.GenericEntity;
@@ -25,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <hr/>
  * 
  * @author W.S., copied from examples
- * @version 0.1.3
+ * @version 0.1.5
  */
 public abstract class GenericDAOImpl<T extends GenericEntity> implements GenericDAO<T> {
 
@@ -63,7 +64,7 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
     public List<T> getList() {
         getCurrentSession().getTransaction().begin();
         String cname = clazz.getName();
-        Query query = getCurrentSession().createQuery("from " + cname);
+        Query query = getCurrentSession().createQuery("from " + cname + " order by 1");
         List<T> resultList = query.list();
         // Hibernate.initialize();
         getCurrentSession().getTransaction().commit();
@@ -76,7 +77,7 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         Session session = getCurrentSession();
         session.getTransaction().begin();
         String cname = clazz.getName();
-        Query query = session.createQuery("from " + cname);
+        Query query = session.createQuery("from " + cname + " order by 1");
         query.setMaxResults(amount);
         query.setFirstResult(fromRow);
         List<T> resultList = query.list();
@@ -90,19 +91,14 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
     public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> parameterMap) {
         Session session = getCurrentSession();
         session.getTransaction().begin();
-        String cname = clazz.getName();
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
-            Object value = parameterMap.get(field);
-            if( value instanceof Boolean ) {
-                criteria.add(Restrictions.eq(field, value));
-            } else {
-                criteria.add(Restrictions.ilike(field, value));
-            }
+            loadCriteria(field, criteria, parameterMap.get(field));
         }
         criteria.setMaxResults(amount);
         criteria.setFirstResult(fromRow);
+        criteria.addOrder(Order.asc("id"));
         List<T> resultList = criteria.list();
         // Hibernate.initialize();
         getCurrentSession().getTransaction().commit();
@@ -117,16 +113,22 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         Criteria criteria = session.createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
-            Object value = parameterMap.get(field);
-            if( value instanceof Boolean ) {
-                criteria.add(Restrictions.eq(field, value));
-            } else {
-                criteria.add(Restrictions.ilike(field, value));
-            }
+            loadCriteria(field, criteria, parameterMap.get(field));
         }
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
         session.getTransaction().commit();
         return count;
+    }
+
+
+    private void loadCriteria(String field, Criteria criteria, Object value) {
+        if( value instanceof Boolean ) {
+            criteria.add(Restrictions.eq(field, value));
+        } else if( value instanceof Long ) {
+            criteria.add(Restrictions.eq(field, value));
+        } else {
+            criteria.add(Restrictions.ilike(field, value));
+        }
     }
 
 
@@ -137,7 +139,7 @@ public abstract class GenericDAOImpl<T extends GenericEntity> implements Generic
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
-            criteria.add(Restrictions.ilike(field, parameterMap.get(field)));
+            loadCriteria(field, criteria, parameterMap.get(field));
         }
         List<T> resultList = criteria.list();
         // Hibernate.initialize(resultList);

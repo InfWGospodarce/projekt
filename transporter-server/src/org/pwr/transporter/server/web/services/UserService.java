@@ -73,7 +73,11 @@ public class UserService implements UserDetailsService, IService {
     public CustomUserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
         UserAcc user = userLogic.findByUserName(username);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRole());
+        Set<Role> roles = new HashSet<Role>();
+        if( user != null && user.getRole() != null ) {
+            roles = user.getRole();
+        }
+        List<GrantedAuthority> authorities = buildUserAuthority(roles);
 
         return buildUserForAuthentication(user, authorities);
 
@@ -84,10 +88,12 @@ public class UserService implements UserDetailsService, IService {
     // org.springframework.security.core.userdetails.User
     private CustomUserDetails buildUserForAuthentication(UserAcc user, List<GrantedAuthority> authorities) {
 
-        CustomUserDetails userDetails = new CustomUserDetails(user.getUsername(), user.getPassword(), user.isActive(), true, true, true, authorities,
-                user.getSalt());
-        LOGGER.debug("User salt: " + user.getSalt());
-        LOGGER.debug("Deta salt: " + userDetails.getSalt());
+        CustomUserDetails userDetails = null;
+
+        if( user != null ) {
+            userDetails = new CustomUserDetails(user.getUsername(), user.getPassword(), user.isActive(), true, true, true, authorities,
+                    user.getSalt());
+        }
         return userDetails;
     }
 
@@ -253,11 +259,13 @@ public class UserService implements UserDetailsService, IService {
             }
         }
 
+        user.setCustomer(accountForm.getCustomer());
+        user.setEmployee(accountForm.getEmployee());
         Set<Role> roleSet = user.getRole();
         user.setRole(null);
 
-        Long userId = this.userLogic.insert(user);
-        UserAcc userL = userLogic.getByID(userId);
+        this.userLogic.update(user);
+        UserAcc userL = userLogic.getByID(user.getId());
 
         List<UserRoles> userroles = userRolesLogic.getActiveByUserId(user.getId());
         LOGGER.debug("Get user roles: " + userroles.size());
@@ -288,17 +296,16 @@ public class UserService implements UserDetailsService, IService {
     }
 
 
-	@Override
-	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
-			int fromRow, Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <T extends GenericEntity> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
-	@Override
-	public long count(Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public long count(Map<String, Object> criteria) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

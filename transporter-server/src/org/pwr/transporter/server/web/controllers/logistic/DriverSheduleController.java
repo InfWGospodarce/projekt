@@ -49,7 +49,7 @@ public class DriverSheduleController extends GenericController {
         Map<String, Object> criteria = new HashMap<String, Object>();
         criteria.put("active", true);
         if( user.getEmployee() != null ) {
-            criteria.put("employee_id", user.getEmployee().getId());
+            criteria.put("employee.id", user.getEmployee().getId());
         }
 
         List<Task> taskList = getListWitchCriteria(taskService, request, criteria);

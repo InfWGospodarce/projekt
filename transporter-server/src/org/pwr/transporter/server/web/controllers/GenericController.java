@@ -45,7 +45,7 @@ public class GenericController {
      */
     public <T extends GenericEntity> List<T> getList(IService service, HttpServletRequest request) {
 
-        List<T> list = null;
+        List<T> list = new ArrayList<T>();
 
         UserAcc user = (UserAcc) request.getSession().getAttribute(SESION_USER_NAME);
         if( user == null ) {
@@ -67,7 +67,8 @@ public class GenericController {
         }
         return service.getListRest(user.getRowsPerPage(), user.getRowsPerPage() * ( page - 1 ));
     }
-    
+
+
     public <T extends GenericEntity> List<T> getListWitchCriteria(IService service, HttpServletRequest request, Map<String, Object> criteria) {
 
         List<T> list = null;

@@ -49,6 +49,9 @@ public class CustomerAccountValidator implements Validator {
         }
         if( accountForm.getEmployee() != null ) {
             ( new EmployeeValidator("employee.") ).validate(accountForm.getEmployee(), errors);
+            if( accountForm.getUserRoleIds() == null || accountForm.getUserRoleIds().size() <= 1 ) {
+                errors.rejectValue("userRoleIds", "valid.account.roles.to.less");
+            }
         }
 
         if( accountForm.getUser().getId() == null ) {

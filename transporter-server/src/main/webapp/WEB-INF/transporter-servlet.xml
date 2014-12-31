@@ -82,6 +82,7 @@
     <sec:http security='none' pattern="/errors/**"/>
     <sec:http security='none' pattern="/resources/**"/>
     <sec:http security='none' pattern="/index"/>
+    <!-- <sec:http security='none' pattern="/j_spring_security_check"/> -->
     <!-- <sec:http pattern="/user/**" security='none' />
  		<sec:http pattern="/customer/**" security='none' />
 		<sec:http pattern="/admin/**" security='none' />
@@ -91,9 +92,11 @@
 		<sec:http pattern="/account/**" security='none' />
 		<sec:http pattern="/tests/**" security='none' />
 		<sec:http pattern="/driver/**" security='none' /> -->
-    
-    <sec:http use-expressions="true" auto-config="true">
+
+    <sec:http use-expressions="true" auto-config="false">
+
  		<sec:intercept-url pattern="/user/**" access="hasRole('USER')" />
+ 		<!-- <sec:intercept-url pattern="/j_spring_security_logout" access="hasRole('USER')" /> -->
  		<sec:intercept-url pattern="/customer/**" access="hasAnyRole('DEV','CUSTOMER')" />
 		<sec:intercept-url pattern="/admin/**" access="hasAnyRole('DEV','ADMIN')" />
 		<sec:intercept-url pattern="/mag/**" access="hasAnyRole('DEV','MAG')" />
@@ -106,21 +109,26 @@
 		
 		<!-- access denied page -->
 		<sec:access-denied-handler error-page="/errors/403" />
- 
+ 		
+ 		<sec:session-management session-fixation-protection="migrateSession" session-authentication-error-url="/log/login.jsp?authFailed=true"> 
+            <sec:concurrency-control max-sessions="1" error-if-maximum-exceeded="true" expired-url="/log/login" session-registry-alias="sessionRegistry"/>
+        </sec:session-management>
+        
 		<sec:form-login 
 		    login-page="/log/login" 
 		    default-target-url="/index" 
-			authentication-failure-url="/log/login?error"
+			authentication-failure-url="/log/login?error=true"
 			authentication-success-handler-ref="customAuthenticationSuccessHandler"
 			username-parameter="username"
 			password-parameter="password" />
-		<sec:logout logout-success-url="/log/logout"  />
+		<sec:logout logout-success-url="/index" logout-url="/j_spring_security_logout" />
 		<!-- enable csrf protection -->
 		<sec:csrf/>
 	</sec:http>
  
 	<bean id="customAuthProvider" class="org.pwr.transporter.server.core.sec.CustomAuthenticationProvider" />
 	<bean id="customAuthenticationSuccessHandler" class="org.pwr.transporter.server.web.controllers.account.CustomAuthenticationSuccessHandler" />
+	<bean id="customLogoutHandler" class="org.pwr.transporter.server.web.controllers.account.CustomLogoutHandler" />
 	
 	<sec:authentication-manager>
 		<sec:authentication-provider ref="customAuthProvider" >

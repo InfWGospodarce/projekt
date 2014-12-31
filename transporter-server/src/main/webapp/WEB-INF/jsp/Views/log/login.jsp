@@ -9,7 +9,10 @@
 		<form:form action="/transporter-server/j_spring_security_check" method="post" commandName="user">
 		<%-- <form:form action="/transporter-server/log/login" method="post" commandName="user"> --%>
 			<h1> Login </h1>
-			<form:errors path="username" cssClass="error" />
+			<c:if test="${not empty param.error}">
+				<span class="error">Błąd logowania</span>
+			</c:if>
+			
 			
 			 <div class="form-group">
 			<form:label path="username">Użytkownik</form:label>
@@ -21,16 +24,8 @@
 			<form:label path="password">Hasło</form:label>
 			<form:password path="password" class="form-control"/>
 			</div>
-			
-			
-				
-					<input type="submit" class="btn btn-primary" value="Zaloguj" />
-					
-					<a class="btn btn-link" href="/transporter-server/log/register">Zarejestruj </a>
-				
-		
-		<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
+			<input type="submit" class="btn btn-primary" value="Zaloguj" />
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		</form:form>
 	</div>
 	</div>
