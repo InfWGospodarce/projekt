@@ -13,7 +13,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.server.dao.GenericDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,7 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author W.S., copied from examples
  * @version 0.1.5
  */
-public abstract class GenericDAOImpl<T extends GenericEntity> implements GenericDAO<T> {
+public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T> {
 
     protected Class<T> clazz;
 

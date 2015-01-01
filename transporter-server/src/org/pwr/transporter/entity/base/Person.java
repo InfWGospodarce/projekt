@@ -18,7 +18,7 @@ import org.pwr.transporter.entity.GenericEntity;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.7
+ * @version 0.0.8
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -48,7 +48,7 @@ public abstract class Person extends GenericEntity {
 
 
     public Person() {
-        name = null;
+        this.setName(null);
         surname = null;
     }
 

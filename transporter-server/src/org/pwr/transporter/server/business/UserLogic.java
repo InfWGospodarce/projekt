@@ -109,4 +109,14 @@ public class UserLogic {
         return userDAO.count();
     }
 
+
+    public long count(Map<String, Object> criteria) {
+        return this.userDAO.count(criteria);
+    }
+
+
+    public List<UserAcc> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return this.userDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
 }

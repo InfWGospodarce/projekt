@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * <hr/>
  * 
  * @author x0r
- * @version 0.0.3
+ * @version 0.0.4
  */
 @Entity
 @Table(name = NamesForHibernate.ROLE)
@@ -39,7 +39,7 @@ public class Role extends GenericEntity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ( ( name == null ) ? 0 : name.hashCode() );
+        result = prime * result + ( ( this.getName() == null ) ? 0 : this.getName().hashCode() );
         return result;
     }
 
@@ -53,10 +53,10 @@ public class Role extends GenericEntity {
         if( getClass() != obj.getClass() )
             return false;
         Role other = (Role) obj;
-        if( name == null ) {
-            if( other.name != null )
+        if( this.getName() == null ) {
+            if( other.getName() != null )
                 return false;
-        } else if( !name.equals(other.name) )
+        } else if( !this.getName().equals(other.getName()) )
             return false;
         return true;
     }

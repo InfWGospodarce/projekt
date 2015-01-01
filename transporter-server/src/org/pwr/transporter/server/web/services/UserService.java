@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.UserRoles;
@@ -296,16 +296,15 @@ public class UserService implements UserDetailsService, IService {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T extends GenericEntity> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
-        // TODO Auto-generated method stub
-        return null;
+    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return (List<T>) userLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 
     @Override
     public long count(Map<String, Object> criteria) {
-        // TODO Auto-generated method stub
-        return 0;
+        return userLogic.count(criteria);
     }
 }

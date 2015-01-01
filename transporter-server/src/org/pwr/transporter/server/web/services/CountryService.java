@@ -4,10 +4,11 @@ package org.pwr.transporter.server.web.services;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.server.business.CountryLogic;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 
 /**
@@ -21,60 +22,70 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class CountryService implements IService {
 
-	@Autowired
-	CountryLogic countryLogic;
+    @Autowired
+    CountryLogic countryLogic;
 
-	public Country getByID( Long id ) {
-		return this.countryLogic.getByID(id);
-	}
 
-	public List<Country> getList() {
-		return this.countryLogic.getList();
-	}
+    public Country getByID(Long id) {
+        return this.countryLogic.getByID(id);
+    }
 
-	public List<Country> search( Map<String, Object> parameterMap ) {
-		return this.countryLogic.search(parameterMap);
-	}
 
-	public Long insert( Country entity ) {
-		return this.countryLogic.insert(entity);
-	}
+    public List<Country> getList() {
+        return this.countryLogic.getList();
+    }
 
-	public void update( Country entity ) {
-		this.countryLogic.update(entity);
-	}
 
-	public void delete( Country entity ) {
-		this.countryLogic.delete(entity);
-	}
+    public List<Country> search(Map<String, Object> parameterMap) {
+        return this.countryLogic.search(parameterMap);
+    }
 
-	public void deleteById( Long id ) {
-		this.countryLogic.deleteById(id);
-	}
 
-	public Country getInternalCountry() {
-		return this.countryLogic.getInternalCountry();
-	}
+    public Long insert(Country entity) {
+        return this.countryLogic.insert(entity);
+    }
 
-	public List<Country> getListRest( int amount, int fromRow ) {
-		return countryLogic.getListRest(amount, fromRow);
-	}
 
-	public long count() {
-		return countryLogic.count();
-	}
+    public void update(Country entity) {
+        this.countryLogic.update(entity);
+    }
 
-	@Override
-	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
-			int fromRow, Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public long count(Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    public void delete(Country entity) {
+        this.countryLogic.delete(entity);
+    }
+
+
+    public void deleteById(Long id) {
+        this.countryLogic.deleteById(id);
+    }
+
+
+    public Country getInternalCountry() {
+        return this.countryLogic.getInternalCountry();
+    }
+
+
+    public List<Country> getListRest(int amount, int fromRow) {
+        return countryLogic.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return countryLogic.count();
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return (List<T>) countryLogic.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    @Override
+    public long count(Map<String, Object> criteria) {
+        return countryLogic.count(criteria);
+    }
 
 }

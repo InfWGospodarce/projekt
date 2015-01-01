@@ -4,7 +4,7 @@ package org.pwr.transporter.server.web.services.enums;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.server.business.enums.AddrStreetPrefixLogic;
 import org.pwr.transporter.server.web.services.IService;
@@ -70,18 +70,17 @@ public class AddrStreetPrefixService implements IService {
     }
 
 
-	@Override
-	public <T extends GenericEntity> List<T> getListRestCrit(int amount,
-			int fromRow, Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
-	@Override
-	public long count(Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public long count(Map<String, Object> criteria) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

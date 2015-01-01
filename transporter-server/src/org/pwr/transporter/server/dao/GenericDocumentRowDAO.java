@@ -1,7 +1,7 @@
 package org.pwr.transporter.server.dao;
 
 
-import org.pwr.transporter.entity.article.GenericWare;
+import org.pwr.transporter.entity.base.GenericDocument;
 
 
 
@@ -12,10 +12,10 @@ import org.pwr.transporter.entity.article.GenericWare;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.3
  * @param <T>
  * @param <ID>
  */
-public interface GenericWareDAO<T extends GenericWare> extends GenericDAO<T> {
+public interface GenericDocumentRowDAO<T extends GenericDocument> extends GenericDAO<T> {
 
 }
