@@ -4,6 +4,7 @@ package org.pwr.transporter.server.web.services;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.server.business.CustomerLogic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CustomerService {
         this.customerLogic = customerLogic;
     }
 
+	public Customer getByID( Long id ) {
+		return this.customerLogic.getByID(id);
+	}
 
     public List<Customer> getList() {
         return this.customerLogic.getList();
