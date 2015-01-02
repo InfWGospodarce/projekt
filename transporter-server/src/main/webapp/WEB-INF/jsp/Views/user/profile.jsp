@@ -32,8 +32,8 @@
 				</div>
 				
 				<div class="form-group">
-				<form:label path="customerAccountForm.userRoleIds">Prawa</form:label>
-					<form:select disabled="true" class="form-control" path="customerAccountForm.userRoleIds" multiple="true">
+				<form:label path="customerAccountForm.user.role">Prawa</form:label>
+					<form:select disabled="true" class="form-control" path="customerAccountForm.user.role">
 					    <form:options items="${roles}" itemValue="id" itemLabel="description" cssErrorClass="errorBc"/>
 					</form:select>
 				</div>

@@ -7,7 +7,7 @@
 	<div class="col-md-6">
 		<div class="well">
 
-			<h1>Profil</h1>
+			<h1>Edycja profilu</h1>
 					
 			<form:form action="/transporter-server/user/profileEdit" method="post" commandName="customerAccountForm">
 					
@@ -27,7 +27,7 @@
 						
 						<div class="form-group">
 						<form:label path="userRoleIds">Prawa</form:label>
-							<form:select disabled="true" form-control" path="userRoleIds" multiple="true">
+							<form:select disabled="true" class="form-control" path="userRoleIds" multiple="true">
 							    <form:options items="${roles}" itemValue="id" itemLabel="description" cssErrorClass="errorBc"/>
 							</form:select>
 						<form:errors path="userRoleIds" cssClass="error" />
@@ -36,7 +36,7 @@
 				
 					<%@ include file="../base/accountSimpleEdit.jsp" %>
 					<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
-					<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/userList?page=${page}'" />
+					<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/user/profile'" />
 						
 			</form:form>
 			
@@ -47,6 +47,14 @@
 						
 						target.classList[this.checked ? 'remove' : 'add']('hidden');
 					});
+				});
+			</script>
+			<script>
+				$(window).load(document.querySelectorAll('.js_toggle')).forEach(function (checkbox) {
+					if (checkbox.is(':checked')){
+						var target = document.querySelector(this.dataset.target);
+						target.getElementsByTagName(checkbox.getAttribute("data-target")).show();//classList[this.checked ? 'remove' : 'add']('hidden');
+					}
 				});
 			</script>
 		</div>

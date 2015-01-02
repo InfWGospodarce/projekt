@@ -12,6 +12,7 @@ import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.UserRoles;
+import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
@@ -234,29 +235,49 @@ public class UserService implements UserDetailsService, IService {
         if( accountForm.getEmployee() != null ) {
             if( !accountForm.isCorespondeAddress() ) {
                 accountForm.getCorrespondeAddress().setActive(false);
+                if( accountForm.getCorrespondeAddress().getId() != null ) {
+                    addressLogic.update(accountForm.getCorrespondeAddress());
+                }
                 accountForm.getEmployee().setContacAddress(null);
             } else {
-                accountForm.getEmployee().setContacAddress(accountForm.getCorrespondeAddress());
+                Long id = null;
+                if( accountForm.getCorrespondeAddress().getId() != null ) {
+                    addressLogic.update(accountForm.getCorrespondeAddress());
+                    id = accountForm.getCorrespondeAddress().getId();
+                } else {
+                    id = addressLogic.insert(accountForm.getCorrespondeAddress());
+                }
+                Address adr = addressLogic.getByID(id);
+                accountForm.getEmployee().setContacAddress(adr);
             }
             accountForm.getEmployee().setBaseAddress(accountForm.getBaseAddress());
             EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
             accountForm.getEmployee().setEmplyeeType(employeeType);
+
             employeeLogic.update(accountForm.getEmployee());
-            if( accountForm.getCorrespondeAddress().getId() != null ) {
-                addressLogic.update(accountForm.getCorrespondeAddress());
-            }
+
         } else {
             if( !accountForm.isCorespondeAddress() ) {
                 accountForm.getCorrespondeAddress().setActive(false);
+                if( accountForm.getCorrespondeAddress().getId() != null ) {
+                    addressLogic.update(accountForm.getCorrespondeAddress());
+                }
                 accountForm.getCustomer().setContacAddress(null);
             } else {
-                accountForm.getCustomer().setContacAddress(accountForm.getCorrespondeAddress());
+                Long id = null;
+                if( accountForm.getCorrespondeAddress().getId() != null ) {
+                    addressLogic.update(accountForm.getCorrespondeAddress());
+                    id = accountForm.getCorrespondeAddress().getId();
+                } else {
+                    id = addressLogic.insert(accountForm.getCorrespondeAddress());
+                }
+                Address adr = addressLogic.getByID(id);
+                accountForm.getCustomer().setContacAddress(adr);
             }
             accountForm.getCustomer().setBaseAddress(accountForm.getBaseAddress());
+
             customerLogic.update(accountForm.getCustomer());
-            if( accountForm.getCorrespondeAddress().getId() != null ) {
-                addressLogic.update(accountForm.getCorrespondeAddress());
-            }
+
         }
 
         user.setCustomer(accountForm.getCustomer());

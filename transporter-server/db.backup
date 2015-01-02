@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.5
--- Started on 2014-12-21 18:56:47 CET
+-- Started on 2015-01-02 17:25:28 CET
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -16,41 +16,56 @@ SET client_min_messages = warning;
 SET search_path = public, pg_catalog;
 
 --
--- TOC entry 2216 (class 0 OID 145722)
+-- TOC entry 2229 (class 0 OID 147593)
 -- Dependencies: 172
 -- Data for Name: addr_street_prefix; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY addr_street_prefix (id, active, search_key, name, value, nprefix) FROM stdin;
-101	t	ul	Ul.	1	Ul.
-102	t	pl	Pl.	2	Pl.
+COPY addr_street_prefix (id, active, name, search_key, value, nprefix) FROM stdin;
+12	t	Ulica	ul	0	Ul.
+13	t	Plac	pl	0	Pl.
+48	t	Aleja	al	1	Al.
 \.
 
 
 --
--- TOC entry 2217 (class 0 OID 145730)
+-- TOC entry 2230 (class 0 OID 147601)
 -- Dependencies: 173
 -- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY address (id, active, search_key, city, local, post_city, street, zip_code, addrstreetprefix_id, country_id, customer_id) FROM stdin;
-40	t	Wrocław Developerska	Wrocław	23	Wrocław	Developerska	50-000	101	103	\N
-41	t	 						101	103	\N
+COPY address (id, active, name, search_key, city, local, post_city, street, zip_code, addrstreetprefix_id, country_id, customer_id) FROM stdin;
+46	t	\N	Wrocław Transportowa	Wrocław	48a	Wrocław	Transportowa	50-001	12	13	\N
+57	t	\N	Wrocław Developerska	Wrocław	32	Wrocław	Developerska	50-018	12	13	\N
+58	t	\N	Wrocław Inna	Wrocław	66	Wrocław	Inna	50-963	12	13	\N
+65	t	\N	Wrocław Magazynowa	Wrocław	78	Wrocław	Magazynowa	50-075	12	13	\N
+70	t	\N	Wrocław Magazynowa	Wrocław	45	Wrocław	Magazynowa	50-465	12	13	\N
+71	t	\N	Wrocław Odległa	Wrocław	645	Wrocław	Odległa	50-795	12	13	\N
+76	t	\N	Wrocław Magazynowa	Wrocław	789	Wrocław	Magazynowa	50-789	12	13	\N
+82	t	\N	Wrocław Zaporowska	Wrocław	2/5	Wrocław	Zaporowska	51-745	12	13	\N
+88	t	\N	Wrocław Developerska	Wrocław	23	Wrocław	Developerska	50-000	12	13	\N
+93	t	\N	Wrocław Tadeusza Kościuszki	Wrocław	67	Wrocław	Tadeusza Kościuszki	51-345	13	13	\N
+99	t	\N	Wrocław Szybka	Wrocław	45	Wrocław	Szybka	51-365	12	13	\N
+104	t	\N	Wrocław Muzealna	Wrocław	123	Wrocław	Muzealna	51-745	12	13	\N
+110	t	\N	Wrocław Oleśnicka	Wrocław	12/7	Wrocław	Oleśnicka	52-224	12	13	\N
+115	t	\N	Wrocław Mieszka I	Wrocław	56/45c	Wrocław	Mieszka I	65-456	12	13	\N
+120	t	\N	Wrocław Kościelny	Wrocław	78/96	Wrocław	Kościelny	50-000	13	13	\N
+125	t	\N	Wrocław Kanonia	Wrocław	78/55	Wrocław	Kanonia	80-112	12	13	\N
 \.
 
 
 --
--- TOC entry 2218 (class 0 OID 145738)
+-- TOC entry 2231 (class 0 OID 147609)
 -- Dependencies: 174
 -- Data for Name: article; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY article (code, generic_ware_id) FROM stdin;
+COPY article (code, name, generic_ware_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2219 (class 0 OID 145743)
+-- TOC entry 2232 (class 0 OID 147617)
 -- Dependencies: 175
 -- Data for Name: bundle; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -60,101 +75,122 @@ COPY bundle (consecutivenumber, generic_ware_id) FROM stdin;
 
 
 --
--- TOC entry 2220 (class 0 OID 145748)
+-- TOC entry 2233 (class 0 OID 147622)
 -- Dependencies: 176
 -- Data for Name: company_data; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY company_data (id, active, search_key, address, name, nip, regon) FROM stdin;
+COPY company_data (id, active, name, search_key, nip, regon, address_id) FROM stdin;
+47	t	Transporter Sp. z o. o.	firma	123-456-32-18	123456785	46
 \.
 
 
 --
--- TOC entry 2221 (class 0 OID 145756)
+-- TOC entry 2234 (class 0 OID 147630)
 -- Dependencies: 177
 -- Data for Name: country; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY country (id, active, search_key, iso_code, code, code_eu, name, native_name) FROM stdin;
-103	t	POL	POL	PL	PL	Polska	Polska
-104	t	Nie	DEU	DE	DE	Niemcy	Deutchland
-105	t	Brytania	GBR	GB	GB	Wilka brytania	United Kingdom
+COPY country (id, active, name, search_key, iso_code, code, code_eu, native_name) FROM stdin;
+14	t	Niemcy	niemcy	DEU	DE	DE	Deutchland
+13	t	Polska	polska	POL	PL	PL	Polska
+15	t	Wielka Brytania	brytania	GBR	GB	GB	United Kingdom
+49	t	Austria	austria	AUT	AU	AU	Österreich
+50	t	Chińska Republika Ludowa	chiny	CHN	CN	CN	中國
 \.
 
 
 --
--- TOC entry 2222 (class 0 OID 145764)
+-- TOC entry 2235 (class 0 OID 147638)
 -- Dependencies: 178
 -- Data for Name: customer; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY customer (id, active, search_key, email, name, nip, surname, baseaddress_id, contacaddress_id, company, companyname, regon) FROM stdin;
-42	t	Adam Kozłowski	\N	Adam		Kozłowski	40	41	f		
+COPY customer (id, active, name, search_key, email, nip, surname, baseaddress_id, contacaddress_id, company, companyname, regon) FROM stdin;
 \.
 
 
 --
--- TOC entry 2223 (class 0 OID 145772)
+-- TOC entry 2236 (class 0 OID 147646)
 -- Dependencies: 179
 -- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY employee (id, active, search_key, email, name, nip, surname, baseaddress_id, contacaddress_id, emplyeetype_id) FROM stdin;
+COPY employee (id, active, name, search_key, email, nip, surname, baseaddress_id, contacaddress_id, emplyeetype_id) FROM stdin;
+59	t	Adam		\N	\N	Admin	57	58	51
+66	t	Mariusz		\N	\N	Magazynowicz	65	\N	56
+72	t	Maciej		\N	\N	Magazynowicz	70	71	56
+77	t	Mirosław		\N	\N	Jankowski	76	\N	56
+83	t	Łukasz		\N	\N	Wielkopolski	82	\N	52
+89	t	Witold		\N	\N	Developer	88	\N	51
+94	t	Janusz		\N	\N	Nowakowski	93	\N	54
+100	t	Adam		\N	\N	Kierowca	99	\N	52
+105	t	Krzysztof		\N	\N	Kapusta	104	\N	52
+111	t	Wojciech		\N	\N	Wróblewski	110	\N	52
+116	t	Wacław		\N	\N	Cholewski	115	\N	54
+121	t	Jerzy		\N	\N	Ksisielewicz	120	\N	55
+126	t	Kazimierz		\N	\N	Stonoga	125	\N	53
 \.
 
 
 --
--- TOC entry 2224 (class 0 OID 145780)
+-- TOC entry 2237 (class 0 OID 147654)
 -- Dependencies: 180
 -- Data for Name: enum_emplyee_type; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY enum_emplyee_type (id, active, search_key, name, value) FROM stdin;
+COPY enum_emplyee_type (id, active, name, search_key, value, code) FROM stdin;
+51	t	Informatyk	informatyk	0	IT
+52	t	Kierowca	kierowca	1	Driver
+53	t	Księgowa/y	księgow	2	Account
+54	t	Logistyk	logistyk	3	Logistic
+55	t	Sprzedawca	sprzedawca	4	Seller
+56	t	Magazynier	magazynier	5	Warehouseman
 \.
 
 
 --
--- TOC entry 2225 (class 0 OID 145788)
+-- TOC entry 2238 (class 0 OID 147662)
 -- Dependencies: 181
 -- Data for Name: enum_opaque_type; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY enum_opaque_type (id, active, search_key) FROM stdin;
+COPY enum_opaque_type (id, active, name, search_key) FROM stdin;
 \.
 
 
 --
--- TOC entry 2226 (class 0 OID 145793)
+-- TOC entry 2239 (class 0 OID 147670)
 -- Dependencies: 182
 -- Data for Name: generic_document; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY generic_document (id, active, search_key, customer_id, deliveryaddress_id) FROM stdin;
+COPY generic_document (id, active, name, search_key, customer_id, deliveryaddress_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2227 (class 0 OID 145798)
+-- TOC entry 2240 (class 0 OID 147678)
 -- Dependencies: 183
 -- Data for Name: generic_document_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY generic_document_row (id, active, search_key, generic_document_id, ware_id) FROM stdin;
+COPY generic_document_row (id, active, name, search_key, generic_document_id, ware_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2228 (class 0 OID 145803)
+-- TOC entry 2241 (class 0 OID 147686)
 -- Dependencies: 184
 -- Data for Name: generic_ware; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY generic_ware (id, active, depth, height, search_key, weight, width) FROM stdin;
+COPY generic_ware (id, active, name, search_key, depth, height, weight, width) FROM stdin;
 \.
 
 
 --
--- TOC entry 2229 (class 0 OID 145808)
+-- TOC entry 2242 (class 0 OID 147694)
 -- Dependencies: 185
 -- Data for Name: goods_issued_note; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -164,7 +200,7 @@ COPY goods_issued_note (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2230 (class 0 OID 145813)
+-- TOC entry 2243 (class 0 OID 147699)
 -- Dependencies: 186
 -- Data for Name: goods_issued_note_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -174,7 +210,7 @@ COPY goods_issued_note_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2231 (class 0 OID 145818)
+-- TOC entry 2244 (class 0 OID 147704)
 -- Dependencies: 187
 -- Data for Name: goods_received_note; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -184,7 +220,7 @@ COPY goods_received_note (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2232 (class 0 OID 145823)
+-- TOC entry 2245 (class 0 OID 147709)
 -- Dependencies: 188
 -- Data for Name: goods_received_note_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -194,36 +230,36 @@ COPY goods_received_note_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2260 (class 0 OID 0)
+-- TOC entry 2273 (class 0 OID 0)
 -- Dependencies: 170
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: x0r
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 45, true);
+SELECT pg_catalog.setval('hibernate_sequence', 129, true);
 
 
 --
--- TOC entry 2233 (class 0 OID 145828)
+-- TOC entry 2246 (class 0 OID 147714)
 -- Dependencies: 189
 -- Data for Name: inventory_balance; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY inventory_balance (id, active, search_key, quantity, shelf_id, ware_id) FROM stdin;
+COPY inventory_balance (id, active, name, search_key, quantity, shelf_id, ware_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2215 (class 0 OID 145717)
+-- TOC entry 2228 (class 0 OID 147585)
 -- Dependencies: 171
 -- Data for Name: itinerary; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY itinerary (id, active, search_key, goodsissuednote_generic_document_id, task_id) FROM stdin;
+COPY itinerary (id, active, name, search_key, goodsissuednote_generic_document_id, task_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2234 (class 0 OID 145833)
+-- TOC entry 2247 (class 0 OID 147722)
 -- Dependencies: 190
 -- Data for Name: packaging; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -233,7 +269,7 @@ COPY packaging (generic_ware_id, opaquetype_id) FROM stdin;
 
 
 --
--- TOC entry 2235 (class 0 OID 145838)
+-- TOC entry 2248 (class 0 OID 147727)
 -- Dependencies: 191
 -- Data for Name: purchase_invoice; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -243,7 +279,7 @@ COPY purchase_invoice (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2236 (class 0 OID 145843)
+-- TOC entry 2249 (class 0 OID 147732)
 -- Dependencies: 192
 -- Data for Name: purchase_invoice_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -253,7 +289,7 @@ COPY purchase_invoice_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2237 (class 0 OID 145848)
+-- TOC entry 2250 (class 0 OID 147737)
 -- Dependencies: 193
 -- Data for Name: purchase_order; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -263,7 +299,7 @@ COPY purchase_order (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2238 (class 0 OID 145853)
+-- TOC entry 2251 (class 0 OID 147742)
 -- Dependencies: 194
 -- Data for Name: purchase_order_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -273,7 +309,7 @@ COPY purchase_order_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2239 (class 0 OID 145858)
+-- TOC entry 2252 (class 0 OID 147747)
 -- Dependencies: 195
 -- Data for Name: request; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -283,7 +319,7 @@ COPY request (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2240 (class 0 OID 145863)
+-- TOC entry 2253 (class 0 OID 147752)
 -- Dependencies: 196
 -- Data for Name: request_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -293,26 +329,26 @@ COPY request_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2241 (class 0 OID 145868)
+-- TOC entry 2254 (class 0 OID 147757)
 -- Dependencies: 197
 -- Data for Name: role; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY role (id, active, search_key, name) FROM stdin;
-1	t	USER	USER
-2	t	CUSTOMER	CUSTOMER
-4	t	MAG	MAG
-6	t	SALES	SALES
-7	t	LOGISTIC	LOGISTIC
-8	t	ACCOUNT	ACCOUNT
-9	t	ADMIN	ADMIN
-23	t	DEV	DEV
-10	t	DRIVER	DRIVER
+COPY role (id, active, name, search_key, description) FROM stdin;
+1	t	USER	USER	Podstawowy użytkowynik systemu
+2	t	CUSTOMER	CUSTOMER	Klient
+4	t	MAG	MAG	Magazynier
+6	t	SALES	SALES	Sprzedawca
+7	t	LOGISTIC	LOGISTIC	Logistyk
+8	t	ACCOUNT	ACCOUNT	Księgowość
+9	t	ADMIN	ADMIN	Administrator
+10	t	DRIVER	DRIVER	Kierowca
+11	t	DEV	DEV	Developer
 \.
 
 
 --
--- TOC entry 2242 (class 0 OID 145876)
+-- TOC entry 2255 (class 0 OID 147765)
 -- Dependencies: 198
 -- Data for Name: sales_invoice; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -322,7 +358,7 @@ COPY sales_invoice (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2243 (class 0 OID 145881)
+-- TOC entry 2256 (class 0 OID 147770)
 -- Dependencies: 199
 -- Data for Name: sales_invoice_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -332,7 +368,7 @@ COPY sales_invoice_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2244 (class 0 OID 145886)
+-- TOC entry 2257 (class 0 OID 147775)
 -- Dependencies: 200
 -- Data for Name: sales_order; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -342,7 +378,7 @@ COPY sales_order (generic_document_id) FROM stdin;
 
 
 --
--- TOC entry 2245 (class 0 OID 145891)
+-- TOC entry 2258 (class 0 OID 147780)
 -- Dependencies: 201
 -- Data for Name: sales_order_row; Type: TABLE DATA; Schema: public; Owner: x0r
 --
@@ -352,70 +388,109 @@ COPY sales_order_row (generic_document_row_id) FROM stdin;
 
 
 --
--- TOC entry 2246 (class 0 OID 145896)
+-- TOC entry 2259 (class 0 OID 147785)
 -- Dependencies: 202
 -- Data for Name: shelf; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY shelf (id, active, search_key, code, coordinate_x, coordinate_y, coordinate_z, depth, empty, filled, height, max_weight, width, warehouse_id) FROM stdin;
+COPY shelf (id, active, name, search_key, code, coordinate_x, coordinate_y, coordinate_z, depth, empty, filled, height, max_weight, width, warehouse_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2247 (class 0 OID 145904)
+-- TOC entry 2260 (class 0 OID 147793)
 -- Dependencies: 203
 -- Data for Name: task; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY task (id, active, search_key, employee_id, vehicle_id) FROM stdin;
+COPY task (id, active, name, search_key, employee_id, vehicle_id) FROM stdin;
 \.
 
 
 --
--- TOC entry 2248 (class 0 OID 145909)
+-- TOC entry 2261 (class 0 OID 147801)
 -- Dependencies: 204
 -- Data for Name: useracc; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY useracc (id, active, search_key, email, password, rows_per_page, salt, username, customer_id, emplyee_id) FROM stdin;
-43	t	dev	dev@transporter	d0760d19890873ed624162980a7e64c6e2aeb9bf19f6e9dd6fa6512d84699679	20	09a2e444ad7c74e58022bd5135192b15646576	dev	42	\N
+COPY useracc (id, active, name, search_key, email, password, rows_per_page, salt, username, customer_id, employee_id) FROM stdin;
+60	t	\N	admin	admin@transporter.com	39e8b00e839cce292f8622da5f48b7245b0eb4169229a804cf82e56fd18bb246	20	c24edfc25f32b452b46a5ed7035d264c61646d696e	admin	\N	59
+67	t	\N	Magazynier	mag@transporter.com	c4303e28dc19295f1d7c12c5b4ea28e7bd415c5b035825c01c34c97b274acb98	20	fdda1658a1a14f103b0f0567d4036ec04d6167617a796e696572	Magazynier	\N	66
+73	t	\N	mag2	mag2@transporter.com	2a8ecc5be6662d0b02c063751a761a00f58f44cffaf2b5135cb9b4942c5a9f01	20	d14aafafaa06a67b75f58e48c84224bd6d616732	mag2	\N	72
+78	t	\N	mag3	mag3@transporter.com	f56f4c825eb1ad428834d472b9a5312c5c726f8a96e4c9610ff7cf914c7a1b92	20	56edd57d3d4c2f634065b84c1eebd9446d616733	mag3	\N	77
+84	t	\N	magdrive	magdrive@transporter.com	c72bb8a04580f40bddfda1c9a8fe7302cc8c70b6f586e59f4fe52da6702a6b21	20	2bdf7f56ab5826bec5067bd193d277d66d61676472697665	magdrive	\N	83
+90	t	\N	dev	dev@transporter.com	fbd443ef1657b8d70e115037f745db00beb12e01d04829127dbcb31d159a504b	20	88b435b599e0903dd0ca019f92bfcef3646576	dev	\N	89
+95	t	\N	maglog	maglog@transporter.com	5194a5e34d380de44acf6c935e49016a08e7d82af5bf9d976617044af53c7972	20	621e65148062ca47fcad52b3c76e7a966d61676c6f67	maglog	\N	94
+101	t	\N	driver	driver@developer	efe02346d31e2efbe81108ea8d0d4e1460184ae59ec46705d96c72005ddd9e82	20	9f781051c41622e6a4d0bd78324b148b647269766572	driver	\N	100
+106	t	\N	driver2	driver2@transporter.com	3acae1db986b54df1bbf7504d36deb0558f6a3d74c6d5f543bb8f25fd8c19684	20	8ccdf9af543182157b502b6af0d9ebc564726976657232	driver2	\N	105
+112	t	\N	driver3	driver3@transporter.com	d9ddc474ac44edbd264b93bda7ccdc07151a727a467d43993900ec3ce98c7a2c	20	585b5ee3a84aaf5f6aedfc94f65e561464726976657233	driver3	\N	111
+117	t	\N	logistic	logistic@transporter.com	d391b90b6d167639145ad7c1e67340886078e77ae6912ef5b6dd3719df2a5672	20	6118e18a377518c81c502fa52c553ce26c6f676973746963	logistic	\N	116
+122	t	\N	seller	seller@transporter.com	134793eaf6391abc0c3d608df22b831d40ec1a69229906eee3c866f409d84e9a	20	e14e8c445ad25c8305d29767c03fd42773656c6c6572	seller	\N	121
+127	t	\N	account	account@transporter.com	dfd8635a309e8cc0663ef6f30c9c6808bd732e88bb232148614e09630256b276	20	e054dffc1c13ee4af4f8ea04665b54cf6163636f756e74	account	\N	126
 \.
 
 
 --
--- TOC entry 2249 (class 0 OID 145917)
+-- TOC entry 2262 (class 0 OID 147809)
 -- Dependencies: 205
 -- Data for Name: useracc_role; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY useracc_role (id, active, search_key, role_id, useracc_id) FROM stdin;
-44	t	USER dev	1	43
-45	t	CUSTOMER dev	2	43
-46	t	DEV dev	23	43
+COPY useracc_role (id, active, name, search_key, role_id, useracc_id) FROM stdin;
+63	t	\N	ADMIN admin	9	60
+64	t	\N	USER admin	1	60
+68	t	\N	MAG Magazynier	4	67
+69	t	\N	USER Magazynier	1	67
+74	t	\N	MAG mag2	4	73
+75	t	\N	USER mag2	1	73
+79	t	\N	LOGISTIC mag3	7	78
+80	t	\N	MAG mag3	4	78
+81	t	\N	USER mag3	1	78
+85	t	\N	DRIVER magdrive	10	84
+86	t	\N	MAG magdrive	4	84
+87	t	\N	USER magdrive	1	84
+91	t	\N	DEV dev	11	90
+92	t	\N	USER dev	1	90
+96	t	\N	LOGISTIC maglog	7	95
+97	t	\N	MAG maglog	4	95
+98	t	\N	USER maglog	1	95
+102	t	\N	DRIVER driver	10	101
+103	t	\N	USER driver	1	101
+107	t	\N	DRIVER driver2	10	106
+108	t	\N	LOGISTIC driver2	7	106
+109	t	\N	USER driver2	1	106
+113	t	\N	DRIVER driver3	10	112
+114	t	\N	USER driver3	1	112
+118	t	\N	LOGISTIC logistic	7	117
+119	t	\N	USER logistic	1	117
+123	t	\N	SALES seller	6	122
+124	t	\N	USER seller	1	122
+128	t	\N	USER account	1	127
+129	t	\N	ACCOUNT account	8	127
 \.
 
 
 --
--- TOC entry 2250 (class 0 OID 145922)
+-- TOC entry 2263 (class 0 OID 147817)
 -- Dependencies: 206
 -- Data for Name: vehicle; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY vehicle (id, active, search_key, plate) FROM stdin;
+COPY vehicle (id, active, name, search_key, plate) FROM stdin;
 \.
 
 
 --
--- TOC entry 2251 (class 0 OID 145930)
+-- TOC entry 2264 (class 0 OID 147825)
 -- Dependencies: 207
 -- Data for Name: warehouse; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY warehouse (id, active, search_key, address_id) FROM stdin;
+COPY warehouse (id, active, name, search_key, address_id) FROM stdin;
 \.
 
 
--- Completed on 2014-12-21 18:56:47 CET
+-- Completed on 2015-01-02 17:25:28 CET
 
 --
 -- PostgreSQL database dump complete

@@ -23,6 +23,11 @@
 					<form:input path="name" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="name" cssClass="error" />
 				</div>
+				<div class="form-group">
+					<form:label path="code">Tag</form:label>
+					<form:input path="code" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="code" cssClass="error" />
+				</div>
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/employeeTypeList?page=${page}'" />
 			</form:form>

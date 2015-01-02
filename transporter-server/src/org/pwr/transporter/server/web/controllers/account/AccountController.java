@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.1.1
+ * @version 0.1.8
  */
 @Controller
 public class AccountController extends GenericController {
@@ -104,18 +104,18 @@ public class AccountController extends GenericController {
 
         prepareData(request, model);
 
-        return "/Views/admin/userEdit";
+        return "/Views/base/userEdit";
     }
 
 
     private void prepareData(HttpServletRequest request, Model model) {
-        prepareData(request, model, true);
+        prepareData(request, model, false);
     }
 
 
     private boolean prepareData(HttpServletRequest request, Model model, boolean simpleModel) {
 
-        loadData(model, simpleModel);
+        loadData(model, !simpleModel);
 
         CustomerAccountForm customerAccountForm = new CustomerAccountForm();
 
@@ -155,6 +155,7 @@ public class AccountController extends GenericController {
                 employee = user.getEmployee();
                 if( employee == null ) {
                     person = user.getCustomer();
+                    customer = user.getCustomer();
                 } else {
                     person = employee;
                     customerAccountForm.setEmployeeTypeId(employee.getEmplyeeType().getId().toString());
@@ -208,7 +209,7 @@ public class AccountController extends GenericController {
             loadData(model, true);
             model.addAttribute("customerAccountForm", accountForm);
             LOGGER.debug(formBindeings.getFieldErrors().toString());
-            return "/Views/admin/userEdit";
+            return "/Views/base/userEdit";
         }
 
         accountForm.getUser().setRole(new HashSet<Role>());
@@ -295,7 +296,7 @@ public class AccountController extends GenericController {
     @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
     public String getUserProfile(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        if( !prepareData(request, model, false) ) {
+        if( !prepareData(request, model, true) ) {
             return "/Views/log/login";
         }
         return "/Views/user/profile";
@@ -305,14 +306,89 @@ public class AccountController extends GenericController {
     @RequestMapping(value = "/user/profileEdit", method = RequestMethod.GET)
     public String getUserProfileEdit(HttpServletRequest request, HttpServletResponse response, Model model) {
 
+        if( !prepareData(request, model, true) ) {
+            return "/Views/log/login";
+        }
+
         return "/Views/user/profileEdit";
     }
 
 
     @RequestMapping(value = "/user/profileEdit", method = RequestMethod.POST)
-    public String getUserProfileEditPost(HttpServletRequest request, HttpServletResponse response, Model model,
+    public String postUserProfileEdit(HttpServletRequest request, HttpServletResponse response, Model model,
             @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm, BindingResult formBindeings) {
 
-        return "/Views/user/profileEdit";
+        validator.validate(accountForm, formBindeings);
+
+        if( formBindeings.hasErrors() ) {
+            LOGGER.info("Validation fails");
+            loadData(model, true);
+            model.addAttribute("customerAccountForm", accountForm);
+            LOGGER.debug(formBindeings.getFieldErrors().toString());
+            return "/Views/user/profileEdit";
+        }
+
+        UserAcc contextUser = (UserAcc) request.getSession().getAttribute("userctx");
+        if( contextUser != null ) {
+            accountForm.getUser().setRole(contextUser.getRole());
+
+            if( accountForm.getUser().getId() == null ) {
+                userService.insert(accountForm);
+            } else {
+                userService.update(accountForm);
+            }
+        }
+        return "redirect:../user/profile";
+    }
+
+
+    @RequestMapping(value = "/user/properties", method = RequestMethod.GET)
+    public String getUserProperties(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        if( !prepareUserProperties(request, model) ) {
+            return "/Views/log/login";
+        }
+        return "/Views/user/userProperties";
+    }
+
+
+    private boolean prepareUserProperties(HttpServletRequest request, Model model) {
+        UserAcc userctx = new UserAcc();
+        UserAcc contextUser = (UserAcc) request.getSession().getAttribute("userctx");
+        if( contextUser != null ) {
+            userctx.setRowsPerPage(contextUser.getRowsPerPage());
+            model.addAttribute("user", userctx);
+            return true;
+        }
+        return false;
+    }
+
+
+    @RequestMapping(value = "/user/propertiesEdit", method = RequestMethod.GET)
+    public String getUserPropertiesEdit(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        if( !prepareUserProperties(request, model) ) {
+            return "/Views/log/login";
+        }
+
+        return "/Views/user/userPropertiesEdit";
+    }
+
+
+    @RequestMapping(value = "/user/propertiesEdit", method = RequestMethod.POST)
+    public String postUserPropertiesEdit(HttpServletRequest request, HttpServletResponse response, Model model,
+            @ModelAttribute("customerAccountForm") @Validated UserAcc user, BindingResult formBindeings) {
+
+        UserAcc contextUser = (UserAcc) request.getSession().getAttribute("userctx");
+        if( contextUser != null ) {
+            UserAcc origUser = userService.getByID(contextUser.getId());
+            origUser.setRowsPerPage(user.getRowsPerPage());
+            userService.update(origUser);
+
+            origUser = userService.getByID(contextUser.getId());
+            request.getSession().setAttribute("userctx", origUser);
+        }
+
+        return "redirect:../user/userProperties";
     }
 }
