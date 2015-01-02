@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.article.Article;
-import org.pwr.transporter.server.web.controllers.GenericControllerWare;
+import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.article.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version 0.0.4
  */
 @Controller
-public class ArticleController extends GenericControllerWare {
+public class ArticleController extends GenericController {
 
     private static Logger LOGGER = Logger.getLogger(ArticleController.class);
 

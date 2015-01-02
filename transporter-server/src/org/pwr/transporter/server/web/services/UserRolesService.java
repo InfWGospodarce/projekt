@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.UserRoles;
 import org.pwr.transporter.server.business.UserRolesLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.UserRolesDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author W.S.
  * @version 0.0.1
  */
-public class UserRolesService {
+public class UserRolesService implements IService {
 
     @Autowired
     UserRolesLogic userRolesLogic;
@@ -33,11 +34,6 @@ public class UserRolesService {
 
     public UserRoles getByID(Long id) {
         return this.userRolesLogic.getByID(id);
-    }
-
-
-    public List<UserRoles> getList() {
-        return this.userRolesLogic.getList();
     }
 
 
@@ -63,6 +59,42 @@ public class UserRolesService {
 
     public void deleteById(Long id) {
         this.userRolesLogic.deleteById(id);
+    }
+
+
+    public List<UserRoles> getActiveByUserId(Long id) {
+        return this.userRolesLogic.getActiveByUserId(id);
+    }
+
+
+    public List<UserRoles> getByUserId(Long id) {
+        return this.userRolesLogic.getByUserId(id);
+    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<UserRoles> getListRest(int amount, int fromRow) {
+        return this.userRolesLogic.getListRest(amount, fromRow);
+    }
+
+
+    @Override
+    public long count() {
+        return this.userRolesLogic.count();
+    }
+
+
+    @Override
+    public long count(Criteria criteria) {
+        return this.userRolesLogic.count(criteria);
+    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<UserRoles> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.userRolesLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

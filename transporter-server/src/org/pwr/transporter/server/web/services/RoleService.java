@@ -7,6 +7,7 @@ import java.util.Map;
 import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.server.business.RoleLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.RoleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,11 +35,6 @@ public class RoleService implements IService {
 
     public Role getByID(Long id) {
         return this.roleLogic.getByID(id);
-    }
-
-
-    public List<Role> getList() {
-        return this.roleLogic.getList();
     }
 
 
@@ -87,14 +83,19 @@ public class RoleService implements IService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return (List<T>) roleLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 
     @Override
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return roleLogic.count(criteria);
+    }
+
+
+    public List<Role> getList() {
+        return roleLogic.getList();
     }
 
 }

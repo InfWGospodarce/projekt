@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.logistic.Itinerary;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.logistic.ItineraryDAO;
 
 
@@ -21,11 +22,6 @@ public class ItineraryLogic {
 
     public Itinerary getByID(Long id) {
         return itineraryDAO.getByID(id);
-    }
-
-
-    public List<Itinerary> getList() {
-        return itineraryDAO.getList();
     }
 
 
@@ -64,12 +60,12 @@ public class ItineraryLogic {
     }
 
 
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.itineraryDAO.count(criteria);
     }
 
 
-    public List<Itinerary> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public List<Itinerary> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.itineraryDAO.getListRestCrit(amount, fromRow, criteria);
     }
 

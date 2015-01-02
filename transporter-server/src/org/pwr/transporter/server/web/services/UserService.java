@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.UserRoles;
@@ -23,6 +22,7 @@ import org.pwr.transporter.server.business.RoleLogic;
 import org.pwr.transporter.server.business.UserLogic;
 import org.pwr.transporter.server.business.UserRolesLogic;
 import org.pwr.transporter.server.business.enums.EmployeeTypeLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.core.sec.CustomUserDetails;
 import org.pwr.transporter.server.dao.UserDAO;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
@@ -116,11 +116,6 @@ public class UserService implements UserDetailsService, IService {
 
     public UserAcc getByID(Long id) {
         return this.userLogic.getByID(id);
-    }
-
-
-    public List<UserAcc> getList() {
-        return this.userLogic.getList();
     }
 
 
@@ -319,13 +314,24 @@ public class UserService implements UserDetailsService, IService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
-        return (List<T>) userLogic.getListRestCrit(amount, fromRow, criteria);
+    public List<UserAcc> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return userLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 
     @Override
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return userLogic.count(criteria);
     }
+
+
+    public Long insert(UserAcc entity) {
+        return this.userLogic.insert(entity);
+    }
+
+
+    public UserAcc findByUserName(String username) {
+        return this.userLogic.findByUserName(username);
+    }
+
 }

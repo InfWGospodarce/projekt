@@ -4,9 +4,9 @@ package org.pwr.transporter.server.web.services.sales;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.sales.SalesOrder;
 import org.pwr.transporter.server.business.sales.SalesOrderLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,11 +25,6 @@ public class SalesOrderService implements IService {
 
     public SalesOrder getByID(Long id) {
         return this.salesOrderLogic.getByID(id);
-    }
-
-
-    public List<SalesOrder> getList() {
-        return this.salesOrderLogic.getList();
     }
 
 
@@ -71,15 +66,15 @@ public class SalesOrderService implements IService {
 
 
     @Override
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.salesOrderLogic.count(criteria);
     }
 
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
-        return (List<T>) this.salesOrderLogic.getListRestCrit(amount, fromRow, criteria);
+    public List<SalesOrder> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.salesOrderLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

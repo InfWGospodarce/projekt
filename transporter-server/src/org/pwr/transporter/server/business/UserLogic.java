@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.UserDAO;
 
 
@@ -29,11 +30,6 @@ public class UserLogic {
     public UserAcc getByID(Long id) {
         UserAcc user = this.userDAO.getByID(id);
         return user;
-    }
-
-
-    public List<UserAcc> getList() {
-        return this.userDAO.getList();
     }
 
 
@@ -110,12 +106,12 @@ public class UserLogic {
     }
 
 
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.userDAO.count(criteria);
     }
 
 
-    public List<UserAcc> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public List<UserAcc> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.userDAO.getListRestCrit(amount, fromRow, criteria);
     }
 

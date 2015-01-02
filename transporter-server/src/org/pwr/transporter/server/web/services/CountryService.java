@@ -7,6 +7,7 @@ import java.util.Map;
 import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.server.business.CountryLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -28,11 +29,6 @@ public class CountryService implements IService {
 
     public Country getByID(Long id) {
         return this.countryLogic.getByID(id);
-    }
-
-
-    public List<Country> getList() {
-        return this.countryLogic.getList();
     }
 
 
@@ -66,6 +62,7 @@ public class CountryService implements IService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Country> getListRest(int amount, int fromRow) {
         return countryLogic.getListRest(amount, fromRow);
     }
@@ -78,14 +75,19 @@ public class CountryService implements IService {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return (List<T>) countryLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 
     @Override
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return countryLogic.count(criteria);
+    }
+
+
+    public List<Country> getList() {
+        return countryLogic.getList();
     }
 
 }

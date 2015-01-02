@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.article.Article;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.article.ArticleDAO;
 
 
@@ -21,11 +22,6 @@ public class ArticleLogic {
 
     public Article getByID(Long id) {
         return this.articleDAO.getByID(id);
-    }
-
-
-    public List<Article> getList() {
-        return this.articleDAO.getList();
     }
 
 
@@ -61,6 +57,16 @@ public class ArticleLogic {
 
     public long count() {
         return this.articleDAO.count();
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.articleDAO.count(criteria);
+    }
+
+
+    public List<Article> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.articleDAO.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.base.Employee;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.EmployeeDAO;
 
 
@@ -33,11 +34,6 @@ public class EmployeeLogic {
     }
 
 
-    public List<Employee> getList() {
-        return this.employeeDAO.getList();
-    }
-
-
     public List<Employee> search(Map<String, Object> parameterMap) {
         return this.employeeDAO.search(parameterMap);
     }
@@ -61,4 +57,25 @@ public class EmployeeLogic {
     public void deleteById(Long id) {
         this.employeeDAO.deleteById(id);
     }
+
+
+    public long count(Criteria criteria) {
+        return this.employeeDAO.count(criteria);
+    }
+
+
+    public List<Employee> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.employeeDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<Employee> getListRest(int amount, int fromRow) {
+        return this.employeeDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.employeeDAO.count();
+    }
+
 }

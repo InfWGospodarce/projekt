@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.base.Customer;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.CustomerDAO;
 
 
@@ -26,11 +27,6 @@ public class CustomerLogic {
 
     public Customer getByID(Long id) {
         return this.customerDAO.getByID(id);
-    }
-
-
-    public List<Customer> getList() {
-        return this.customerDAO.getList();
     }
 
 
@@ -57,6 +53,26 @@ public class CustomerLogic {
 
     public void deleteById(Long id) {
         this.customerDAO.deleteById(id);
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.customerDAO.count(criteria);
+    }
+
+
+    public List<Customer> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.customerDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<Customer> getListRest(int amount, int fromRow) {
+        return this.customerDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.customerDAO.count();
     }
 
 }

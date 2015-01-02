@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.CompanyData;
 import org.pwr.transporter.entity.base.Country;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.CompanyDataDAO;
 import org.pwr.transporter.server.dao.CountryDAO;
 
@@ -39,11 +40,6 @@ public class CountryLogic {
 
     public Country getByID(Long id) {
         return this.countryDAO.getByID(id);
-    }
-
-
-    public List<Country> getList() {
-        return this.countryDAO.getList();
     }
 
 
@@ -91,13 +87,18 @@ public class CountryLogic {
     }
 
 
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.countryDAO.count(criteria);
     }
 
 
-    public List<Country> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public List<Country> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.countryDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<Country> getList() {
+        return this.countryDAO.getList();
     }
 
 }

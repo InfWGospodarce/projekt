@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.pwr.transporter.entity.article.Article;
 import org.pwr.transporter.server.business.article.ArticleLogic;
-import org.pwr.transporter.server.web.services.IServiceWare;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
+import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-public class ArticleService implements IServiceWare {
+public class ArticleService implements IService {
 
     @Autowired
     ArticleLogic articleLogic;
@@ -18,11 +19,6 @@ public class ArticleService implements IServiceWare {
 
     public Article getByID(Long id) {
         return this.articleLogic.getByID(id);
-    }
-
-
-    public List<Article> getList() {
-        return this.articleLogic.getList();
     }
 
 
@@ -46,6 +42,7 @@ public class ArticleService implements IServiceWare {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Article> getListRest(int amount, int fromRow) {
         return this.articleLogic.getListRest(amount, fromRow);
     }
@@ -53,6 +50,17 @@ public class ArticleService implements IServiceWare {
 
     public long count() {
         return this.articleLogic.count();
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.articleLogic.count(criteria);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<Article> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.articleLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

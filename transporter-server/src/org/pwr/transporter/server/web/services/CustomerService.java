@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.server.business.CustomerLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -27,11 +28,6 @@ public class CustomerService {
     @Autowired
     public void setCustomerLogic(CustomerLogic customerLogic) {
         this.customerLogic = customerLogic;
-    }
-
-
-    public List<Customer> getList() {
-        return this.customerLogic.getList();
     }
 
 
@@ -57,6 +53,36 @@ public class CustomerService {
 
     public Customer getById(Long id) {
         return this.customerLogic.getByID(id);
+    }
+
+
+    public Customer getByID(Long id) {
+        return this.customerLogic.getByID(id);
+    }
+
+
+    public void update(Customer entity) {
+        this.customerLogic.update(entity);
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.customerLogic.count(criteria);
+    }
+
+
+    public List<Customer> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.customerLogic.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<Customer> getListRest(int amount, int fromRow) {
+        return this.customerLogic.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.customerLogic.count();
     }
 
 }
