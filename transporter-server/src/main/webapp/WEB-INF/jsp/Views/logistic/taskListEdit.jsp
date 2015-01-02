@@ -6,7 +6,7 @@
 	<div class="col-md-6">
 		<div class="well">
 			<h1>Edycja zamówienia</h1>
-			<form:form action="/transporter-server/logistic/orderListEdit" method="post" commandName="order">
+			<form:form action="/transporter-server/logistic/taskListEdit" method="post" commandName="task">
 				<form:hidden path="id" value="${id}"></form:hidden>
 				<div class="form-group">
 					<form:label path="active">Aktywny</form:label>
@@ -20,15 +20,15 @@
 				</div>
 				
 				<div class="form-group">
-					<form:label path="customer.id">ID Klienta</form:label>
-					<form:input path="customer.id" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="customer.id" cssClass="error" />
+					<form:label path="employee.id">ID Pracownika</form:label>
+					<form:input path="employee.id" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="employee.id" cssClass="error" />
 				</div>
 				
 				<div class="form-group">
-					<form:label path="deliveryAddress.id">ID Adresu Klienta</form:label>
-					<form:input path="deliveryAddress.id" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="deliveryAddress.id" cssClass="error" />
+					<form:label path="vehicle.id">ID Pojazdu</form:label>
+					<form:input path="vehicle.id" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="vehicle.id" cssClass="error" />
 				</div>
 				
 				<div class="form-group">
@@ -38,7 +38,7 @@
 				</div>
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
-				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/logistic/orderList?page=${page}'" />
+				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/logistic/taskList?page=${page}'" />
 			</form:form>
 		</div>
 	</div>
