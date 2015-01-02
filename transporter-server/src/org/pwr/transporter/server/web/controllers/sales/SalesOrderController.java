@@ -30,7 +30,7 @@ public class SalesOrderController extends GenericController {
     SalesOrderService orderService;
 
 
-    @RequestMapping(value = "/logistic/OrderList", method = RequestMethod.GET)
+    @RequestMapping(value = "/logistic/orderList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
@@ -43,11 +43,11 @@ public class SalesOrderController extends GenericController {
         List<SalesOrder> orderList = orderService.getList();
         model.addAttribute("orderList", orderList);
 
-        return "/Views/logistic/OrderList";
+        return "/Views/logistic/orderList";
     }
 
 
-    @RequestMapping(value = "/logistic/OrderListEdit", method = RequestMethod.GET)
+    @RequestMapping(value = "/logistic/orderListEdit", method = RequestMethod.GET)
     public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Long id = getId(request.getParameter("id"));
@@ -63,11 +63,11 @@ public class SalesOrderController extends GenericController {
 
         model.addAttribute("order", order);
 
-        return "Views/logistic/OrderListEdit";
+        return "Views/logistic/orderListEdit";
     }
 
 
-    @RequestMapping(value = "/logistic/OrderListEdit", method = RequestMethod.POST)
+    @RequestMapping(value = "/logistic/orderListEdit", method = RequestMethod.POST)
     public String postPrefix(HttpServletRequest request, HttpServletResponse response,
             @ModelAttribute("streetPrefix")/* @Validated */SalesOrder order, BindingResult formBindeings) {
 
@@ -80,6 +80,6 @@ public class SalesOrderController extends GenericController {
             orderService.insert(order);
         }
 
-        return "redirect:../logistic/OrderList?page=" + getPage(request);
+        return "redirect:../logistic/orderList?page=" + getPage(request);
     }
 }
