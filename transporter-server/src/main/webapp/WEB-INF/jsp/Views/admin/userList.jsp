@@ -19,6 +19,7 @@
 				</form></td>
 			</tr>
 		</table>
+		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
@@ -45,7 +46,7 @@
 					<c:if test="${not empty var.key.employee}">
 						<td><c:out value="${var.key.employee.name}"></c:out></td>
 						<td><c:out value="${var.key.employee.surname}"></c:out></td>
-						<td><c:out value="${var.key.employee.emplyeeType.name}"></c:out></td>
+						<td><c:out value="${var.key.employee.employeeType.name}"></c:out></td>
 					</c:if>
 					<td>
 						<input type="checkbox" disabled="disabled" 

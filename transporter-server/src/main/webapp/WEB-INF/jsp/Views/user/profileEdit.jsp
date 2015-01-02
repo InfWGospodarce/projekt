@@ -30,13 +30,12 @@
 						target.classList[this.checked ? 'remove' : 'add']('hidden');
 					});
 				});
-			</script>
-			<script>
-				$(window).load(document.querySelectorAll('.js_toggle')).forEach(function (checkbox) {
-					if (checkbox.is(':checked')){
-						var target = document.querySelector(this.dataset.target);
-						target.getElementsByTagName(checkbox.getAttribute("data-target")).show();//classList[this.checked ? 'remove' : 'add']('hidden');
-					}
+				
+				$( document ).ready(function() {
+					[].slice.call(document.querySelectorAll('.js_toggle')).forEach(function (checkbox){
+						var target = document.querySelector(checkbox.dataset.target);
+						target.classList[checkbox.checked ? 'remove' : 'add']('hidden');
+					});
 				});
 			</script>
 		</div>

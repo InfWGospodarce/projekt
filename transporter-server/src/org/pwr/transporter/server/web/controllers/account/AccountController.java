@@ -198,7 +198,7 @@ public class AccountController extends GenericController {
     }
 
 
-    @RequestMapping(value = "/admin/userEdit", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/userList", method = RequestMethod.POST)
     public String doPostUser(HttpServletRequest request, @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm,
             BindingResult formBindeings, Model model) {
 

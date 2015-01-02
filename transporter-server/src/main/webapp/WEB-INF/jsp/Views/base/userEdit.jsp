@@ -59,8 +59,14 @@
 				[].slice.call(document.querySelectorAll('.js_toggle')).forEach(function (checkbox) {
 					checkbox.addEventListener('change', function () {
 						var target = document.querySelector(this.dataset.target);
-						
 						target.classList[this.checked ? 'remove' : 'add']('hidden');
+					});
+				});
+				
+				$( document ).ready(function() {
+					[].slice.call(document.querySelectorAll('.js_toggle')).forEach(function (checkbox){
+						var target = document.querySelector(checkbox.dataset.target);
+						target.classList[checkbox.checked ? 'remove' : 'add']('hidden');
 					});
 				});
 			</script>
