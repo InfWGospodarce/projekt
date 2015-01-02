@@ -158,7 +158,7 @@ public class AccountController extends GenericController {
                     customer = user.getCustomer();
                 } else {
                     person = employee;
-                    customerAccountForm.setEmployeeTypeId(employee.getEmplyeeType().getId().toString());
+                    customerAccountForm.setEmployeeTypeId(employee.getEmployeeType().getId().toString());
                 }
             }
         }
@@ -389,6 +389,6 @@ public class AccountController extends GenericController {
             request.getSession().setAttribute("userctx", origUser);
         }
 
-        return "redirect:../user/userProperties";
+        return "redirect:../user/properties";
     }
 }

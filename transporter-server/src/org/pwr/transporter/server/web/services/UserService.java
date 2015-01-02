@@ -157,7 +157,7 @@ public class UserService implements UserDetailsService, IService {
                 employee.setContacAddress(addressLogic.getByID(correAddresId));
             }
             EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
-            employee.setEmplyeeType(employeeType);
+            employee.setEmployeeType(employeeType);
             Long employeeId = employeeLogic.insert(employee);
             user.setEmployee(employeeLogic.getByID(employeeId));
         }
@@ -252,7 +252,7 @@ public class UserService implements UserDetailsService, IService {
             }
             accountForm.getEmployee().setBaseAddress(accountForm.getBaseAddress());
             EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
-            accountForm.getEmployee().setEmplyeeType(employeeType);
+            accountForm.getEmployee().setEmployeeType(employeeType);
 
             employeeLogic.update(accountForm.getEmployee());
 

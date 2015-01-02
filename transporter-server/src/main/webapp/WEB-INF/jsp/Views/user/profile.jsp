@@ -24,17 +24,14 @@
 			
 			<c:if test="${not empty customerAccountForm.employee}">
 				<div class="form-group">
-				<form:label path="customerAccountForm.employeeTypeId">Stanowisko</form:label>
-					<form:select disabled="true" class="form-control" path="customerAccountForm.employeeTypeId" >
-					    <form:options items="${employeeTypes}" itemValue="id" itemLabel="name" cssErrorClass="errorBc"/>
-					</form:select>
-				<form:errors path="customerAccountForm.employeeTypeId" cssClass="error" />
+				<form:label path="customerAccountForm.user.employee.employeeType">Stanowisko</form:label>
+				<form:input disabled="true" path="customerAccountForm.user.employee.employeeType.name" class="form-control" cssErrorClass="errorBc" />
 				</div>
 				
 				<div class="form-group">
-				<form:label path="customerAccountForm.user.role">Prawa</form:label>
-					<form:select disabled="true" class="form-control" path="customerAccountForm.user.role">
-					    <form:options items="${roles}" itemValue="id" itemLabel="description" cssErrorClass="errorBc"/>
+				<form:label path="customerAccountForm.userRoleIds">Prawa</form:label>
+					<form:select disabled="true" class="form-control" path="customerAccountForm.userRoleIds">
+					    <form:options items="${customerAccountForm.user.role}" itemValue="id" itemLabel="description" cssErrorClass="errorBc"/>
 					</form:select>
 				</div>
 			</c:if>

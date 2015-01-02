@@ -6,13 +6,21 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="well">
-			<h1>Edycja ustawień uzytkownika</h1>
+			<h2>Edycja ustawień uzytkownika</h2>
 			
-			<div class="form-group">
-			<form:label path="user.rowsPerPage">Wyników na strone</form:label>
-			<form:input path="user.rowsPerPage" class="form-control" cssErrorClass="errorBc" />
-			<form:errors path="user.rowsPerPage" cssClass="error" />
-			</div>
+			<form:form action="/transporter-server/user/propertiesEdit" method="post" commandName="user">
+			
+				<div class="form-group">
+				<form:label path="rowsPerPage">Wyników na strone</form:label>
+				<form:input path="rowsPerPage" class="form-control" cssErrorClass="errorBc" />
+				<form:errors path="rowsPerPage" cssClass="error" />
+				</div>
+				
+				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
+				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/user/properties'" />
+				
+			</form:form>
+						
 		</div>
 	</div>
 </div>

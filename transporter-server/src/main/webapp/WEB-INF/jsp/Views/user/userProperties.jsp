@@ -6,7 +6,16 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="well">
-			<h1>Ustawienia uzytkownika</h1>
+			<table class="table">
+				<tr>
+					<td><h2>Ustawienia uzytkownika</h2></td>
+					<td>
+						<form action="/transporter-server/user/propertiesEdit" method="get">
+					    	<input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
+						</form>
+					</td>
+				</tr>
+			</table>
 			
 			<div class="form-group">
 			<form:label path="user.rowsPerPage">Wyników na strone</form:label>

@@ -29,7 +29,7 @@ public class Employee extends Person {
     private static final long serialVersionUID = 8855580555292412125L;
 
     @ManyToOne(optional = false)
-    private EmployeeType emplyeeType;
+    private EmployeeType employeeType;
 
 
     // *******************************************************************************************************************************
@@ -40,12 +40,12 @@ public class Employee extends Person {
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
 
-    public EmployeeType getEmplyeeType() {
-        return this.emplyeeType;
+    public EmployeeType getEmployeeType() {
+        return this.employeeType;
     }
 
 
-    public void setEmplyeeType(EmployeeType emplyeeType) {
-        this.emplyeeType = emplyeeType;
+    public void setEmployeeType(EmployeeType employeeType) {
+        this.employeeType = employeeType;
     }
 }

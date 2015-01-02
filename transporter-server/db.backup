@@ -116,7 +116,7 @@ COPY customer (id, active, name, search_key, email, nip, surname, baseaddress_id
 -- Data for Name: employee; Type: TABLE DATA; Schema: public; Owner: x0r
 --
 
-COPY employee (id, active, name, search_key, email, nip, surname, baseaddress_id, contacaddress_id, emplyeetype_id) FROM stdin;
+COPY employee (id, active, name, search_key, email, nip, surname, baseaddress_id, contacaddress_id, employeetype_id) FROM stdin;
 59	t	Adam		\N	\N	Admin	57	58	51
 66	t	Mariusz		\N	\N	Magazynowicz	65	\N	56
 72	t	Maciej		\N	\N	Magazynowicz	70	71	56
