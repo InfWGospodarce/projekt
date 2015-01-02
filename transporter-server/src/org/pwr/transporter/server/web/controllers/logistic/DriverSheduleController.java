@@ -1,9 +1,7 @@
 package org.pwr.transporter.server.web.controllers.logistic;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.logistic.Task;
-import org.pwr.transporter.entity.logistic.Vehicle;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.logistic.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +45,10 @@ public class DriverSheduleController extends GenericController {
 
         UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
 
-        Map<String, Object> criteria = new HashMap<String, Object>();
-        criteria.put("active", true);
+        Criteria criteria = new Criteria();
+        criteria.getEqualCriteria().put("active", true);
         if( user.getEmployee() != null ) {
-            criteria.put("employee.id", user.getEmployee().getId());
+            criteria.getIdsCriteria().put("employee.id", user.getEmployee().getId());
         }
 
         List<Task> taskList = getListWitchCriteria(taskService, request, criteria);
@@ -94,70 +92,54 @@ public class DriverSheduleController extends GenericController {
 
         return "redirect:../driver/driverSchedule?page=" + getPage(request);
     }
-    
-    
-    /*dla taskList*/
-   
-    
-    
+
+
+    /* dla taskList */
+
     @RequestMapping(value = "/logistic/taskList", method = RequestMethod.GET)
-	public String getList2( HttpServletRequest request, HttpServletResponse response, Model model ) {
+    public String getList2(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-		// if ( user != null ) {
-		// List<Task> taskList =
-		// taskService.getByUserId(user.getEmplyee().getId());
-		// model.addAttribute("taskList", taskList);
-		// }
+        List<Task> taskList = getList(taskService, request);
+        model.addAttribute("taskList", taskList);
 
-		List<Task> taskList = taskService.getList();
-		model.addAttribute("taskList", taskList);
+        return "/Views/logistic/taskList";
+    }
 
-		return "/Views/logistic/taskList";
-	}
-	
-	@RequestMapping(value = "/logistic/taskListEdit", method = RequestMethod.GET)
-	public String getPrefix2( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		Long id = getId(request.getParameter("id"));
-		Task task = null;
-		if ( id == null ) {
-			task = new Task();
-		} else {
-			task = taskService.getByID(id);
-			if ( task == null || task.getId() == null ) {
-				task = new Task();
-			}
-		}
+    @RequestMapping(value = "/logistic/taskListEdit", method = RequestMethod.GET)
+    public String getPrefix2(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		model.addAttribute("task", task);
+        Long id = getId(request.getParameter("id"));
+        Task task = null;
+        if( id == null ) {
+            task = new Task();
+        } else {
+            task = taskService.getByID(id);
+            if( task == null || task.getId() == null ) {
+                task = new Task();
+            }
+        }
 
-		return "Views/logistic/taskListEdit";
-	}
+        model.addAttribute("task", task);
 
-	@RequestMapping(value = "/logistic/taskListEdit", method = RequestMethod.POST)
-	public String postPrefix2( HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("streetPrefix")/* @Validated */Task task, BindingResult formBindeings ) {
+        return "Views/logistic/taskListEdit";
+    }
 
-		LOGGER.debug("Post prefix");
-		// FIXME VALIDATION
-		if ( task.getId() != null ) {
-			LOGGER.debug("Id not null");
-			taskService.update(task);
-		} else {
-			taskService.insert(task);
-		}
 
-		return "redirect:../logistic/taskList?page=" + getPage(request);
-	}
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    @RequestMapping(value = "/logistic/taskListEdit", method = RequestMethod.POST)
+    public String postPrefix2(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("streetPrefix")/* @Validated */Task task,
+            BindingResult formBindeings) {
+
+        LOGGER.debug("Post prefix");
+        // FIXME VALIDATION
+        if( task.getId() != null ) {
+            LOGGER.debug("Id not null");
+            taskService.update(task);
+        } else {
+            taskService.insert(task);
+        }
+
+        return "redirect:../logistic/taskList?page=" + getPage(request);
+    }
 
 }
