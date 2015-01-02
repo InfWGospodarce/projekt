@@ -2,14 +2,19 @@ package org.pwr.transporter.server.web.controllers.driver;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.logistic.Itinerary;
 import org.pwr.transporter.entity.logistic.Task;
+import org.pwr.transporter.server.web.controllers.GenericController;
+import org.pwr.transporter.server.web.services.logistic.ItineraryService;
 import org.pwr.transporter.server.web.services.logistic.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,29 +33,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version 0.0.1
  */
 @Controller
-public class DriverSheduleController {
+public class DriverItineraryController extends GenericController{
 
-	private static Logger LOGGER = Logger.getLogger(DriverSheduleController.class);
+	private static Logger LOGGER = Logger.getLogger(DriverItineraryController.class);
 
 	@Autowired
-	TaskService taskService;
+	ItineraryService itineraryService;
 
-	@RequestMapping(value = "/driver/driverShedule", method = RequestMethod.GET)
+	@RequestMapping(value = "/driver/driverItinerary", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-		// if ( user != null ) {
-		// List<Task> taskList =
-		// taskService.getByUserId(user.getEmplyee().getId());
-		// model.addAttribute("taskList", taskList);
-		// }
+		
+		Long id = getId(request.getParameter("id"));
+		
+		Map<String, Object> criteria = new HashMap<String, Object>();
+		criteria.put("active", true);
+		criteria.put("employee_id" , id);
+		
+		List<Itinerary> itineraryList = getListWitchCriteria(itineraryService, request, criteria);
+		model.addAttribute("list", itineraryList);
 
-		List<Task> taskList = new ArrayList<Task>();
-		Task a = new Task();
-		a.setId(new Long(2));
-		taskList.add(a);
-		model.addAttribute("taskList", taskList);
-
-		return "/Views/driver/driverShedule";
+		return "/Views/driver/driverItinerary";
 	}
 }

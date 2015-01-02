@@ -72,4 +72,14 @@ public class AddrStreetPrefixLogic {
         return this.addrStreetPrefixDAO.count();
     }
 
+
+    public long count(Map<String, Object> criteria) {
+        return this.addrStreetPrefixDAO.count(criteria);
+    }
+
+
+    public List<AddrStreetPrefix> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return this.addrStreetPrefixDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
 }

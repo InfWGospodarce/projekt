@@ -15,7 +15,7 @@ import org.springframework.validation.ValidationUtils;
  * <hr/>
  * 
  * @author x0r
- * @version 0.0.5
+ * @version 0.0.6
  */
 public class UserValidator implements org.springframework.validation.Validator {
 
@@ -39,21 +39,23 @@ public class UserValidator implements org.springframework.validation.Validator {
     @Override
     public void validate(Object obj, Errors errors) {
         UserAcc user = (UserAcc) obj;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, prefix + "username", "valid.user.username.empty");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, prefix + "email", "valid.user.email.empty");
 
-        if( user.getUsername() != null ) {
-            UserAcc testUser = usersService.getByUserName(user.getUsername());
-            if( testUser != null ) {
-                errors.rejectValue(prefix + "username", "valid.user.username.occupied");
+        if( user.getId() == null ) {
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, prefix + "username", "valid.user.username.empty");
+            if( user.getUsername() != null ) {
+                UserAcc testUser = usersService.getByUserName(user.getUsername());
+                if( testUser != null ) {
+                    errors.rejectValue(prefix + "username", "valid.user.username.occupied");
+                }
             }
         }
+
         if( user.getEmail() != null ) {
             UserAcc testUser2 = usersService.getByUserEmail(user.getEmail());
-            if( testUser2 != null ) {
+            if( testUser2 != null && !testUser2.getId().equals(user.getId()) ) {
                 errors.rejectValue(prefix + "email", "valid.user.email.occupied");
             }
         }
-
     }
 }

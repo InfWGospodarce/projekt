@@ -1,7 +1,7 @@
-
 package org.pwr.transporter.entity.enums.base;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -18,7 +18,7 @@ import org.pwr.transporter.entity.enums.GenericEnum;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.1
+ * @version 0.0.2
  */
 @Entity
 @Table(name = "enum_emplyee_type")
@@ -32,7 +32,20 @@ public class EmployeeType extends GenericEnum {
     // ****** FIELDS
     // *******************************************************************************************************************************
 
+    @Column(name = "code")
+    private String code;
+
+
     // *******************************************************************************************************************************
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
+
+    public String getCode() {
+        return this.code;
+    }
+
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <li>
-	<a href="/transporter-server/logistics/logistics">Zobacz zamowienie </a>
+	<a href="/transporter-server/logistic/orderList">Zobacz zamówienie </a>
 </li>
 <li>
 	<a href="/transporter-server/logistics/logistics">Rezerwuj terminy wydania </a>
 </li>
 <li>
-	<a href="/transporter-server/logistics/logistics">Zarzadzaj flota</a>
+	<a href="/transporter-server/logistic/taskList">Zarzadzaj flota</a>
 </li>
 <li>
-	<a href="/transporter-server/logistics/logisticsShowDrivers"> Wylistuj/wyszukaj kierowcow  </a>
+	<a href="/transporter-server/logistic/driverList"> Wylistuj/wyszukaj kierowcow  </a>
 </li>
 
 <li>
-	<a href="/transporter-server/logistics/logisticsShowCars">Wylistuj pojazdy</a>
+	<a href="/transporter-server/logistic/vehicleList">Wylistuj pojazdy</a>
 </li>
 <li>
 	<a href="/transporter-server/logistics/logisticsCreatedocument">Utworz dokument WZ *</a>

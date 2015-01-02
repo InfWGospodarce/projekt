@@ -79,5 +79,51 @@ public class EmployeeTypeController extends GenericController {
 
 		return "redirect:../admin/employeeTypeList?page=" + getPage(request);
 	}
+	
+	/* dla driver list*/
+	
+	@RequestMapping(value = "/logistic/driverList", method = RequestMethod.GET)
+	public String getList2( HttpServletRequest request, HttpServletResponse response, Model model ) {
+
+		List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
+		request.setAttribute("employeeTypeList", employeeTypeList);
+
+		return "Views/logistic/driverList";
+	}
+
+	@RequestMapping(value = "/logistic/driverListEdit", method = RequestMethod.GET)
+	public String getPrefix2( HttpServletRequest request, HttpServletResponse response, Model model ) {
+
+		LOGGER.debug("Get employee type edit");
+		Long id = getId(request.getParameter("id"));
+		EmployeeType employeeType = null;
+		if ( id == null ) {
+			employeeType = new EmployeeType();
+		} else {
+			employeeType = employeeTypeService.getByID(id);
+			if ( employeeType == null || employeeType.getId() == null ) {
+				employeeType = new EmployeeType();
+			}
+		}
+
+		model.addAttribute("employeeType", employeeType);
+
+		return "Views/logistic/driverListEdit";
+	}
+
+	@RequestMapping(value = "/logistic/driverListEdit", method = RequestMethod.POST)
+	public String postPrefix2( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("employeeType") EmployeeType employeeType,
+			BindingResult formBindeings ) {
+
+		// FIXME VALIDATION
+		if ( employeeType.getId() != null ) {
+			LOGGER.debug("Id not null");
+			employeeTypeService.update(employeeType);
+		} else {
+			employeeTypeService.insert(employeeType);
+		}
+
+		return "redirect:../logistic/driverList?page=" + getPage(request);
+	}
 
 }

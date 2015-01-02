@@ -2,18 +2,47 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <trans:template>
-	<div class="view">
-		<h1 class="Transporter">Transporter strona główna</h1>
-		<c:choose>
-			<c:when test="${empty userctx}">
-			</c:when>
-			<c:otherwise>
-				<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
-				Driver task
-				<c:forEach var="task" items="${taskList}">
-					<c:out value="${task.id}"></c:out>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
+<%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
+<div class="row">
+<div class="col-md-8">
+	<div class="well">	
+		<h2>Lista zadań</h2>
+		<table class="table">
+			<tr>
+				<th>Lp.</th>
+				<th>Klucz wyszukiwania</th>
+				<th>Employee_id</th>
+				<th>Vehicle_id</th>
+				<th>Aktywny</th>
+				<th>Nazwa</th>
+			</tr>
+			<c:set var="i" value="0"></c:set>
+			<c:forEach var="var" items="${taskList}">
+				<c:set var="i" value="${i+1}"></c:set>
+				<tr>
+					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
+					<td><c:out value="${var.searchKey}"></c:out></td>
+					<td><c:out value="${var.employee.id}"></c:out></td>
+					<td><c:out value="${var.vehicle.id}"></c:out></td>
+					<td><c:out value="${var.name}"></c:out></td>
+					<td>
+						<input type="checkbox" disabled="disabled" 
+							<c:if test="${var.active eq 'true'}">
+								checked="checked"
+							</c:if>
+						/>
+					</td>
+					<td>
+						<form action="/transporter-server/driver/driverItinerary" method="get">
+							<input type="hidden" value="${var.id}" name="id">
+						    <input class="btn btn-primary" class="form-control" type="submit" value="Szczegóły">
+						</form>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+		<%@ include file="/WEB-INF/jsp/template/listFooter.jsp" %>
 	</div>
+</div>
+</div>
 </trans:template>

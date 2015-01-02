@@ -29,7 +29,10 @@
 							</ul>
 		         		</li>
 		         		<li>
-		         			<a href="/transporter-server/log/logout"><span>Wyloguj</span></a>
+		         			<form action="/transporter-server/j_spring_security_logout" method="post">
+							    <input class="btn btn-primary"  type="submit" value="Wyloguj">
+							    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							</form>
 		         		</li>
 		         	</ul>
 				</c:otherwise>

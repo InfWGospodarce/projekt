@@ -8,6 +8,7 @@ import org.pwr.transporter.entity.Role;
 import org.pwr.transporter.server.dao.RoleDAO;
 
 
+
 /**
  * <pre>
  *    Logic for {@link Role}
@@ -19,50 +20,71 @@ import org.pwr.transporter.server.dao.RoleDAO;
  */
 public class RoleLogic {
 
-	RoleDAO roleDAO;
+    RoleDAO roleDAO;
 
-	public void setRoleDAO( RoleDAO roleDAO ) {
-		this.roleDAO = roleDAO;
-	}
 
-	public Role getByID( Long id ) {
-		return this.roleDAO.getByID(id);
-	}
+    public void setRoleDAO(RoleDAO roleDAO) {
+        this.roleDAO = roleDAO;
+    }
 
-	public List<Role> getList() {
-		return this.roleDAO.getList();
-	}
 
-	public List<Role> search( Map<String, Object> parameterMap ) {
-		return this.roleDAO.search(parameterMap);
-	}
+    public Role getByID(Long id) {
+        return this.roleDAO.getByID(id);
+    }
 
-	public Long insert( Role entity ) {
-		return this.roleDAO.insert(entity);
-	}
 
-	public void update( Role entity ) {
-		this.roleDAO.update(entity);
-	}
+    public List<Role> getList() {
+        return this.roleDAO.getList();
+    }
 
-	public void delete( Role entity ) {
-		this.roleDAO.delete(entity);
-	}
 
-	public void deleteById( Long id ) {
-		this.roleDAO.deleteById(id);
-	}
+    public List<Role> search(Map<String, Object> parameterMap) {
+        return this.roleDAO.search(parameterMap);
+    }
 
-	public Role getByName( String string ) {
-		return this.roleDAO.getByName(string);
-	}
 
-	public long count() {
-		return this.roleDAO.count();
-	}
+    public Long insert(Role entity) {
+        return this.roleDAO.insert(entity);
+    }
 
-	public List<Role> getListRest( int amount, int fromRow ) {
-		return this.roleDAO.getListRest(amount, fromRow);
-	}
+
+    public void update(Role entity) {
+        this.roleDAO.update(entity);
+    }
+
+
+    public void delete(Role entity) {
+        this.roleDAO.delete(entity);
+    }
+
+
+    public void deleteById(Long id) {
+        this.roleDAO.deleteById(id);
+    }
+
+
+    public Role getByName(String string) {
+        return this.roleDAO.getByName(string);
+    }
+
+
+    public long count() {
+        return this.roleDAO.count();
+    }
+
+
+    public List<Role> getListRest(int amount, int fromRow) {
+        return this.roleDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count(Map<String, Object> criteria) {
+        return this.roleDAO.count(criteria);
+    }
+
+
+    public List<Role> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return this.roleDAO.getListRestCrit(amount, fromRow, criteria);
+    }
 
 }

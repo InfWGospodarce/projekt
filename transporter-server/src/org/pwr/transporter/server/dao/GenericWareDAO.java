@@ -1,9 +1,6 @@
 package org.pwr.transporter.server.dao;
 
 
-import java.util.List;
-import java.util.Map;
-
 import org.pwr.transporter.entity.article.GenericWare;
 
 
@@ -19,92 +16,6 @@ import org.pwr.transporter.entity.article.GenericWare;
  * @param <T>
  * @param <ID>
  */
-public interface GenericWareDAO<T extends GenericWare> {
-
-    T getByID(Long id);
-
-
-    /**
-     * <pre>
-     *        Get full list of rows, better use {@link #getListRest(long, long)}
-     * </pre>
-     * <hr/>
-     * 
-     * @return
-     */
-    List<T> getList();
-
-
-    /**
-     * <pre>
-     * Search
-     * </pre>
-     * <hr/>
-     * 
-     * @param parameterMap
-     * @return
-     */
-    List<T> search(Map<String, Object> parameterMap);
-
-
-    /**
-     * <pre>
-     *        Insert object, but not fully populated
-     * </pre>
-     * <hr/>
-     * 
-     * @param entity
-     * @return
-     */
-    Long insert(T entity);
-
-
-    /**
-     * <pre>
-     *        Update object
-     * </pre>
-     * <hr/>
-     * 
-     * @param entity
-     */
-    void update(T entity);
-
-
-    /**
-     * <pre>
-     *        Delete, sets only active=false
-     * </pre>
-     * <hr/>
-     * 
-     * @param entity
-     */
-    void delete(T entity);
-
-
-    /**
-     * <pre>
-     *        Delete, sets only active=false
-     * </pre>
-     * <hr/>
-     * 
-     * @param id
-     */
-    void deleteById(Long id);
-
-
-    /**
-     * <pre>
-     *        Get amount rows fromRow number
-     * </pre>
-     * <hr/>
-     * 
-     * @param amount
-     * @param fromRow
-     * @return
-     */
-    public List<T> getListRest(int amount, int fromRow);
-
-
-    long count();
+public interface GenericWareDAO<T extends GenericWare> extends GenericDAO<T> {
 
 }

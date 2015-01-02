@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * <hr/>
  * 
  * @author x0r
- * @version 0.0.1
+ * @version 0.0.1 
  */
 @Repository
 public class CustomerDAOImpl extends GenericDAOImpl<Customer> implements CustomerDAO {

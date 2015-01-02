@@ -10,6 +10,7 @@ import org.pwr.transporter.server.dao.CompanyDataDAO;
 import org.pwr.transporter.server.dao.CountryDAO;
 
 
+
 /**
  * <pre>
  *    Logic for country
@@ -21,60 +22,82 @@ import org.pwr.transporter.server.dao.CountryDAO;
  */
 public class CountryLogic {
 
-	CountryDAO countryDAO;
+    CountryDAO countryDAO;
 
-	CompanyDataDAO companyDataDAO;
+    CompanyDataDAO companyDataDAO;
 
-	public void setCompanyDataDAO( CompanyDataDAO companyDataDAO ) {
-		this.companyDataDAO = companyDataDAO;
-	}
 
-	public void setCountryDAO( CountryDAO countryDAO ) {
-		this.countryDAO = countryDAO;
-	}
+    public void setCompanyDataDAO(CompanyDataDAO companyDataDAO) {
+        this.companyDataDAO = companyDataDAO;
+    }
 
-	public Country getByID( Long id ) {
-		return this.countryDAO.getByID(id);
-	}
 
-	public List<Country> getList() {
-		return this.countryDAO.getList();
-	}
+    public void setCountryDAO(CountryDAO countryDAO) {
+        this.countryDAO = countryDAO;
+    }
 
-	public List<Country> search( Map<String, Object> parameterMap ) {
-		return this.countryDAO.search(parameterMap);
-	}
 
-	public Long insert( Country entity ) {
-		return this.countryDAO.insert(entity);
-	}
+    public Country getByID(Long id) {
+        return this.countryDAO.getByID(id);
+    }
 
-	public void update( Country entity ) {
-		this.countryDAO.update(entity);
-	}
 
-	public void delete( Country entity ) {
-		this.countryDAO.delete(entity);
-	}
+    public List<Country> getList() {
+        return this.countryDAO.getList();
+    }
 
-	public void deleteById( Long id ) {
-		this.countryDAO.deleteById(id);
-	}
 
-	public Country getInternalCountry() {
-		CompanyData comp = companyDataDAO.getFirst();
-		if ( comp != null ) {
-			return comp.getAddress().getCountry();
-		}
-		return null;
-	}
+    public List<Country> search(Map<String, Object> parameterMap) {
+        return this.countryDAO.search(parameterMap);
+    }
 
-	public List<Country> getListRest( int amount, int fromRow ) {
-		return countryDAO.getListRest(amount, fromRow);
-	}
 
-	public long count() {
-		return countryDAO.count();
-	}
+    public Long insert(Country entity) {
+        return this.countryDAO.insert(entity);
+    }
+
+
+    public void update(Country entity) {
+        this.countryDAO.update(entity);
+    }
+
+
+    public void delete(Country entity) {
+        this.countryDAO.delete(entity);
+    }
+
+
+    public void deleteById(Long id) {
+        this.countryDAO.deleteById(id);
+    }
+
+
+    public Country getInternalCountry() {
+        CompanyData comp = companyDataDAO.getFirst();
+        if( comp != null ) {
+            return comp.getAddress().getCountry();
+        }
+        return null;
+    }
+
+
+    public List<Country> getListRest(int amount, int fromRow) {
+        return countryDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return countryDAO.count();
+    }
+
+
+    public long count(Map<String, Object> criteria) {
+        return this.countryDAO.count(criteria);
+    }
+
+
+    public List<Country> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return this.countryDAO.getListRestCrit(amount, fromRow, criteria);
+    }
 
 }

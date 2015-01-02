@@ -4,6 +4,7 @@ package org.pwr.transporter.server.web.services.enums;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.business.enums.EmployeeTypeLogic;
 import org.pwr.transporter.server.web.services.IService;
@@ -71,6 +72,19 @@ public class EmployeeTypeService implements IService {
     @Override
     public long count() {
         return this.emplyeeTypeLogic.count();
+    }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return (List<T>) emplyeeTypeLogic.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    @Override
+    public long count(Map<String, Object> criteria) {
+        return emplyeeTypeLogic.count(criteria);
     }
 
 }

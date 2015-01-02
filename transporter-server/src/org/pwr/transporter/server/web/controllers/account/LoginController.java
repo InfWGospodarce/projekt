@@ -42,7 +42,6 @@ public class LoginController {
         return "/Views/log/login";
     }
 
-
     // @RequestMapping(value = "/j_spring_security_check", method = RequestMethod.POST)
     // @RequestMapping(value = "/log/login", method = RequestMethod.POST)
     // public String doPostLogin(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") UserForm user,
@@ -65,9 +64,9 @@ public class LoginController {
     // return "redirect:../index";
     // }
 
-    @RequestMapping(value = "/log/logout", method = RequestMethod.GET)
-    public String doGetLogout(HttpServletRequest request, HttpServletResponse response) {
-        request.getSession().removeAttribute("userctx");
-        return "/Views/log/logout";
-    }
+    // @RequestMapping(value = "/log/logout", method = RequestMethod.GET)
+    // public String doGetLogout(HttpServletRequest request, HttpServletResponse response) {
+    // request.getSession().removeAttribute("userctx");
+    // return "/Views/log/logout";
+    // }
 }

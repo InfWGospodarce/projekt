@@ -4,7 +4,7 @@ package org.pwr.transporter.server.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.Generic;
 
 
 
@@ -19,7 +19,7 @@ import org.pwr.transporter.entity.GenericEntity;
  * @param <T>
  * @param <ID>
  */
-public interface GenericDAO<T extends GenericEntity> {
+public interface GenericDAO<T extends Generic> {
 
     T getByID(Long id);
 
@@ -105,6 +105,12 @@ public interface GenericDAO<T extends GenericEntity> {
     public List<T> getListRest(int amount, int fromRow);
 
 
-    long count();
+    public long count();
+
+
+    public long count(Map<String, Object> criteria);
+
+
+    public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria);
 
 }

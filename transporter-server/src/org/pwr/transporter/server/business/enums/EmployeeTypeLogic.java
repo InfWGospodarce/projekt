@@ -72,4 +72,14 @@ public class EmployeeTypeLogic {
         return this.employeeTypeDAO.count();
     }
 
+
+    public long count(Map<String, Object> criteria) {
+        return this.employeeTypeDAO.count(criteria);
+    }
+
+
+    public List<EmployeeType> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+        return this.employeeTypeDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
 }
