@@ -20,15 +20,15 @@
 				</div>
 				
 				<div class="form-group">
-					<form:label path="customer">ID Klienta</form:label>
-					<form:input path="customer" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="customer" cssClass="error" />
+					<form:label path="customer.id">ID Klienta</form:label>
+					<form:input path="customer.id" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="customer.id" cssClass="error" />
 				</div>
 				
 				<div class="form-group">
-					<form:label path="deliveryAddress">ID Adresu Klienta</form:label>
-					<form:input path="deliveryAddress" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="deliveryAddress" cssClass="error" />
+					<form:label path="deliveryAddress.id">ID Adresu Klienta</form:label>
+					<form:input path="deliveryAddress.id" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="deliveryAddress.id" cssClass="error" />
 				</div>
 				
 				<div class="form-group">

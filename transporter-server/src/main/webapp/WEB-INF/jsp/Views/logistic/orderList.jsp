@@ -26,8 +26,8 @@
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 					<td><c:out value="${var.searchKey}"></c:out></td>
-					<td><c:out value="${var.customer}"></c:out></td>
-					<td><c:out value="${var.deliveryAddress}"></c:out></td>
+					<td><c:out value="${var.customer.id}"></c:out></td>
+					<td><c:out value="${var.deliveryAddress.id}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
