@@ -1,12 +1,21 @@
 package org.pwr.transporter.entity.logistic;
 
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.*;
+import java.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.datatype.Duration;
 
 import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.base.Employee;
@@ -33,7 +42,15 @@ public class Task extends GenericEntity {
     // *******************************************************************************************************************************
     // ****** FIELDS
     // *******************************************************************************************************************************
-
+    // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+    
+    
+    @Column(name = "date")
+    Timestamp date;
+    
+    @Column(name = "duration")
+    Integer integer;
+    
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Employee employee;
 
@@ -63,4 +80,22 @@ public class Task extends GenericEntity {
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
-}
+    
+    public Timestamp getDate() {
+        return this.date;
+    }
+
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+    
+    public Integer getInteger() {
+        return this.integer;
+    }
+
+
+    public void setInteger(Integer integer) {
+        this.integer = integer;
+    
+}}

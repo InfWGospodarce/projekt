@@ -13,11 +13,6 @@
 					<form:checkbox path="active" class="checkbox" cssErrorClass="errorBc"></form:checkbox>
 					<form:errors path="active" cssClass="error" />
 				</div>
-				<div class="form-group">
-					<form:label path="searchKey">Klucz wyszukiwania</form:label>
-					<form:input path="searchKey"  class="form-control" cssErrorClass="errorBc"/>
-					<form:errors path="searchKey" cssClass="error" />
-				</div>
 				
 				<div class="form-group">
 					<form:label path="employee.id">ID Pracownika</form:label>
@@ -35,6 +30,19 @@
 					<form:label path="name">Nazwa</form:label>
 					<form:input path="name" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="name" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="date">Data</form:label>
+					<form:input path="date" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="date" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="integer">Czas trwania</form:label>
+					<form:input path="integer" class="form-control" cssErrorClass="errorBc"/> 
+					<form:options />
+					<form:errors path="integer" cssClass="error" />
 				</div>
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>

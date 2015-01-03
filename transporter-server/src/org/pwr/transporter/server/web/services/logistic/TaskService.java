@@ -4,8 +4,12 @@ package org.pwr.transporter.server.web.services.logistic;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.entity.logistic.Task;
+import org.pwr.transporter.entity.logistic.Vehicle;
+import org.pwr.transporter.server.business.EmployeeLogic;
 import org.pwr.transporter.server.business.logistic.TaskLogic;
+import org.pwr.transporter.server.business.logistic.VehicleLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.logistic.TaskDAO;
 import org.pwr.transporter.server.web.services.IService;
@@ -18,6 +22,11 @@ public class TaskService implements IService {
     @Autowired
     TaskLogic taskLogic;
 
+    @Autowired
+    VehicleLogic vehicleLogic;
+    
+    @Autowired
+    EmployeeLogic employeeLogic;
 
     public void setTaskDAO(TaskDAO taskDAO) {
         taskLogic.setTaskDAO(taskDAO);
@@ -35,12 +44,26 @@ public class TaskService implements IService {
 
 
     public Long insert(Task entity) {
+    	
+    	entity.setSearchKey("");
+    	Employee empl = employeeLogic.getByID(entity.getEmployee().getId());
+    	Vehicle veh = vehicleLogic.getByID(entity.getVehicle().getId());
+    	
+    	entity.setEmployee(empl);
+    	entity.setVehicle(veh);
         return taskLogic.insert(entity);
     }
 
 
     public void update(Task entity) {
-        taskLogic.update(entity);
+        //taskLogic.update(entity);
+    	entity.setSearchKey("");
+    	Employee empl = employeeLogic.getByID(entity.getEmployee().getId());
+    	Vehicle veh = vehicleLogic.getByID(entity.getVehicle().getId());
+    	
+    	entity.setEmployee(empl);
+    	entity.setVehicle(veh);
+    	taskLogic.update(entity);
     }
 
 
