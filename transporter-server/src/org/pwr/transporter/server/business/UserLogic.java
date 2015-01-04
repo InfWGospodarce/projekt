@@ -39,7 +39,6 @@ public class UserLogic {
 
 
     public Long insert(UserAcc entity) {
-        entity.setSearchKey(entity.getUsername());
         return this.userDAO.insert(entity);
     }
 

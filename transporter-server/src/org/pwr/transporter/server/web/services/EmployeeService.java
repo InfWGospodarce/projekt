@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author W.S.
  * @version 0.0.1
  */
-public class EmployeeService {
+public class EmployeeService implements IService {
 
     @Autowired
     EmployeeLogic employeeLogic;
@@ -67,8 +67,20 @@ public class EmployeeService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Employee> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.employeeLogic.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public List<Employee> getListRest(int amount, int fromRow) {
+        return this.employeeLogic.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.employeeLogic.count();
     }
 
 }

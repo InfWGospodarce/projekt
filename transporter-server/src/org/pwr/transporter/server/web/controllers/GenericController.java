@@ -33,10 +33,10 @@ public class GenericController {
     public static final String PAGE_COUNT = "pageCount";
 
 
-    public Criteria restoreCriteria(HttpServletRequest attribute) {
+    public Criteria restoreCriteria(HttpServletRequest request) {
 
         Criteria criteria = new Criteria();
-        String active = attribute.getParameter("active");
+        String active = request.getParameter("active");
         if( active != null ) {
             if( active.equals("0") ) {
                 criteria.getEqualCriteria().put("active", true);
@@ -44,11 +44,11 @@ public class GenericController {
                 criteria.getEqualCriteria().put("active", false);
             }
         }
-        String searchKey = (String) attribute.getParameter("searchKey");
+        String searchKey = (String) request.getParameter("searchKey");
         if( searchKey != null && !searchKey.isEmpty() ) {
             criteria.getLikeCriteria().put("searchKey", searchKey);
         }
-        String name = (String) attribute.getParameter("name");
+        String name = (String) request.getParameter("name");
         if( name != null && !name.isEmpty() ) {
             criteria.getLikeCriteria().put("name", name);
         }

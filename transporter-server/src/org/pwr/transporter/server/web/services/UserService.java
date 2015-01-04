@@ -166,7 +166,8 @@ public class UserService implements UserDetailsService, IService {
             user.setEmployee(employeeLogic.getByID(employeeId));
         }
 
-        user.setName(user.getUsername() + " " + surname + " " + name);
+        user.setName(user.getUsername());
+        user.setSearchKey(user.getUsername() + " " + surname + " " + name);
 
         Collection<Role> roleSet = user.getRole();
         user.setRole(null);

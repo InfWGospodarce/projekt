@@ -138,19 +138,39 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         Iterator<Entry<String, Object>> iterator = parameterCriteria.getLikeCriteria().entrySet().iterator();
         while( iterator.hasNext() ) {
             Entry<String, Object> entry = iterator.next();
+            if( entry.getKey().contains(".id.") ) {
+                String fieldName = entry.getKey().substring(0, entry.getKey().indexOf(".id."));
+                String field = entry.getKey().substring(entry.getKey().indexOf(".id.") + 4, entry.getKey().length());
+                criteria.createAlias(fieldName, fieldName).add(
+                        Restrictions.like(fieldName + "." + field, (String) entry.getValue(), MatchMode.ANYWHERE));
+            } else {
+                criteria.add(Restrictions.like(entry.getKey(), entry.getValue()));
+            }
             criteria.add(Restrictions.like(entry.getKey(), (String) entry.getValue(), MatchMode.ANYWHERE));
         }
 
         iterator = parameterCriteria.getEqualCriteria().entrySet().iterator();
         while( iterator.hasNext() ) {
             Entry<String, Object> entry = iterator.next();
-            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+            if( entry.getKey().contains(".id.") ) {
+                String fieldName = entry.getKey().substring(0, entry.getKey().indexOf(".id."));
+                String field = entry.getKey().substring(entry.getKey().indexOf(".id.") + 4, entry.getKey().length());
+                criteria.createAlias(fieldName, fieldName).add(Restrictions.eq(fieldName + "." + field, entry.getValue()));
+            } else {
+                criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+            }
         }
 
         iterator = parameterCriteria.getIdsCriteria().entrySet().iterator();
         while( iterator.hasNext() ) {
             Entry<String, Object> entry = iterator.next();
-            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+            if( entry.getKey().contains(".id.") ) {
+                String fieldName = entry.getKey().substring(0, entry.getKey().indexOf(".id."));
+                String field = entry.getKey().substring(entry.getKey().indexOf(".id.") + 4, entry.getKey().length());
+                criteria.createAlias(fieldName, fieldName).add(Restrictions.eq(fieldName + "." + field, entry.getValue()));
+            } else {
+                criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+            }
         }
 
         if( sort ) {

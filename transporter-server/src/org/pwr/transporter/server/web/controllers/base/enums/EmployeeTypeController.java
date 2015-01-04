@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  *    Control sites related with {@link EmployeeType}
@@ -31,99 +32,56 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class EmployeeTypeController extends GenericController {
 
-	private static Logger LOGGER = Logger.getLogger(EmployeeTypeController.class);
+    private static Logger LOGGER = Logger.getLogger(EmployeeTypeController.class);
 
-	@Autowired
-	EmployeeTypeService employeeTypeService;
+    @Autowired
+    EmployeeTypeService employeeTypeService;
 
-	@RequestMapping(value = "/admin/employeeTypeList", method = RequestMethod.GET)
-	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
-		request.setAttribute("employeeTypeList", employeeTypeList);
+    @RequestMapping(value = "/admin/employeeTypeList", method = RequestMethod.GET)
+    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/admin/employeeTypeList";
-	}
+        List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
+        request.setAttribute("employeeTypeList", employeeTypeList);
 
-	@RequestMapping(value = "/admin/employeeTypeEdit", method = RequestMethod.GET)
-	public String getPrefix( HttpServletRequest request, HttpServletResponse response, Model model ) {
+        return "Views/admin/employeeTypeList";
+    }
 
-		LOGGER.debug("Get employee type edit");
-		Long id = getId(request.getParameter("id"));
-		EmployeeType employeeType = null;
-		if ( id == null ) {
-			employeeType = new EmployeeType();
-		} else {
-			employeeType = employeeTypeService.getByID(id);
-			if ( employeeType == null || employeeType.getId() == null ) {
-				employeeType = new EmployeeType();
-			}
-		}
 
-		model.addAttribute("employeeType", employeeType);
+    @RequestMapping(value = "/admin/employeeTypeEdit", method = RequestMethod.GET)
+    public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/base/enums/employeeTypeEdit";
-	}
+        LOGGER.debug("Get employee type edit");
+        Long id = getId(request.getParameter("id"));
+        EmployeeType employeeType = null;
+        if( id == null ) {
+            employeeType = new EmployeeType();
+        } else {
+            employeeType = employeeTypeService.getByID(id);
+            if( employeeType == null || employeeType.getId() == null ) {
+                employeeType = new EmployeeType();
+            }
+        }
 
-	@RequestMapping(value = "/admin/employeeTypeEdit", method = RequestMethod.POST)
-	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("employeeType") EmployeeType employeeType,
-			BindingResult formBindeings ) {
+        model.addAttribute("employeeType", employeeType);
 
-		// FIXME VALIDATION
-		if ( employeeType.getId() != null ) {
-			LOGGER.debug("Id not null");
-			employeeTypeService.update(employeeType);
-		} else {
-			employeeTypeService.insert(employeeType);
-		}
+        return "Views/base/enums/employeeTypeEdit";
+    }
 
-		return "redirect:../admin/employeeTypeList?page=" + getPage(request);
-	}
-	
-	/* dla driver list*/
-	
-	@RequestMapping(value = "/logistic/driverList", method = RequestMethod.GET)
-	public String getList2( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
-		request.setAttribute("employeeTypeList", employeeTypeList);
+    @RequestMapping(value = "/admin/employeeTypeEdit", method = RequestMethod.POST)
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("employeeType") EmployeeType employeeType,
+            BindingResult formBindeings) {
 
-		return "Views/logistic/driverList";
-	}
+        // FIXME VALIDATION
+        if( employeeType.getId() != null ) {
+            LOGGER.debug("Id not null");
+            employeeTypeService.update(employeeType);
+        } else {
+            employeeTypeService.insert(employeeType);
+        }
 
-	@RequestMapping(value = "/logistic/driverListEdit", method = RequestMethod.GET)
-	public String getPrefix2( HttpServletRequest request, HttpServletResponse response, Model model ) {
-
-		LOGGER.debug("Get employee type edit");
-		Long id = getId(request.getParameter("id"));
-		EmployeeType employeeType = null;
-		if ( id == null ) {
-			employeeType = new EmployeeType();
-		} else {
-			employeeType = employeeTypeService.getByID(id);
-			if ( employeeType == null || employeeType.getId() == null ) {
-				employeeType = new EmployeeType();
-			}
-		}
-
-		model.addAttribute("employeeType", employeeType);
-
-		return "Views/logistic/driverListEdit";
-	}
-
-	@RequestMapping(value = "/logistic/driverListEdit", method = RequestMethod.POST)
-	public String postPrefix2( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("employeeType") EmployeeType employeeType,
-			BindingResult formBindeings ) {
-
-		// FIXME VALIDATION
-		if ( employeeType.getId() != null ) {
-			LOGGER.debug("Id not null");
-			employeeTypeService.update(employeeType);
-		} else {
-			employeeTypeService.insert(employeeType);
-		}
-
-		return "redirect:../logistic/driverList?page=" + getPage(request);
-	}
+        return "redirect:../admin/employeeTypeList?page=" + getPage(request);
+    }
 
 }

@@ -7,7 +7,7 @@
 <div class="col-md-8">
 	<div class="well">	
 		<h2>Lista stanowisk pracowniczych</h2>
-		
+		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
@@ -16,7 +16,7 @@
 				<th>Aktywny</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
-			<c:forEach var="var" items="${employeeTypeList}">
+			<c:forEach var="var" items="${list}">
 			<c:if test="${var.searchKey=='kierowca' eq 'true'}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
