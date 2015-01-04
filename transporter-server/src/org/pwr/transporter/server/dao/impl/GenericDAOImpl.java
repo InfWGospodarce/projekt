@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -34,6 +35,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 0.1.7
  */
 public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T> {
+
+    private static Logger logger = Logger.getLogger(GenericDAOImpl.class);
 
     protected Class<T> clazz;
 
@@ -111,6 +114,7 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         criteria.setMaxResults(amount);
         criteria.setFirstResult(fromRow);
         List<T> resultList = criteria.list();
+        logger.debug("List objects: " + resultList.size());
         // Hibernate.initialize();
         getCurrentSession().getTransaction().commit();
         return resultList;
@@ -125,6 +129,7 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         loadCriteria(parameterCriteria, criteria, false);
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
         session.getTransaction().commit();
+        logger.debug("Count: " + count);
         return count;
     }
 
@@ -141,12 +146,11 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
             if( entry.getKey().contains(".id.") ) {
                 String fieldName = entry.getKey().substring(0, entry.getKey().indexOf(".id."));
                 String field = entry.getKey().substring(entry.getKey().indexOf(".id.") + 4, entry.getKey().length());
-                criteria.createAlias(fieldName, fieldName).add(
-                        Restrictions.like(fieldName + "." + field, (String) entry.getValue(), MatchMode.ANYWHERE));
+                criteria.createAlias(fieldName, fieldName + "field");
+                criteria.add(Restrictions.like(fieldName + "field" + "." + field, (String) entry.getValue(), MatchMode.ANYWHERE));
             } else {
-                criteria.add(Restrictions.like(entry.getKey(), entry.getValue()));
+                criteria.add(Restrictions.like(entry.getKey(), (String) entry.getValue(), MatchMode.ANYWHERE));
             }
-            criteria.add(Restrictions.like(entry.getKey(), (String) entry.getValue(), MatchMode.ANYWHERE));
         }
 
         iterator = parameterCriteria.getEqualCriteria().entrySet().iterator();
@@ -267,6 +271,7 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         Criteria criteria = session.createCriteria(clazz);
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
         session.getTransaction().commit();
+        logger.debug("Count: " + count);
         return count;
     }
 }

@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.apache.log4j.Logger;
@@ -63,7 +62,6 @@ public class UserAcc extends GenericEntity {
     // , targetEntity = UserRoles.class)
     // @JoinColumn(name = "useracc_id")
     @Fetch(FetchMode.SELECT)
-    @OrderBy("useracc_id")
     @JoinTable(name = "useracc_role", joinColumns = { @JoinColumn(name = "useracc_id", nullable = false, updatable = false) })
     private Collection<Role> role;
 

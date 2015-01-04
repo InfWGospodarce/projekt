@@ -17,7 +17,6 @@
 			</tr>
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="var" items="${list}">
-			<c:if test="${var.searchKey=='kierowca' eq 'true'}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
@@ -30,7 +29,7 @@
 							<c:if test="${var.active eq 'true'}">
 								checked="checked"
 							</c:if>
-						/></c:if>
+						/>
 					
 					
 				

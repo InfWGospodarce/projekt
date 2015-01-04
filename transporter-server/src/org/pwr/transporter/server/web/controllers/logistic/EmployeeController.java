@@ -31,7 +31,7 @@ public class EmployeeController extends GenericController {
     public String getList2(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Criteria criteria = restoreCriteria(request);
-        criteria.getEqualCriteria().put("employeeType.id.code", "Driver");
+        criteria.getLikeCriteria().put("employeeType.id.code", "Driver");
 
         List<Employee> list = getListWitchCriteria(employeeService, request, criteria);
         request.setAttribute("list", list);
