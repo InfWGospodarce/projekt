@@ -17,7 +17,7 @@
 			</tr>
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="var" items="${employeeTypeList}">
-			<c:if test="${var.searchKey=='driver' eq 'true'}">
+			<c:if test="${var.searchKey=='kierowca' eq 'true'}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>

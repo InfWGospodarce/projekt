@@ -33,12 +33,26 @@ public class GenericController {
     public static final String PAGE_COUNT = "pageCount";
 
 
-    public Criteria restoreCriteria(Object attribute) {
-        if( attribute instanceof Criteria ) {
-            Criteria criteria = (Criteria) attribute;
-            return criteria;
+    public Criteria restoreCriteria(HttpServletRequest attribute) {
+
+        Criteria criteria = new Criteria();
+        String active = attribute.getParameter("active");
+        if( active != null ) {
+            if( active.equals("0") ) {
+                criteria.getEqualCriteria().put("active", true);
+            } else if( active.equals("1") ) {
+                criteria.getEqualCriteria().put("active", false);
+            }
         }
-        return null;
+        String searchKey = (String) attribute.getParameter("searchKey");
+        if( searchKey != null && searchKey.isEmpty() ) {
+            criteria.getLikeCriteria().put("searchKey", searchKey);
+        }
+        String name = (String) attribute.getParameter("name");
+        if( name != null && name.isEmpty() ) {
+            criteria.getLikeCriteria().put("name", name);
+        }
+        return criteria;
     }
 
 

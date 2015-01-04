@@ -199,7 +199,7 @@ public class AccountController extends GenericController {
     }
 
 
-    @RequestMapping(value = "/admin/userList", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/userEdit", method = RequestMethod.POST)
     public String doPostUser(HttpServletRequest request, @ModelAttribute("customerAccountForm") @Validated CustomerAccountForm accountForm,
             BindingResult formBindeings, Model model) {
 
@@ -267,7 +267,11 @@ public class AccountController extends GenericController {
     @RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
     public String getUserList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        List<UserAcc> list = getList(userService, request);
+        Criteria criteria = new Criteria();
+        criteria.setOrderBy("username");
+
+        List<UserAcc> list = getListWitchCriteria(userService, request, criteria);
+        // List<UserAcc> list = getList(userService, request);
         List<Object> principals = sessionRegistry.getAllPrincipals();
 
         List<String> usersNamesList = new ArrayList<String>();
@@ -297,7 +301,8 @@ public class AccountController extends GenericController {
     @RequestMapping(value = "/admin/userListSearch", method = RequestMethod.GET)
     public String getUserListSearch(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        Criteria criteria = restoreCriteria(request.getAttribute("criteria"));
+        Criteria criteria = restoreCriteria(request);
+        criteria.setOrderBy("username");
 
         List<UserAcc> list = getListWitchCriteria(userService, request, criteria);
         List<Object> principals = sessionRegistry.getAllPrincipals();

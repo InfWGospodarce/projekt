@@ -4,7 +4,6 @@ package org.pwr.transporter.entity;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -31,12 +30,12 @@ public class UserRoles extends GenericEntity {
     // ****** FIELDS
     // *******************************************************************************************************************************
 
-    @ManyToOne
-    @JoinColumn(name = NamesForHibernate.USER_ID, nullable = false)
+    @ManyToOne(optional = false)
+    // @JoinColumn(name = NamesForHibernate.USER_ID, nullable = false)
     private UserAcc useracc;
 
-    @ManyToOne
-    @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false)
+    @ManyToOne(optional = false)
+    // @JoinColumn(name = NamesForHibernate.ROLE_ID, nullable = false)
     private Role role;
 
 

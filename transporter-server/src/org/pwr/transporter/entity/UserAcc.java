@@ -4,17 +4,22 @@ package org.pwr.transporter.entity;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.apache.log4j.Logger;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.entity.base.Employee;
 import org.springframework.security.crypto.codec.Hex;
@@ -56,11 +61,11 @@ public class UserAcc extends GenericEntity {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     // , targetEntity = UserRoles.class)
-    // @JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name =
-    // NamesForHibernate.USER_ROLES_ID, nullable = false, updatable = false) },
-    // inverseJoinColumns = { @JoinColumn(name = NamesForHibernate.ROLE_ID,
-    // nullable = false, updatable = false) })
-    private Set<Role> role;
+    // @JoinColumn(name = "useracc_id")
+    @Fetch(FetchMode.SELECT)
+    @OrderBy("useracc_id")
+    @JoinTable(name = "useracc_role", joinColumns = { @JoinColumn(name = "useracc_id", nullable = false, updatable = false) })
+    private Collection<Role> role;
 
     @Column(name = "email", nullable = false)
     private String email;
@@ -243,12 +248,12 @@ public class UserAcc extends GenericEntity {
     }
 
 
-    public Set<Role> getRole() {
+    public Collection<Role> getRole() {
         return this.role;
     }
 
 
-    public void setRole(Set<Role> role) {
+    public void setRole(Collection<Role> role) {
         this.role = role;
     }
 }

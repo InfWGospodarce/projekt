@@ -4,13 +4,14 @@
 	<form action="${requestScope['javax.servlet.forward.request_uri']}Search" method="get">
 		<input type="hidden" name="page" id="page" value="${page}">
 		<table class="table">
+			<%-- <%@include file="sbAddLikes.jsp" %> --%>
 			<tr>
-				<td>
+				<td>	
 					<div class="form-group">
 						<h5>Klucz wyszukiwania</h5>
 						<input class="form-control" name="searchKey"/>
 					</div>
-				<td>
+				</td>
 				<td>
 					<div class="form-group">
 						<h5>Nazwa</h5>
@@ -20,10 +21,10 @@
 				<td>
 					<div class="form-group">
 						<h5>Aktywny</h5>
-						<select class="form-control" name="name">
-							<option value="0">Tak</option>
-							<option value="1">Nie</option>
-							<option value="2">Wszystkie</option>
+						<select class="form-control" name="active">
+							<form:option value="0">Tak</form:option>
+							<form:option value="1">Nie</form:option>
+							<form:option value="2">Wszystkie</form:option>
 						</select> 
 					</div>
 				<td>

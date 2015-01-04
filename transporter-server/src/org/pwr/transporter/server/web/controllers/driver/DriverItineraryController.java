@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.logistic.Itinerary;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
+import org.pwr.transporter.server.core.hb.criteria.Between;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.logistic.ItineraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,8 @@ public class DriverItineraryController extends GenericController {
         Long id = getId(request.getParameter("id"));
 
         Criteria criteria = new Criteria();
-        criteria.getEqualCriteria().put("active", true);
-        criteria.getIdsCriteria().put("employee_id", id);
+        criteria.getEqualCriteria().put("active", new Between(null, true));
+        criteria.getIdsCriteria().put("employee_id", new Between(null, id));
 
         List<Itinerary> itineraryList = getListWitchCriteria(itineraryService, request, criteria);
         model.addAttribute("list", itineraryList);
