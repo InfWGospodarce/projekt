@@ -15,6 +15,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.server.core.hb.criteria.Between;
 import org.pwr.transporter.server.dao.GenericDAO;
@@ -80,11 +81,15 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
     public List<T> getListRest(int amount, int fromRow) {
         Session session = getCurrentSession();
         session.getTransaction().begin();
-        String cname = clazz.getName();
-        Query query = session.createQuery("from " + cname + " order by 1");
-        query.setMaxResults(amount);
-        query.setFirstResult(fromRow);
-        List<T> resultList = query.list();
+
+        DetachedCriteria idsOnlyCriteria = DetachedCriteria.forClass(clazz);
+        idsOnlyCriteria.setProjection(Projections.distinct(Projections.id()));
+
+        Criteria criteria = session.createCriteria(clazz);
+        criteria.add(Subqueries.propertyIn("id", idsOnlyCriteria));
+        criteria.setMaxResults(amount);
+        criteria.setFirstResult(fromRow);
+        List<T> resultList = criteria.list();
         // Hibernate.initialize();
         getCurrentSession().getTransaction().commit();
         return resultList;
@@ -95,11 +100,15 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
     public List<T> getListRestCrit(int amount, int fromRow, org.pwr.transporter.server.core.hb.criteria.Criteria parameterCriteria) {
         Session session = getCurrentSession();
         session.getTransaction().begin();
+
+        DetachedCriteria idsOnlyCriteria = DetachedCriteria.forClass(clazz);
+        idsOnlyCriteria.setProjection(Projections.distinct(Projections.id()));
+
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         loadCriteria(parameterCriteria, criteria);
+        criteria.add(Subqueries.propertyIn("id", idsOnlyCriteria));
         criteria.setMaxResults(amount);
         criteria.setFirstResult(fromRow);
-        criteria.addOrder(Order.asc("id"));
         List<T> resultList = criteria.list();
         // Hibernate.initialize();
         getCurrentSession().getTransaction().commit();
@@ -112,7 +121,7 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         Session session = getCurrentSession();
         session.getTransaction().begin();
         Criteria criteria = session.createCriteria(clazz);
-        loadCriteria(parameterCriteria, criteria);
+        loadCriteria(parameterCriteria, criteria, false);
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
         session.getTransaction().commit();
         return count;
@@ -120,6 +129,11 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
 
 
     private void loadCriteria(org.pwr.transporter.server.core.hb.criteria.Criteria parameterCriteria, Criteria criteria) {
+        loadCriteria(parameterCriteria, criteria, true);
+    }
+
+
+    private void loadCriteria(org.pwr.transporter.server.core.hb.criteria.Criteria parameterCriteria, Criteria criteria, boolean sort) {
         Iterator<Entry<String, Object>> iterator = parameterCriteria.getLikeCriteria().entrySet().iterator();
         while( iterator.hasNext() ) {
             Entry<String, Object> entry = iterator.next();
@@ -138,18 +152,35 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
             criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
         }
 
+        if( sort ) {
+            Iterator<Entry<String, Object>> iteratorC = parameterCriteria.getSortCriteria().entrySet().iterator();
+            while( iteratorC.hasNext() ) {
+                Entry<String, Object> entry = iteratorC.next();
+                if( entry.getValue().equals(org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions.ASC) ) {
+                    criteria.addOrder(Order.asc(entry.getKey()));
+                } else {
+                    criteria.addOrder(Order.desc(entry.getKey()));
+                }
+
+            }
+        }
+
         Iterator<Entry<String, Between>> iteratorB = parameterCriteria.getBetweenCriteria().entrySet().iterator();
         while( iteratorB.hasNext() ) {
             Entry<String, Between> entry = iteratorB.next();
-            criteria.add(Restrictions.between(entry.getKey(), entry.getValue().getFrom(), entry.getValue().getTo()));
+            criteria.add(Restrictions.between(entry.getKey(), entry.getValue().getFirst(), entry.getValue().getSecond()));
         }
+
+        if( parameterCriteria.getOrderBy() != null ) {
+
+        }
+
     }
 
 
     @SuppressWarnings("unchecked")
     public List<T> search(Map<String, Object> parameterMap) {
-        Session session = getCurrentSession();
-        session.getTransaction().begin();
+        getCurrentSession().getTransaction().begin();
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {

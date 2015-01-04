@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  *    Show login page.
@@ -22,23 +23,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HTTPErrorsController {
 
-	private static Logger LOGGER = Logger.getLogger(HTTPErrorsController.class);
+    private static Logger LOGGER = Logger.getLogger(HTTPErrorsController.class);
 
-	@RequestMapping(value = "/errors/403", method = RequestMethod.GET)
-	public String doGet403( HttpServletRequest request, HttpServletResponse response ) {
-		LOGGER.debug("Get 403 error page");
-		return "/errors/403";
-	}
 
-	@RequestMapping(value = "/errors/404", method = RequestMethod.GET)
-	public String doGet404( HttpServletRequest request, HttpServletResponse response ) {
-		LOGGER.debug("Get 404 error page");
-		return "/errors/404";
-	}
+    @RequestMapping(value = "/errors/403", method = RequestMethod.GET)
+    public String doGet403(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.debug("Get 403 error page");
+        return "/errors/403";
+    }
 
-	@RequestMapping(value = "/errors/405", method = RequestMethod.GET)
-	public String doGet405( HttpServletRequest request, HttpServletResponse response ) {
-		LOGGER.debug("Get 405 error page");
-		return "/errors/405";
-	}
+
+    @RequestMapping(value = "/errors/404", method = RequestMethod.GET)
+    public String doGet404(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.debug("Get 404 error page: " + request.getRequestURI());
+        return "/errors/404";
+    }
+
+
+    @RequestMapping(value = "/errors/405", method = RequestMethod.GET)
+    public String doGet405(HttpServletRequest request, HttpServletResponse response) {
+        LOGGER.debug("Get 405 error page");
+        return "/errors/405";
+    }
 }

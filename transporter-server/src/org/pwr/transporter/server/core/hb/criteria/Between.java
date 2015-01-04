@@ -12,39 +12,39 @@ package org.pwr.transporter.server.core.hb.criteria;
  */
 public class Between {
 
-    private Object from;
-    private Object to;
+    private Object first;
+    private Object second;
 
 
     public Between() {
-        from = null;
-        to = null;
+        first = null;
+        second = null;
     }
 
 
-    Between(Object from, Object to) {
-        this.from = from;
-        this.to = to;
+    public Between(Object first, Object to) {
+        this.first = first;
+        this.second = to;
     }
 
 
-    public void setFrom(Object from) {
-        this.from = from;
+    public void setFirst(Object from) {
+        this.first = from;
     }
 
 
-    public Object getFrom() {
-        return this.from;
+    public Object getFirst() {
+        return this.first;
     }
 
 
-    public void setTo(Object to) {
-        this.to = to;
+    public void setSecond(Object to) {
+        this.second = to;
     }
 
 
-    public Object getTo() {
-        return this.to;
+    public Object getSecond() {
+        return this.second;
     }
 
 }

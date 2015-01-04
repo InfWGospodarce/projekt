@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.logistic.Task;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
+import org.pwr.transporter.server.core.hb.criteria.Between;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.logistic.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,9 @@ public class DriverSheduleController extends GenericController {
         UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
 
         Criteria criteria = new Criteria();
-        criteria.getEqualCriteria().put("active", true);
+        criteria.getEqualCriteria().put("active", new Between(null, true));
         if( user.getEmployee() != null ) {
-            criteria.getIdsCriteria().put("employee.id", user.getEmployee().getId());
+            criteria.getIdsCriteria().put("employee.id", new Between(null, user.getEmployee().getId()));
         }
 
         List<Task> taskList = getListWitchCriteria(taskService, request, criteria);

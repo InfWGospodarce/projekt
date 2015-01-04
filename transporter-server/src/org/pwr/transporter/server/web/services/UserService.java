@@ -2,7 +2,9 @@ package org.pwr.transporter.server.web.services;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -74,7 +76,7 @@ public class UserService implements UserDetailsService, IService {
     public CustomUserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
         UserAcc user = userLogic.findByUserName(username);
-        Set<Role> roles = new HashSet<Role>();
+        Collection<Role> roles = new LinkedHashSet<Role>();
         if( user != null && user.getRole() != null ) {
             roles = user.getRole();
         }
@@ -99,12 +101,12 @@ public class UserService implements UserDetailsService, IService {
     }
 
 
-    private List<GrantedAuthority> buildUserAuthority(Set<Role> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(Collection<Role> roles) {
 
         Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
 
         // Build user's authorities
-        for( Role userRole : userRoles ) {
+        for( Role userRole : roles ) {
             setAuths.add(new SimpleGrantedAuthority(userRole.getName()));
         }
 
@@ -157,7 +159,7 @@ public class UserService implements UserDetailsService, IService {
             user.setEmployee(employeeLogic.getByID(employeeId));
         }
 
-        Set<Role> roleSet = user.getRole();
+        Collection<Role> roleSet = user.getRole();
         user.setRole(null);
 
         Long userId = this.userLogic.insert(user);
@@ -277,7 +279,7 @@ public class UserService implements UserDetailsService, IService {
 
         user.setCustomer(accountForm.getCustomer());
         user.setEmployee(accountForm.getEmployee());
-        Set<Role> roleSet = user.getRole();
+        Collection<Role> roleSet = user.getRole();
         user.setRole(null);
 
         this.userLogic.update(user);
