@@ -136,6 +136,9 @@ public class UserService implements UserDetailsService, IService {
         Customer customer = accountForm.getCustomer();
         Employee employee = accountForm.getEmployee();
 
+        String name = null;
+        String surname = null;
+
         UserAcc user = accountForm.getUser();
         user.setPassword(accountForm.getPassword());
 
@@ -145,6 +148,8 @@ public class UserService implements UserDetailsService, IService {
                 customer.setContacAddress(addressLogic.getByID(correAddresId));
             }
             Long customerId = customerLogic.insert(customer);
+            name = customer.getName();
+            surname = customer.getSurname();
             user.setCustomer(customerLogic.getByID(customerId));
         }
 
@@ -156,8 +161,12 @@ public class UserService implements UserDetailsService, IService {
             EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
             employee.setEmployeeType(employeeType);
             Long employeeId = employeeLogic.insert(employee);
+            name = employee.getName();
+            surname = employee.getSurname();
             user.setEmployee(employeeLogic.getByID(employeeId));
         }
+
+        user.setName(user.getUsername() + " " + surname + " " + name);
 
         Collection<Role> roleSet = user.getRole();
         user.setRole(null);

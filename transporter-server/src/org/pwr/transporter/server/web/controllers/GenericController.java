@@ -45,11 +45,11 @@ public class GenericController {
             }
         }
         String searchKey = (String) attribute.getParameter("searchKey");
-        if( searchKey != null && searchKey.isEmpty() ) {
+        if( searchKey != null && !searchKey.isEmpty() ) {
             criteria.getLikeCriteria().put("searchKey", searchKey);
         }
         String name = (String) attribute.getParameter("name");
-        if( name != null && name.isEmpty() ) {
+        if( name != null && !name.isEmpty() ) {
             criteria.getLikeCriteria().put("name", name);
         }
         return criteria;

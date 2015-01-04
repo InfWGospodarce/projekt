@@ -40,6 +40,7 @@ public class EmployeeLogic {
 
 
     public Long insert(Employee entity) {
+        entity.setSearchKey(entity.getName() + " " + entity.getSurname());
         return this.employeeDAO.insert(entity);
     }
 

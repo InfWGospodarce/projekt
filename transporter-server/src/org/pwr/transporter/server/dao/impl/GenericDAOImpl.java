@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -137,7 +138,7 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         Iterator<Entry<String, Object>> iterator = parameterCriteria.getLikeCriteria().entrySet().iterator();
         while( iterator.hasNext() ) {
             Entry<String, Object> entry = iterator.next();
-            criteria.add(Restrictions.ilike(entry.getKey(), entry.getValue()));
+            criteria.add(Restrictions.like(entry.getKey(), (String) entry.getValue(), MatchMode.ANYWHERE));
         }
 
         iterator = parameterCriteria.getEqualCriteria().entrySet().iterator();

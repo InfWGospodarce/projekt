@@ -267,40 +267,6 @@ public class AccountController extends GenericController {
     @RequestMapping(value = "/admin/userList", method = RequestMethod.GET)
     public String getUserList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        Criteria criteria = new Criteria();
-        criteria.setOrderBy("username");
-
-        List<UserAcc> list = getListWitchCriteria(userService, request, criteria);
-        // List<UserAcc> list = getList(userService, request);
-        List<Object> principals = sessionRegistry.getAllPrincipals();
-
-        List<String> usersNamesList = new ArrayList<String>();
-
-        for( Object principal : principals ) {
-            LOGGER.debug("Found: " + principal.toString());
-            if( principal instanceof CustomUserDetails ) {
-                usersNamesList.add(( (CustomUserDetails) principal ).getUsername());
-            }
-        }
-
-        Map<UserAcc, Boolean> loggedUsers = new HashMap<UserAcc, Boolean>();
-        for( UserAcc user : list ) {
-            if( usersNamesList.contains(user.getUsername()) ) {
-                loggedUsers.put(user, true);
-            } else {
-                loggedUsers.put(user, false);
-            }
-        }
-
-        model.addAttribute("list", loggedUsers);
-
-        return "/Views/admin/userList";
-    }
-
-
-    @RequestMapping(value = "/admin/userListSearch", method = RequestMethod.GET)
-    public String getUserListSearch(HttpServletRequest request, HttpServletResponse response, Model model) {
-
         Criteria criteria = restoreCriteria(request);
         criteria.setOrderBy("username");
 
