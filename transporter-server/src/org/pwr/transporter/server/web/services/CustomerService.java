@@ -30,10 +30,6 @@ public class CustomerService {
     }
 
 
-    public List<Customer> getList() {
-        return this.customerLogic.getList();
-    }
-
 
     public List<Customer> search(Map<String, Object> parameterMap) {
         return this.customerLogic.search(parameterMap);

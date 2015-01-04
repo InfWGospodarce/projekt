@@ -54,7 +54,7 @@ public class CustomerController extends GenericController {
 		if ( id == null ) {
 			customer = new Customer();
 		} else {
-			customer = customerService.getByID(id);
+			customer = customerService.getById(id);
 			if ( customer == null || customer.getId() == null ) {
 				customer = new Customer();
 			}
