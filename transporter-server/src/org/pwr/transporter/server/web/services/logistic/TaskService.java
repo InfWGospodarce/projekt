@@ -4,9 +4,13 @@ package org.pwr.transporter.server.web.services.logistic;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.Generic;
+import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.entity.logistic.Task;
+import org.pwr.transporter.entity.logistic.Vehicle;
+import org.pwr.transporter.server.business.EmployeeLogic;
 import org.pwr.transporter.server.business.logistic.TaskLogic;
+import org.pwr.transporter.server.business.logistic.VehicleLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.logistic.TaskDAO;
 import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,11 @@ public class TaskService implements IService {
     @Autowired
     TaskLogic taskLogic;
 
+    @Autowired
+    VehicleLogic vehicleLogic;
+    
+    @Autowired
+    EmployeeLogic employeeLogic;
 
     public void setTaskDAO(TaskDAO taskDAO) {
         taskLogic.setTaskDAO(taskDAO);
@@ -29,23 +38,32 @@ public class TaskService implements IService {
     }
 
 
-    public List<Task> getList() {
-        return taskLogic.getList();
-    }
-
-
     public List<Task> search(Map<String, Object> parameterMap) {
         return taskLogic.search(parameterMap);
     }
 
 
     public Long insert(Task entity) {
+    	
+    	entity.setSearchKey("");
+    	Employee empl = employeeLogic.getByID(entity.getEmployee().getId());
+    	Vehicle veh = vehicleLogic.getByID(entity.getVehicle().getId());
+    	
+    	entity.setEmployee(empl);
+    	entity.setVehicle(veh);
         return taskLogic.insert(entity);
     }
 
 
     public void update(Task entity) {
-        taskLogic.update(entity);
+        //taskLogic.update(entity);
+    	entity.setSearchKey("");
+    	Employee empl = employeeLogic.getByID(entity.getEmployee().getId());
+    	Vehicle veh = vehicleLogic.getByID(entity.getVehicle().getId());
+    	
+    	entity.setEmployee(empl);
+    	entity.setVehicle(veh);
+    	taskLogic.update(entity);
     }
 
 
@@ -78,14 +96,14 @@ public class TaskService implements IService {
 
 
     @Override
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return taskLogic.count(criteria);
     }
 
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
-        return (List<T>) taskLogic.getListRestCrit(amount, fromRow, criteria);
+    public List<Task> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return taskLogic.getListRestCrit(amount, fromRow, criteria);
     }
 }

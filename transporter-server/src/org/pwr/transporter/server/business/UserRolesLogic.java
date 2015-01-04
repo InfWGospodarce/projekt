@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.UserRoles;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.UserRolesDAO;
 
 
@@ -30,11 +31,6 @@ public class UserRolesLogic {
 
     public UserRoles getByID(Long id) {
         return this.userRolesDAO.getByID(id);
-    }
-
-
-    public List<UserRoles> getList() {
-        return this.userRolesDAO.getList();
     }
 
 
@@ -66,6 +62,31 @@ public class UserRolesLogic {
 
     public List<UserRoles> getActiveByUserId(Long id) {
         return this.userRolesDAO.getByUserId(id);
+    }
+
+
+    public List<UserRoles> getByUserId(Long id) {
+        return this.userRolesDAO.getByUserId(id);
+    }
+
+
+    public List<UserRoles> getListRest(int amount, int fromRow) {
+        return this.userRolesDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.userRolesDAO.count();
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.userRolesDAO.count(criteria);
+    }
+
+
+    public List<UserRoles> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.userRolesDAO.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

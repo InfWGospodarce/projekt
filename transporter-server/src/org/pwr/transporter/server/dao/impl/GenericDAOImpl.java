@@ -1,8 +1,10 @@
 package org.pwr.transporter.server.dao.impl;
 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.hibernate.Criteria;
@@ -14,6 +16,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.pwr.transporter.entity.Generic;
+import org.pwr.transporter.server.core.hb.criteria.Between;
 import org.pwr.transporter.server.dao.GenericDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,7 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <hr/>
  * 
  * @author W.S., copied from examples
- * @version 0.1.5
+ * @version 0.1.7
  */
 public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T> {
 
@@ -60,6 +63,7 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
     }
 
 
+    @Deprecated
     @SuppressWarnings("unchecked")
     public List<T> getList() {
         getCurrentSession().getTransaction().begin();
@@ -88,14 +92,11 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
 
 
     @SuppressWarnings("unchecked")
-    public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> parameterMap) {
+    public List<T> getListRestCrit(int amount, int fromRow, org.pwr.transporter.server.core.hb.criteria.Criteria parameterCriteria) {
         Session session = getCurrentSession();
         session.getTransaction().begin();
         Criteria criteria = getCurrentSession().createCriteria(clazz);
-        Set<String> fieldName = parameterMap.keySet();
-        for( String field : fieldName ) {
-            loadCriteria(field, criteria, parameterMap.get(field));
-        }
+        loadCriteria(parameterCriteria, criteria);
         criteria.setMaxResults(amount);
         criteria.setFirstResult(fromRow);
         criteria.addOrder(Order.asc("id"));
@@ -107,27 +108,40 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
 
 
     @Override
-    public long count(Map<String, Object> parameterMap) {
+    public long count(org.pwr.transporter.server.core.hb.criteria.Criteria parameterCriteria) {
         Session session = getCurrentSession();
         session.getTransaction().begin();
         Criteria criteria = session.createCriteria(clazz);
-        Set<String> fieldName = parameterMap.keySet();
-        for( String field : fieldName ) {
-            loadCriteria(field, criteria, parameterMap.get(field));
-        }
+        loadCriteria(parameterCriteria, criteria);
         Integer count = ( (Number) criteria.setProjection(Projections.rowCount()).uniqueResult() ).intValue();
         session.getTransaction().commit();
         return count;
     }
 
 
-    private void loadCriteria(String field, Criteria criteria, Object value) {
-        if( value instanceof Boolean ) {
-            criteria.add(Restrictions.eq(field, value));
-        } else if( value instanceof Long ) {
-            criteria.add(Restrictions.eq(field, value));
-        } else {
-            criteria.add(Restrictions.ilike(field, value));
+    private void loadCriteria(org.pwr.transporter.server.core.hb.criteria.Criteria parameterCriteria, Criteria criteria) {
+        Iterator<Entry<String, Object>> iterator = parameterCriteria.getLikeCriteria().entrySet().iterator();
+        while( iterator.hasNext() ) {
+            Entry<String, Object> entry = iterator.next();
+            criteria.add(Restrictions.ilike(entry.getKey(), entry.getValue()));
+        }
+
+        iterator = parameterCriteria.getEqualCriteria().entrySet().iterator();
+        while( iterator.hasNext() ) {
+            Entry<String, Object> entry = iterator.next();
+            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+        }
+
+        iterator = parameterCriteria.getIdsCriteria().entrySet().iterator();
+        while( iterator.hasNext() ) {
+            Entry<String, Object> entry = iterator.next();
+            criteria.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+        }
+
+        Iterator<Entry<String, Between>> iteratorB = parameterCriteria.getBetweenCriteria().entrySet().iterator();
+        while( iteratorB.hasNext() ) {
+            Entry<String, Between> entry = iteratorB.next();
+            criteria.add(Restrictions.between(entry.getKey(), entry.getValue().getFrom(), entry.getValue().getTo()));
         }
     }
 
@@ -139,7 +153,14 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         Criteria criteria = getCurrentSession().createCriteria(clazz);
         Set<String> fieldName = parameterMap.keySet();
         for( String field : fieldName ) {
-            loadCriteria(field, criteria, parameterMap.get(field));
+            Object value = parameterMap.get(field);
+            if( value instanceof Boolean ) {
+                criteria.add(Restrictions.eq(field, value));
+            } else if( value instanceof Long ) {
+                criteria.add(Restrictions.eq(field, value));
+            } else {
+                criteria.add(Restrictions.ilike(field, value));
+            }
         }
         List<T> resultList = criteria.list();
         // Hibernate.initialize(resultList);

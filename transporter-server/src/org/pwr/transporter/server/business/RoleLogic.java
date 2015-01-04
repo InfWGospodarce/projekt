@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.Role;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.RoleDAO;
 
 
@@ -30,11 +31,6 @@ public class RoleLogic {
 
     public Role getByID(Long id) {
         return this.roleDAO.getByID(id);
-    }
-
-
-    public List<Role> getList() {
-        return this.roleDAO.getList();
     }
 
 
@@ -78,13 +74,18 @@ public class RoleLogic {
     }
 
 
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.roleDAO.count(criteria);
     }
 
 
-    public List<Role> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public List<Role> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.roleDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<Role> getList() {
+        return this.roleDAO.getList();
     }
 
 }

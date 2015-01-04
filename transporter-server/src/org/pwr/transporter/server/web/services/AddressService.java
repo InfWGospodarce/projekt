@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.web.services;
 
 
@@ -7,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.server.business.AddressLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.AddressDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,11 +37,6 @@ public class AddressService {
     }
 
 
-    public List<Address> getList() {
-        return this.addressLogic.getList();
-    }
-
-
     public List<Address> search(Map<String, Object> parameterMap) {
         return this.addressLogic.search(parameterMap);
     }
@@ -64,6 +59,16 @@ public class AddressService {
 
     public void deleteById(Long id) {
         this.addressLogic.deleteById(id);
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.addressLogic.count(criteria);
+    }
+
+
+    public List<Address> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.addressLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

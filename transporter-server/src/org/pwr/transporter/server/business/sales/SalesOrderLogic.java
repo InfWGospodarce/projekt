@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.sales.SalesOrder;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.sales.SalesOrderDAO;
 
 
@@ -26,11 +27,6 @@ public class SalesOrderLogic {
 
     public SalesOrder getByID(Long id) {
         return this.salesOrderDAO.getByID(id);
-    }
-
-
-    public List<SalesOrder> getList() {
-        return this.salesOrderDAO.getList();
     }
 
 
@@ -69,12 +65,12 @@ public class SalesOrderLogic {
     }
 
 
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.salesOrderDAO.count(criteria);
     }
 
 
-    public List<SalesOrder> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public List<SalesOrder> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.salesOrderDAO.getListRestCrit(amount, fromRow, criteria);
     }
 

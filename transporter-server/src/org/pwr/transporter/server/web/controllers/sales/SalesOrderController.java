@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.sales.SalesOrder;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.sales.SalesOrderService;
@@ -27,20 +26,13 @@ public class SalesOrderController extends GenericController {
     private static Logger LOGGER = Logger.getLogger(SalesOrderController.class);
 
     @Autowired
-    SalesOrderService orderService;
+    SalesOrderService salesOrderService;
 
 
     @RequestMapping(value = "/logistic/orderList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-        // if ( user != null ) {
-        // List<Task> taskList =
-        // taskService.getByUserId(user.getEmplyee().getId());
-        // model.addAttribute("taskList", taskList);
-        // }
-
-        List<SalesOrder> orderList = orderService.getList();
+        List<SalesOrder> orderList = getList(salesOrderService, request);
         model.addAttribute("orderList", orderList);
 
         return "/Views/logistic/orderList";
@@ -55,7 +47,7 @@ public class SalesOrderController extends GenericController {
         if( id == null ) {
             order = new SalesOrder();
         } else {
-            order = orderService.getByID(id);
+            order = salesOrderService.getByID(id);
             if( order == null || order.getId() == null ) {
                 order = new SalesOrder();
             }
@@ -75,9 +67,9 @@ public class SalesOrderController extends GenericController {
         // FIXME VALIDATION
         if( order.getId() != null ) {
             LOGGER.debug("Id not null");
-            orderService.update(order);
+            salesOrderService.update(order);
         } else {
-            orderService.insert(order);
+            salesOrderService.insert(order);
         }
 
         return "redirect:../logistic/orderList?page=" + getPage(request);

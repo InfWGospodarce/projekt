@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.Generic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 
 
 
@@ -24,6 +25,7 @@ public interface GenericDAO<T extends Generic> {
     T getByID(Long id);
 
 
+    @Deprecated
     /**
      * <pre>
      *        Get full list of rows, better use {@link #getListRest(long, long)}
@@ -108,9 +110,9 @@ public interface GenericDAO<T extends Generic> {
     public long count();
 
 
-    public long count(Map<String, Object> criteria);
+    public long count(Criteria criteria);
 
 
-    public List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria);
+    public List<T> getListRestCrit(int amount, int fromRow, Criteria criteria);
 
 }

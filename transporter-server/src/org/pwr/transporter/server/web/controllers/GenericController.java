@@ -4,13 +4,13 @@ package org.pwr.transporter.server.web.controllers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.IService;
 
 
@@ -33,6 +33,15 @@ public class GenericController {
     public static final String PAGE_COUNT = "pageCount";
 
 
+    public Criteria restoreCriteria(Object attribute) {
+        if( attribute instanceof Criteria ) {
+            Criteria criteria = (Criteria) attribute;
+            return criteria;
+        }
+        return null;
+    }
+
+
     /**
      * <pre>
      *        Return ranged list of selected objects
@@ -43,7 +52,7 @@ public class GenericController {
      * @param request
      * @return
      */
-    public <T extends GenericEntity> List<T> getList(IService service, HttpServletRequest request) {
+    public <T extends Generic> List<T> getList(IService service, HttpServletRequest request) {
 
         List<T> list = new ArrayList<T>();
 
@@ -69,7 +78,7 @@ public class GenericController {
     }
 
 
-    public <T extends GenericEntity> List<T> getListWitchCriteria(IService service, HttpServletRequest request, Map<String, Object> criteria) {
+    public <T extends Generic> List<T> getListWitchCriteria(IService service, HttpServletRequest request, Criteria criteria) {
 
         List<T> list = null;
 

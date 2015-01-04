@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.server.business.EmployeeLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.EmployeeDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,11 +37,6 @@ public class EmployeeService {
     }
 
 
-    public List<Employee> getList() {
-        return this.employeeLogic.getList();
-    }
-
-
     public List<Employee> search(Map<String, Object> parameterMap) {
         return this.employeeLogic.search(parameterMap);
     }
@@ -63,6 +59,16 @@ public class EmployeeService {
 
     public void deleteById(Long id) {
         this.employeeLogic.deleteById(id);
+    }
+
+
+    public long count(Criteria criteria) {
+        return this.employeeLogic.count(criteria);
+    }
+
+
+    public List<Employee> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return this.employeeLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 }

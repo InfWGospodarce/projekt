@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.dao.enums.AddrStreetPrefixDAO;
 
 
@@ -73,12 +74,12 @@ public class AddrStreetPrefixLogic {
     }
 
 
-    public long count(Map<String, Object> criteria) {
+    public long count(Criteria criteria) {
         return this.addrStreetPrefixDAO.count(criteria);
     }
 
 
-    public List<AddrStreetPrefix> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
+    public List<AddrStreetPrefix> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.addrStreetPrefixDAO.getListRestCrit(amount, fromRow, criteria);
     }
 

@@ -20,6 +20,7 @@ import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.entity.base.Person;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.core.sec.CustomUserDetails;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.form.CustomerAccountForm;
@@ -267,6 +268,38 @@ public class AccountController extends GenericController {
     public String getUserList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         List<UserAcc> list = getList(userService, request);
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+
+        List<String> usersNamesList = new ArrayList<String>();
+
+        for( Object principal : principals ) {
+            LOGGER.debug("Found: " + principal.toString());
+            if( principal instanceof CustomUserDetails ) {
+                usersNamesList.add(( (CustomUserDetails) principal ).getUsername());
+            }
+        }
+
+        Map<UserAcc, Boolean> loggedUsers = new HashMap<UserAcc, Boolean>();
+        for( UserAcc user : list ) {
+            if( usersNamesList.contains(user.getUsername()) ) {
+                loggedUsers.put(user, true);
+            } else {
+                loggedUsers.put(user, false);
+            }
+        }
+
+        model.addAttribute("list", loggedUsers);
+
+        return "/Views/admin/userList";
+    }
+
+
+    @RequestMapping(value = "/admin/userListSearch", method = RequestMethod.GET)
+    public String getUserListSearch(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        Criteria criteria = restoreCriteria(request.getAttribute("criteria"));
+
+        List<UserAcc> list = getListWitchCriteria(userService, request, criteria);
         List<Object> principals = sessionRegistry.getAllPrincipals();
 
         List<String> usersNamesList = new ArrayList<String>();

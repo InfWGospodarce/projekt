@@ -2,11 +2,10 @@ package org.pwr.transporter.server.web.services.enums;
 
 
 import java.util.List;
-import java.util.Map;
 
-import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.server.business.enums.AddrStreetPrefixLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -70,17 +69,16 @@ public class AddrStreetPrefixService implements IService {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T extends Generic> List<T> getListRestCrit(int amount, int fromRow, Map<String, Object> criteria) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<AddrStreetPrefix> getListRestCrit(int amount, int fromRow, Criteria criteria) {
+        return addrStreetPrefixLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 
     @Override
-    public long count(Map<String, Object> criteria) {
-        // TODO Auto-generated method stub
-        return 0;
+    public long count(Criteria criteria) {
+        return addrStreetPrefixLogic.count(criteria);
     }
 
 }
