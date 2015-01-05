@@ -14,6 +14,11 @@
 					    	<input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
 						</form>
 					</td>
+					<td>
+						<form action="/transporter-server/user/passwordEdit" method="get">
+					    	<input class="btn btn-primary" class="form-control" type="submit" value="Zmień hasło">
+						</form>
+					</td>
 				</tr>
 			</table>
 					

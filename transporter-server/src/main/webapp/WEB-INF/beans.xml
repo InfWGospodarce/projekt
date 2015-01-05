@@ -23,6 +23,8 @@
 	
 	<bean id="customerAccountValidator" class="org.pwr.transporter.server.web.validators.forms.CustomerAccountValidator" />
 	
+	<bean id="passwordValidator" class="org.pwr.transporter.server.web.validators.forms.PasswordFormValidator" />
+	
 	<!-- Streat prefix -->
 	<bean id="addrStreetPrefixDAO" class="org.pwr.transporter.server.dao.impl.enums.AddrStreetPrefixDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
