@@ -14,6 +14,4 @@
 <li>
 	<a href="/transporter-server/logistic/vehicleList">Lista pojazdów</a>
 </li>
-<li>
-	<a href="/transporter-server/logistics/logisticsCreatedocument">Utworz dokument WZ *</a>
-</li>
+

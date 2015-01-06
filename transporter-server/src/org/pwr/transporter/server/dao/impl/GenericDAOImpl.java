@@ -109,8 +109,8 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
         idsOnlyCriteria.setProjection(Projections.distinct(Projections.id()));
 
         Criteria criteria = getCurrentSession().createCriteria(clazz);
-        loadCriteria(parameterCriteria, criteria);
         criteria.add(Subqueries.propertyIn("id", idsOnlyCriteria));
+        loadCriteria(parameterCriteria, criteria);
         criteria.setMaxResults(amount);
         criteria.setFirstResult(fromRow);
         List<T> resultList = criteria.list();
@@ -181,10 +181,23 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
             Iterator<Entry<String, Object>> iteratorC = parameterCriteria.getSortCriteria().entrySet().iterator();
             while( iteratorC.hasNext() ) {
                 Entry<String, Object> entry = iteratorC.next();
-                if( entry.getValue().equals(org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions.ASC) ) {
-                    criteria.addOrder(Order.asc(entry.getKey()));
+
+                if( entry.getKey().contains(".id.") ) {
+                    String fieldName = entry.getKey().substring(0, entry.getKey().indexOf(".id."));
+                    String field = entry.getKey().substring(entry.getKey().indexOf(".id.") + 4, entry.getKey().length());
+                    if( entry.getValue().equals(org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions.ASC) ) {
+                        logger.debug("Set order by: " + entry.getKey());
+                        criteria.createAlias(fieldName, fieldName + "field").addOrder(Order.asc(fieldName + "field" + "." + field));
+                    } else {
+                        criteria.createAlias(fieldName, fieldName + "field").addOrder(Order.desc(fieldName + "field" + "." + field));
+                    }
                 } else {
-                    criteria.addOrder(Order.desc(entry.getKey()));
+                    if( entry.getValue().equals(org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions.ASC) ) {
+                        logger.debug("Set order by: " + entry.getKey());
+                        criteria.addOrder(Order.asc(entry.getKey()));
+                    } else {
+                        criteria.addOrder(Order.desc(entry.getKey()));
+                    }
                 }
 
             }

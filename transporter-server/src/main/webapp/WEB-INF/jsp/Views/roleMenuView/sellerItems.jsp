@@ -1,28 +1,31 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <li>
-	<a href="">Poglad zlecenia</a>
+	<a href="/transporter-server/seller/requestList">Lista zamówień sprzedaży</a>
 </li>
 <li>
-	<a href="">Utworz zamowienie</a>
+	<a href="/transporter-server/seller/salesOrderList">Lista zleceń sprzedaży</a>
 </li>
 <li>
-	<a href="">Utworz konto klienta</a>
+	<a href="/transporter-server/seller/ginList">Lista dokumentów WZ</a>
 </li>
 <li>
-	<a href="">Rezerwuj towary na magazynie</a>
-</li>
-	<li><a href="" >Rezerwuj terminy realizacji</a>
+	<a href="/transporter-server/seller/salesInvoiceList">Faktury VAT sprzedaży *</a>
 </li>
 <li>
-	<a href="">Zmien stan towaru </a>
+	<a href="/transporter-server/seller/purchaseOrderList">Lista zleceń zakupu</a>
 </li>
 <li>
-	<a href="">Wystaw fakture VAT (FV) *</a>
+	<a href="/transporter-server/seller/girList">Lista dokumentów PZ</a>
+</li>
+<li>
+	<a href="/transporter-server/seller/purchaseInvoiceList">Faktury VAT zakupu *</a>
 </li>
 <li>
 	<a href="">Obsluz reklamacje *</a>
 </li>
 <li>
 	<a href="">Sprawdz stan konta klienta *</a>
+</li>
+<li>
+	<a href="/transporter-server/seller/createUserAcc">Utworz konto klienta</a>
 </li>

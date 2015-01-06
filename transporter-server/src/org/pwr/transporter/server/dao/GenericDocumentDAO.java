@@ -1,6 +1,8 @@
 package org.pwr.transporter.server.dao;
 
 
+import java.util.List;
+
 import org.pwr.transporter.entity.base.GenericDocument;
 
 
@@ -17,5 +19,7 @@ import org.pwr.transporter.entity.base.GenericDocument;
  * @param <ID>
  */
 public interface GenericDocumentDAO<T extends GenericDocument> extends GenericDAO<T> {
+
+    List<T> getByCustomerId(Long id);
 
 }

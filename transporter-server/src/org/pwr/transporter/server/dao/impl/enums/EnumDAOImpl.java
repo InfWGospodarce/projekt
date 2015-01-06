@@ -24,6 +24,7 @@ import org.pwr.transporter.server.dao.impl.GenericDAOImpl;
  */
 public class EnumDAOImpl<T extends GenericEnum> extends GenericDAOImpl<T> implements EnumDAO<T> {
 
+    @SuppressWarnings("unchecked")
     public Long insert(T entity) {
         int value = 0;
         Session session = getCurrentSession();

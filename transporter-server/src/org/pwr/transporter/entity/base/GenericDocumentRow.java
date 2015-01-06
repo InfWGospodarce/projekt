@@ -2,11 +2,12 @@ package org.pwr.transporter.entity.base;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -23,7 +24,7 @@ import org.pwr.transporter.entity.article.GenericWare;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.3
+ * @version 0.0.5
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -40,9 +41,11 @@ public abstract class GenericDocumentRow extends Generic implements Serializable
     @ManyToOne
     private GenericWare ware;
 
+    @Column(name = "quantity")
+    private BigDecimal quantity;
+
     @ManyToOne
-    @JoinColumn(name = NamesForHibernate.GENERIC_DOCUMENT_ID)
-    GenericDocument genericDocument;
+    private Unit unit;
 
 
     // *******************************************************************************************************************************

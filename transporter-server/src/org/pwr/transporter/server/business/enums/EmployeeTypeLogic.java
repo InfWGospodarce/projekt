@@ -34,6 +34,7 @@ public class EmployeeTypeLogic {
     }
 
 
+    @SuppressWarnings("deprecation")
     public List<EmployeeType> getList() {
         return this.employeeTypeDAO.getList();
     }

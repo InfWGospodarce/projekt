@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.server.core.hb;
 
 
@@ -30,7 +29,6 @@ public class HibernateUtil {
             return sessionFactory;
         try {
             // Create Configuration
-            File test = new File("");
             File fileConfig = new File("hibernate.cfg.xml");
             Configuration cnf = new Configuration();
             cnf.configure(fileConfig);
@@ -39,7 +37,7 @@ public class HibernateUtil {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = cnf.buildSessionFactory(serviceRegistry);
             return sessionFactory;
-        } catch (Throwable ex) {
+        } catch ( Throwable ex ) {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);

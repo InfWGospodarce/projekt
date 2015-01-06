@@ -1,10 +1,13 @@
-
 package org.pwr.transporter.entity.sales;
 
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -20,7 +23,7 @@ import org.pwr.transporter.entity.base.GenericDocumentRow;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.1
+ * @version 0.0.2
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,11 +35,36 @@ public class SalesInvoiceRow extends GenericDocumentRow {
     private static final long serialVersionUID = -2856054968172153605L;
 
     // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
+    // ****** Fields
     // *******************************************************************************************************************************
+
+    @ManyToOne
+    private SalesInvoice salesInvoice;
+
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
+
 
     // *******************************************************************************************************************************
     // ****** GETTERS AND SETTERS
     // *******************************************************************************************************************************
+    public SalesInvoice getSalesInvoice() {
+        return this.salesInvoice;
+    }
+
+
+    public void setSalesInvoice(SalesInvoice salesInvoice) {
+        this.salesInvoice = salesInvoice;
+    }
+
+
+    public BigDecimal getPrice() {
+        return this.price;
+    }
+
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
 }

@@ -12,15 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
+/**
+ * <pre>
+ *    Service for  {@link SalesOrder}
+ * </pre>
+ * <hr/>
+ * 
+ * @author W.S.
+ * @version 0.0.1
+ */
 public class SalesOrderService implements IService {
 
     @Autowired
     SalesOrderLogic salesOrderLogic;
-
-
-    public List<SalesOrder> getByUserId(Long id) {
-        return this.salesOrderLogic.getByUserId(id);
-    }
 
 
     public SalesOrder getByID(Long id) {
@@ -75,6 +79,11 @@ public class SalesOrderService implements IService {
     @Override
     public List<SalesOrder> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.salesOrderLogic.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<SalesOrder> getByCustomerId(Long id) {
+        return this.salesOrderLogic.getByCustomerId(id);
     }
 
 }

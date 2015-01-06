@@ -11,7 +11,7 @@ import org.pwr.transporter.entity.base.Employee;
  * </pre>
  * <hr/>
  * 
- * @author x0r
+ * @author W.S.
  * @version 0.0.1
  */
 public interface EmployeeDAO extends GenericDAO<Employee> {

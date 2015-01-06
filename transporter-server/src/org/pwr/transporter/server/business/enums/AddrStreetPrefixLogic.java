@@ -34,6 +34,7 @@ public class AddrStreetPrefixLogic {
     }
 
 
+    @SuppressWarnings("deprecation")
     public List<AddrStreetPrefix> getList() {
         return this.addrStreetPrefixDAO.getList();
     }

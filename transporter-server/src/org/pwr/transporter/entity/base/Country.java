@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.pwr.transporter.entity.GenericEntity;
@@ -43,10 +44,23 @@ public class Country extends GenericEntity {
     @Column(name = "iso_code")
     private String ISOCode;
 
+    @OneToOne
+    private Currency currency;
+
 
     // *******************************************************************************************************************************
     // ****** GETTERS & SETTERS
     // *******************************************************************************************************************************
+
+    public Currency getCurrency() {
+        return this.currency;
+    }
+
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
 
     public String getNativeName() {
         return this.nativeName;

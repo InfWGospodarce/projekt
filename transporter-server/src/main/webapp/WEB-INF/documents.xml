@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+			
+	<!-- Sales -->
+		<!-- Request -->
+			<bean id="requestDAO" class="org.pwr.transporter.server.dao.impl.sales.RequestDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="requestLogic" class="org.pwr.transporter.server.business.sales.RequestLogic">
+				<property name="requestDAO" ref="requestDAO" />
+			</bean>
+			<bean id="requestService" class="org.pwr.transporter.server.web.services.sales.RequestService" />
+			
+			<bean id="requestRowDAO" class="org.pwr.transporter.server.dao.impl.sales.RequestRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="requestRowLogic" class="org.pwr.transporter.server.business.sales.RequestRowLogic">
+				<property name="requestRowDAO" ref="requestRowDAO" />
+			</bean>
+			<bean id="requestRowService" class="org.pwr.transporter.server.web.services.sales.RequestRowService" />
+		
+		
+		<!-- Sales Order -->
+			<bean id="salesOrderDAO" class="org.pwr.transporter.server.dao.impl.sales.SalesOrderDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="salesOrderLogic" class="org.pwr.transporter.server.business.sales.SalesOrderLogic">
+				<property name="salesOrderDAO" ref="salesOrderDAO" />
+			</bean>
+			<bean id="salesOrderService" class="org.pwr.transporter.server.web.services.sales.SalesOrderService" />
+			
+			<bean id="salesOrderRowDAO" class="org.pwr.transporter.server.dao.impl.sales.SalesOrderRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="salesOrderRowLogic" class="org.pwr.transporter.server.business.sales.SalesOrderRowLogic">
+				<property name="salesOrderRowDAO" ref="salesOrderRowDAO" />
+			</bean>
+			<bean id="salesOrderRowService" class="org.pwr.transporter.server.web.services.sales.SalesOrderRowService" />
+		
+		
+		<!-- Sales Invoice -->
+			<bean id="salesInvoiceDAO" class="org.pwr.transporter.server.dao.impl.sales.SalesInvoiceDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="salesInvoiceLogic" class="org.pwr.transporter.server.business.sales.SalesInvoiceLogic">
+				<property name="salesInvoiceDAO" ref="salesInvoiceDAO" />
+			</bean>
+			<bean id="salesInvoiceService" class="org.pwr.transporter.server.web.services.sales.SalesInvoiceService" />
+			
+			<bean id="salesInvoiceRowDAO" class="org.pwr.transporter.server.dao.impl.sales.SalesInvoiceRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="salesInvoiceRowLogic" class="org.pwr.transporter.server.business.sales.SalesInvoiceRowLogic">
+				<property name="salesInvoiceRowDAO" ref="salesInvoiceRowDAO" />
+			</bean>
+			<bean id="salesInvoiceRowService" class="org.pwr.transporter.server.web.services.sales.SalesInvoiceRowService" />
+		
+		
+		<!-- Goods Issued Note -->
+			<bean id="goodsIssuedNoteDAO" class="org.pwr.transporter.server.dao.impl.sales.GoodsIssuedNoteDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="goodsIssuedNoteLogic" class="org.pwr.transporter.server.business.sales.GoodsIssuedNoteLogic">
+				<property name="goodsIssuedNoteDAO" ref="goodsIssuedNoteDAO" />
+			</bean>
+			<bean id="goodsIssuedNoteService" class="org.pwr.transporter.server.web.services.sales.GoodsIssuedNoteService" />
+			
+			<bean id="goodsIssuedNoteRowDAO" class="org.pwr.transporter.server.dao.impl.sales.GoodsIssuedNoteRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="goodsIssuedNoteRowLogic" class="org.pwr.transporter.server.business.sales.GoodsIssuedNoteRowLogic">
+				<property name="goodsIssuedNoteRowDAO" ref="goodsIssuedNoteRowDAO" />
+			</bean>
+			<bean id="goodsIssuedNoteRowService" class="org.pwr.transporter.server.web.services.sales.GoodsIssuedNoteService" />
+
+		
+	<!-- Purchase -->
+		<!-- Purchase Order -->
+			<bean id="purchaseOrderDAO" class="org.pwr.transporter.server.dao.impl.purchase.PurchaseOrderDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="purchaseOrderLogic" class="org.pwr.transporter.server.business.purchase.PurchaseOrderLogic">
+				<property name="purchaseOrderDAO" ref="purchaseOrderDAO" />
+			</bean>
+			<bean id="purchaseOrderService" class="org.pwr.transporter.server.web.services.purchase.PurchaseOrderService" />
+			
+			<bean id="purchaseOrderRowDAO" class="org.pwr.transporter.server.dao.impl.purchase.PurchaseOrderRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="purchaseOrderRowLogic" class="org.pwr.transporter.server.business.purchase.PurchaseOrderRowLogic">
+				<property name="purchaseOrderRowDAO" ref="purchaseOrderRowDAO" />
+			</bean>
+			<bean id="purchaseOrderRowService" class="org.pwr.transporter.server.web.services.purchase.PurchaseOrderRowService" />
+		
+		
+		<!-- Purchase Invoice -->
+			<bean id="purchaseInvoiceDAO" class="org.pwr.transporter.server.dao.impl.purchase.PurchaseInvoiceDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="purchaseInvoiceLogic" class="org.pwr.transporter.server.business.purchase.PurchaseInvoiceLogic">
+				<property name="purchaseInvoiceDAO" ref="purchaseInvoiceDAO" />
+			</bean>
+			<bean id="purchaseInvoiceService" class="org.pwr.transporter.server.web.services.purchase.PurchaseInvoiceService" />
+			
+			<bean id="purchaseInvoiceRowDAO" class="org.pwr.transporter.server.dao.impl.purchase.PurchaseInvoiceRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="purchaseInvoiceRowLogic" class="org.pwr.transporter.server.business.purchase.PurchaseInvoiceRowLogic">
+				<property name="purchaseInvoiceRowDAO" ref="purchaseInvoiceRowDAO" />
+			</bean>
+			<bean id="purchaseInvoiceRowService" class="org.pwr.transporter.server.web.services.purchase.PurchaseInvoiceRowService" />
+		
+		
+		<!-- Goods Received Note -->
+			<bean id="goodsReceivedNoteDAO" class="org.pwr.transporter.server.dao.impl.purchase.GoodsReceivedNoteDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="goodsReceivedNoteLogic" class="org.pwr.transporter.server.business.purchase.GoodsReceivedNoteLogic">
+				<property name="goodsReceivedNoteDAO" ref="goodsReceivedNoteDAO" />
+			</bean>
+			<bean id="goodsReceivedNoteService" class="org.pwr.transporter.server.web.services.purchase.GoodsReceivedNoteService" />
+			
+			<bean id="goodsReceivedNoteRowDAO" class="org.pwr.transporter.server.dao.impl.purchase.GoodsReceivedNoteRowDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="goodsReceivedNoteRowLogic" class="org.pwr.transporter.server.business.purchase.GoodsReceivedNoteRowLogic">
+				<property name="goodsReceivedNoteRowDAO" ref="goodsReceivedNoteRowDAO" />
+			</bean>
+			<bean id="goodsReceivedNoteRowService" class="org.pwr.transporter.server.web.services.purchase.GoodsReceivedNoteService" />
+			
+</beans>

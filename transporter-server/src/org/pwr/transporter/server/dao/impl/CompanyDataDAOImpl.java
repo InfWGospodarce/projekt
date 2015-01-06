@@ -26,6 +26,7 @@ public class CompanyDataDAOImpl extends GenericDAOImpl<CompanyData> implements C
 
     @Override
     public CompanyData getFirst() {
+        @SuppressWarnings("deprecation")
         List<CompanyData> resultList = getList();
         if( !resultList.isEmpty() ) {
             return resultList.get(0);

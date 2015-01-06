@@ -97,6 +97,7 @@ public class CountryLogic {
     }
 
 
+    @SuppressWarnings("deprecation")
     public List<Country> getList() {
         return this.countryDAO.getList();
     }

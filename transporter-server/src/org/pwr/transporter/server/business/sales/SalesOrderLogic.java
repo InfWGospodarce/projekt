@@ -10,6 +10,15 @@ import org.pwr.transporter.server.dao.sales.SalesOrderDAO;
 
 
 
+/**
+ * <pre>
+ *    Logic delegate for {@link SalesOrder}
+ * </pre>
+ * <hr/>
+ * 
+ * @author W.S.
+ * @version 0.0.1
+ */
 public class SalesOrderLogic {
 
     SalesOrderDAO salesOrderDAO;
@@ -17,11 +26,6 @@ public class SalesOrderLogic {
 
     public void setSalesOrderDAO(SalesOrderDAO salesOrderDAO) {
         this.salesOrderDAO = salesOrderDAO;
-    }
-
-
-    public List<SalesOrder> getByUserId(Long id) {
-        return this.salesOrderDAO.getByUserId(id);
     }
 
 
@@ -72,6 +76,11 @@ public class SalesOrderLogic {
 
     public List<SalesOrder> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.salesOrderDAO.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<SalesOrder> getByCustomerId(Long id) {
+        return this.salesOrderDAO.getByCustomerId(id);
     }
 
 }

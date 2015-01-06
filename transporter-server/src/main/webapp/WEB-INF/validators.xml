@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+	<!-- Other -->
+		<bean id="customerAccountValidator" class="org.pwr.transporter.server.web.validators.forms.CustomerAccountValidator" />
+		<bean id="passwordValidator" class="org.pwr.transporter.server.web.validators.forms.PasswordFormValidator" />
+		<bean id="addressValidator" class="org.pwr.transporter.server.web.validators.AddressValidator" />
+		
+	<!-- Documents -->
+		<bean id="genericDocumentValidator" class="org.pwr.transporter.server.web.validators.documents.GenericDocumentValidator" />
+		<bean id="genericDocumentRowValidator" class="org.pwr.transporter.server.web.validators.documents.GenericDocumentRowValidator" />
+		<!-- Sales -->
+			<bean id="requestValidator" class="org.pwr.transporter.server.web.validators.documents.sales.RequestValidator" />
+			<bean id="requestRowValidator" class="org.pwr.transporter.server.web.validators.documents.sales.RequestRowValidator" />
+			<bean id="salesOrderValidator" class="org.pwr.transporter.server.web.validators.documents.sales.SalesOrderValidator" />
+			<bean id="salesOrderRowValidator" class="org.pwr.transporter.server.web.validators.documents.sales.SalesOrderRowValidator" />
+			<bean id="salesInvoiceValidator" class="org.pwr.transporter.server.web.validators.documents.sales.SalesInvoiceValidator" />
+			<bean id="salesInvoiceRowValidator" class="org.pwr.transporter.server.web.validators.documents.sales.SalesInvoiceRowValidator" />
+			<bean id="goodsIssuedNoteValidator" class="org.pwr.transporter.server.web.validators.documents.sales.GoodsIssuedNoteValidator" />
+			<bean id="goodsIssuedNoteRowValidator" class="org.pwr.transporter.server.web.validators.documents.sales.GoodsIssuedNoteRowValidator" />
+		<!-- Purchase -->
+			<bean id="purchaseOrderValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.PurchaseOrderValidator" />
+			<bean id="purchaseOrderRowValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.PurchaseOrderRowValidator" />
+			<bean id="purchaseInvoiceValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.PurchaseInvoiceValidator" />
+			<bean id="purchaseInvoiceRowValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.PurchaseInvoiceRowValidator" />
+			<bean id="goodsReceivedNoteValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.GoodsReceivedNoteValidator" />
+			<bean id="goodsReceivedNoteRowValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.GoodsReceivedNoteRowValidator" />
+			
+</beans>

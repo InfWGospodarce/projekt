@@ -2,13 +2,14 @@ package org.pwr.transporter.entity.base;
 
 
 import java.io.Serializable;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,7 +25,7 @@ import org.pwr.transporter.entity.NamesForHibernate;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.5
+ * @version 0.0.7
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -44,8 +45,26 @@ public abstract class GenericDocument extends Generic implements Serializable {
     @OneToOne
     private Address deliveryAddress;
 
-    @OneToMany(mappedBy = "genericDocument")
-    private Set<GenericDocumentRow> rowList;
+    @OneToOne
+    private GenericDocument previousDocument;
+
+    @OneToOne
+    private GenericDocument nextDocument;
+
+    @Column(name = "create_date", nullable = false)
+    private Date createDate;
+
+    @Column(name = "modify_date", nullable = false)
+    private Date modifyDate;
+
+    @Column(name = "no_taxable_amount", nullable = false)
+    private BigDecimal noTaxableAmount;
+
+    @Column(name = "tax_amount", nullable = false)
+    private BigDecimal taxAmount;
+
+    @ManyToOne
+    private Currency currency;
 
 
     // *******************************************************************************************************************************
@@ -72,13 +91,42 @@ public abstract class GenericDocument extends Generic implements Serializable {
     }
 
 
-    public Set<GenericDocumentRow> getRowList() {
-        return this.rowList;
+    public Date getCreateDate() {
+        return this.createDate;
     }
 
 
-    public void setRowList(Set<GenericDocumentRow> rowList) {
-        this.rowList = rowList;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
+
+    public Currency getCurrency() {
+        return this.currency;
+    }
+
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+
+    public GenericDocument getPreviousDocument() {
+        return this.previousDocument;
+    }
+
+
+    public void setPreviousDocument(GenericDocument previousDocument) {
+        this.previousDocument = previousDocument;
+    }
+
+
+    public Date getModifyDate() {
+        return this.modifyDate;
+    }
+
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
 }
