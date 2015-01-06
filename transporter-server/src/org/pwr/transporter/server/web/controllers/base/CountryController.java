@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  *    Control sites related with {@link EmployeeType}
@@ -32,52 +33,62 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CountryController extends GenericController {
 
-	private static Logger LOGGER = Logger.getLogger(CountryController.class);
+    private static Logger LOGGER = Logger.getLogger(CountryController.class);
 
-	@Autowired
-	CountryService countryService;
+    @Autowired
+    CountryService countryService;
 
-	@RequestMapping(value = "/admin/countriesList", method = RequestMethod.GET)
-	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<EmployeeType> countryList = getList(countryService, request);
-		request.setAttribute("list", countryList);
+    @RequestMapping(value = "/admin/countriesList", method = RequestMethod.GET)
+    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/admin/countriesList";
-	}
+        List<EmployeeType> countryList = getList(countryService, request);
+        request.setAttribute("list", countryList);
 
-	@RequestMapping(value = "/admin/countryEdit", method = RequestMethod.GET)
-	public String getPrefix( HttpServletRequest request, HttpServletResponse response, Model model ) {
+        return "Views/admin/countriesList";
+    }
 
-		Long id = getId(request.getParameter("id"));
-		Country country = null;
-		if ( id == null ) {
-			country = new Country();
-		} else {
-			country = countryService.getByID(id);
-			if ( country == null || country.getId() == null ) {
-				country = new Country();
-			}
-		}
 
-		model.addAttribute("country", country);
+    @RequestMapping(value = "/admin/countryEdit", method = RequestMethod.GET)
+    public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/base/countryEdit";
-	}
+        Long id = getId(request.getParameter("id"));
+        Country country = null;
+        if( id == null ) {
+            country = new Country();
+        } else {
+            country = countryService.getByID(id);
+            if( country == null || country.getId() == null ) {
+                country = new Country();
+            }
+        }
 
-	@RequestMapping(value = "/admin/countryEdit", method = RequestMethod.POST)
-	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("country") Country country,
-			BindingResult formBindeings ) {
+        model.addAttribute("country", country);
 
-		// FIXME VALIDATION
-		if ( country.getId() != null ) {
-			LOGGER.debug("Id not null");
-			countryService.update(country);
-		} else {
-			countryService.insert(country);
-		}
+        return "Views/base/countryEdit";
+    }
 
-		return "redirect:../admin/countriesList?page=" + getPage(request);
-	}
+
+    @RequestMapping(value = "/admin/countryEdit", method = RequestMethod.POST)
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("country") Country country,
+            BindingResult formBindeings) {
+
+        // FIXME VALIDATION
+        if( country.getId() != null ) {
+            LOGGER.debug("Id not null");
+            countryService.update(country);
+        } else {
+            countryService.insert(country);
+        }
+
+        return "redirect:../admin/countriesList?page=" + getPage(request);
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  *    Control sites related with {@link Role}
@@ -31,50 +32,60 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RoleController extends GenericController {
 
-	private static Logger LOGGER = Logger.getLogger(RoleController.class);
+    private static Logger LOGGER = Logger.getLogger(RoleController.class);
 
-	@Autowired
-	RoleService roleService;
+    @Autowired
+    RoleService roleService;
 
-	@RequestMapping(value = "/admin/rolesList", method = RequestMethod.GET)
-	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		List<Role> roleList = getList(roleService, request);
-		request.setAttribute("list", roleList);
+    @RequestMapping(value = "/admin/rolesList", method = RequestMethod.GET)
+    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/admin/rolesList";
-	}
+        List<Role> roleList = getList(roleService, request);
+        request.setAttribute("list", roleList);
 
-	@RequestMapping(value = "/admin/roleEdit", method = RequestMethod.GET)
-	public String getPrefix( HttpServletRequest request, HttpServletResponse response, Model model ) {
+        return "Views/admin/rolesList";
+    }
 
-		Long id = getId(request.getParameter("id"));
-		Role role = null;
-		if ( id == null ) {
-			role = new Role();
-		} else {
-			role = roleService.getByID(id);
-			if ( role == null || role.getId() == null ) {
-				role = new Role();
-			}
-		}
 
-		model.addAttribute("role", role);
+    @RequestMapping(value = "/admin/roleEdit", method = RequestMethod.GET)
+    public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/base/roleEdit";
-	}
+        Long id = getId(request.getParameter("id"));
+        Role role = null;
+        if( id == null ) {
+            role = new Role();
+        } else {
+            role = roleService.getByID(id);
+            if( role == null || role.getId() == null ) {
+                role = new Role();
+            }
+        }
 
-	@RequestMapping(value = "/admin/roleEdit", method = RequestMethod.POST)
-	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("role") Role role, BindingResult formBindeings ) {
+        model.addAttribute("role", role);
 
-		// FIXME VALIDATION
-		if ( role.getId() != null ) {
-			roleService.update(role);
-		} else {
-			roleService.insert(role);
-		}
+        return "Views/base/roleEdit";
+    }
 
-		return "redirect:../admin/rolesList?page=" + getPage(request);
-	}
+
+    @RequestMapping(value = "/admin/roleEdit", method = RequestMethod.POST)
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("role") Role role, BindingResult formBindeings) {
+
+        // FIXME VALIDATION
+        if( role.getId() != null ) {
+            roleService.update(role);
+        } else {
+            roleService.insert(role);
+        }
+
+        return "redirect:../admin/rolesList?page=" + getPage(request);
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

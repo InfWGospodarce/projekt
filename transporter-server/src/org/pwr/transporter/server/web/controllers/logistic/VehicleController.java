@@ -8,12 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.logistic.Vehicle;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.logistic.VehicleService;
+import org.pwr.transporter.server.web.validators.logistic.VehicleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,11 +31,15 @@ public class VehicleController extends GenericController {
     @Autowired
     VehicleService vehicleService;
 
+    @Autowired
+    VehicleValidator validator;
+
 
     @RequestMapping(value = "/logistic/vehicleList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-        List<Vehicle> vehicleList = getList(vehicleService, request);
+        Criteria criteria = restoreCriteria(request);
+        List<Vehicle> vehicleList = getListWitchCriteria(vehicleService, request, criteria);
         model.addAttribute("vehicleList", vehicleList);
 
         return "/Views/logistic/vehicleList";
@@ -40,7 +47,7 @@ public class VehicleController extends GenericController {
 
 
     @RequestMapping(value = "/logistic/vehicleEdit", method = RequestMethod.GET)
-    public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Long id = getId(request.getParameter("id"));
         Vehicle vehicle = null;
@@ -60,11 +67,13 @@ public class VehicleController extends GenericController {
 
 
     @RequestMapping(value = "/logistic/vehicleEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response,
-            @ModelAttribute("streetPrefix")/* @Validated */Vehicle vehicle, BindingResult formBindeings) {
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("streetPrefix") @Validated Vehicle vehicle,
+            BindingResult formBindeings, Model model) {
 
-        LOGGER.debug("Post prefix");
-        // FIXME VALIDATION
+        if( !validate(vehicle, model, formBindeings, validator) ) {
+            return "/Views/driver/driverScheduleEdit";
+        }
+
         if( vehicle.getId() != null ) {
             LOGGER.debug("Id not null");
             vehicleService.update(vehicle);
@@ -73,5 +82,12 @@ public class VehicleController extends GenericController {
         }
 
         return "redirect:../logistic/vehicleList?page=" + getPage(request);
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
     }
 }

@@ -10,11 +10,15 @@ import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.warehouse.Warehouse;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.GenericController;
+import org.pwr.transporter.server.web.services.CountryService;
+import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.pwr.transporter.server.web.services.warehouse.WarehouseService;
+import org.pwr.transporter.server.web.validators.warehouse.WarehouseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +41,15 @@ public class WarhouseController extends GenericController {
     @Autowired
     WarehouseService warehouseService;
 
+    @Autowired
+    AddrStreetPrefixService addrStreetPrefixService;
+
+    @Autowired
+    CountryService countryService;
+
+    @Autowired
+    WarehouseValidator validator;
+
 
     @RequestMapping(value = "/mag/warehouseList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -45,7 +58,7 @@ public class WarhouseController extends GenericController {
         List<Warehouse> list = getListWitchCriteria(warehouseService, request, criteria);
         request.setAttribute("list", list);
 
-        return "Views/base/mag/warehouseList";
+        return "Views/mag/warehouseList";
     }
 
 
@@ -63,17 +76,27 @@ public class WarhouseController extends GenericController {
             }
         }
 
+        loadData(model);
         model.addAttribute("object", object);
 
-        return "Views/base/mag/warehouseEdit";
+        return "Views/mag/warehouseEdit";
+    }
+
+
+    public void loadData(Model model) {
+        model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
+        model.addAttribute("countries", countryService.getList());
     }
 
 
     @RequestMapping(value = "/mag/warehouseEdit", method = RequestMethod.POST)
-    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") Warehouse object,
-            BindingResult formBindeings) {
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Warehouse object,
+            BindingResult formBindeings, Model model) {
 
-        // FIXME VALIDATION
+        if( !validate(object, model, formBindeings, validator) ) {
+            return "/Views/mag/warehouseEdit";
+        }
+
         if( object.getId() != null ) {
             LOGGER.debug("Id not null");
             warehouseService.update(object);

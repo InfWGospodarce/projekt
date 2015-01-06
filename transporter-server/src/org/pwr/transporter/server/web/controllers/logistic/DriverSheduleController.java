@@ -12,10 +12,12 @@ import org.pwr.transporter.entity.logistic.Task;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.logistic.TaskService;
+import org.pwr.transporter.server.web.validators.logistic.TaskValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +40,9 @@ public class DriverSheduleController extends GenericController {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    TaskValidator validator;
 
 
     @RequestMapping(value = "/driver/driverShedule", method = RequestMethod.GET)
@@ -80,9 +85,12 @@ public class DriverSheduleController extends GenericController {
 
 
     @RequestMapping(value = "/driver/driverScheduleEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("task") Task task, BindingResult formBindeings) {
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("task") @Validated Task task,
+            BindingResult formBindeings, Model model) {
 
-        // FIXME VALIDATION
+        if( !validate(task, model, formBindeings, validator) ) {
+            return "/Views/driver/driverScheduleEdit";
+        }
         if( task.getId() != null ) {
             LOGGER.debug("Id not null");
             taskService.update(task);
@@ -140,6 +148,13 @@ public class DriverSheduleController extends GenericController {
         }
 
         return "redirect:../logistic/taskList?page=" + getPage(request);
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
     }
 
 }

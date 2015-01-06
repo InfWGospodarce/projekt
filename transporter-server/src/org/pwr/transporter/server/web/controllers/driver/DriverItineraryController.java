@@ -51,4 +51,11 @@ public class DriverItineraryController extends GenericController {
 
         return "/Views/driver/driverItinerary";
     }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
 }

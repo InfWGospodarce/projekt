@@ -30,6 +30,7 @@
 			</div>
 			
 			<c:if test="${not empty customerAccountForm.employee}">
+				<form:hidden path="employee.email"/>
 				<form:hidden path="employee.id"/>
 				<form:hidden path="employee.searchKey"/>
 				<form:hidden path="employee.active"/>
@@ -48,6 +49,7 @@
 			</c:if>
 			
 			<c:if test="${not empty customerAccountForm.customer}">
+				<form:hidden path="customer.email"/>
 				<form:hidden path="customer.id"/>
 				<form:hidden path="customer.searchKey"/>
 				<form:hidden path="customer.active"/>

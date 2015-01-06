@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  *    Control sites related with {@link EmployeeType}
@@ -36,63 +37,73 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CompanyDataController extends GenericController {
 
-	private static Logger LOGGER = Logger.getLogger(CompanyDataController.class);
+    private static Logger LOGGER = Logger.getLogger(CompanyDataController.class);
 
-	@Autowired
-	private CompanyDataService companyDataService;
+    @Autowired
+    private CompanyDataService companyDataService;
 
-	@Autowired
-	private AddrStreetPrefixService addrStreetPrefixService;
+    @Autowired
+    private AddrStreetPrefixService addrStreetPrefixService;
 
-	@Autowired
-	private CountryService countryService;
+    @Autowired
+    private CountryService countryService;
 
-	@RequestMapping(value = "/admin/companyData", method = RequestMethod.GET)
-	public String get( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		CompanyData companyData = companyDataService.getCompanyData();
-		if ( companyData == null || companyData.getId() == null ) {
-			companyData = new CompanyData();
-		}
+    @RequestMapping(value = "/admin/companyData", method = RequestMethod.GET)
+    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		model.addAttribute("companyData", companyData);
+        CompanyData companyData = companyDataService.getCompanyData();
+        if( companyData == null || companyData.getId() == null ) {
+            companyData = new CompanyData();
+        }
 
-		return "Views/admin/companyData";
-	}
+        model.addAttribute("companyData", companyData);
 
-	@RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.GET)
-	public String getPost( HttpServletRequest request, HttpServletResponse response, Model model ) {
+        return "Views/admin/companyData";
+    }
 
-		CompanyData companyData = companyDataService.getCompanyData();
-		if ( companyData == null || companyData.getId() == null ) {
-			companyData = new CompanyData();
-		}
 
-		List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
-		List<Country> countires = countryService.getList();
+    @RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.GET)
+    public String getPost(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		model.addAttribute("companyData", companyData);
-		model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
-		model.addAttribute("countries", countires);
+        CompanyData companyData = companyDataService.getCompanyData();
+        if( companyData == null || companyData.getId() == null ) {
+            companyData = new CompanyData();
+        }
 
-		return "Views/admin/companyDataEdit";
-	}
+        List<AddrStreetPrefix> addrStreetPrefixs = addrStreetPrefixService.getList();
+        List<Country> countires = countryService.getList();
 
-	@RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.POST)
-	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("companyData") CompanyData companyData,
-			BindingResult formBindeings ) {
+        model.addAttribute("companyData", companyData);
+        model.addAttribute("addrStreetPrefixs", addrStreetPrefixs);
+        model.addAttribute("countries", countires);
 
-		LOGGER.debug(companyData.getAddress().getCity());
-		// FIXME VALIDATION
-		if ( companyData.getId() != null ) {
-			LOGGER.debug("Update company data");
-			companyDataService.update(companyData);
-		} else {
-			LOGGER.debug("Insert company data");
-			companyDataService.insert(companyData);
-		}
+        return "Views/admin/companyDataEdit";
+    }
 
-		return "redirect:../admin/companyData";
-	}
+
+    @RequestMapping(value = "/admin/companyDataEdit", method = RequestMethod.POST)
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("companyData") CompanyData companyData,
+            BindingResult formBindeings) {
+
+        LOGGER.debug(companyData.getAddress().getCity());
+        // FIXME VALIDATION
+        if( companyData.getId() != null ) {
+            LOGGER.debug("Update company data");
+            companyDataService.update(companyData);
+        } else {
+            LOGGER.debug("Insert company data");
+            companyDataService.insert(companyData);
+        }
+
+        return "redirect:../admin/companyData";
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
 
 }

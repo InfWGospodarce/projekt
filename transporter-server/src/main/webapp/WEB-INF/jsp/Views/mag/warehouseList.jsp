@@ -28,12 +28,15 @@
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="object" items="${list}">
 				<c:set var="i" value="${i+1}"></c:set>
-				<tr>
+				<tr id="${object.id}">
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 					<td><c:out value="${object.id}"></c:out></td>
 					<td><c:out value="${object.searchKey}"></c:out></td>
 					<td><c:out value="${object.code}"></c:out></td>
 					<td><c:out value="${object.name}"></c:out></td>
+					<td>
+						<input class="btn btn-primary" class="form-control" type="button" value="Adres" onclick="showAddres(object.id)">
+					</td>
 					<td>
 						<form action="/transporter-server/mag/warehouseEdit?id=${object.id}" method="get">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
@@ -46,4 +49,14 @@
 		</div>
 	</div>
 </div>
+<script>
+	function showAddres(id){
+		var element = $(document.getElementById(id));
+		if($(element).is(":visible")){
+			$(element).hide();
+		} else {
+			$(element).show();
+		}
+	}
+</script>
 </trans:template>

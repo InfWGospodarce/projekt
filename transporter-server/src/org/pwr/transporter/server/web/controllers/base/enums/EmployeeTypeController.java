@@ -84,4 +84,11 @@ public class EmployeeTypeController extends GenericController {
         return "redirect:../admin/employeeTypeList?page=" + getPage(request);
     }
 
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
+
 }

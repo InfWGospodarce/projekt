@@ -147,6 +147,7 @@ public class UserService implements UserDetailsService, IService {
             if( correAddresId != null ) {
                 customer.setContacAddress(addressLogic.getByID(correAddresId));
             }
+            customer.setEmail(user.getEmail());
             Long customerId = customerLogic.insert(customer);
             name = customer.getName();
             surname = customer.getSurname();
@@ -160,6 +161,7 @@ public class UserService implements UserDetailsService, IService {
             }
             EmployeeType employeeType = employeeTypeLogic.getByID(Long.valueOf(accountForm.getEmployeeTypeId()));
             employee.setEmployeeType(employeeType);
+            employee.setEmail(user.getEmail());
             Long employeeId = employeeLogic.insert(employee);
             name = employee.getName();
             surname = employee.getSurname();

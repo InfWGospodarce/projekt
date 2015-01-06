@@ -10,10 +10,12 @@ import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.article.Article;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.article.ArticleService;
+import org.pwr.transporter.server.web.validators.article.ArticleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +37,9 @@ public class ArticleController extends GenericController {
 
     @Autowired
     ArticleService articleService;
+
+    @Autowired
+    ArticleValidator validator;
 
 
     @RequestMapping(value = "/mag/articleList", method = RequestMethod.GET)
@@ -68,10 +73,13 @@ public class ArticleController extends GenericController {
 
 
     @RequestMapping(value = "/mag/articleEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("article") Article article,
-            BindingResult formBindeings) {
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("article") @Validated Article article,
+            BindingResult formBindeings, Model model) {
 
-        // FIXME VALIDATION
+        if( !validate(article, model, formBindeings, validator) ) {
+            return "/Views/mag/articleEdit";
+        }
+
         if( article.getId() != null ) {
             LOGGER.debug("Id not null");
             articleService.update(article);
@@ -80,6 +88,13 @@ public class ArticleController extends GenericController {
         }
 
         return "redirect:../mag/articleList?page=" + getPage(request);
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
     }
 
 }

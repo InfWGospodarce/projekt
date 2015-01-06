@@ -39,6 +39,13 @@ public class EmployeeController extends GenericController {
         return "Views/logistic/driverList";
     }
 
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
+
     // @RequestMapping(value = "/logistic/driverListEdit", method = RequestMethod.GET)
     // public String getPrefix2(HttpServletRequest request, HttpServletResponse response, Model model) {
     //

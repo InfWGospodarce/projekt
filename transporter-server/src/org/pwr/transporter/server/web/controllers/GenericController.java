@@ -12,6 +12,9 @@ import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.IService;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 
 
@@ -24,7 +27,7 @@ import org.pwr.transporter.server.web.services.IService;
  * @author W.S.
  * @version 0.0.9
  */
-public class GenericController {
+public abstract class GenericController {
 
     private static Logger LOGGER = Logger.getLogger(GenericController.class);
 
@@ -161,4 +164,21 @@ public class GenericController {
             return null;
         }
     }
+
+
+    public boolean validate(Object object, Model model, BindingResult formBindeings, Validator validator) {
+        validator.validate(object, formBindeings);
+
+        if( formBindeings.hasErrors() ) {
+            LOGGER.info("Validation fails");
+            model.addAttribute("object", object);
+            loadData(model);
+            LOGGER.debug(formBindeings.getFieldErrors().toString());
+            return false;
+        }
+        return true;
+    }
+
+
+    public abstract void loadData(Model model);
 }

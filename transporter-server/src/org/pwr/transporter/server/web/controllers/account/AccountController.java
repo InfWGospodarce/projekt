@@ -444,4 +444,11 @@ public class AccountController extends GenericController {
 
         return "redirect:../user/profile";
     }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
+    }
 }

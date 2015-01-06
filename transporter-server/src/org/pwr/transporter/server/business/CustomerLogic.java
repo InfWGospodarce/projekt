@@ -36,7 +36,7 @@ public class CustomerLogic {
 
 
     public Long insert(Customer entity) {
-        entity.setSearchKey(entity.getName() + " " + entity.getSurname());
+        entity.setSearchKey(entity.getSurname() + " " + entity.getName());
         return this.customerDAO.insert(entity);
     }
 

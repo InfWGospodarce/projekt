@@ -10,7 +10,7 @@
 			
 				<div class="form-group">
 					<form:label path="id">Id</form:label>
-					<form:input disabled="true" path="id" value="${id}"></form:input>
+					<form:input class="form-control" disabled="true" path="id" value="${id}"></form:input>
 				</div>
 					
 				<div class="form-group">
@@ -28,12 +28,6 @@
 					<form:label path="name">Nazwa</form:label>
 					<form:input path="name" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="name" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="code">Kod</form:label>
-					<form:input path="code" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="code" cssClass="error" />
 				</div>
 				
 				<c:set var="addressPrefix" scope="request" value="address."/>

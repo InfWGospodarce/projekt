@@ -10,8 +10,6 @@ import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.sales.Request;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
-import org.pwr.transporter.server.web.services.CurrencyService;
-import org.pwr.transporter.server.web.services.UnitService;
 import org.pwr.transporter.server.web.services.sales.RequestService;
 import org.pwr.transporter.server.web.validators.documents.sales.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +39,6 @@ public class RequestController extends GenericDocumentController {
 
     @Autowired
     RequestService requestService;
-
-    @Autowired
-    CurrencyService currencyService;
-
-    @Autowired
-    UnitService unitService;
 
     @Autowired
     RequestValidator validator;
@@ -85,23 +77,11 @@ public class RequestController extends GenericDocumentController {
     }
 
 
-    private void loadData(Model model) {
-        model.addAttribute("currencies", currencyService.getList());
-        model.addAttribute("units", unitService.getList());
-    }
-
-
     @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.POST)
     public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Request object,
             BindingResult formBindeings, Model model) {
 
-        validator.validate(object, formBindeings);
-
-        if( formBindeings.hasErrors() ) {
-            LOGGER.info("Validation fails");
-            model.addAttribute("object", object);
-            loadData(model);
-            LOGGER.debug(formBindeings.getFieldErrors().toString());
+        if( !validate(object, model, formBindeings, validator) ) {
             return "/Views/seller/requestEdit";
         }
 

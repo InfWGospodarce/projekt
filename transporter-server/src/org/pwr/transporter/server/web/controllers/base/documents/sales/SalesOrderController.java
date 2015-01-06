@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.sales.SalesOrder;
-import org.pwr.transporter.server.web.controllers.GenericController;
+import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
 import org.pwr.transporter.server.web.services.sales.SalesOrderService;
+import org.pwr.transporter.server.web.validators.documents.sales.SalesOrderValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-public class SalesOrderController extends GenericController {
+public class SalesOrderController extends GenericDocumentController {
 
     private static Logger LOGGER = Logger.getLogger(SalesOrderController.class);
 
     @Autowired
     SalesOrderService salesOrderService;
+
+    @Autowired
+    SalesOrderValidator validator;
 
 
     @RequestMapping(value = "/logistic/orderList", method = RequestMethod.GET)
@@ -40,36 +44,36 @@ public class SalesOrderController extends GenericController {
 
 
     @RequestMapping(value = "/logistic/orderListEdit", method = RequestMethod.GET)
-    public String getPrefix(HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Long id = getId(request.getParameter("id"));
-        SalesOrder order = null;
+        SalesOrder object = null;
         if( id == null ) {
-            order = new SalesOrder();
+            object = new SalesOrder();
         } else {
-            order = salesOrderService.getByID(id);
-            if( order == null || order.getId() == null ) {
-                order = new SalesOrder();
+            object = salesOrderService.getByID(id);
+            if( object == null || object.getId() == null ) {
+                object = new SalesOrder();
             }
         }
 
-        model.addAttribute("order", order);
+        model.addAttribute("object", object);
 
         return "Views/logistic/orderListEdit";
     }
 
 
     @RequestMapping(value = "/logistic/orderListEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response,
-            @ModelAttribute("streetPrefix")/* @Validated */SalesOrder order, BindingResult formBindeings) {
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object")/* @Validated */SalesOrder object,
+            BindingResult formBindeings, Model model) {
 
-        LOGGER.debug("Post prefix");
-        // FIXME VALIDATION
-        if( order.getId() != null ) {
+        validate(object, model, formBindeings, validator);
+
+        if( object.getId() != null ) {
             LOGGER.debug("Id not null");
-            salesOrderService.update(order);
+            salesOrderService.update(object);
         } else {
-            salesOrderService.insert(order);
+            salesOrderService.insert(object);
         }
 
         return "redirect:../logistic/orderList?page=" + getPage(request);

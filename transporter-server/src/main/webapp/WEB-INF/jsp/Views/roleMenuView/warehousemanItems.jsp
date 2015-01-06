@@ -10,15 +10,11 @@
 	<a href="">Zmien stan magazynowy towaru </a>
 </li>
 <li>
-	<a href="">Poglad zamowien</a>
+	<a href="">Podglad zamowien</a>
 </li>
-	
-	
-	<!--
-		<li>
-			<a href="">Zaksieguj WZ *</a>
-		</li>
-		<li>
-			<a href=""> Wystaw dokument PZ *  </a>
-		</li>
-	-->
+<li>
+	<a href="">Zaksieguj WZ *</a>
+</li>
+<li>
+	<a href=""> Wystaw dokument PZ *  </a>
+</li>
