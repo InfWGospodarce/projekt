@@ -191,7 +191,7 @@
 				<property name="sessionFactory" ref="sessionFactory" />
 			</bean>
 			<bean id="itineraryLogic" class="org.pwr.transporter.server.business.logistic.ItineraryLogic">
-				<property name="ItineraryDAO" ref="ItineraryDAO" />
+				<property name="itineraryDAO" ref="itineraryDAO" />
 			</bean>
 			<bean id="itineraryService" class="org.pwr.transporter.server.web.services.logistic.ItineraryService" />
 			
