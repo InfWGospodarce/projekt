@@ -43,12 +43,21 @@
 						</form>
 					</td>
 				</tr>
-				<tr class="addresLine" id="${object.id}" style="{width:100%}">
-				<td>
-					<c:set var="addressPrefix" scope="request" value="${object.address}"/>
-					<h3>Adres</h3>
-					<%@ include file="../base/address2.jsp" %>
-				<td>
+				<tr class="addresLine" id="${object.id}" class="">
+					<td></td>
+					<td colspan="4">
+						<table class="table">
+							<tr>
+								<th>Adres</th>
+							</tr>
+							<tr>
+								<td>
+									<c:set var="addressPrefix" scope="request" value="${object.address}"/>
+									<%@ include file="../base/address2.jsp" %>
+								</td>
+							</tr>
+						</table>
+					<td>
 				</tr>
 			</c:forEach>
 		</table>
