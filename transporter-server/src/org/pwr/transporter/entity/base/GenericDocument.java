@@ -2,7 +2,6 @@ package org.pwr.transporter.entity.base;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -57,14 +56,14 @@ public abstract class GenericDocument extends Generic implements Serializable {
     @Column(name = "modify_date", nullable = false)
     private Date modifyDate;
 
-    @Column(name = "no_taxable_amount", nullable = false)
-    private BigDecimal noTaxableAmount;
-
-    @Column(name = "tax_amount", nullable = false)
-    private BigDecimal taxAmount;
+    @Column(name = "filling_date")
+    private Date fillingDate;
 
     @ManyToOne
     private Currency currency;
+
+    @Column(name = "filled")
+    private boolean filled;
 
 
     // *******************************************************************************************************************************
@@ -129,4 +128,25 @@ public abstract class GenericDocument extends Generic implements Serializable {
     public void setModifyDate(Date modifyDate) {
         this.modifyDate = modifyDate;
     }
+
+
+    public GenericDocument getNextDocument() {
+        return this.nextDocument;
+    }
+
+
+    public void setNextDocument(GenericDocument nextDocument) {
+        this.nextDocument = nextDocument;
+    }
+
+
+    public boolean isFilled() {
+        return this.filled;
+    }
+
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+
 }

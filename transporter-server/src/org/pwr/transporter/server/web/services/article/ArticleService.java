@@ -2,6 +2,7 @@ package org.pwr.transporter.server.web.services.article;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.pwr.transporter.entity.article.Article;
 import org.pwr.transporter.server.business.article.ArticleLogic;
@@ -61,6 +62,11 @@ public class ArticleService implements IService {
     @SuppressWarnings("unchecked")
     public List<Article> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.articleLogic.getListRestCrit(amount, fromRow, criteria);
+    }
+
+
+    public List<Article> search(Map<String, Object> parameterMap) {
+        return this.articleLogic.search(parameterMap);
     }
 
 }

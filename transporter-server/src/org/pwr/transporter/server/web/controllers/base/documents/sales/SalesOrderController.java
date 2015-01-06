@@ -1,4 +1,4 @@
-package org.pwr.transporter.server.web.controllers.sales;
+package org.pwr.transporter.server.web.controllers.base.documents.sales;
 
 
 import java.util.List;

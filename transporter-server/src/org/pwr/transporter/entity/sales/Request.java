@@ -1,9 +1,11 @@
 package org.pwr.transporter.entity.sales;
 
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -40,6 +42,12 @@ public class Request extends GenericDocument {
     // ****** FIELDS
     // *******************************************************************************************************************************
 
+    @Column(name = "no_taxable_amount", nullable = false)
+    private BigDecimal noTaxableAmount;
+
+    @Column(name = "tax_amount", nullable = false)
+    private BigDecimal taxAmount;
+
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private List<RequestRow> rows;
@@ -56,5 +64,25 @@ public class Request extends GenericDocument {
 
     public void setRows(List<RequestRow> rows) {
         this.rows = rows;
+    }
+
+
+    public BigDecimal getNoTaxableAmount() {
+        return this.noTaxableAmount;
+    }
+
+
+    public void setNoTaxableAmount(BigDecimal noTaxableAmount) {
+        this.noTaxableAmount = noTaxableAmount;
+    }
+
+
+    public BigDecimal getTaxAmount() {
+        return this.taxAmount;
+    }
+
+
+    public void setTaxAmount(BigDecimal taxAmount) {
+        this.taxAmount = taxAmount;
     }
 }

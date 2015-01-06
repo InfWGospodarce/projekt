@@ -47,6 +47,9 @@ public abstract class GenericDocumentRow extends Generic implements Serializable
     @ManyToOne
     private Unit unit;
 
+    @Column(name = "filled")
+    private boolean filled;
+
 
     // *******************************************************************************************************************************
     // ****** GETTERS AND SETTERS

@@ -7,12 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.article.Article;
 import org.pwr.transporter.entity.warehouse.Warehouse;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.GenericController;
-import org.pwr.transporter.server.web.controllers.GenericControllerWare;
-import org.pwr.transporter.server.web.services.article.ArticleService;
+import org.pwr.transporter.server.web.services.warehouse.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +41,7 @@ public class WarhouseController extends GenericController {
     @RequestMapping(value = "/mag/warehouseList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-    	Criteria criteria = restoreCriteria(request);
+        Criteria criteria = restoreCriteria(request);
         List<Warehouse> list = getListWitchCriteria(warehouseService, request, criteria);
         request.setAttribute("list", list);
 

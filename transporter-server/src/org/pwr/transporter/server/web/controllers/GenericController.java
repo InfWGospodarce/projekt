@@ -36,12 +36,18 @@ public class GenericController {
     public Criteria restoreCriteria(HttpServletRequest request) {
 
         Criteria criteria = new Criteria();
-        String active = request.getParameter("active");
+        String actName = "active";
+        String active = request.getParameter(actName);
+        if( active == null ) {
+            actName = "filled";
+            active = request.getParameter(actName);
+        }
+
         if( active != null ) {
             if( active.equals("0") ) {
-                criteria.getEqualCriteria().put("active", true);
+                criteria.getEqualCriteria().put(actName, true);
             } else if( active.equals("1") ) {
-                criteria.getEqualCriteria().put("active", false);
+                criteria.getEqualCriteria().put(actName, false);
             }
         }
         String searchKey = (String) request.getParameter("searchKey");

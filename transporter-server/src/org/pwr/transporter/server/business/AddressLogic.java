@@ -90,4 +90,14 @@ public class AddressLogic {
         return this.addressDAO.getListRestCrit(amount, fromRow, criteria);
     }
 
+
+    public List<Address> getListRest(int amount, int fromRow) {
+        return this.addressDAO.getListRest(amount, fromRow);
+    }
+
+
+    public long count() {
+        return this.addressDAO.count();
+    }
+
 }

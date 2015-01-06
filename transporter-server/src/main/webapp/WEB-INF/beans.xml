@@ -14,113 +14,84 @@
 	<bean id="customerDAO" class="org.pwr.transporter.server.dao.impl.CustomerDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="customerLogic" class="org.pwr.transporter.server.business.CustomerLogic">
 		<property name="customerDAO" ref="customerDAO" />
 	</bean>
-	
 	<bean id="customerService" class="org.pwr.transporter.server.web.services.CustomerService" />
 	
 	<!-- Unit -->
 	<bean id="unitDAO" class="org.pwr.transporter.server.dao.impl.UnitDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="unitLogic" class="org.pwr.transporter.server.business.UnitLogic">
 		<property name="unitDAO" ref="unitDAO" />
 	</bean>
-	
 	<bean id="unitService" class="org.pwr.transporter.server.web.services.UnitService" />
 	
 	<!-- Currency -->
 	<bean id="currencyDAO" class="org.pwr.transporter.server.dao.impl.CurrencyDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="currencyLogic" class="org.pwr.transporter.server.business.CurrencyLogic">
 		<property name="currencyDAO" ref="currencyDAO" />
 	</bean>
-	
 	<bean id="currencyService" class="org.pwr.transporter.server.web.services.CurrencyService" />
 	
 	<!-- Streat prefix -->
 	<bean id="addrStreetPrefixDAO" class="org.pwr.transporter.server.dao.impl.enums.AddrStreetPrefixDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="addrStreetPrefixLogic" class="org.pwr.transporter.server.business.enums.AddrStreetPrefixLogic">
 		<property name="addrStreetPrefixDAO" ref="addrStreetPrefixDAO" />
 	</bean>
-	
 	<bean id="addrStreetPrefixService" class="org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService" />
 	
 	<!-- Country -->
 	<bean id="countryDAO" class="org.pwr.transporter.server.dao.impl.CountryDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="countryLogic" class="org.pwr.transporter.server.business.CountryLogic">
 		<property name="countryDAO" ref="countryDAO" />
 		<property name="companyDataDAO" ref="companyDataDAO" />
 	</bean>
-	
 	<bean id="countryService" class="org.pwr.transporter.server.web.services.CountryService" />
 	
 	<!-- Company Data -->
 	<bean id="companyDataDAO" class="org.pwr.transporter.server.dao.impl.CompanyDataDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="companyDataLogic" class="org.pwr.transporter.server.business.CompanyDataLogic">
 		<property name="companyDataDAO" ref="companyDataDAO" />
 	</bean>
-	
 	<bean id="companyDataService" class="org.pwr.transporter.server.web.services.CompanyDataService" />
 			
 	<!-- Address -->
 	<bean id="addressDAO" class="org.pwr.transporter.server.dao.impl.AddressDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="addressLogic" class="org.pwr.transporter.server.business.AddressLogic">
 		<property name="addressDAO" ref="addressDAO" />
 		<property name="countryDAO" ref="countryDAO" />
 		<property name="addrStreetPrefixDAO" ref="addrStreetPrefixDAO" />
 	</bean>
-	
 	<bean id="addressService" class="org.pwr.transporter.server.web.services.AddressService" />
 	
 	<!-- Users -->
 	<bean id="userDAO" class="org.pwr.transporter.server.dao.impl.UserDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="userLogic" class="org.pwr.transporter.server.business.UserLogic">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
-	
 	<bean id="userService" class="org.pwr.transporter.server.web.services.UserService" />
-	
-	<!-- Sales Order -->
-	<bean id="salesOrderDAO" class="org.pwr.transporter.server.dao.impl.sales.SalesOrderDAOImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<bean id="salesOrderLogic" class="org.pwr.transporter.server.business.sales.SalesOrderLogic">
-		<property name="salesOrderDAO" ref="salesOrderDAO" />
-	</bean>
-	
-	<bean id="salesOrderService" class="org.pwr.transporter.server.web.services.sales.SalesOrderService" />
 	
 	<!-- Role -->
 	<bean id="roleDAO" class="org.pwr.transporter.server.dao.impl.RoleDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="roleLogic" class="org.pwr.transporter.server.business.RoleLogic">
 		<property name="roleDAO" ref="roleDAO" />
 	</bean>
-	
 	<bean id="roleService" class="org.pwr.transporter.server.web.services.RoleService" />
 	
 	
@@ -128,11 +99,9 @@
 	<bean id="ItineraryDAO" class="org.pwr.transporter.server.dao.impl.logistic.ItineraryDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
 	<bean id="ItineraryLogic" class="org.pwr.transporter.server.business.logistic.ItineraryLogic">
 		<property name="ItineraryDAO" ref="ItineraryDAO" />
 	</bean>
-	
 	<bean id="ItineraryService" class="org.pwr.transporter.server.web.services.logistic.ItineraryService" />
 	
 	<!-- UserRoles -->
@@ -168,40 +137,90 @@
 	
 	<bean id="employeeService" class="org.pwr.transporter.server.web.services.EmployeeService" />
 	
-	<!-- Task -->
-	<bean id="taskDAO" class="org.pwr.transporter.server.dao.impl.logistic.TaskDAOImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-	
-	<bean id="taskLogic" class="org.pwr.transporter.server.business.logistic.TaskLogic">
-		<property name="taskDAO" ref="taskDAO" />
-	</bean>
-	
-	<bean id="taskService" class="org.pwr.transporter.server.web.services.logistic.TaskService" />
-	
 	<!-- Article -->
-	<bean id="articleDAO" class="org.pwr.transporter.server.dao.impl.article.ArticleDAOImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+		<!-- Article -->
+			<bean id="articleDAO" class="org.pwr.transporter.server.dao.impl.article.ArticleDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="articleLogic" class="org.pwr.transporter.server.business.article.ArticleLogic">
+				<property name="articleDAO" ref="articleDAO" />
+			</bean>
+			<bean id="articleService" class="org.pwr.transporter.server.web.services.article.ArticleService" />
 	
-	<bean id="articleLogic" class="org.pwr.transporter.server.business.article.ArticleLogic">
-		<property name="articleDAO" ref="articleDAO" />
-	</bean>
+		<!-- Bundle -->
+			<bean id="bundleDAO" class="org.pwr.transporter.server.dao.impl.article.BundleDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="bundleLogic" class="org.pwr.transporter.server.business.article.BundleLogic">
+				<property name="bundleDAO" ref="bundleDAO" />
+			</bean>
+			<bean id="bundleService" class="org.pwr.transporter.server.web.services.article.BundleService" />
 	
-	<bean id="articleService" class="org.pwr.transporter.server.web.services.article.ArticleService" />
+		<!-- Packaging -->
+			<bean id="packagingDAO" class="org.pwr.transporter.server.dao.impl.article.PackagingDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="packagingLogic" class="org.pwr.transporter.server.business.article.PackagingLogic">
+				<property name="packagingDAO" ref="packagingDAO" />
+			</bean>
+			<bean id="packagingService" class="org.pwr.transporter.server.web.services.article.PackagingService" />
 	
-	<!-- Vehicle -->
-	<bean id="vehicleDAO" class="org.pwr.transporter.server.dao.impl.logistic.VehicleDAOImpl">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+	<!-- Logistic -->
+		<!-- Vehicle -->
+			<bean id="vehicleDAO" class="org.pwr.transporter.server.dao.impl.logistic.VehicleDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="vehicleLogic" class="org.pwr.transporter.server.business.logistic.VehicleLogic">
+				<property name="vehicleDAO" ref="vehicleDAO" />
+			</bean>
+			<bean id="vehicleService" class="org.pwr.transporter.server.web.services.logistic.VehicleService" />
 	
-	<bean id="vehicleLogic" class="org.pwr.transporter.server.business.logistic.VehicleLogic">
-		<property name="vehicleDAO" ref="vehicleDAO" />
-	</bean>
+		<!-- Task -->
+			<bean id="taskDAO" class="org.pwr.transporter.server.dao.impl.logistic.TaskDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="taskLogic" class="org.pwr.transporter.server.business.logistic.TaskLogic">
+				<property name="taskDAO" ref="taskDAO" />
+			</bean>
+			<bean id="taskService" class="org.pwr.transporter.server.web.services.logistic.TaskService" />
+			
+		<!-- Itinerary -->
+			<bean id="itineraryDAO" class="org.pwr.transporter.server.dao.impl.logistic.ItineraryDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="itineraryLogic" class="org.pwr.transporter.server.business.logistic.ItineraryLogic">
+				<property name="ItineraryDAO" ref="ItineraryDAO" />
+			</bean>
+			<bean id="itineraryService" class="org.pwr.transporter.server.web.services.logistic.ItineraryService" />
+			
+			
+	<!-- Warhouse -->
+		<!-- Warhouse -->
+			<bean id="warehouseDAO" class="org.pwr.transporter.server.dao.impl.warehouse.WarehouseDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="warehouseLogic" class="org.pwr.transporter.server.business.warehouse.WarehouseLogic">
+				<property name="warehouseDAO" ref="warehouseDAO" />
+			</bean>
+			<bean id="warehouseService" class="org.pwr.transporter.server.web.services.warehouse.WarehouseService" />
 	
-	<bean id="vehicleService" class="org.pwr.transporter.server.web.services.logistic.VehicleService" />
-	
-	
+		<!-- Shelf -->
+			<bean id="shelfDAO" class="org.pwr.transporter.server.dao.impl.warehouse.ShelfDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="shelfLogic" class="org.pwr.transporter.server.business.warehouse.ShelfLogic">
+				<property name="shelfDAO" ref="shelfDAO" />
+			</bean>
+			<bean id="shelfService" class="org.pwr.transporter.server.web.services.warehouse.ShelfService" />
+			
+		<!-- InventoryBalance -->
+			<bean id="inventoryBalanceDAO" class="org.pwr.transporter.server.dao.impl.warehouse.InventoryBalanceDAOImpl">
+				<property name="sessionFactory" ref="sessionFactory" />
+			</bean>
+			<bean id="inventoryBalanceLogic" class="org.pwr.transporter.server.business.warehouse.InventoryBalanceLogic">
+				<property name="inventoryBalanceDAO" ref="inventoryBalanceDAO" />
+			</bean>
+			<bean id="inventoryBalanceService" class="org.pwr.transporter.server.web.services.warehouse.InventoryBalanceService" />
 	
 	<import resource="validators.xml"/>
 	<import resource="documents.xml"/>

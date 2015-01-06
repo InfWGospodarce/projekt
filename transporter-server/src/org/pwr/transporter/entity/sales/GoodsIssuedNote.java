@@ -57,4 +57,5 @@ public class GoodsIssuedNote extends GenericDocument {
     public void setRows(List<GoodsIssuedNoteRow> rows) {
         this.rows = rows;
     }
+
 }

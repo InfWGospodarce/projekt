@@ -1,4 +1,4 @@
-package org.pwr.transporter.server.web.controllers.sales;
+package org.pwr.transporter.server.web.controllers.base.documents.sales;
 
 
 import java.util.List;
@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.sales.Request;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions;
-import org.pwr.transporter.server.web.controllers.GenericController;
+import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
 import org.pwr.transporter.server.web.services.CurrencyService;
 import org.pwr.transporter.server.web.services.UnitService;
 import org.pwr.transporter.server.web.services.sales.RequestService;
@@ -36,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version 0.0.1
  */
 @Controller
-public class RequestController extends GenericController {
+public class RequestController extends GenericDocumentController {
 
     private static Logger LOGGER = Logger.getLogger(RequestController.class);
 
@@ -57,8 +56,6 @@ public class RequestController extends GenericController {
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Criteria criteria = restoreCriteria(request);
-        criteria.getSortCriteria().put("lastModifyDate", SortOptions.DESC);
-
         List<Request> list = getListWitchCriteria(requestService, request, criteria);
 
         model.addAttribute("list", list);
