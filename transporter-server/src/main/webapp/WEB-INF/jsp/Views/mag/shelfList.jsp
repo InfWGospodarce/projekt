@@ -8,8 +8,8 @@
 	<div class="well">	
 		<table class="table">
 			<tr>
-				<td><h2>Lista magazynów</h2></td>
-				<td><form action="/transporter-server/mag/warehouseEdit" method="get">
+				<td><h2>Lista polek</h2></td>
+				<td><form action="/transporter-server/mag/shelfEdit" method="get">
 				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
 				</form></td>
 			</tr>
@@ -22,42 +22,28 @@
 				<th>Id</th>
 				<th>Klucz</th>
 				<th>Nazwa</th>
+				<th>Magazyn</th>
 			</tr>
 			
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="object" items="${list}">
 				<c:set var="i" value="${i+1}"></c:set>
-				<tr class="js_option" data-value="${object.id}">
+				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 					<td><c:out value="${object.id}"></c:out></td>
 					<td><c:out value="${object.searchKey}"></c:out></td>
 					<td><c:out value="${object.name}"></c:out></td>
+					<td><c:out value="${object.warehouse.name}"></c:out></td>
 					<td>
 						<input class="btn btn-primary" class="form-control" type="button" value="Adres" onclick="showAddres(${object.id})">
 					</td>
 					<td>
-						<form action="/transporter-server/mag/warehouseEdit" method="get">
+						<form action="/transporter-server/mag/shelfEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
 							<input type="hidden" value="${object.id}" name="id">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
 						</form>
 					</td>
-				</tr>
-				<tr class="addresLine" id="${object.id}" class="">
-					<td></td>
-					<td colspan="4">
-						<table class="table">
-							<tr>
-								<th>Adres</th>
-							</tr>
-							<tr>
-								<td>
-									<c:set var="addressPrefix" scope="request" value="${object.address}"/>
-									<%@ include file="../base/address2.jsp" %>
-								</td>
-							</tr>
-						</table>
-					<td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -65,18 +51,4 @@
 		</div>
 	</div>
 </div>
-<script>
-	$( document ).ready(function() {
-		$( ".addresLine" ).hide();
-	});
-
-	function showAddres(id){
-		var element = $(document.getElementById(id));
-		if($(element).is(":visible")){
-			$(element).hide();
-		} else {
-			$(element).show();
-		};
-	};
-</script>
 </trans:template>
