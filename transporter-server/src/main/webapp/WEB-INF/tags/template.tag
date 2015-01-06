@@ -1,4 +1,4 @@
-<%@tag import="org.pwr.transporter.entity.UserAcc"%>
+<%@tag import="org.pwr.transporter.entity.base.UserAcc"%>
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <%@ attribute name="bodyOnload" required="false"%>
@@ -22,9 +22,13 @@
 	</head>
 	<body>
 		<div class="wrapper">
-			<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
+			<c:if test="${empty param.select}">
+				<jsp:include page="/WEB-INF/jsp/template/tophead.jsp" />
+			</c:if>
 			<jsp:doBody />
-			<jsp:include page="/WEB-INF/jsp/template/footer.jsp" />
+			<c:if test="${empty param.select}">
+				<jsp:include page="/WEB-INF/jsp/template/footer.jsp" />
+			</c:if>
 		</div>
 	</body>
 </html>

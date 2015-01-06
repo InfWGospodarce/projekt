@@ -8,19 +8,19 @@
 				<td>	
 					<div class="form-group">
 						<h5>Klucz wyszukiwania</h5>
-						<input type="text" class="form-control" name="searchKey"value="${param.searchKey}" />
+						<input type="text" class="form-control" name="searchKey" value="${param.searchKey}" id="searchSearchKey" />
 					</div>
 				</td>
 				<td>
 					<div class="form-group">
 						<h5>Nazwa</h5>
-						<input type="text" class="form-control" name="name" value="${param.name}"/>
+						<input type="text" class="form-control" name="name" value="${param.name}" id="searchName"/>
 					</div>
 				<td>
 				<td>
 					<div class="form-group">
 						<h5>Aktywny</h5>
-						<select class="form-control" name="active">
+						<select class="form-control" name="active" id="active">
 							<option value="0"
 								<c:if test="${param.active eq '0'}">
 									selected="selected"								
@@ -41,8 +41,26 @@
 				<td>
 			</tr>
 			<tr>
-				<td><input class="btn btn-primary" class="form-control" type="submit" value="Szukaj"></td>
+				<td>
+					<c:if test="${empty param.select}">
+						<input class="btn btn-primary" class="form-control" type="submit" value="Szukaj">
+					</c:if>
+					<c:if test="${not empty param.select}">
+						<a data-target="#modal" onclick="searchReload()" class="btn btn-primary" class="form-control" type="submit" role="button" href="javascript:void(0)">Szukaj</a>
+					</c:if>
+				</td>
 			</tr>
 		</table>
 	</form>
 </div>
+<script>
+function searchReload() {
+   var searchKey = document.getElementById('searchSearchKey').value;
+   var name = $("#searchName").val();
+   var active = $("#active").val();
+   var ref = "${requestScope['javax.servlet.forward.request_uri']}?select=true&searchKey=" + searchKey.toString() + "&name=" + name.toString()+ "&active=" + active.toString();
+   $("#modal .modal-body").load(ref, function() { 
+       $("#modal").modal("show"); 
+  });
+}
+</script>

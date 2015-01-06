@@ -34,8 +34,8 @@
 				
 				<div class="form-group">
 					<form:label path="warehouse">Magazyn</form:label>
-					<div class="row js_select" data-target="warehouseList.jsp?select=true">
-						<form:input path="warehouse" class="form-control js_value" value="&hellip;" cssErrorClass="errorBc"/> 
+					<div class="row js_select" data-target="/transporter-server/mag/warehouseList?select=true">
+						<form:input disabled="true" path="warehouse" class="form-control js_value" value="" cssErrorClass="errorBc"/> 
 						<form:errors path="warehouse" cssClass="error" />
 						<div class="col-xs-8">
 			            </div>  
@@ -53,7 +53,7 @@
 </div></div></div>
 
 <div id="modal" class="modal fade">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Zamknij"><span aria-hidden="true">&times;</span></button>
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-  </div>
-<script src="/WEB-INF/js/select.js"></script>
-<script src="/WEB-INF/js/main.js"></script>
+</div>
+<script src="${pageContext.request.contextPath}/resources/javascript/select.js"></script>
+<script src="${pageContext.request.contextPath}/resources/javascript/main.js"></script>
 </trans:template>
