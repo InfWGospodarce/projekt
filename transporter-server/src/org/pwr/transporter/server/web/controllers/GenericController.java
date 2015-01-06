@@ -101,7 +101,7 @@ public abstract class GenericController {
     }
 
 
-    public <T extends Generic> List<T> getListWitchCriteria(IService service, HttpServletRequest request, Criteria criteria) {
+    public <T extends Generic> List<T> getListWithCriteria(IService service, HttpServletRequest request, Criteria criteria) {
 
         List<T> list = null;
 

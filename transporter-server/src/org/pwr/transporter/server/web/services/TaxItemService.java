@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-public class TaxItemService {
+public class TaxItemService implements IService {
 
     @Autowired
     TaxItemLogic taxItemLogic;
@@ -52,6 +52,7 @@ public class TaxItemService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<TaxItem> getListRest(int amount, int fromRow) {
         return this.taxItemLogic.getListRest(amount, fromRow);
     }
@@ -67,6 +68,7 @@ public class TaxItemService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<TaxItem> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.taxItemLogic.getListRestCrit(amount, fromRow, criteria);
     }

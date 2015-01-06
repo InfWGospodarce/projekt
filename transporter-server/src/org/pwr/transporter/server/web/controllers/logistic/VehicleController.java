@@ -39,7 +39,7 @@ public class VehicleController extends GenericController {
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Criteria criteria = restoreCriteria(request);
-        List<Vehicle> vehicleList = getListWitchCriteria(vehicleService, request, criteria);
+        List<Vehicle> vehicleList = getListWithCriteria(vehicleService, request, criteria);
         model.addAttribute("vehicleList", vehicleList);
 
         return "/Views/logistic/vehicleList";

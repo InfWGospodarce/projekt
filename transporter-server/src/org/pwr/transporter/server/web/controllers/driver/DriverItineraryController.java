@@ -46,7 +46,7 @@ public class DriverItineraryController extends GenericController {
         criteria.getEqualCriteria().put("active", true);
         criteria.getIdsCriteria().put("employee_id", id);
 
-        List<Itinerary> itineraryList = getListWitchCriteria(itineraryService, request, criteria);
+        List<Itinerary> itineraryList = getListWithCriteria(itineraryService, request, criteria);
         model.addAttribute("list", itineraryList);
 
         return "/Views/driver/driverItinerary";

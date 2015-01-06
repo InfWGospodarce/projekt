@@ -44,6 +44,13 @@
 					<form:input path="ISOCode" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="ISOCode" cssClass="error" />
 				</div>
+				
+				<div class="form-group">
+					<form:label path="${addressPrefix}countryId">Waluta</form:label>
+					<form:select class="form-control" path="${currency}countryId">
+					    <form:options items="${currencies}" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
 			
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/countriesList?page=${page}'" />

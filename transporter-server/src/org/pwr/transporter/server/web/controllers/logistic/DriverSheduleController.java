@@ -56,7 +56,7 @@ public class DriverSheduleController extends GenericController {
             criteria.getIdsCriteria().put("employee.id", user.getEmployee().getId());
         }
 
-        List<Task> taskList = getListWitchCriteria(taskService, request, criteria);
+        List<Task> taskList = getListWithCriteria(taskService, request, criteria);
         model.addAttribute("taskList", taskList);
 
         return "/Views/driver/driverShedule";

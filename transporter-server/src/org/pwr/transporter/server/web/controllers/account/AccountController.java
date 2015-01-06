@@ -276,7 +276,7 @@ public class AccountController extends GenericController {
         Criteria criteria = restoreCriteria(request);
         criteria.getSortCriteria().put("id", SortOptions.ASC);
 
-        List<UserAcc> list = getListWitchCriteria(userService, request, criteria);
+        List<UserAcc> list = getListWithCriteria(userService, request, criteria);
         List<Object> principals = sessionRegistry.getAllPrincipals();
 
         List<String> usersNamesList = new ArrayList<String>();

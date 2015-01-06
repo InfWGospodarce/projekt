@@ -7,11 +7,12 @@ import java.util.Map;
 import org.pwr.transporter.entity.article.Prices;
 import org.pwr.transporter.server.business.article.PricesLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
+import org.pwr.transporter.server.web.services.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-public class PricesService {
+public class PricesService implements IService {
 
     @Autowired
     PricesLogic pricesLogic;
@@ -47,6 +48,7 @@ public class PricesService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Prices> getListRest(int amount, int fromRow) {
         return this.pricesLogic.getListRest(amount, fromRow);
     }
@@ -62,6 +64,7 @@ public class PricesService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Prices> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.pricesLogic.getListRestCrit(amount, fromRow, criteria);
     }

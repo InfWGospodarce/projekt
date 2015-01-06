@@ -1,4 +1,4 @@
-package org.pwr.transporter.server.web.controllers.base.documents.sales;
+package org.pwr.transporter.server.web.controllers.base;
 
 
 import java.util.List;
@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.sales.Request;
+import org.pwr.transporter.entity.base.Currency;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
-import org.pwr.transporter.server.web.services.sales.RequestService;
-import org.pwr.transporter.server.web.validators.documents.sales.RequestValidator;
+import org.pwr.transporter.server.web.controllers.GenericController;
+import org.pwr.transporter.server.web.services.CurrencyService;
+import org.pwr.transporter.server.web.validators.CurrencyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * <pre>
- *    Controller for {@link Request}
+ *    Controller for {@link Currency}
  * </pre>
  * <hr/>
  * 
@@ -33,65 +33,72 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @version 0.0.1
  */
 @Controller
-public class RequestController extends GenericDocumentController {
+public class CurrencyController extends GenericController {
 
-    private static Logger LOGGER = Logger.getLogger(RequestController.class);
-
-    @Autowired
-    RequestService requestService;
+    private static Logger LOGGER = Logger.getLogger(CurrencyController.class);
 
     @Autowired
-    RequestValidator validator;
+    CurrencyService service;
+
+    @Autowired
+    CurrencyValidator validator;
 
 
-    @RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/currencyList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Criteria criteria = restoreCriteria(request);
-        List<Request> list = getListWithCriteria(requestService, request, criteria);
+        List<Currency> list = getListWithCriteria(service, request, criteria);
 
         model.addAttribute("list", list);
 
-        return "/Views/seller/requestList";
+        return "/Views/admin/currencyList";
     }
 
 
-    @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/currencyEdit", method = RequestMethod.GET)
     public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Long id = getId(request.getParameter("id"));
         loadData(model);
-        Request object = null;
+        Currency object = null;
         if( id == null ) {
-            object = new Request();
+            object = new Currency();
         } else {
-            object = requestService.getByID(id);
+            object = service.getByID(id);
             if( object == null || object.getId() == null ) {
-                object = new Request();
+                object = new Currency();
             }
         }
 
         model.addAttribute("object", object);
 
-        return "Views/seller/requestEdit";
+        return "Views/admin/currencyEdit";
     }
 
 
-    @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.POST)
-    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Request object,
+    @RequestMapping(value = "/admin/currencyEdit", method = RequestMethod.POST)
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Currency object,
             BindingResult formBindeings, Model model) {
 
         if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/seller/requestEdit";
+            return "/Views/admin/unitEdit";
         }
 
         if( object.getId() != null ) {
             LOGGER.debug("Id not null");
-            requestService.update(object);
+            service.update(object);
         } else {
-            requestService.insert(object);
+            service.insert(object);
         }
 
-        return "redirect:../seller/requestList?page=" + getPage(request);
+        return "redirect:../admin/currencyList?page=" + getPage(request);
+    }
+
+
+    @Override
+    public void loadData(Model model) {
+        // TODO Auto-generated method stub
+
     }
 }
