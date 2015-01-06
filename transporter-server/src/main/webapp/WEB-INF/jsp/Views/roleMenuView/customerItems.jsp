@@ -6,7 +6,7 @@
 	<a href="/transporter-server/customer/customerHistory">Zobacz historie zlecen</a>
 </li>
 <li>
-	<a href="/transporter-server/customer/customerMonitor">Monitoruj paczke</a>
+	<a href="/transporter-server/customer/customerMonitorList">Monitoruj paczke</a>
 </li>
 <li>
 	<a href="/transporter-server/customer/customerHistoryOrder" >Zobacz historie zamowien</a>
