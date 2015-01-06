@@ -97,6 +97,8 @@ public class WarhouseController extends GenericController {
             return "/Views/mag/warehouseEdit";
         }
 
+        LOGGER.debug("Id: " + object.getId());
+
         if( object.getId() != null ) {
             LOGGER.debug("Id not null");
             warehouseService.update(object);

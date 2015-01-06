@@ -8,6 +8,7 @@
 			<h1>Edycja magazynu</h1>
 			<form:form action="/transporter-server/mag/warehouseEdit" method="post" commandName="object">
 			
+				<form:hidden path="id"/>
 				<div class="form-group">
 					<form:label path="id">Id</form:label>
 					<form:input class="form-control" disabled="true" path="id" value="${id}"></form:input>
@@ -36,7 +37,7 @@
 				<%@ include file="../base/addressEdit.jsp" %>
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
-				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/mag/List?page=${page}'" />
+				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/mag/warehouseList?page=${page}'" />
 				
 			</form:form>
 </div></div></div>
