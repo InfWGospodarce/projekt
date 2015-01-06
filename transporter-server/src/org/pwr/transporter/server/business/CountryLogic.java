@@ -7,8 +7,8 @@ import java.util.Map;
 import org.pwr.transporter.entity.base.CompanyData;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.dao.CompanyDataDAO;
-import org.pwr.transporter.server.dao.CountryDAO;
+import org.pwr.transporter.server.dao.base.CompanyDataDAO;
+import org.pwr.transporter.server.dao.base.CountryDAO;
 
 
 

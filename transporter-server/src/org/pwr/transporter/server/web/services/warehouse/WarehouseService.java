@@ -79,11 +79,13 @@ public class WarehouseService implements IService {
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Warehouse> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.warehouseLogic.getListRestCrit(amount, fromRow, criteria);
     }
 
 
+    @SuppressWarnings("unchecked")
     public List<Warehouse> getListRest(int amount, int fromRow) {
         return this.warehouseLogic.getListRest(amount, fromRow);
     }

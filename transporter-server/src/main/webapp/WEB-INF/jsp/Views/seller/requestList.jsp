@@ -85,6 +85,9 @@
 								<tr>
 									<td><c:out value="${j}"></c:out></td>
 									<td><c:out value="${row.ware.name}"></c:out></td>
+									<td><c:out value="${row.ware.unit.name}"></c:out></td>
+									<td><c:out value="${row.ware.taxPercent}"></c:out></td>
+									<td><c:out value="${row.ware.taxPercent}"></c:out></td>
 								</tr>
 							</c:forEach>
 						</table>

@@ -1,4 +1,4 @@
-package org.pwr.transporter.server.dao.impl;
+package org.pwr.transporter.server.dao.impl.base;
 
 
 import java.util.HashMap;
@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.Role;
-import org.pwr.transporter.server.dao.RoleDAO;
+import org.pwr.transporter.entity.base.Role;
+import org.pwr.transporter.server.dao.base.RoleDAO;
+import org.pwr.transporter.server.dao.impl.GenericDAOImpl;
 
 
 

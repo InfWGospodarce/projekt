@@ -1,9 +1,10 @@
 
-package org.pwr.transporter.server.dao.impl;
+package org.pwr.transporter.server.dao.impl.base;
 
 
 import org.pwr.transporter.entity.base.Address;
-import org.pwr.transporter.server.dao.AddressDAO;
+import org.pwr.transporter.server.dao.base.AddressDAO;
+import org.pwr.transporter.server.dao.impl.GenericDAOImpl;
 
 
 

@@ -1,9 +1,10 @@
-package org.pwr.transporter.server.dao;
+package org.pwr.transporter.server.dao.base;
 
 
 import java.util.List;
 
-import org.pwr.transporter.entity.UserRoles;
+import org.pwr.transporter.entity.base.UserRoles;
+import org.pwr.transporter.server.dao.GenericDAO;
 
 
 

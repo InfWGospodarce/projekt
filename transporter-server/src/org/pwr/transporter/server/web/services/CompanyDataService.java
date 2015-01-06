@@ -5,7 +5,7 @@ import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.CompanyData;
 import org.pwr.transporter.server.business.AddressLogic;
 import org.pwr.transporter.server.business.CompanyDataLogic;
-import org.pwr.transporter.server.dao.CompanyDataDAO;
+import org.pwr.transporter.server.dao.base.CompanyDataDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

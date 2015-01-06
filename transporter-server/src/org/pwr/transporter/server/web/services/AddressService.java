@@ -7,7 +7,7 @@ import java.util.Map;
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.server.business.AddressLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.dao.AddressDAO;
+import org.pwr.transporter.server.dao.base.AddressDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Unit;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.dao.UnitDAO;
+import org.pwr.transporter.server.dao.base.UnitDAO;
 
 
 

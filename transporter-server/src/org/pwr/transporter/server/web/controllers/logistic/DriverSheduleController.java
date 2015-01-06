@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.entity.logistic.Task;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.GenericController;

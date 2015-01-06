@@ -2,7 +2,7 @@ package org.pwr.transporter.server.web.validators.forms;
 
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.server.web.form.PasswordForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

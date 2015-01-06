@@ -1,4 +1,4 @@
-package org.pwr.transporter.entity;
+package org.pwr.transporter.entity.base;
 
 
 import java.security.MessageDigest;
@@ -19,8 +19,8 @@ import javax.persistence.Table;
 import org.apache.log4j.Logger;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.pwr.transporter.entity.base.Customer;
-import org.pwr.transporter.entity.base.Employee;
+import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.NamesForHibernate;
 import org.springframework.security.crypto.codec.Hex;
 
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.Generic;
-import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.IService;
 import org.springframework.ui.Model;

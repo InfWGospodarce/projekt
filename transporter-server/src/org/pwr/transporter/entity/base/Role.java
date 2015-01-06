@@ -1,9 +1,12 @@
-package org.pwr.transporter.entity;
+package org.pwr.transporter.entity.base;
 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import org.pwr.transporter.entity.GenericEntity;
+import org.pwr.transporter.entity.NamesForHibernate;
 
 
 

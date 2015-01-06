@@ -1,7 +1,8 @@
-package org.pwr.transporter.server.dao;
+package org.pwr.transporter.server.dao.base;
 
 
 import org.pwr.transporter.entity.base.CompanyData;
+import org.pwr.transporter.server.dao.GenericDAO;
 
 
 

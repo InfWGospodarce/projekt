@@ -1,8 +1,9 @@
-package org.pwr.transporter.server.dao.impl;
+package org.pwr.transporter.server.dao.impl.base;
 
 
 import org.pwr.transporter.entity.base.Currency;
-import org.pwr.transporter.server.dao.CurrencyDAO;
+import org.pwr.transporter.server.dao.base.CurrencyDAO;
+import org.pwr.transporter.server.dao.impl.GenericDAOImpl;
 
 
 

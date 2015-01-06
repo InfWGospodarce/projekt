@@ -1,8 +1,9 @@
-package org.pwr.transporter.server.dao.impl;
+package org.pwr.transporter.server.dao.impl.base;
 
 
 import org.pwr.transporter.entity.base.Employee;
-import org.pwr.transporter.server.dao.EmployeeDAO;
+import org.pwr.transporter.server.dao.base.EmployeeDAO;
+import org.pwr.transporter.server.dao.impl.GenericDAOImpl;
 
 
 

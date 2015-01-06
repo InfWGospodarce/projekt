@@ -1,9 +1,10 @@
 
-package org.pwr.transporter.server.dao.impl;
+package org.pwr.transporter.server.dao.impl.base;
 
 
 import org.pwr.transporter.entity.base.Customer;
-import org.pwr.transporter.server.dao.CustomerDAO;
+import org.pwr.transporter.server.dao.base.CustomerDAO;
+import org.pwr.transporter.server.dao.impl.GenericDAOImpl;
 import org.springframework.stereotype.Repository;
 
 

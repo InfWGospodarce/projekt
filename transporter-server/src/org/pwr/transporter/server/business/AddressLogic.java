@@ -6,8 +6,8 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.dao.AddressDAO;
-import org.pwr.transporter.server.dao.CountryDAO;
+import org.pwr.transporter.server.dao.base.AddressDAO;
+import org.pwr.transporter.server.dao.base.CountryDAO;
 import org.pwr.transporter.server.dao.enums.AddrStreetPrefixDAO;
 
 

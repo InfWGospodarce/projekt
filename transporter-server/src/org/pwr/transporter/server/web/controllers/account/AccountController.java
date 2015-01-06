@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.pwr.transporter.entity.Role;
-import org.pwr.transporter.entity.UserAcc;
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.entity.base.Employee;
 import org.pwr.transporter.entity.base.Person;
+import org.pwr.transporter.entity.base.Role;
+import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;

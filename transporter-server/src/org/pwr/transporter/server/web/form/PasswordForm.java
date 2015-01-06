@@ -1,7 +1,7 @@
 package org.pwr.transporter.server.web.form;
 
 
-import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.UserAcc;
 
 
 public class PasswordForm {
