@@ -4,6 +4,9 @@
 	<a href="/transporter-server/mag/articleList">Lista artykułów</a>
 </li>
 <li>
+	<a href="/transporter-server/mag/warehouseList">Lista magazynów</a>
+</li>
+<li>
 	<a href="">Zmien stan magazynowy towaru </a>
 </li>
 <li>

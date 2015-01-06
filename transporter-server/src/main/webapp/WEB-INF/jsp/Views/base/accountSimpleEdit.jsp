@@ -89,13 +89,13 @@
 				</div>
 			</c:if>
 		
-		<c:set var="addressPrefix" scope="session" value="baseAddress."/>
+		<c:set var="addressPrefix" scope="request" value="baseAddress."/>
 		
 			<h3>Adres</h3>
 			<%@ include file="addressEdit.jsp" %>
 		
 		<div class="checkbox">
-			<c:set var="addressPrefix" scope="session" value="correspondeAddress."/>
+			<c:set var="addressPrefix" scope="request" value="correspondeAddress."/>
 			<label>
 				<form:checkbox path="corespondeAddress" class="js_toggle" data-target="#correspondence" />
 				Adres do korespondencji

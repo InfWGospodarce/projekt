@@ -2,12 +2,15 @@
 package org.pwr.transporter.entity.warehouse;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.base.Address;
 
@@ -29,12 +32,17 @@ public class Warehouse extends GenericEntity {
 
     /**  */
     private static final long serialVersionUID = 3461170154496460630L;
+    
+    public Warehouse() {
+		this.address = new Address();
+	}
 
     // *******************************************************************************************************************************
     // ****** FIELDS
     // *******************************************************************************************************************************
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
+    @OnDelete(action=OnDeleteAction.CASCADE)
     Address address;
 
 
