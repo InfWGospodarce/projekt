@@ -14,7 +14,7 @@
 				</form></td>
 			</tr>
 		</table>
-
+		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 		
 			<tr>
