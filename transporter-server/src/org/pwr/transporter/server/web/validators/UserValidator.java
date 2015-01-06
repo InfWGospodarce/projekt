@@ -1,7 +1,7 @@
 package org.pwr.transporter.server.web.validators;
 
 
-import org.pwr.transporter.entity.UserAcc;
+import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.server.web.services.UserService;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;

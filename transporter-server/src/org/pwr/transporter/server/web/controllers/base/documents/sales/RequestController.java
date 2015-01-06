@@ -48,7 +48,7 @@ public class RequestController extends GenericDocumentController {
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Criteria criteria = restoreCriteria(request);
-        List<Request> list = getListWitchCriteria(requestService, request, criteria);
+        List<Request> list = getListWithCriteria(requestService, request, criteria);
 
         model.addAttribute("list", list);
 

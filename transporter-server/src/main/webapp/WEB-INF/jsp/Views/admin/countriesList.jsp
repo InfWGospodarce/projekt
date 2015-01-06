@@ -5,17 +5,23 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista państw</h2>
-		<form action="/transporter-server/admin/countryEdit" method="get">
-			<input type="hidden" value="${page}" name="page">
-		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
-		</form>
+		<table class="table">
+			<tr>
+				<td><h2>Lista państw</h2>
+				<td><form action="/transporter-server/admin/countryEdit" method="get">
+					<input type="hidden" value="${page}" name="page">
+				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
+				</form></td>
+			</tr>
+		</table>
+		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
 				<th>Klucz wyszukiwania</th>
 				<th>Nazwa</th>
 				<th>Nazwa w j.</th>
+				<th>Waluta</th>
 				<th>Kod</th>
 				<th>Kod UE</th>
 				<th>Aktywny</th>
@@ -28,6 +34,7 @@
 					<td><c:out value="${var.searchKey}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
 					<td><c:out value="${var.nativeName}"></c:out></td>
+					<td><c:out value="${var.currency.name}"></c:out></td>
 					<td><c:out value="${var.code}"></c:out></td>
 					<td><c:out value="${var.codeEU}"></c:out></td>
 					<td>

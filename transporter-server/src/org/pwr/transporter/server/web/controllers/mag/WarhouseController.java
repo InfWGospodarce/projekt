@@ -55,7 +55,7 @@ public class WarhouseController extends GenericController {
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
         Criteria criteria = restoreCriteria(request);
-        List<Warehouse> list = getListWitchCriteria(warehouseService, request, criteria);
+        List<Warehouse> list = getListWithCriteria(warehouseService, request, criteria);
         request.setAttribute("list", list);
 
         return "Views/mag/warehouseList";
@@ -96,6 +96,8 @@ public class WarhouseController extends GenericController {
         if( !validate(object, model, formBindeings, validator) ) {
             return "/Views/mag/warehouseEdit";
         }
+
+        LOGGER.debug("Id: " + object.getId());
 
         if( object.getId() != null ) {
             LOGGER.debug("Id not null");

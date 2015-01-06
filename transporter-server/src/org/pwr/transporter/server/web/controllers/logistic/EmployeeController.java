@@ -33,7 +33,7 @@ public class EmployeeController extends GenericController {
         Criteria criteria = restoreCriteria(request);
         criteria.getLikeCriteria().put("employeeType.id.code", "Driver");
 
-        List<Employee> list = getListWitchCriteria(employeeService, request, criteria);
+        List<Employee> list = getListWithCriteria(employeeService, request, criteria);
         request.setAttribute("list", list);
 
         return "Views/logistic/driverList";

@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.GenericDocumentRow;
+import org.pwr.transporter.entity.base.TaxItem;
 
 
 
@@ -44,6 +45,12 @@ public class PurchaseInvoiceRow extends GenericDocumentRow {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    @Column(name = "tax_percent")
+    private BigDecimal taxPercent;
+
+    @ManyToOne
+    private TaxItem taxItem;
+
 
     // *******************************************************************************************************************************
     // ****** GETTERS AND SETTERS
@@ -65,6 +72,26 @@ public class PurchaseInvoiceRow extends GenericDocumentRow {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+
+    public BigDecimal getTaxPercent() {
+        return this.taxPercent;
+    }
+
+
+    public void setTaxPercent(BigDecimal taxPercent) {
+        this.taxPercent = taxPercent;
+    }
+
+
+    public TaxItem getTaxItem() {
+        return this.taxItem;
+    }
+
+
+    public void setTaxItem(TaxItem taxItem) {
+        this.taxItem = taxItem;
     }
 
 }

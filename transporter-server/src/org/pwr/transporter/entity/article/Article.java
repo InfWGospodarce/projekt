@@ -1,6 +1,8 @@
 package org.pwr.transporter.entity.article;
 
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -31,6 +33,12 @@ public class Article extends GenericWare {
     /**  */
     private static final long serialVersionUID = 5680839600729637175L;
 
+
+    public Article() {
+        mixedPrice = BigDecimal.ZERO;
+    }
+
+
     // *******************************************************************************************************************************
     // ****** FIELDS
     // *******************************************************************************************************************************
@@ -40,6 +48,9 @@ public class Article extends GenericWare {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "mixedPrice")
+    private BigDecimal mixedPrice;
 
     private ArticleType articleType;
 
@@ -76,4 +87,15 @@ public class Article extends GenericWare {
     public void setArticleType(ArticleType articleType) {
         this.articleType = articleType;
     }
+
+
+    public BigDecimal getMixedPrice() {
+        return this.mixedPrice;
+    }
+
+
+    public void setMixedPrice(BigDecimal mixedPrice) {
+        this.mixedPrice = mixedPrice;
+    }
+
 }

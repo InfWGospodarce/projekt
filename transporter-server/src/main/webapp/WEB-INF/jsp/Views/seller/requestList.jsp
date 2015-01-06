@@ -7,15 +7,10 @@
 	<div class="well">	
 		<table class="table">
 			<tr>
-				<td><h3>Lista użytkowników</h3></td>
-				<td><form action="/transporter-server/admin/userEdit" method="get">
+				<td><h3>Lista zleceń</h3></td>
+				<td><form action="/transporter-server/seller/requestEdit" method="get">
 					<input type="hidden" value="${page}" name="page">
-				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz pracownika">
-				</form></td>
-				<td><form action="/transporter-server/admin/userEdit" method="get">
-					<input type="hidden" value="${page}" name="page">
-					<input type="hidden" value="1" name="customer">
-				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz klienta">
+				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz zlecenie">
 				</form></td>
 			</tr>
 		</table>
@@ -23,47 +18,35 @@
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
-				<th>Klucz wyszukiwania</th>
-				<th>Nazwa użytkownika</th>
-				<th>Imię</th>
-				<th>Nazwisko</th>
-				<th>Stanowisko</th>
-				<th>Aktywny</th>
-				<th>Role</th>
+				<th>Użytkownik</th>
+				<th>Data utworzenia</th>
+				<th>Zaksięgowny</th>
+				<th>Data księgowania</th>
+				<th>Netto</th>
+				<th>Brutto</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="var" items="${list}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td><c:out value="${var.key.searchKey}"></c:out></td>
-					<td><c:out value="${var.key.username}"></c:out></td>
-					<c:if test="${not empty var.key.customer}">
-						<td><c:out value="${var.key.customer.name}"></c:out></td>
-						<td><c:out value="${var.key.customer.surname}"></c:out></td>
-						<td>Klient</td>
-					</c:if>
-					<c:if test="${not empty var.key.employee}">
-						<td><c:out value="${var.key.employee.name}"></c:out></td>
-						<td><c:out value="${var.key.employee.surname}"></c:out></td>
-						<td><c:out value="${var.key.employee.employeeType.name}"></c:out></td>
-					</c:if>
+					<td><c:out value="${var.customer.name} ${var.customer.surname}"></c:out></td>
+					<td><c:out value="${var.createDate}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
-							<c:if test="${var.key.active eq 'true'}">
+							<c:if test="${var.filled eq 'true'}">
 								checked="checked"
 							</c:if>
 						/>
 					</td>
+					<td><c:out value="${var.fillingDate}"></c:out></td>
+					<td><c:out value="${var.noTaxableAmount}"></c:out></td>
+					<td><c:out value="${var.noTaxableAmount}"></c:out></td>
+					<td><c:out value="${var.noTaxableAmount+var.taxAmount}+"></c:out></td>
 					<td>
-						<c:forEach var="role" items="${var.key.role}">
-							<c:out value="${role.name}"></c:out>
-						</c:forEach>
-					</td>
-					<td>
-						<form action="/transporter-server/admin/userEdit" method="get">
+						<form action="/transporter-server/seller/requestEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
-							<input type="hidden" value="${var.key.id}" name="id">
+							<input type="hidden" value="${var.id}" name="id">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj"
 						    	<c:if test="${object.filled eq 'true'}">
 									disabled="disabled"
@@ -71,6 +54,44 @@
 						    >
 						</form>
 					</td>
+					<td>
+						<form action="/transporter-server/admin/salesOrderNew" method="get">
+							<input type="hidden" value="${page}" name="page">
+							<input type="hidden" value="${var.id}" name="id">
+						    <input class="btn btn-primary" class="form-control" type="submit" value="Zamówienie"
+						    	<c:if test="${object.filled eq 'true'}">
+									disabled="disabled"
+								</c:if>
+						    >
+						</form>
+					</td>
+				</tr>
+				<tr class="rowsLine" id="${var.id}" >
+					<td></td>
+					<td colspan="8">
+						<table class="table">
+							<tr>
+								<th>Lp.</th>
+								<th>Artykuł</th>
+								<th>Data utworzenia</th>
+								<th>Zaksięgowny</th>
+								<th>Data księgowania</th>
+								<th>Netto</th>
+								<th>Brutto</th>
+							</tr>
+							<c:set var="j" value="0"></c:set>
+							<c:forEach var="row" items="${var.rows}">
+								<c:set var="j" value="${j+1}"></c:set>
+								<tr>
+									<td><c:out value="${j}"></c:out></td>
+									<td><c:out value="${row.ware.name}"></c:out></td>
+									<td><c:out value="${row.ware.unit.name}"></c:out></td>
+									<td><c:out value="${row.ware.taxPercent}"></c:out></td>
+									<td><c:out value="${row.ware.taxPercent}"></c:out></td>
+								</tr>
+							</c:forEach>
+						</table>
+					<td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -78,4 +99,18 @@
 	</div>
 </div>
 </div>
+<script>
+	$( document ).ready(function() {
+		$( ".rowsLine" ).hide();
+	});
+
+	function showRows(id){
+		var element = $(document.getElementById(id));
+		if($(element).is(":visible")){
+			$(element).hide();
+		} else {
+			$(element).show();
+		};
+	};
+</script>
 </trans:template>

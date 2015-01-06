@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.Generic;
-import org.pwr.transporter.entity.Role;
+import org.pwr.transporter.entity.base.Role;
 import org.pwr.transporter.server.business.RoleLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.dao.RoleDAO;
+import org.pwr.transporter.server.dao.base.RoleDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

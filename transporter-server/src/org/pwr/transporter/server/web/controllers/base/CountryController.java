@@ -11,10 +11,13 @@ import org.pwr.transporter.entity.base.Country;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.CountryService;
+import org.pwr.transporter.server.web.services.CurrencyService;
+import org.pwr.transporter.server.web.validators.CurrencyValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +40,12 @@ public class CountryController extends GenericController {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    CurrencyService currencyService;
+
+    @Autowired
+    CurrencyValidator validator;
 
 
     @RequestMapping(value = "/admin/countriesList", method = RequestMethod.GET)
@@ -62,7 +71,7 @@ public class CountryController extends GenericController {
                 country = new Country();
             }
         }
-
+        loadData(model);
         model.addAttribute("country", country);
 
         return "Views/base/countryEdit";
@@ -70,15 +79,18 @@ public class CountryController extends GenericController {
 
 
     @RequestMapping(value = "/admin/countryEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("country") Country country,
-            BindingResult formBindeings) {
+    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("country") @Validated Country object,
+            BindingResult formBindeings, Model model) {
 
-        // FIXME VALIDATION
-        if( country.getId() != null ) {
+        if( !validate(object, model, formBindeings, validator) ) {
+            return "/Views/admin/unitEdit";
+        }
+
+        if( object.getId() != null ) {
             LOGGER.debug("Id not null");
-            countryService.update(country);
+            countryService.update(object);
         } else {
-            countryService.insert(country);
+            countryService.insert(object);
         }
 
         return "redirect:../admin/countriesList?page=" + getPage(request);
@@ -87,8 +99,6 @@ public class CountryController extends GenericController {
 
     @Override
     public void loadData(Model model) {
-        // TODO Auto-generated method stub
-
+        model.addAttribute("currencies", currencyService.getList());
     }
-
 }

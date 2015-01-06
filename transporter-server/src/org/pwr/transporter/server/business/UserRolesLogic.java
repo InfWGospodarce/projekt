@@ -4,9 +4,9 @@ package org.pwr.transporter.server.business;
 import java.util.List;
 import java.util.Map;
 
-import org.pwr.transporter.entity.UserRoles;
+import org.pwr.transporter.entity.base.UserRoles;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
-import org.pwr.transporter.server.dao.UserRolesDAO;
+import org.pwr.transporter.server.dao.base.UserRolesDAO;
 
 
 

@@ -2,7 +2,7 @@ package org.pwr.transporter.server.business;
 
 
 import org.pwr.transporter.entity.base.CompanyData;
-import org.pwr.transporter.server.dao.CompanyDataDAO;
+import org.pwr.transporter.server.dao.base.CompanyDataDAO;
 
 
 /**

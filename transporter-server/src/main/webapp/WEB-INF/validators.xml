@@ -14,6 +14,9 @@
 		<bean id="customerAccountValidator" class="org.pwr.transporter.server.web.validators.forms.CustomerAccountValidator" />
 		<bean id="passwordValidator" class="org.pwr.transporter.server.web.validators.forms.PasswordFormValidator" />
 		<bean id="addressValidator" class="org.pwr.transporter.server.web.validators.AddressValidator" />
+		<bean id="taxItemValidator" class="org.pwr.transporter.server.web.validators.TaxItemValidator" />
+		<bean id="unitValidator" class="org.pwr.transporter.server.web.validators.UnitValidator" />
+		<bean id="currencyValidator" class="org.pwr.transporter.server.web.validators.CurrencyValidator" />
 		
 	<!-- Documents -->
 		<bean id="genericDocumentValidator" class="org.pwr.transporter.server.web.validators.documents.GenericDocumentValidator" />
@@ -36,19 +39,20 @@
 			<bean id="goodsReceivedNoteRowValidator" class="org.pwr.transporter.server.web.validators.documents.purchase.GoodsReceivedNoteRowValidator" />
 			
 	<!-- Logistic -->
-	<bean id="taskValidator" class="org.pwr.transporter.server.web.validators.logistic.TaskValidator" />
-	<bean id="vehicleValidator" class="org.pwr.transporter.server.web.validators.logistic.VehicleValidator" />
-	<bean id="itineraryValidator" class="org.pwr.transporter.server.web.validators.logistic.ItineraryValidator" />
+		<bean id="taskValidator" class="org.pwr.transporter.server.web.validators.logistic.TaskValidator" />
+		<bean id="vehicleValidator" class="org.pwr.transporter.server.web.validators.logistic.VehicleValidator" />
+		<bean id="itineraryValidator" class="org.pwr.transporter.server.web.validators.logistic.ItineraryValidator" />
 	
 	<!-- Article -->
-	<bean id="wareValidator" class="org.pwr.transporter.server.web.validators.article.WareValidator" />
-	<bean id="articleValidator" class="org.pwr.transporter.server.web.validators.article.ArticleValidator" />
-	<bean id="packagingValidator" class="org.pwr.transporter.server.web.validators.article.PackagingValidator" />
-	<bean id="bundleValidator" class="org.pwr.transporter.server.web.validators.article.BundleValidator" />
+		<bean id="wareValidator" class="org.pwr.transporter.server.web.validators.article.WareValidator" />
+		<bean id="articleValidator" class="org.pwr.transporter.server.web.validators.article.ArticleValidator" />
+		<bean id="packagingValidator" class="org.pwr.transporter.server.web.validators.article.PackagingValidator" />
+		<bean id="bundleValidator" class="org.pwr.transporter.server.web.validators.article.BundleValidator" />
+		<bean id="pricesValidator" class="org.pwr.transporter.server.web.validators.article.PricesValidator" />
 	
 	<!-- Warhouse -->
-	<bean id="warehouseValidator" class="org.pwr.transporter.server.web.validators.warehouse.WarehouseValidator" />
-	<bean id="shelfValidator" class="org.pwr.transporter.server.web.validators.warehouse.ShelfValidator" />
-	<bean id="inventoryBalanceValidator" class="org.pwr.transporter.server.web.validators.warehouse.InventoryBalanceValidator" />
+		<bean id="warehouseValidator" class="org.pwr.transporter.server.web.validators.warehouse.WarehouseValidator" />
+		<bean id="shelfValidator" class="org.pwr.transporter.server.web.validators.warehouse.ShelfValidator" />
+		<bean id="inventoryBalanceValidator" class="org.pwr.transporter.server.web.validators.warehouse.InventoryBalanceValidator" />
 			
 </beans>
