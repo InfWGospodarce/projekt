@@ -73,7 +73,7 @@ public class TaxItemController extends GenericController {
 
         model.addAttribute("object", object);
 
-        return "Views/admin/taxItemEdit";
+        return "Views/base/taxItemEdit";
     }
 
 
@@ -82,7 +82,7 @@ public class TaxItemController extends GenericController {
             BindingResult formBindeings, Model model) {
 
         if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/admin/taxItemEdit";
+            return "/Views/base/taxItemEdit";
         }
 
         if( object.getId() != null ) {

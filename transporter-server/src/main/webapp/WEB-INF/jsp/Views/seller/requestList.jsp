@@ -18,7 +18,7 @@
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
-				<th>Użytkownik</th>
+				<th>Klient</th>
 				<th>Data utworzenia</th>
 				<th>Zaksięgowny</th>
 				<th>Data księgowania</th>
@@ -41,8 +41,13 @@
 					</td>
 					<td><c:out value="${var.fillingDate}"></c:out></td>
 					<td><c:out value="${var.noTaxableAmount}"></c:out></td>
-					<td><c:out value="${var.noTaxableAmount}"></c:out></td>
 					<td><c:out value="${var.noTaxableAmount+var.taxAmount}+"></c:out></td>
+					<td>
+						<input class="btn btn-primary" class="form-control" type="button" value="Pozycje" onclick="show(${object.id}rows)">
+					</td>
+					<td>
+						<input class="btn btn-primary" class="form-control" type="button" value="Adres" onclick="show(${object.id}adr)">
+					</td>
 					<td>
 						<form action="/transporter-server/seller/requestEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
@@ -66,7 +71,23 @@
 						</form>
 					</td>
 				</tr>
-				<tr class="rowsLine" id="${var.id}" >
+				<tr class="addresLine" id="${object.id}adr" class="">
+					<td></td>
+					<td colspan="4">
+						<table class="table">
+							<tr>
+								<th>Adres</th>
+							</tr>
+							<tr>
+								<td>
+									<c:set var="addressPrefix" scope="request" value="${object.address}"/>
+									<%@ include file="../base/address2.jsp" %>
+								</td>
+							</tr>
+						</table>
+					<td>
+				</tr>
+				<tr class="rowsLine" id="${var.id}rows" >
 					<td></td>
 					<td colspan="8">
 						<table class="table">
@@ -86,8 +107,8 @@
 									<td><c:out value="${j}"></c:out></td>
 									<td><c:out value="${row.ware.name}"></c:out></td>
 									<td><c:out value="${row.ware.unit.name}"></c:out></td>
-									<td><c:out value="${row.ware.taxPercent}"></c:out></td>
-									<td><c:out value="${row.ware.taxPercent}"></c:out></td>
+									<td><c:out value="${row.taxPercent}"></c:out></td>
+									<td><c:out value="${row.price}"></c:out></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -102,9 +123,10 @@
 <script>
 	$( document ).ready(function() {
 		$( ".rowsLine" ).hide();
+		$( ".addresLine" ).hide();
 	});
 
-	function showRows(id){
+	function show(id){
 		var element = $(document.getElementById(id));
 		if($(element).is(":visible")){
 			$(element).hide();

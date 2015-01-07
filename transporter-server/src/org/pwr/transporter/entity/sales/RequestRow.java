@@ -10,6 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.GenericDocumentRow;
@@ -24,7 +25,7 @@ import org.pwr.transporter.entity.base.TaxItem;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.3
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -50,6 +51,9 @@ public class RequestRow extends GenericDocumentRow {
 
     @ManyToOne
     private TaxItem taxItem;
+
+    @Transient
+    private String taxItemId;
 
 
     // *******************************************************************************************************************************
@@ -92,6 +96,16 @@ public class RequestRow extends GenericDocumentRow {
 
     public void setTaxItem(TaxItem taxItem) {
         this.taxItem = taxItem;
+    }
+
+
+    public String getTaxItemId() {
+        return this.taxItemId;
+    }
+
+
+    public void setTaxItemId(String taxItemId) {
+        this.taxItemId = taxItemId;
     }
 
 }

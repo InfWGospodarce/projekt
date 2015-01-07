@@ -73,7 +73,7 @@ public class UnitController extends GenericController {
 
         model.addAttribute("object", object);
 
-        return "Views/admin/unitEdit";
+        return "Views/base/unitEdit";
     }
 
 
@@ -82,7 +82,7 @@ public class UnitController extends GenericController {
             BindingResult formBindeings, Model model) {
 
         if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/admin/unitEdit";
+            return "/Views/base/unitEdit";
         }
 
         if( object.getId() != null ) {
@@ -99,6 +99,5 @@ public class UnitController extends GenericController {
     @Override
     public void loadData(Model model) {
         // TODO Auto-generated method stub
-
     }
 }

@@ -10,6 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.NamesForHibernate;
@@ -24,7 +25,7 @@ import org.pwr.transporter.entity.article.GenericWare;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.5
+ * @version 0.0.7
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -47,6 +48,9 @@ public abstract class GenericDocumentRow extends Generic implements Serializable
     @ManyToOne
     private Unit unit;
 
+    @Transient
+    private Unit unitId;
+
     @Column(name = "filled")
     private boolean filled;
 
@@ -62,6 +66,46 @@ public abstract class GenericDocumentRow extends Generic implements Serializable
 
     public void setWare(GenericWare ware) {
         this.ware = ware;
+    }
+
+
+    public BigDecimal getQuantity() {
+        return this.quantity;
+    }
+
+
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
+    }
+
+
+    public Unit getUnit() {
+        return this.unit;
+    }
+
+
+    public void setUnit(Unit unit) {
+        this.unit = unit;
+    }
+
+
+    public Unit getUnitId() {
+        return this.unitId;
+    }
+
+
+    public void setUnitId(Unit unitId) {
+        this.unitId = unitId;
+    }
+
+
+    public boolean isFilled() {
+        return this.filled;
+    }
+
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
     }
 
 }

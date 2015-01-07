@@ -7,7 +7,7 @@
 	<div class="well">	
 		<table class="table">
 			<tr>
-				<td><h2>Lista typów opodatkowań</h2>
+				<td><h2>Lista stawek opodatkowanai</h2>
 				<td><form action="/transporter-server/admin/taxItemEdit" method="get">
 					<input type="hidden" value="${page}" name="page">
 				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
@@ -21,7 +21,8 @@
 				<th>Klucz wyszukiwania</th>
 				<th>Nazwa</th>
 				<th>Wartość</th>
-				<th>Wolny</th>
+				<th>Wolny od opodatkowania</th>
+				<th>Aktywny</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="var" items="${list}">

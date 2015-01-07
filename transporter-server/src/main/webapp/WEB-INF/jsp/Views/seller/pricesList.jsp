@@ -30,7 +30,7 @@
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 					<td><c:out value="${var.searchKey}"></c:out></td>
-					<td><c:out value="${var.article}"></c:out></td>
+					<td><c:out value="[${var.article.id}] ${var.article.name}"></c:out></td>
 					<td><c:out value="${var.date}"></c:out></td>
 					<td><c:out value="${var.price}"></c:out></td>
 					<td>
