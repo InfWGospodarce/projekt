@@ -7,10 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.pwr.transporter.entity.NamesForHibernate;
+import org.pwr.transporter.entity.base.TaxItem;
 import org.pwr.transporter.entity.enums.article.ArticleType;
 
 
@@ -49,10 +51,16 @@ public class Article extends GenericWare {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "mixedPrice")
+    @Column(name = "mixed_price")
     private BigDecimal mixedPrice;
 
+    @Column(name = "current_price")
+    private BigDecimal currentPrice;
+
     private ArticleType articleType;
+
+    @ManyToOne
+    private TaxItem taxItem;
 
 
     // *******************************************************************************************************************************
@@ -96,6 +104,16 @@ public class Article extends GenericWare {
 
     public void setMixedPrice(BigDecimal mixedPrice) {
         this.mixedPrice = mixedPrice;
+    }
+
+
+    public TaxItem getTaxItem() {
+        return this.taxItem;
+    }
+
+
+    public void setTaxItem(TaxItem taxItem) {
+        this.taxItem = taxItem;
     }
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.Generic;
 import org.pwr.transporter.entity.NamesForHibernate;
@@ -41,8 +42,14 @@ public abstract class GenericDocument extends Generic implements Serializable {
     @ManyToOne
     private Customer customer;
 
+    @Transient
+    private String customerId;
+
     @OneToOne
     private Address deliveryAddress;
+
+    @Transient
+    private String deliveryAddressId;
 
     @OneToOne
     private GenericDocument previousDocument;
@@ -61,6 +68,9 @@ public abstract class GenericDocument extends Generic implements Serializable {
 
     @ManyToOne
     private Currency currency;
+
+    @Transient
+    private String currencyId;
 
     @Column(name = "filled")
     private boolean filled;

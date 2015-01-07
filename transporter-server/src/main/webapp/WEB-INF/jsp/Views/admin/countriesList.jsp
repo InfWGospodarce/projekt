@@ -34,7 +34,7 @@
 					<td><c:out value="${var.searchKey}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
 					<td><c:out value="${var.nativeName}"></c:out></td>
-					<td><c:out value="${var.currency.name}"></c:out></td>
+					<td><c:out value="${var.currency.code}"></c:out></td>
 					<td><c:out value="${var.code}"></c:out></td>
 					<td><c:out value="${var.codeEU}"></c:out></td>
 					<td>

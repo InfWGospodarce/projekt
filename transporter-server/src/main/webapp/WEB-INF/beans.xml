@@ -9,7 +9,11 @@
 			http://www.springframework.org/schema/context
 			http://www.springframework.org/schema/context/spring-context-4.0.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-			
+		
+	<bean id="objectDAOImpl" class="org.pwr.transporter.server.dao.impl.ObjectDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+		
 	<!-- Customer Beans -->
 	<bean id="customerDAO" class="org.pwr.transporter.server.dao.impl.base.CustomerDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />

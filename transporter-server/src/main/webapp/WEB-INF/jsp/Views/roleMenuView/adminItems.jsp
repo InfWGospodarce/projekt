@@ -16,7 +16,15 @@
     		<li>
     			<a href="/transporter-server/admin/employeeTypeList">Stanowiska pracowników</a>
     		</li>
-    		
+    		<li>
+    			<a href="/transporter-server/admin/currencyList">Waluty</a>
+    		</li>
+    		<li>
+    			<a href="/transporter-server/admin/unitList">Jednostki miary</a>
+    		</li>
+    		<li>
+    			<a href="/transporter-server/admin/taxItemList">Stawki podatków</a>
+    		</li>
     	</ul>
     </li>
 <li>

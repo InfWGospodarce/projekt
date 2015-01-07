@@ -53,4 +53,15 @@ public class TaxItem extends GenericEntity {
     public void setTaxPercent(BigDecimal taxPercent) {
         this.taxPercent = taxPercent;
     }
+
+
+    public boolean isTaxFree() {
+        return this.taxFree;
+    }
+
+
+    public void setTaxFree(boolean taxFree) {
+        this.taxFree = taxFree;
+    }
+
 }

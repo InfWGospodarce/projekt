@@ -29,7 +29,7 @@ import org.pwr.transporter.entity.base.GenericDocument;
  * <hr/>
  * 
  * @author W.S.
- * @version 0.0.2
+ * @version 0.0.3
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -99,6 +99,7 @@ public class Request extends GenericDocument {
     public void setTaxAmount(BigDecimal taxAmount) {
         this.taxAmount = taxAmount;
     }
+<<<<<<< HEAD
     
     public Address getTargetAddress() {
 		return targetAddress;
@@ -109,4 +110,7 @@ public class Request extends GenericDocument {
 	}
     
     
+=======
+
+>>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 }

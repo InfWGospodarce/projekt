@@ -3,6 +3,7 @@ package org.pwr.transporter.server.web.validators;
 
 import org.pwr.transporter.entity.base.Currency;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 
@@ -39,7 +40,9 @@ public class CurrencyValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
-        // TODO
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, prefix + "searchKey", "entity.searchKey");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, prefix + "name", "entity.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, prefix + "code", "entity.code");
     }
 
 }

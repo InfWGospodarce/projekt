@@ -41,3 +41,6 @@
 		</li>
 	</ul>
 </li>
+<li>
+	<a href="/transporter-server/seller/pricesList">Ceny artykulów</a>
+</li>

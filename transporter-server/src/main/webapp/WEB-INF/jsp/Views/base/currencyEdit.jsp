@@ -5,8 +5,8 @@
 <div class="row">
 	<div class="col-md-6">
 		<div class="well">
-			<h1>Edycja definicji państwa</h1>
-			<form:form action="/transporter-server/admin/countryEdit" method="post" commandName="country">
+			<h1>Edycja waluty</h1>
+			<form:form action="/transporter-server/admin/currencyEdit" method="post" commandName="object">
 				<form:hidden path="id" value="${id}"></form:hidden>
 				<div class="form-group">
 					<form:label path="active">Aktywny</form:label>
@@ -25,35 +25,13 @@
 					<form:errors path="name" cssClass="error" />
 				</div>
 				<div class="form-group">
-					<form:label path="nativeName">Nazwa w języku natyvnym</form:label>
-					<form:input path="nativeName" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="nativeName" cssClass="error" />
-				</div>
-				<div class="form-group">
 					<form:label path="code">Kod</form:label>
 					<form:input path="code" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="code" cssClass="error" />
 				</div>
-				<div class="form-group">
-					<form:label path="codeEU">Kod UE</form:label>
-					<form:input path="codeEU" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="codeEU" cssClass="error" />
-				</div>
-				<div class="form-group">
-					<form:label path="ISOCode">Kod ISO</form:label>
-					<form:input path="ISOCode" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="ISOCode" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="currencyId">Waluta</form:label>
-					<form:select class="form-control" path="currencyId">
-					    <form:options items="${currencies}" itemValue="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
-					</form:select>
-				</div>
 			
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
-				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/countriesList?page=${page}'" />
+				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/currencyList?page=${page}'" />
 				
 			</form:form>
 </div></div></div>

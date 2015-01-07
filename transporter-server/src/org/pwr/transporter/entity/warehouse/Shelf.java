@@ -1,4 +1,3 @@
-
 package org.pwr.transporter.entity.warehouse;
 
 
@@ -10,6 +9,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.GenericEntity;
 
@@ -32,12 +32,21 @@ public class Shelf extends GenericEntity {
     /**  */
     private static final long serialVersionUID = 2584073916236293060L;
 
+
+    public Shelf() {
+        this.warehouse = new Warehouse();
+    }
+
+
     // *******************************************************************************************************************************
     // ****** FIELDS
     // *******************************************************************************************************************************
 
     @ManyToOne(optional = false)
     private Warehouse warehouse;
+
+    @Transient
+    private String warehouseId;
 
     @Column(name = "coordinate_x")
     private String coordinateX;
@@ -181,4 +190,15 @@ public class Shelf extends GenericEntity {
     public void setCode(String code) {
         this.code = code;
     }
+
+
+    public String getWarehouseId() {
+        return this.warehouseId;
+    }
+
+
+    public void setWarehouseId(String warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
 }

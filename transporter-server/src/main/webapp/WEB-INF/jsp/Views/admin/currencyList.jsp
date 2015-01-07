@@ -5,17 +5,22 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista Roli</h2>
-		<form action="/transporter-server/admin/roleEdit" method="get">
-			<input type="hidden" value="${page}" name="page">
-		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
-		</form>
+		<table class="table">
+			<tr>
+				<td><h2>Lista walut</h2>
+				<td><form action="/transporter-server/admin/currencyEdit" method="get">
+					<input type="hidden" value="${page}" name="page">
+				    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
+				</form></td>
+			</tr>
+		</table>
 		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
 				<th>Klucz wyszukiwania</th>
 				<th>Nazwa</th>
+				<th>Kod</th>
 				<th>Aktywny</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
@@ -25,6 +30,7 @@
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
 					<td><c:out value="${var.searchKey}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
+					<td><c:out value="${var.code}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
 							<c:if test="${var.active eq 'true'}">
@@ -33,7 +39,7 @@
 						/>
 					</td>
 					<td>
-						<form action="/transporter-server/admin/roleEdit" method="get">
+						<form action="/transporter-server/admin/currencyEdit" method="get">
 							<input type="hidden" value="${page}" name="page">
 							<input type="hidden" value="${var.id}" name="id">
 						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">

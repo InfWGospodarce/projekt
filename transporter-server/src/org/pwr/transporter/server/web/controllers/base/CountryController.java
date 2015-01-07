@@ -69,6 +69,10 @@ public class CountryController extends GenericController {
             country = countryService.getByID(id);
             if( country == null || country.getId() == null ) {
                 country = new Country();
+            } else {
+                if( country.getCurrency() != null ) {
+                    country.setCurrencyId(country.getCurrency().getId().toString());
+                }
             }
         }
         loadData(model);

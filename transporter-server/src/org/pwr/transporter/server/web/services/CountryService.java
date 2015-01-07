@@ -26,6 +26,9 @@ public class CountryService implements IService {
     @Autowired
     CountryLogic countryLogic;
 
+    @Autowired
+    CurrencyService currencyService;
+
 
     public Country getByID(Long id) {
         return this.countryLogic.getByID(id);
@@ -38,11 +41,13 @@ public class CountryService implements IService {
 
 
     public Long insert(Country entity) {
+        entity.setCurrency(currencyService.getByID(Long.valueOf(entity.getCurrencyId())));
         return this.countryLogic.insert(entity);
     }
 
 
     public void update(Country entity) {
+        entity.setCurrency(currencyService.getByID(Long.valueOf(entity.getCurrencyId())));
         this.countryLogic.update(entity);
     }
 

@@ -3,7 +3,7 @@
 <trans:template>
 <%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
 <div class="row">
-<div class="col-md-8">
+<div class="col-md-9">
 	<div class="well">	
 		<table class="table">
 			<tr>

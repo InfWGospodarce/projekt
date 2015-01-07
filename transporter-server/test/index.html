@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Edycja półki</h1>
+    <div class="row">
+      <div class="col-sm-6">
+        <form action="/">
+
+          <div class="form-group">
+            <label>Magazyn:</label>
+            <div class="row js_select" data-target="magazyny.html">
+              <div class="col-xs-8">
+                <input class="form-control js_value" type="text" disabled value="&hellip;">
+              </div>  
+              <div class="col-xs-4">
+                <button type="button" class="btn btn-primary js_trigger">Wybierz</button>
+              </div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Zamknij"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Wybierz magazyn</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script src="select.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -73,7 +73,7 @@ public class RequestController extends GenericDocumentController {
 
         model.addAttribute("object", object);
 
-        return "Views/seller/requestEdit";
+        return "Views/seller/edit/requestEdit";
     }
 
 
@@ -82,7 +82,7 @@ public class RequestController extends GenericDocumentController {
             BindingResult formBindeings, Model model) {
 
         if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/seller/requestEdit";
+            return "/Views/seller/edit/requestEdit";
         }
 
         if( object.getId() != null ) {
