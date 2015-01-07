@@ -16,8 +16,16 @@
 					
 				<div class="form-group">
 					<form:label path="wareId">Artykuł</form:label>
-					<form:input path="wareId" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="wareId" cssClass="error" />
+					<div class="row js_select" data-target="/transporter-server/seller/articleList?select=true">
+						<%-- <form:input disabled="true" path="warehouseId" class="form-control js_value" value="&hellip;" cssErrorClass="errorBc"/>  --%>
+						<input id="wareId" type="text" name="wareId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
+						<form:errors path="wareId" cssClass="error" />
+						<div class="col-xs-8">
+			            </div>  
+			            	<div class="col-xs-4">
+			            		<button type="button" class="btn btn-primary js_trigger">Wybierz</button>
+			            </div>
+			        </div>
 				</div>
 				
 				<div class="form-group">
@@ -29,54 +37,9 @@
 				<div class="form-group">
 					<form:label path="unitId">Jednostka</form:label>
 					<form:select class="form-control" path="unitId">
-					    <form:options items="${currencies}" itemValue="id" class="form-control" itemLabel="code" cssErrorClass="errorBc"/>
+					    <form:options items="${units}" itemValue="id" class="form-control" itemLabel="code" cssErrorClass="errorBc"/>
 					</form:select>
 				</div>
-				
-				<div class="form-group">
-					<form:label path="height">Wysokość</form:label>
-					<form:input path="height" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="height" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="depth">Głębokość</form:label>
-					<form:input path="depth" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="depth" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="coordinateX">Położenie w X</form:label>
-					<form:input path="coordinateX" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="coordinateX" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="coordinateY">Położenie w Y</form:label>
-					<form:input path="coordinateY" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="coordinateY" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="coordinateZ">Położenie w Z</form:label>
-					<form:input path="coordinateZ" class="form-control" cssErrorClass="errorBc"/> 
-					<form:errors path="coordinateZ" cssClass="error" />
-				</div>
-				
-				<div class="form-group">
-					<form:label path="warehouseId">Magazyn</form:label>
-					<div class="row js_select" data-target="/transporter-server/mag/warehouseList?select=true">
-						<%-- <form:input disabled="true" path="warehouseId" class="form-control js_value" value="&hellip;" cssErrorClass="errorBc"/>  --%>
-						<input id="warehouseId" type="text" name="warehouseId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
-						<form:errors path="warehouseId" cssClass="error" />
-						<div class="col-xs-8">
-			            </div>  
-			            	<div class="col-xs-4">
-			            		<button type="button" class="btn btn-primary js_trigger">Wybierz</button>
-			            </div>
-			        </div>
-				</div>
-				
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/seller/requestList?page=${page}'" />

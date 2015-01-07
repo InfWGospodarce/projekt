@@ -49,18 +49,16 @@ public class Request extends GenericDocument {
 
     @Column(name = "tax_amount", nullable = false)
     private BigDecimal taxAmount;
-    
-//    mamy juz delivery addres wiec to raczej odpada
-//    @Column(name = "AdrReceiver")
-//    private String AdrReceiver;
-    
+
+    // mamy juz delivery addres wiec to raczej odpada
+    // @Column(name = "AdrReceiver")
+    // private String AdrReceiver;
+
     @OneToOne
     private Address targetAddress;
-    
+
     @Column(name = "description")
     private String description;
-    
-    
 
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -99,18 +97,15 @@ public class Request extends GenericDocument {
     public void setTaxAmount(BigDecimal taxAmount) {
         this.taxAmount = taxAmount;
     }
-<<<<<<< HEAD
-    
-    public Address getTargetAddress() {
-		return targetAddress;
-	}
-    
-    public void setTargetAddress(Address targetAddress) {
-		this.targetAddress = targetAddress;
-	}
-    
-    
-=======
 
->>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
+
+    public Address getTargetAddress() {
+        return targetAddress;
+    }
+
+
+    public void setTargetAddress(Address targetAddress) {
+        this.targetAddress = targetAddress;
+    }
+
 }
