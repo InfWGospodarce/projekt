@@ -35,7 +35,8 @@
 				<div class="form-group">
 					<form:label path="warehouse">Magazyn</form:label>
 					<div class="row js_select" data-target="/transporter-server/mag/warehouseList?select=true">
-						<form:input disabled="true" path="warehouse" class="form-control js_value" value="" cssErrorClass="errorBc"/> 
+						<form:hidden id="warehouseSearchKey" disabled="true" onsubmit="copyValue()" path="warehouse.searchKey" class="form-control" value="" cssErrorClass="errorBc"/> 
+						<input id="warehouseId" type="text" name="warehouseId" disabled class="form-control js_value" onchange="copyValue()" value="&hellip;" cssErrorClass="errorBc" > 
 						<form:errors path="warehouse" cssClass="error" />
 						<div class="col-xs-8">
 			            </div>  
@@ -51,6 +52,12 @@
 				
 			</form:form>
 </div></div></div>
+<script>
+	function copyValue(){
+		console.log("Id: " + $("#warehouseId").val())
+		document.getElementById("warehouseSearchKey").value=$("#warehouseId").val();
+	}
+</script>
 
 <div id="modal" class="modal fade">
     <div class="modal-dialog modal-lg">

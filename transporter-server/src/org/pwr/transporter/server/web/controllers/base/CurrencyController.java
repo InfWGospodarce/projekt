@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-
 /**
  * <pre>
  *    Controller for {@link Currency}
@@ -35,70 +34,66 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CurrencyController extends GenericController {
 
-    private static Logger LOGGER = Logger.getLogger(CurrencyController.class);
+	private static Logger LOGGER = Logger.getLogger(CurrencyController.class);
 
-    @Autowired
-    CurrencyService service;
+	@Autowired
+	CurrencyService service;
 
-    @Autowired
-    CurrencyValidator validator;
+	@Autowired
+	CurrencyValidator validator;
 
+	@RequestMapping(value = "/admin/currencyList", method = RequestMethod.GET)
+	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-    @RequestMapping(value = "/admin/currencyList", method = RequestMethod.GET)
-    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Criteria criteria = restoreCriteria(request);
+		List<Currency> list = getListWithCriteria(service, request, criteria);
 
-        Criteria criteria = restoreCriteria(request);
-        List<Currency> list = getListWithCriteria(service, request, criteria);
+		model.addAttribute("list", list);
 
-        model.addAttribute("list", list);
+		return "/Views/admin/currencyList";
+	}
 
-        return "/Views/admin/currencyList";
-    }
+	@RequestMapping(value = "/admin/currencyEdit", method = RequestMethod.GET)
+	public String get( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
+		Long id = getId(request.getParameter("id"));
+		loadData(model);
+		Currency object = null;
+		if ( id == null ) {
+			object = new Currency();
+		} else {
+			object = service.getByID(id);
+			if ( object == null || object.getId() == null ) {
+				object = new Currency();
+			}
+		}
 
-    @RequestMapping(value = "/admin/currencyEdit", method = RequestMethod.GET)
-    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("object", object);
 
-        Long id = getId(request.getParameter("id"));
-        loadData(model);
-        Currency object = null;
-        if( id == null ) {
-            object = new Currency();
-        } else {
-            object = service.getByID(id);
-            if( object == null || object.getId() == null ) {
-                object = new Currency();
-            }
-        }
+		return "Views/base/currencyEdit";
+	}
 
-        model.addAttribute("object", object);
+	@RequestMapping(value = "/admin/currencyEdit", method = RequestMethod.POST)
+	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Currency object,
+			BindingResult formBindeings, Model model ) {
 
-        return "Views/admin/currencyEdit";
-    }
+		if ( !validate(object, model, formBindeings, validator) ) {
+			return "/Views/base/unitEdit";
+		}
 
+		if ( object.getId() != null ) {
+			LOGGER.debug("Id not null");
+			service.update(object);
+		} else {
+			service.insert(object);
+		}
 
-    @RequestMapping(value = "/admin/currencyEdit", method = RequestMethod.POST)
-    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Currency object,
-            BindingResult formBindeings, Model model) {
+		return "redirect:../admin/currencyList?page=" + getPage(request);
+	}
 
-        if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/admin/unitEdit";
-        }
+	@Override
+	public void loadData( Model model ) {
+		// TODO Auto-generated method stub
 
-        if( object.getId() != null ) {
-            LOGGER.debug("Id not null");
-            service.update(object);
-        } else {
-            service.insert(object);
-        }
-
-        return "redirect:../admin/currencyList?page=" + getPage(request);
-    }
-
-
-    @Override
-    public void loadData(Model model) {
-        // TODO Auto-generated method stub
-
-    }
+	}
 }

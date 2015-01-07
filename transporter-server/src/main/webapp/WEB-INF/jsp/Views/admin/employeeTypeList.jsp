@@ -11,6 +11,7 @@
 			<input type="hidden" value="${page}" name="page">
 		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
 		</form>
+		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
