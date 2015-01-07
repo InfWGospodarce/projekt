@@ -8,9 +8,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.base.Customer;
+import org.pwr.transporter.entity.sales.Request;
+import org.pwr.transporter.server.web.services.sales.RequestService;
+import org.pwr.transporter.server.web.services.CountryService;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
+import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.pwr.transporter.server.web.controllers.GenericController;
 import org.pwr.transporter.server.web.services.CustomerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,35 +42,74 @@ public class CustomerController extends GenericController {
 	@Autowired
 	CustomerService customerService;
 
+	@Autowired
+	RequestService requestService;
+	
+	 @Autowired
+	    AddrStreetPrefixService addrStreetPrefixService;
+
+	    @Autowired
+	    CountryService countryService;
+	
+	    
+	    @Override
+		public void loadData(Model model) {
+			 model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
+		        model.addAttribute("countries", countryService.getList());
+			
+		}
+	    
+	    
 	@RequestMapping(value = "/customer/customerHistory", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		//List<EmployeeType> customerList = getList(customerService, request);
-		//request.setAttribute("list", customerList);
+//		  List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
+//	        request.setAttribute("employeeTypeList", employeeTypeList);
 
 		return "Views/customer/customerHistory";
 	}
+	
+	
 
 	@RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.GET)
-	public String getPrefix( HttpServletRequest request, HttpServletResponse response, Model model ) {
+	public String getEdit( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-//		Long id = getId(request.getParameter("id"));
-//		Customer customer = null;
-//		if ( id == null ) {
-//			customer = new Customer();
-//		} else {
-//			customer = customerService.getById(id);
-//			if ( customer == null || customer.getId() == null ) {
-//				customer = new Customer();
-//			}
-//		}
-//
-//		model.addAttribute("request", customer);
+		Long id = getId(request.getParameter("id"));
+		Request requestOBJ = null;
+		if ( id == null ) {
+			requestOBJ = new Request();
+		} else {
+			requestOBJ = requestService.getByID(id);
+			if ( requestOBJ == null || requestOBJ.getId() == null ) {
+				requestOBJ = new Request();
+			}
+		}
+		  loadData(model);
+	   
+		model.addAttribute("object", requestOBJ);
 
-		return "Views/customer/customerHistoryyEdit";
+		return "Views/customer/customerHistoryEdit";
 		//return "Views/customer/customerHistory";
 	}
 	
+	  @RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.POST)
+	    public String postEdit(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") Request requestOBJ,
+	            BindingResult formBindeings, Model model) {
+
+	        // FIXME VALIDATION
+	        if( requestOBJ.getId() != null ) {
+	            LOGGER.debug("Id not null");
+//	            requestService.update(requestOBJ);
+	            LOGGER.debug("1:Update");
+	        }
+	        else {
+	        	       	
+	        	requestService.insert(requestOBJ);
+	        	  LOGGER.debug("2:Insert");
+	        }
+	        LOGGER.debug("3");
+	        return "redirect:../admin/employeeTypeList";
+	    }
 	
 	@RequestMapping(value = "/customer/customerMonitorList", method = RequestMethod.GET)
 	public String getListMonitList( HttpServletRequest request, HttpServletResponse response, Model model ) {
@@ -82,6 +126,8 @@ public class CustomerController extends GenericController {
 
 		return "Views/customer/customerMonit";
 	}
+
+	
 	
 	
 	

@@ -10,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.pwr.transporter.entity.NamesForHibernate;
+import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.GenericDocument;
 
 
@@ -47,6 +49,18 @@ public class Request extends GenericDocument {
 
     @Column(name = "tax_amount", nullable = false)
     private BigDecimal taxAmount;
+    
+//    mamy juz delivery addres wiec to raczej odpada
+//    @Column(name = "AdrReceiver")
+//    private String AdrReceiver;
+    
+    @OneToOne
+    private Address targetAddress;
+    
+    @Column(name = "description")
+    private String description;
+    
+    
 
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -85,4 +99,14 @@ public class Request extends GenericDocument {
     public void setTaxAmount(BigDecimal taxAmount) {
         this.taxAmount = taxAmount;
     }
+    
+    public Address getTargetAddress() {
+		return targetAddress;
+	}
+    
+    public void setTargetAddress(Address targetAddress) {
+		this.targetAddress = targetAddress;
+	}
+    
+    
 }

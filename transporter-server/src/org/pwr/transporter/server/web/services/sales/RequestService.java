@@ -1,13 +1,21 @@
 package org.pwr.transporter.server.web.services.sales;
 
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.base.Country;
+import org.pwr.transporter.entity.enums.base.AddrStreetPrefix;
 import org.pwr.transporter.entity.sales.Request;
+import org.pwr.transporter.entity.sales.RequestRow;
+import org.pwr.transporter.entity.warehouse.Warehouse;
 import org.pwr.transporter.server.business.sales.RequestLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
+import org.pwr.transporter.server.web.services.CountryService;
 import org.pwr.transporter.server.web.services.IService;
+import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -26,6 +34,11 @@ public class RequestService implements IService {
     @Autowired
     RequestLogic requestLogic;
 
+    @Autowired
+    AddrStreetPrefixService addrStreetPrefixService;
+
+    @Autowired
+    CountryService countryService;
 
     public List<Request> getByCustomerId(Long id) {
         return this.requestLogic.getByCustomerId(id);
@@ -43,10 +56,21 @@ public class RequestService implements IService {
 
 
     public Long insert(Request entity) {
+  	
+    	entity.setSearchKey("rrr");
+    	Date date = new Date(System.currentTimeMillis());
+    	entity.setCreateDate(date);
+    	entity.setModifyDate(date);
+    	BigDecimal sum = BigDecimal.ZERO;
+        for(RequestRow row  : entity.getRows()) {
+            sum = sum.add(row.getPrice().multiply(row.get));
+        }
+    	entity.setNoTaxableAmount(sum);
         return this.requestLogic.insert(entity);
     }
 
-
+   
+    
     public void update(Request entity) {
         this.requestLogic.update(entity);
     }

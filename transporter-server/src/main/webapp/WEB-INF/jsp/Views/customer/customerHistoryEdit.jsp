@@ -8,14 +8,24 @@
 		<h1>Nowe zlecenie</h1>
 			<form:form action="/transporter-server/customer/customerHistoryEdit" method="post" commandName="object">
 			
-			<label>Adres odbioru: 
-			<input name="AdrReceiver" type="text"/></label><br/>
-			<label>Adres docelowy: <input name="AdrTarget"  type="text"/></label>		<br/>
-					
-					
-				<label>Opis <br/>
-					 <textarea col="10" row="10"  name="description" ></textarea></label>
-							<br/>	
+			<h3>Adres odbioru</h3>
+			
+			<c:set var="addressPrefix" scope="request" value="deliveryAddress."/>
+		
+			<h3>Adres</h3>
+			<%@ include file="../base/addressEdit.jsp" %>
+	
+	
+			<h3>Adres dostawy</h3>
+			
+			<c:set var="addressPrefix" scope="request" value="targetAddress."/>
+		
+		<!-- strane z edycja i wyswiatleniem adresu przygotowalem juz wczesniej  -->
+		<!--  -->
+			<h3>Adres</h3>
+			<%@ include file="../base/addressEdit.jsp" %>
+
+	
 	
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/customer/customerHistory'" />
