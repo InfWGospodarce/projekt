@@ -46,9 +46,9 @@
 				</div>
 				
 				<div class="form-group">
-					<form:label path="currency">Waluta</form:label>
-					<form:select class="form-control" path="currency">
-					    <form:options items="${currencies}" id="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+					<form:label path="currencyId">Waluta</form:label>
+					<form:select class="form-control" path="currencyId">
+					    <form:options items="${currencies}" itemValue="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
 					</form:select>
 				</div>
 			

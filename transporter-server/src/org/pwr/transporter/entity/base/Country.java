@@ -7,6 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.GenericEntity;
 
@@ -46,6 +47,9 @@ public class Country extends GenericEntity {
 
     @OneToOne
     private Currency currency;
+
+    @Transient
+    private String currencyId;
 
 
     // *******************************************************************************************************************************
@@ -100,4 +104,15 @@ public class Country extends GenericEntity {
     public void setISOCode(String iSOCode) {
         this.ISOCode = iSOCode;
     }
+
+
+    public String getCurrencyId() {
+        return this.currencyId;
+    }
+
+
+    public void setCurrencyId(String currencyId) {
+        this.currencyId = currencyId;
+    }
+
 }

@@ -33,11 +33,59 @@
 				</div>
 				
 				<div class="form-group">
-					<form:label path="warehouse">Magazyn</form:label>
+					<form:label path="code">Kod</form:label>
+					<form:input path="code" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="code" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="maxWeight">Maksymalne obciążenia</form:label>
+					<form:input path="maxWeight" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="maxWeight" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="width">Szerokość</form:label>
+					<form:input path="width" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="width" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="height">Wysokość</form:label>
+					<form:input path="height" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="height" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="depth">Głębokość</form:label>
+					<form:input path="depth" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="depth" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="coordinateX">Położenie w X</form:label>
+					<form:input path="coordinateX" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="coordinateX" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="coordinateY">Położenie w Y</form:label>
+					<form:input path="coordinateY" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="coordinateY" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="coordinateZ">Położenie w Z</form:label>
+					<form:input path="coordinateZ" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="coordinateZ" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="warehouseId">Magazyn</form:label>
 					<div class="row js_select" data-target="/transporter-server/mag/warehouseList?select=true">
-						<form:hidden id="warehouseSearchKey" disabled="true" onsubmit="copyValue()" path="warehouse.searchKey" class="form-control" value="" cssErrorClass="errorBc"/> 
-						<input id="warehouseId" type="text" name="warehouseId" disabled class="form-control js_value" onchange="copyValue()" value="&hellip;" cssErrorClass="errorBc" > 
-						<form:errors path="warehouse" cssClass="error" />
+						<%-- <form:input disabled="true" path="warehouseId" class="form-control js_value" value="&hellip;" cssErrorClass="errorBc"/>  --%>
+						<input id="warehouseId" type="text" name="warehouseId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
+						<form:errors path="warehouseId" cssClass="error" />
 						<div class="col-xs-8">
 			            </div>  
 			            	<div class="col-xs-4">
@@ -52,12 +100,6 @@
 				
 			</form:form>
 </div></div></div>
-<script>
-	function copyValue(){
-		console.log("Id: " + $("#warehouseId").val())
-		document.getElementById("warehouseSearchKey").value=$("#warehouseId").val();
-	}
-</script>
 
 <div id="modal" class="modal fade">
     <div class="modal-dialog modal-lg">

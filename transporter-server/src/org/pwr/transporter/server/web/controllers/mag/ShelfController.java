@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
+
 /**
  * <pre>
  * </pre>
@@ -35,72 +36,72 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ShelfController extends GenericController {
 
-	private static Logger LOGGER = Logger.getLogger(ShelfController.class);
+    private static Logger LOGGER = Logger.getLogger(ShelfController.class);
 
-	@Autowired
-	ShelfService shelfService;
+    @Autowired
+    ShelfService shelfService;
 
-	@Autowired
-	ShelfValidator validator;
+    @Autowired
+    ShelfValidator validator;
 
-	@Autowired
-	WarehouseService warehauseService;
+    @Autowired
+    WarehouseService warehauseService;
 
-	@RequestMapping(value = "/mag/shelfList", method = RequestMethod.GET)
-	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-		Criteria criteria = restoreCriteria(request);
-		List<Warehouse> list = getListWithCriteria(shelfService, request, criteria);
-		request.setAttribute("list", list);
+    @RequestMapping(value = "/mag/shelfList", method = RequestMethod.GET)
+    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/mag/shelfList";
-	}
+        Criteria criteria = restoreCriteria(request);
+        List<Warehouse> list = getListWithCriteria(shelfService, request, criteria);
+        request.setAttribute("list", list);
 
-	@RequestMapping(value = "/mag/shelfEdit", method = RequestMethod.GET)
-	public String get( HttpServletRequest request, HttpServletResponse response, Model model ) {
+        return "Views/mag/shelfList";
+    }
 
-		Long id = getId(request.getParameter("id"));
-		Shelf object = null;
-		if ( id == null ) {
-			object = new Shelf();
-		} else {
-			object = shelfService.getByID(id);
-			if ( object == null || object.getId() == null ) {
-				object = new Shelf();
-			}
-		}
 
-		loadData(model);
-		model.addAttribute("object", object);
+    @RequestMapping(value = "/mag/shelfEdit", method = RequestMethod.GET)
+    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
 
-		return "Views/mag/shelfEdit";
-	}
+        Long id = getId(request.getParameter("id"));
+        Shelf object = null;
+        if( id == null ) {
+            object = new Shelf();
+        } else {
+            object = shelfService.getByID(id);
+            if( object == null || object.getId() == null ) {
+                object = new Shelf();
+            }
+        }
 
-	public void loadData( Model model ) {
-	}
+        loadData(model);
+        model.addAttribute("object", object);
 
-	@RequestMapping(value = "/mag/shelfEdit", method = RequestMethod.POST)
-	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Shelf object,
-			BindingResult formBindeings, Model model ) {
+        return "Views/mag/shelfEdit";
+    }
 
-		String id = object.getWarehouse().getSearchKey();
-		LOGGER.debug("id: " + id);
-		object.setWarehouse(warehauseService.getByID(Long.valueOf(id)));
 
-		if ( !validate(object, model, formBindeings, validator) ) {
-			return "/Views/mag/shelfEdit";
-		}
+    public void loadData(Model model) {
+    }
 
-		LOGGER.debug("Id: " + object.getId());
 
-		if ( object.getId() != null ) {
-			LOGGER.debug("Id not null");
-			shelfService.update(object);
-		} else {
-			shelfService.insert(object);
-		}
+    @RequestMapping(value = "/mag/shelfEdit", method = RequestMethod.POST)
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Shelf object,
+            BindingResult formBindeings, Model model) {
 
-		return "redirect:../mag/shelfList?page=" + getPage(request);
-	}
+        if( !validate(object, model, formBindeings, validator) ) {
+            return "/Views/mag/shelfEdit";
+        }
+
+        LOGGER.debug("Id: " + object.getId());
+
+        if( object.getId() != null ) {
+            LOGGER.debug("Id not null");
+            shelfService.update(object);
+        } else {
+            shelfService.insert(object);
+        }
+
+        return "redirect:../mag/shelfList?page=" + getPage(request);
+    }
 
 }

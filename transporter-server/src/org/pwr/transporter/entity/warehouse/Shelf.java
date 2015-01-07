@@ -9,8 +9,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.pwr.transporter.entity.GenericEntity;
+
 
 
 /**
@@ -27,138 +29,176 @@ import org.pwr.transporter.entity.GenericEntity;
 @Table(name = "shelf")
 public class Shelf extends GenericEntity {
 
-	/**  */
-	private static final long serialVersionUID = 2584073916236293060L;
+    /**  */
+    private static final long serialVersionUID = 2584073916236293060L;
 
-	public Shelf() {
-		this.warehouse = new Warehouse();
-	}
 
-	// *******************************************************************************************************************************
-	// ****** FIELDS
-	// *******************************************************************************************************************************
+    public Shelf() {
+        this.warehouse = new Warehouse();
+    }
 
-	@ManyToOne(optional = false)
-	private Warehouse warehouse;
 
-	@Column(name = "coordinate_x")
-	private String coordinateX;
+    // *******************************************************************************************************************************
+    // ****** FIELDS
+    // *******************************************************************************************************************************
 
-	@Column(name = "coordinate_y")
-	private String coordinateY;
+    @ManyToOne(optional = false)
+    private Warehouse warehouse;
 
-	@Column(name = "coordinate_z")
-	private String coordinateZ;
+    @Transient
+    private String warehouseId;
 
-	@Column(name = "width")
-	private BigDecimal width;
+    @Column(name = "coordinate_x")
+    private String coordinateX;
 
-	@Column(name = "height")
-	private BigDecimal height;
+    @Column(name = "coordinate_y")
+    private String coordinateY;
 
-	@Column(name = "depth")
-	private BigDecimal depth;
+    @Column(name = "coordinate_z")
+    private String coordinateZ;
 
-	@Column(name = "max_weight")
-	private BigDecimal maxWeight;
+    @Column(name = "width")
+    private BigDecimal width;
 
-	@Column(name = "empty")
-	private boolean empty;
+    @Column(name = "height")
+    private BigDecimal height;
 
-	@Column(name = "filled")
-	private boolean filled;
+    @Column(name = "depth")
+    private BigDecimal depth;
 
-	@Column(name = "code")
-	private String code;
+    @Column(name = "max_weight")
+    private BigDecimal maxWeight;
 
-	// *******************************************************************************************************************************
-	// ****** GETTERS AND SETTERS
-	// *******************************************************************************************************************************
-	public Warehouse getWarehouse() {
-		return this.warehouse;
-	}
+    @Column(name = "empty")
+    private boolean empty;
 
-	public void setWarehouse( Warehouse warehouse ) {
-		this.warehouse = warehouse;
-	}
+    @Column(name = "filled")
+    private boolean filled;
 
-	public String getCoordinateX() {
-		return this.coordinateX;
-	}
+    @Column(name = "code")
+    private String code;
 
-	public void setCoordinateX( String coordinateX ) {
-		this.coordinateX = coordinateX;
-	}
 
-	public String getCoordinateY() {
-		return this.coordinateY;
-	}
+    // *******************************************************************************************************************************
+    // ****** GETTERS AND SETTERS
+    // *******************************************************************************************************************************
+    public Warehouse getWarehouse() {
+        return this.warehouse;
+    }
 
-	public void setCoordinateY( String coordinateY ) {
-		this.coordinateY = coordinateY;
-	}
 
-	public String getCoordinateZ() {
-		return this.coordinateZ;
-	}
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
 
-	public void setCoordinateZ( String coordinateZ ) {
-		this.coordinateZ = coordinateZ;
-	}
 
-	public BigDecimal getWidth() {
-		return this.width;
-	}
+    public String getCoordinateX() {
+        return this.coordinateX;
+    }
 
-	public void setWidth( BigDecimal width ) {
-		this.width = width;
-	}
 
-	public BigDecimal getHeight() {
-		return this.height;
-	}
+    public void setCoordinateX(String coordinateX) {
+        this.coordinateX = coordinateX;
+    }
 
-	public void setHeight( BigDecimal height ) {
-		this.height = height;
-	}
 
-	public BigDecimal getDepth() {
-		return this.depth;
-	}
+    public String getCoordinateY() {
+        return this.coordinateY;
+    }
 
-	public void setDepth( BigDecimal depth ) {
-		this.depth = depth;
-	}
 
-	public BigDecimal getMaxWeight() {
-		return this.maxWeight;
-	}
+    public void setCoordinateY(String coordinateY) {
+        this.coordinateY = coordinateY;
+    }
 
-	public void setMaxWeight( BigDecimal maxWeight ) {
-		this.maxWeight = maxWeight;
-	}
 
-	public boolean isEmpty() {
-		return this.empty;
-	}
+    public String getCoordinateZ() {
+        return this.coordinateZ;
+    }
 
-	public void setEmpty( boolean empty ) {
-		this.empty = empty;
-	}
 
-	public boolean isFilled() {
-		return this.filled;
-	}
+    public void setCoordinateZ(String coordinateZ) {
+        this.coordinateZ = coordinateZ;
+    }
 
-	public void setFilled( boolean filled ) {
-		this.filled = filled;
-	}
 
-	public String getCode() {
-		return this.code;
-	}
+    public BigDecimal getWidth() {
+        return this.width;
+    }
 
-	public void setCode( String code ) {
-		this.code = code;
-	}
+
+    public void setWidth(BigDecimal width) {
+        this.width = width;
+    }
+
+
+    public BigDecimal getHeight() {
+        return this.height;
+    }
+
+
+    public void setHeight(BigDecimal height) {
+        this.height = height;
+    }
+
+
+    public BigDecimal getDepth() {
+        return this.depth;
+    }
+
+
+    public void setDepth(BigDecimal depth) {
+        this.depth = depth;
+    }
+
+
+    public BigDecimal getMaxWeight() {
+        return this.maxWeight;
+    }
+
+
+    public void setMaxWeight(BigDecimal maxWeight) {
+        this.maxWeight = maxWeight;
+    }
+
+
+    public boolean isEmpty() {
+        return this.empty;
+    }
+
+
+    public void setEmpty(boolean empty) {
+        this.empty = empty;
+    }
+
+
+    public boolean isFilled() {
+        return this.filled;
+    }
+
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+
+
+    public String getCode() {
+        return this.code;
+    }
+
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+
+    public String getWarehouseId() {
+        return this.warehouseId;
+    }
+
+
+    public void setWarehouseId(String warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
 }

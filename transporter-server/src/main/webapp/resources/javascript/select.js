@@ -25,7 +25,6 @@
 
       function handleSelect() {
         var $option = $(this);
-
         $('.js_value', $el).val($option.data('value'));
         $modal.modal('hide');
       }
