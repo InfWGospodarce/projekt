@@ -25,7 +25,8 @@
 
       function handleSelect() {
         var $option = $(this);
-        $('.js_value', $el).val($option.data('value'));
+        $('#selectionId', $el).data($option.val('value'));
+        $('input[name=warehouseId]').val($option.data('value'));
         $modal.modal('hide');
       }
     });

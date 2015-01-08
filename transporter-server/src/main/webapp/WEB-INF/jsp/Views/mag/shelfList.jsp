@@ -22,6 +22,7 @@
 				<th>Id</th>
 				<th>Klucz</th>
 				<th>Nazwa</th>
+				<th>kod</th>
 				<th>Magazyn</th>
 			</tr>
 			
@@ -33,10 +34,8 @@
 					<td><c:out value="${object.id}"></c:out></td>
 					<td><c:out value="${object.searchKey}"></c:out></td>
 					<td><c:out value="${object.name}"></c:out></td>
+					<td><c:out value="${object.code}"></c:out></td>
 					<td><c:out value="${object.warehouse.name}"></c:out></td>
-					<td>
-						<input class="btn btn-primary" class="form-control" type="button" value="Adres" onclick="showAddres(${object.id})">
-					</td>
 					<td>
 						<form action="/transporter-server/mag/shelfEdit" method="get">
 							<input type="hidden" value="${page}" name="page">

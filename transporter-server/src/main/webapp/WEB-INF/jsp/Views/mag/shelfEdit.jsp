@@ -83,8 +83,8 @@
 				<div class="form-group">
 					<form:label path="warehouseId">Magazyn</form:label>
 					<div class="row js_select" data-target="/transporter-server/mag/warehouseList?select=true">
-						<%-- <form:input disabled="true" path="warehouseId" class="form-control js_value" value="&hellip;" cssErrorClass="errorBc"/>  --%>
-						<input id="warehouseId" type="text" name="warehouseId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
+						<form:hidden path="warehouseId" class="form-control" value="" cssErrorClass="errorBc" />
+						<input id="selectionId" type="text" name="warehouseId" disabled class="form-control js_value" value="${object.warehouseId}" cssErrorClass="errorBc" > 
 						<form:errors path="warehouseId" cssClass="error" />
 						<div class="col-xs-8">
 			            </div>  
@@ -93,7 +93,6 @@
 			            </div>
 			        </div>
 				</div>
-				
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/mag/shelfList?page=${page}'" />
@@ -117,6 +116,6 @@
       </div>
     </div>
 </div>
-<script src="${pageContext.request.contextPath}/resources/javascript/select.js"></script>
+<script src="${pageContext.request.contextPath}/resources/javascript/selectWarehouse.js"></script>
 <script src="${pageContext.request.contextPath}/resources/javascript/main.js"></script>
 </trans:template>
