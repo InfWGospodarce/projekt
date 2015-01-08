@@ -17,8 +17,7 @@
 				<div class="form-group">
 					<form:label path="wareId">Artykuł</form:label>
 					<div class="row js_select" data-target="/transporter-server/seller/articleList?select=true">
-						<%-- <form:input disabled="true" path="warehouseId" class="form-control js_value" value="&hellip;" cssErrorClass="errorBc"/>  --%>
-						<input id="wareId" type="text" name="wareId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
+						<form:hidden path="warehouseId" class="form-control" value="" cssErrorClass="errorBc" />						<input id="wareId" type="text" name="wareId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
 						<form:errors path="wareId" cssClass="error" />
 						<div class="col-xs-8">
 			            </div>  
