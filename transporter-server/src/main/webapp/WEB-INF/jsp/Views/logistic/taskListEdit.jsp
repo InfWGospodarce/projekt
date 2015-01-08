@@ -39,10 +39,9 @@
 				</div>
 				
 				<div class="form-group">
-					<form:label path="integer">Czas trwania</form:label>
-					<form:input path="integer" class="form-control" cssErrorClass="errorBc"/> 
-					<form:options />
-					<form:errors path="integer" cssClass="error" />
+					<form:label path="duration">Czas trwania</form:label>
+					<form:input path="duration" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="duration" cssClass="error" />
 				</div>
 				
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>

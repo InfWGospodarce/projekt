@@ -15,3 +15,6 @@
 	<a href="/transporter-server/logistic/vehicleList">Lista pojazdów</a>
 </li>
 
+<li>
+	<a href="/transporter-server/logistic/goodsIssuedNoteList"> WZ  </a>
+</li>

@@ -7,10 +7,6 @@
 <div class="col-md-8">
 	<div class="well">	
 		<h2>Lista zamówień</h2>
-		<form action="/transporter-server/logistic/orderListEdit" method="get">
-			<input type="hidden" value="${page}" name="page">
-		    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowe zamówienie">
-		</form>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
@@ -36,12 +32,6 @@
 								checked="checked"
 							</c:if>
 						/>
-					</td>
-					<td>
-						<form action="/transporter-server/logistic/orderListEdit" method="get">
-							<input type="hidden" value="${var.id}" name="id">
-						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
-						</form>
 					</td>
 				</tr>
 			</c:forEach>

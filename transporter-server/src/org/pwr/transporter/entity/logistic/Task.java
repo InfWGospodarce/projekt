@@ -19,6 +19,8 @@ import javax.xml.datatype.Duration;
 
 import org.pwr.transporter.entity.GenericEntity;
 import org.pwr.transporter.entity.base.Employee;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 
 
@@ -46,15 +48,20 @@ public class Task extends GenericEntity {
     
     
     @Column(name = "date")
+    @NumberFormat(style = Style.NUMBER)
     Timestamp date;
     
+    
     @Column(name = "duration")
-    Integer integer;
+    @NumberFormat(style = Style.NUMBER)
+    Integer duration;
     
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @NumberFormat(style = Style.NUMBER)
     private Employee employee;
 
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @NumberFormat(style = Style.NUMBER)
     private Vehicle vehicle;
 
 
@@ -90,12 +97,12 @@ public class Task extends GenericEntity {
         this.date = date;
     }
     
-    public Integer getInteger() {
-        return this.integer;
+    public Integer getDuration() {
+        return this.duration;
     }
 
 
-    public void setInteger(Integer integer) {
-        this.integer = integer;
+    public void setDuration(Integer duration) {
+        this.duration = duration;
     
 }}

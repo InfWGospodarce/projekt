@@ -80,7 +80,7 @@
 			<bean id="goodsIssuedNoteRowLogic" class="org.pwr.transporter.server.business.sales.GoodsIssuedNoteRowLogic">
 				<property name="goodsIssuedNoteRowDAO" ref="goodsIssuedNoteRowDAO" />
 			</bean>
-			<bean id="goodsIssuedNoteRowService" class="org.pwr.transporter.server.web.services.sales.GoodsIssuedNoteService" />
+			<bean id="goodsIssuedNoteRowService" class="org.pwr.transporter.server.web.services.sales.GoodsIssuedNoteRowService" />
 
 		
 	<!-- Purchase -->

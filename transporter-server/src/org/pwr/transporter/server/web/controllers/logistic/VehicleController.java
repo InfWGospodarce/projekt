@@ -67,11 +67,11 @@ public class VehicleController extends GenericController {
 
 
     @RequestMapping(value = "/logistic/vehicleEdit", method = RequestMethod.POST)
-    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("streetPrefix") @Validated Vehicle vehicle,
+    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("vehicle") @Validated Vehicle vehicle,
             BindingResult formBindeings, Model model) {
 
         if( !validate(vehicle, model, formBindeings, validator) ) {
-            return "/Views/driver/driverScheduleEdit";
+            return "/Views/logistic/vehicleEdit";
         }
 
         if( vehicle.getId() != null ) {

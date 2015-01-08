@@ -7,8 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.pwr.transporter.entity.GenericEntity;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 
 
@@ -33,6 +37,7 @@ public class Vehicle extends GenericEntity {
     // ****** FIELDS
     // *******************************************************************************************************************************
     @Column(name = "plate")
+    @Size(min=5)
     String plate;
 
     // *******************************************************************************************************************************

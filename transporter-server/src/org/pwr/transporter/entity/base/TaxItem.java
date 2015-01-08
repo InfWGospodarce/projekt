@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.pwr.transporter.entity.GenericEntity;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
@@ -36,7 +38,7 @@ public class TaxItem extends GenericEntity {
 	// *******************************************************************************************************************************
 
 	@Column(name = "tax_percent")
-	@NumberFormat(style = Style.PERCENT)
+	@NotEmpty @NumberFormat(style = Style.PERCENT)
 	private BigDecimal taxPercent;
 
 	@Column(name = "tax_free")

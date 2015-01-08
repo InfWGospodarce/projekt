@@ -30,7 +30,7 @@
 					<td><c:out value="${var.vehicle.id}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
 					<td><c:out value="${var.date}"></c:out></td>
-					<td><c:out value="${var.integer}"></c:out></td>
+					<td><c:out value="${var.duration}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
 							<c:if test="${var.active eq 'true'}">
