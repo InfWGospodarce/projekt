@@ -1,6 +1,7 @@
 package org.pwr.transporter.entity.sales;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,7 +16,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.GenericDocument;
-
 
 
 /**
@@ -33,29 +33,31 @@ import org.pwr.transporter.entity.base.GenericDocument;
 @PrimaryKeyJoinColumn(name = NamesForHibernate.GENERIC_DOCUMENT_ID)
 public class GoodsIssuedNote extends GenericDocument {
 
-    /**  */
-    private static final long serialVersionUID = -7066029738333051290L;
+	/**  */
+	private static final long serialVersionUID = -7066029738333051290L;
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	public GoodsIssuedNote() {
+		rows = new ArrayList<GoodsIssuedNoteRow>();
+	}
 
-    @OneToMany(mappedBy = "goodsIssuedNote", cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<GoodsIssuedNoteRow> rows;
+	// *******************************************************************************************************************************
+	// ****** FIELDS
+	// *******************************************************************************************************************************
 
+	@OneToMany(mappedBy = "goodsIssuedNote", cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<GoodsIssuedNoteRow> rows;
 
-    // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    public List<GoodsIssuedNoteRow> getRows() {
-        return this.rows;
-    }
+	public List<GoodsIssuedNoteRow> getRows() {
+		return this.rows;
+	}
 
-
-    public void setRows(List<GoodsIssuedNoteRow> rows) {
-        this.rows = rows;
-    }
+	public void setRows( List<GoodsIssuedNoteRow> rows ) {
+		this.rows = rows;
+	}
 
 }

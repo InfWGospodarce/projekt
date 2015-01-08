@@ -10,7 +10,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.pwr.transporter.entity.GenericEntity;
-
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 
 /**
@@ -27,41 +28,38 @@ import org.pwr.transporter.entity.GenericEntity;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class TaxItem extends GenericEntity {
 
-    /**  */
-    private static final long serialVersionUID = -6902716570709450887L;
+	/**  */
+	private static final long serialVersionUID = -6902716570709450887L;
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** FIELDS
+	// *******************************************************************************************************************************
 
-    @Column(name = "tax_percent")
-    private BigDecimal taxPercent;
+	@Column(name = "tax_percent")
+	@NumberFormat(style = Style.PERCENT)
+	private BigDecimal taxPercent;
 
-    @Column(name = "tax_free")
-    private boolean taxFree;
+	@Column(name = "tax_free")
+	private boolean taxFree;
 
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
-    // *******************************************************************************************************************************
+	public BigDecimal getTaxPercent() {
+		return this.taxPercent;
+	}
 
-    public BigDecimal getTaxPercent() {
-        return this.taxPercent;
-    }
+	public void setTaxPercent( BigDecimal taxPercent ) {
+		this.taxPercent = taxPercent;
+	}
 
+	public boolean isTaxFree() {
+		return this.taxFree;
+	}
 
-    public void setTaxPercent(BigDecimal taxPercent) {
-        this.taxPercent = taxPercent;
-    }
-
-
-    public boolean isTaxFree() {
-        return this.taxFree;
-    }
-
-
-    public void setTaxFree(boolean taxFree) {
-        this.taxFree = taxFree;
-    }
+	public void setTaxFree( boolean taxFree ) {
+		this.taxFree = taxFree;
+	}
 
 }

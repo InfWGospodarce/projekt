@@ -27,7 +27,7 @@
 				</div>
 				
 				<div class="form-group">
-					<form:label path="taxPercent">Kod</form:label>
+					<form:label path="taxPercent">Wartość [%]</form:label>
 					<form:input path="taxPercent" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="taxPercent" cssClass="error" />
 				</div>
