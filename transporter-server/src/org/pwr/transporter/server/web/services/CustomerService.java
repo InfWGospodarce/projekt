@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.server.business.CustomerLogic;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -19,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author x0r
  * @version 0.0.1
  */
-public class CustomerService {
+public class CustomerService implements IService{
 
     CustomerLogic customerLogic;
 
@@ -55,4 +56,44 @@ public class CustomerService {
         return this.customerLogic.getByID(id);
     }
 
+
+
+	public Customer getByID(Long id) {
+		return customerLogic.getByID(id);
+	}
+
+
+
+	public void update(Customer entity) {
+		customerLogic.update(entity);
+	}
+
+
+
+	public long count(Criteria criteria) {
+		return customerLogic.count(criteria);
+	}
+
+
+
+	@SuppressWarnings("unchecked")
+	public List<Customer> getListRestCrit(int amount, int fromRow,
+			Criteria criteria) {
+		return customerLogic.getListRestCrit(amount, fromRow, criteria);
+	}
+
+
+
+	@SuppressWarnings("unchecked")
+	public List<Customer> getListRest(int amount, int fromRow) {
+		return customerLogic.getListRest(amount, fromRow);
+	}
+
+
+
+	public long count() {
+		return customerLogic.count();
+	}
+
+    
 }

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.pwr.transporter.entity.sales.Request;
 import org.pwr.transporter.entity.sales.RequestRow;
+import org.pwr.transporter.server.business.AddressLogic;
 import org.pwr.transporter.server.business.sales.RequestLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.CountryService;
@@ -32,10 +33,7 @@ public class RequestService implements IService {
     RequestLogic requestLogic;
 
     @Autowired
-    AddrStreetPrefixService addrStreetPrefixService;
-
-    @Autowired
-    CountryService countryService;
+    AddressLogic addressLogic;
 
 
     public List<Request> getByCustomerId(Long id) {
@@ -54,16 +52,26 @@ public class RequestService implements IService {
 
 
     public Long insert(Request entity) {
+    	
+    	Long addresDeliveryId = addressLogic.insert(entity.getDeliveryAddress());
+    	entity.setDeliveryAddress(addressLogic.getByID(addresDeliveryId));
+    	
+
+    	Long addresTargetId = addressLogic.insert(entity.getTargetAddress());
+    	entity.setDeliveryAddress(addressLogic.getByID(addresTargetId));
 
         entity.setSearchKey("rrr");
         Date date = new Date(System.currentTimeMillis());
         entity.setCreateDate(date);
         entity.setModifyDate(date);
         BigDecimal sum = BigDecimal.ZERO;
+        BigDecimal sumTax = BigDecimal.ZERO;
         for( RequestRow row : entity.getRows() ) {
             sum = sum.add(row.getPrice().multiply(row.getQuantity()));
+            sum = sum.add(row.getPrice().multiply(row.getQuantity()).multiply(row.getTaxPercent().divide(new BigDecimal(100))));
         }
         entity.setNoTaxableAmount(sum);
+        entity.setTaxAmount(sumTax);
         return this.requestLogic.insert(entity);
     }
 

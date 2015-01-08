@@ -8,7 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.base.Customer;
+import org.pwr.transporter.entity.base.UserAcc;
+import org.pwr.transporter.entity.logistic.Task;
 import org.pwr.transporter.entity.sales.Request;
+import org.pwr.transporter.server.core.hb.criteria.Criteria;
+import org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions;
 import org.pwr.transporter.server.web.services.sales.RequestService;
 import org.pwr.transporter.server.web.services.CountryService;
 import org.pwr.transporter.entity.enums.base.EmployeeType;
@@ -63,9 +67,17 @@ public class CustomerController extends GenericController {
 	@RequestMapping(value = "/customer/customerHistory", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-//		  List<EmployeeType> employeeTypeList = getList(employeeTypeService, request);
-//	        request.setAttribute("employeeTypeList", employeeTypeList);
+		 UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
 
+	        Criteria criteria = restoreCriteria(request);
+	        criteria.getEqualCriteria().put("active", true);
+	        criteria.getSortCriteria().put("modifyDate", SortOptions.DESC);
+	        if( user.getCustomer() != null ) {
+	            criteria.getIdsCriteria().put("customer.id", user.getCustomer().getId());
+	        } 
+
+	        List<Request> taskList = getListWithCriteria(requestService, request, criteria);
+	        model.addAttribute("list", taskList);
 		return "Views/customer/customerHistory";
 	}
 	
@@ -108,7 +120,7 @@ public class CustomerController extends GenericController {
 	        	  LOGGER.debug("2:Insert");
 	        }
 	        LOGGER.debug("3");
-	        return "redirect:../admin/employeeTypeList";
+	        return "redirect:../admin/customerHistory";
 	    }
 	
 	@RequestMapping(value = "/customer/customerMonitorList", method = RequestMethod.GET)
