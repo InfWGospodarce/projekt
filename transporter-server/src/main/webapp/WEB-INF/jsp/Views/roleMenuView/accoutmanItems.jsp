@@ -2,3 +2,6 @@
 <li>
 	<a href="/transporter-server/account/invoices">Faktury</a>
 </li>
+<li>
+	<a href="/transporter-server/admin/taxItemList">Stawki podatków</a>
+</li>

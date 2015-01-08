@@ -17,7 +17,8 @@
 				<div class="form-group">
 					<form:label path="wareId">Artykuł</form:label>
 					<div class="row js_select" data-target="/transporter-server/seller/articleList?select=true">
-						<form:hidden path="warehouseId" class="form-control" value="" cssErrorClass="errorBc" />						<input id="wareId" type="text" name="wareId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
+						<form:hidden path="wareId" class="form-control" value="" cssErrorClass="errorBc" />						
+						<input id="wareId" type="text" name="wareId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
 						<form:errors path="wareId" cssClass="error" />
 						<div class="col-xs-8">
 			            </div>  
@@ -45,23 +46,7 @@
 				
 			</form:form>
 </div></div></div>
-
-<div id="modal" class="modal fade">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Zamknij"><span aria-hidden="true">&times;</span></button>
-         <!--  <h4 class="modal-title">Wybierz magazyn</h4> -->
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
-        </div>
-      </div>
-    </div>
-</div>
-<script src="${pageContext.request.contextPath}/resources/javascript/select.js"></script>
-<script src="${pageContext.request.contextPath}/resources/javascript/main.js"></script>
+<c:set scope="request" value="/resources/javascript/selectArticle.js" var="modalJsPath" />
+<c:set scope="request" value="selectArticle" var="modalId" />
+<%@ include file="../../../modals/modalSelect.jsp" %>
 </trans:template>
