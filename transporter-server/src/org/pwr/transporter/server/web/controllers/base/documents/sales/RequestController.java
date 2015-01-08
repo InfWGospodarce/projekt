@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.entity.sales.Request;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
@@ -49,12 +50,27 @@ public class RequestController extends GenericDocumentController {
 
         Criteria criteria = restoreCriteria(request);
         List<Request> list = getListWithCriteria(requestService, request, criteria);
-
         model.addAttribute("list", list);
-
-        return "/Views/seller/requestList";
+        
+        String ret = "/Views/seller/requestList";
+        return ret;
     }
+    
+    @RequestMapping(value = "/customer/customerHistory", method = RequestMethod.GET)
+    public String getListForCustomer(HttpServletRequest request, HttpServletResponse response, Model model) {
+    	
+    	UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
+    	
+    	 Criteria criteria = restoreCriteria(request);
+         if(user!=null && user.getCustomer()!=null){
+        	 criteria.getIdsCriteria().put("customer.id", user.getCustomer().getId());
+         }
+         List<Request> list = getListWithCriteria(requestService, request, criteria);
 
+         model.addAttribute("list", list);
+         return "Views/customer/customerHist";
+    }
+    
 
     @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.GET)
     public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -93,5 +109,62 @@ public class RequestController extends GenericDocumentController {
         }
 
         return "redirect:../seller/requestList?page=" + getPage(request);
+    }
+    
+    @RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.GET)
+    public String getEdit(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        Long id = getId(request.getParameter("id"));
+        Request requestOBJ = null;
+        if( id == null ) {
+            requestOBJ = new Request();
+        } else {
+            requestOBJ = requestService.getByID(id);
+            if( requestOBJ == null || requestOBJ.getId() == null ) {
+                requestOBJ = new Request();
+            }
+        }
+        loadData(model);
+
+        model.addAttribute("object", requestOBJ);
+
+        return "Views/customer/customerHistoryEdit";
+        // return "Views/customer/customerHistory";
+    }
+
+
+    @RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.POST)
+    public String postEdit(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") Request requestOBJ,
+            BindingResult formBindeings, Model model) {
+
+        // FIXME VALIDATION
+        if( requestOBJ.getId() != null ) {
+            LOGGER.debug("Id not null");
+            // requestService.update(requestOBJ);
+            LOGGER.debug("1:Update");
+        } else {
+        	UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
+            if(user!=null && user.getCustomer()!=null){
+            	requestService.insertUserRequest(requestOBJ, user.getCustomer());
+            	LOGGER.debug("2:Insert");
+            	return "redirect:../customer/customerHist";
+            }
+        }
+        LOGGER.debug("3");
+        return "redirect:../log/login";
+    }
+
+
+    @RequestMapping(value = "/customer/customerMonitorList", method = RequestMethod.GET)
+    public String getListMonitList(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        return "Views/customer/customerMonitorList";
+    }
+
+
+    @RequestMapping(value = "/customer/customerMonit/0001", method = RequestMethod.GET)
+    public String getListMonitNr(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+        return "Views/customer/customerMonit";
     }
 }

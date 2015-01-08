@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.pwr.transporter.entity.base.Customer;
 import org.pwr.transporter.entity.sales.Request;
 import org.pwr.transporter.entity.sales.RequestRow;
 import org.pwr.transporter.server.business.AddressLogic;
@@ -52,26 +53,6 @@ public class RequestService implements IService {
 
 
     public Long insert(Request entity) {
-    	
-    	Long addresDeliveryId = addressLogic.insert(entity.getDeliveryAddress());
-    	entity.setDeliveryAddress(addressLogic.getByID(addresDeliveryId));
-    	
-
-    	Long addresTargetId = addressLogic.insert(entity.getTargetAddress());
-    	entity.setDeliveryAddress(addressLogic.getByID(addresTargetId));
-
-        entity.setSearchKey("rrr");
-        Date date = new Date(System.currentTimeMillis());
-        entity.setCreateDate(date);
-        entity.setModifyDate(date);
-        BigDecimal sum = BigDecimal.ZERO;
-        BigDecimal sumTax = BigDecimal.ZERO;
-        for( RequestRow row : entity.getRows() ) {
-            sum = sum.add(row.getPrice().multiply(row.getQuantity()));
-            sum = sum.add(row.getPrice().multiply(row.getQuantity()).multiply(row.getTaxPercent().divide(new BigDecimal(100))));
-        }
-        entity.setNoTaxableAmount(sum);
-        entity.setTaxAmount(sumTax);
         return this.requestLogic.insert(entity);
     }
 
@@ -111,5 +92,31 @@ public class RequestService implements IService {
     public List<Request> getListRestCrit(int amount, int fromRow, Criteria criteria) {
         return this.requestLogic.getListRestCrit(amount, fromRow, criteria);
     }
+
+
+	public Long insertUserRequest(Request entity, Customer customer) {
+		
+    	Long addresDeliveryId = addressLogic.insert(entity.getDeliveryAddress());
+    	entity.setDeliveryAddress(addressLogic.getByID(addresDeliveryId));
+    	
+
+    	Long addresTargetId = addressLogic.insert(entity.getTargetAddress());
+    	entity.setDeliveryAddress(addressLogic.getByID(addresTargetId));
+
+        entity.setSearchKey("rrr");
+        Date date = new Date(System.currentTimeMillis());
+        entity.setCreateDate(date);
+        entity.setModifyDate(date);
+        BigDecimal sum = BigDecimal.ZERO;
+        BigDecimal sumTax = BigDecimal.ZERO;
+        for( RequestRow row : entity.getRows() ) {
+            sum = sum.add(row.getPrice().multiply(row.getQuantity()));
+            sum = sum.add(row.getPrice().multiply(row.getQuantity()).multiply(row.getTaxPercent().divide(new BigDecimal(100))));
+        }
+        entity.setNoTaxableAmount(sum);
+        entity.setTaxAmount(sumTax);
+        entity.setCustomer(customer);
+        return this.requestLogic.insert(entity);
+	}
 
 }
