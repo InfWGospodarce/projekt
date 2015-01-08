@@ -159,4 +159,44 @@ public abstract class GenericDocument extends Generic implements Serializable {
         this.filled = filled;
     }
 
+
+    public String getCustomerId() {
+        return this.customerId;
+    }
+
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+
+    public String getDeliveryAddressId() {
+        return this.deliveryAddressId;
+    }
+
+
+    public void setDeliveryAddressId(String deliveryAddressId) {
+        this.deliveryAddressId = deliveryAddressId;
+    }
+
+
+    public Date getFillingDate() {
+        return this.fillingDate;
+    }
+
+
+    public void setFillingDate(Date fillingDate) {
+        this.fillingDate = fillingDate;
+    }
+
+
+    public String getCurrencyId() {
+        return this.currencyId;
+    }
+
+
+    public void setCurrencyId(String currencyId) {
+        this.currencyId = currencyId;
+    }
+
 }

@@ -14,12 +14,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.GenericDocument;
+import org.pwr.transporter.entity.enums.documents.OrderType;
 
 
 
@@ -63,6 +65,15 @@ public class Request extends GenericDocument {
 
     @OneToOne
     private Address targetAddress;
+
+    @Transient
+    private String targetAddressId;
+
+    @Column(name = "order_type")
+    private OrderType orderType;
+
+    @Transient
+    private String orderTypeValue;
 
     @Column(name = "description")
     private String description;
@@ -113,6 +124,46 @@ public class Request extends GenericDocument {
 
     public void setTargetAddress(Address targetAddress) {
         this.targetAddress = targetAddress;
+    }
+
+
+    public String getDescription() {
+        return this.description;
+    }
+
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    public String getTargetAddressId() {
+        return this.targetAddressId;
+    }
+
+
+    public void setTargetAddressId(String targetAddressId) {
+        this.targetAddressId = targetAddressId;
+    }
+
+
+    public OrderType getOrderType() {
+        return this.orderType;
+    }
+
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
+    }
+
+
+    public String getOrderTypeValue() {
+        return this.orderTypeValue;
+    }
+
+
+    public void setOrderTypeValue(String orderTypeValue) {
+        this.orderTypeValue = orderTypeValue;
     }
 
 }
