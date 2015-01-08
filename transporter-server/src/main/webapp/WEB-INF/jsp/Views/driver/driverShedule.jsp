@@ -10,21 +10,23 @@
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
-				<th>Klucz wyszukiwania</th>
 				<th>Employee_id</th>
 				<th>Vehicle_id</th>
-				<th>Aktywny</th>
 				<th>Nazwa</th>
+				<th>Data</th>
+				<th>Czas trwania</th>
+				<th>Aktywny</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="var" items="${taskList}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
 					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td><c:out value="${var.searchKey}"></c:out></td>
 					<td><c:out value="${var.employee.id}"></c:out></td>
 					<td><c:out value="${var.vehicle.id}"></c:out></td>
 					<td><c:out value="${var.name}"></c:out></td>
+					<td><c:out value="${var.date}"></c:out></td>
+					<td><c:out value="${var.integer}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
 							<c:if test="${var.active eq 'true'}">
