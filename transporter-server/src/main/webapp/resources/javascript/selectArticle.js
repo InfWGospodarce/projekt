@@ -2,7 +2,7 @@
   'use strict';
 
   $.fn.select = function () {
-    var $modal = $('#modal');
+    var $modal = $('#modalArticle');
 
     $modal.on('hide.bs.modal', function () {
       $('.modal-body', $modal).off('.modal');
@@ -25,7 +25,8 @@
 
       function handleSelect() {
         var $option = $(this);
-        $('.js_value', $el).val($option.data('value'));
+        $('#wareId', $el).data($option.val('value'));
+        $('input[name=wareId]').val($option.data('value'));
         $modal.modal('hide');
       }
     });

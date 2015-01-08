@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-
 /**
  * <pre>
  *    Controller for {@link TaxItem}
@@ -35,70 +34,68 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class TaxItemController extends GenericController {
 
-    private static Logger LOGGER = Logger.getLogger(TaxItemController.class);
+	private static Logger LOGGER = Logger.getLogger(TaxItemController.class);
 
-    @Autowired
-    TaxItemService service;
+	@Autowired
+	TaxItemService service;
 
-    @Autowired
-    TaxItemValidator validator;
+	@Autowired
+	TaxItemValidator validator;
 
+	@RequestMapping(value = { "/admin/taxItemList", "/account/taxItemList" }, method = RequestMethod.GET)
+	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-    @RequestMapping(value = "/admin/taxItemList", method = RequestMethod.GET)
-    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Criteria criteria = restoreCriteria(request);
+		List<TaxItem> list = getListWithCriteria(service, request, criteria);
 
-        Criteria criteria = restoreCriteria(request);
-        List<TaxItem> list = getListWithCriteria(service, request, criteria);
+		model.addAttribute("list", list);
 
-        model.addAttribute("list", list);
+		return "/Views/admin/taxItemList";
+	}
 
-        return "/Views/admin/taxItemList";
-    }
+	@RequestMapping(value = { "/admin/taxItemEdit", "/account/taxItemEdit" }, method = RequestMethod.GET)
+	public String get( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
+		Long id = getId(request.getParameter("id"));
+		loadData(model);
+		TaxItem object = null;
+		if ( id == null ) {
+			object = new TaxItem();
+		} else {
+			object = service.getByID(id);
+			if ( object == null || object.getId() == null ) {
+				object = new TaxItem();
+			}
+		}
 
-    @RequestMapping(value = "/admin/taxItemEdit", method = RequestMethod.GET)
-    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("object", object);
 
-        Long id = getId(request.getParameter("id"));
-        loadData(model);
-        TaxItem object = null;
-        if( id == null ) {
-            object = new TaxItem();
-        } else {
-            object = service.getByID(id);
-            if( object == null || object.getId() == null ) {
-                object = new TaxItem();
-            }
-        }
+		return "Views/base/taxItemEdit";
+	}
 
-        model.addAttribute("object", object);
+	@RequestMapping(value = { "/admin/taxItemEdit", "/account/taxItemEdit" }, method = RequestMethod.POST)
+	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated TaxItem object,
+			BindingResult formBindeings, Model model ) {
 
-        return "Views/base/taxItemEdit";
-    }
+		if ( !validate(object, model, formBindeings, validator) ) {
+			return "/Views/base/taxItemEdit";
+		}
 
+		if ( object.getId() != null ) {
+			LOGGER.debug("Id not null");
+			service.update(object);
+		} else {
+			service.insert(object);
+		}
+		if ( request.getContextPath().contains("account") ) {
+			return "redirect:../account/taxItemList?page=" + getPage(request);
+		}
+		return "redirect:../admin/taxItemList?page=" + getPage(request);
+	}
 
-    @RequestMapping(value = "/admin/taxItemEdit", method = RequestMethod.POST)
-    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated TaxItem object,
-            BindingResult formBindeings, Model model) {
+	@Override
+	public void loadData( Model model ) {
+		// TODO Auto-generated method stub
 
-        if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/base/taxItemEdit";
-        }
-
-        if( object.getId() != null ) {
-            LOGGER.debug("Id not null");
-            service.update(object);
-        } else {
-            service.insert(object);
-        }
-
-        return "redirect:../admin/taxItemList?page=" + getPage(request);
-    }
-
-
-    @Override
-    public void loadData(Model model) {
-        // TODO Auto-generated method stub
-
-    }
+	}
 }

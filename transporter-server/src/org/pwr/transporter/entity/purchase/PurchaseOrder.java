@@ -2,6 +2,7 @@ package org.pwr.transporter.entity.purchase;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,6 @@ import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.GenericDocument;
 
 
-
 /**
  * <pre>
  *    Incoming purchase document model.
@@ -35,54 +35,52 @@ import org.pwr.transporter.entity.base.GenericDocument;
 @PrimaryKeyJoinColumn(name = NamesForHibernate.GENERIC_DOCUMENT_ID)
 public class PurchaseOrder extends GenericDocument {
 
-    /**  */
-    private static final long serialVersionUID = -2339396878386751043L;
+	/**  */
+	private static final long serialVersionUID = -2339396878386751043L;
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	public PurchaseOrder() {
+		rows = new ArrayList<PurchaseOrderRow>();
+	}
 
-    @Column(name = "no_taxable_amount", nullable = false)
-    private BigDecimal noTaxableAmount;
+	// *******************************************************************************************************************************
+	// ****** FIELDS
+	// *******************************************************************************************************************************
 
-    @Column(name = "tax_amount", nullable = false)
-    private BigDecimal taxAmount;
+	@Column(name = "no_taxable_amount", nullable = false)
+	private BigDecimal noTaxableAmount;
 
-    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private List<PurchaseOrderRow> rows;
+	@Column(name = "tax_amount", nullable = false)
+	private BigDecimal taxAmount;
 
+	@OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<PurchaseOrderRow> rows;
 
-    // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    public List<PurchaseOrderRow> getRows() {
-        return this.rows;
-    }
+	public List<PurchaseOrderRow> getRows() {
+		return this.rows;
+	}
 
+	public void setRows( List<PurchaseOrderRow> rows ) {
+		this.rows = rows;
+	}
 
-    public void setRows(List<PurchaseOrderRow> rows) {
-        this.rows = rows;
-    }
+	public BigDecimal getNoTaxableAmount() {
+		return this.noTaxableAmount;
+	}
 
+	public void setNoTaxableAmount( BigDecimal noTaxableAmount ) {
+		this.noTaxableAmount = noTaxableAmount;
+	}
 
-    public BigDecimal getNoTaxableAmount() {
-        return this.noTaxableAmount;
-    }
+	public BigDecimal getTaxAmount() {
+		return this.taxAmount;
+	}
 
-
-    public void setNoTaxableAmount(BigDecimal noTaxableAmount) {
-        this.noTaxableAmount = noTaxableAmount;
-    }
-
-
-    public BigDecimal getTaxAmount() {
-        return this.taxAmount;
-    }
-
-
-    public void setTaxAmount(BigDecimal taxAmount) {
-        this.taxAmount = taxAmount;
-    }
+	public void setTaxAmount( BigDecimal taxAmount ) {
+		this.taxAmount = taxAmount;
+	}
 }

@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.GenericDocumentRow;
 import org.pwr.transporter.entity.base.TaxItem;
-
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 
 /**
@@ -32,67 +33,60 @@ import org.pwr.transporter.entity.base.TaxItem;
 @PrimaryKeyJoinColumn(name = NamesForHibernate.GENERIC_DOCUMENT_ROW_ID)
 public class SalesOrderRow extends GenericDocumentRow {
 
-    /**  */
-    private static final long serialVersionUID = -371217372609275045L;
+	/**  */
+	private static final long serialVersionUID = -371217372609275045L;
 
-    // *******************************************************************************************************************************
-    // ****** Fields
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** Fields
+	// *******************************************************************************************************************************
 
-    @ManyToOne
-    private SalesOrder salesOrder;
+	@ManyToOne
+	private SalesOrder salesOrder;
 
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+	@Column(name = "price", nullable = false)
+	private BigDecimal price;
 
-    @Column(name = "tax_percent")
-    private BigDecimal taxPercent;
+	@Column(name = "tax_percent")
+	@NumberFormat(style = Style.PERCENT)
+	private BigDecimal taxPercent;
 
-    @ManyToOne
-    private TaxItem taxItem;
+	@ManyToOne
+	private TaxItem taxItem;
 
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
-    // *******************************************************************************************************************************
+	public SalesOrder getSalesOrder() {
+		return this.salesOrder;
+	}
 
-    public SalesOrder getSalesOrder() {
-        return this.salesOrder;
-    }
+	public void setSalesOrder( SalesOrder salesOrder ) {
+		this.salesOrder = salesOrder;
+	}
 
+	public BigDecimal getPrice() {
+		return this.price;
+	}
 
-    public void setSalesOrder(SalesOrder salesOrder) {
-        this.salesOrder = salesOrder;
-    }
+	public void setPrice( BigDecimal price ) {
+		this.price = price;
+	}
 
+	public BigDecimal getTaxPercent() {
+		return this.taxPercent;
+	}
 
-    public BigDecimal getPrice() {
-        return this.price;
-    }
+	public void setTaxPercent( BigDecimal taxPercent ) {
+		this.taxPercent = taxPercent;
+	}
 
+	public TaxItem getTaxItem() {
+		return this.taxItem;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-
-    public BigDecimal getTaxPercent() {
-        return this.taxPercent;
-    }
-
-
-    public void setTaxPercent(BigDecimal taxPercent) {
-        this.taxPercent = taxPercent;
-    }
-
-
-    public TaxItem getTaxItem() {
-        return this.taxItem;
-    }
-
-
-    public void setTaxItem(TaxItem taxItem) {
-        this.taxItem = taxItem;
-    }
+	public void setTaxItem( TaxItem taxItem ) {
+		this.taxItem = taxItem;
+	}
 
 }

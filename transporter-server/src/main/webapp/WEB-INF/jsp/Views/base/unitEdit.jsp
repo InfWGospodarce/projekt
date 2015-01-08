@@ -43,6 +43,13 @@
 					<form:input path="sign" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="sign" cssClass="error" />
 				</div>
+				
+				<div class="form-group">
+					<form:label path="unitTypeValue">Typ jednostki</form:label>
+					<form:select class="form-control" path="unitTypeValue">
+					    <form:options items="${dimensions}" itemValue="value" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
 			
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/admin/unitList?page=${page}'" />
