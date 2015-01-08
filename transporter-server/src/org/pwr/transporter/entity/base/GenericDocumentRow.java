@@ -42,6 +42,9 @@ public abstract class GenericDocumentRow extends Generic implements Serializable
     @ManyToOne
     private GenericWare ware;
 
+    @Transient
+    private String wareId;
+
     @Column(name = "quantity")
     private BigDecimal quantity;
 
@@ -106,6 +109,16 @@ public abstract class GenericDocumentRow extends Generic implements Serializable
 
     public void setFilled(boolean filled) {
         this.filled = filled;
+    }
+
+
+    public String getWareId() {
+        return this.wareId;
+    }
+
+
+    public void setWareId(String wareId) {
+        this.wareId = wareId;
     }
 
 }

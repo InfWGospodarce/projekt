@@ -2,6 +2,7 @@ package org.pwr.transporter.entity.sales;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,6 +40,12 @@ public class Request extends GenericDocument {
 
     /**  */
     private static final long serialVersionUID = -5323409176872050200L;
+
+
+    public Request() {
+        rows = new ArrayList<RequestRow>();
+    }
+
 
     // *******************************************************************************************************************************
     // ****** FIELDS

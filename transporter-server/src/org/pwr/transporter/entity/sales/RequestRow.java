@@ -108,4 +108,16 @@ public class RequestRow extends GenericDocumentRow {
         this.taxItemId = taxItemId;
     }
 
+
+    @Override
+    public String getWareId() {
+        return super.getWareId();
+    }
+
+
+    @Override
+    public void setWareId(String wareId) {
+        // TODO Auto-generated method stub
+        super.setWareId(wareId);
+    }
 }
