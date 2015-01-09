@@ -7,7 +7,7 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista Roli</h2>
+		<h2>Lista klientów</h2>
 		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
@@ -21,10 +21,10 @@
 			<c:forEach var="var" items="${list}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
-					<td><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td><c:out value="${var.searchKey}"></c:out></td>
-					<td><c:out value="${var.name}"></c:out></td>
-					<td><c:out value="${var.surname}"></c:out></td>
+					<td class="js_option" data-value="${var.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
+					<td class="js_option" data-value="${var.id}"><c:out value="${var.searchKey}"></c:out></td>
+					<td class="js_option" data-value="${var.id}"><c:out value="${var.name}"></c:out></td>
+					<td class="js_option" data-value="${var.id}"><c:out value="${var.surname}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
 							<c:if test="${var.active eq 'true'}">
@@ -33,7 +33,7 @@
 						/>
 					</td>
 					<td>
-						<input class="btn btn-primary" class="form-control" type="button" value="Adres" onclick="showAddres(${object.id})">
+						<input class="btn btn-primary" class="form-control" type="button" value="Adres" onclick="showAddres(${var.id})">
 					</td>
 					<td>
 						<c:if test="${empty param.select}">
@@ -45,7 +45,7 @@
 						</c:if>
 					</td>
 				</tr>
-				<tr class="addresLine" id="${object.id}" class="">
+				<tr class="addresLine" id="${var.id}" class="">
 					<td></td>
 					<td colspan="4">
 						<table class="table">
@@ -54,8 +54,8 @@
 							</tr>
 							<tr>
 								<td>
-									<c:set var="addressPrefix" scope="request" value="${var.baseAdderss}"/>
-									<%@ include file="../base/address2.jsp" %>
+									<c:set var="addressPrefix" scope="request" value="${var.baseAddress}"/>
+									<%@ include file="../../base/address2.jsp" %>
 								</td>
 							</tr>
 						</table>
@@ -67,18 +67,5 @@
 	</div>
 </div>
 </div>
-<script>
-	$( document ).ready(function() {
-		$( ".addresLine" ).hide();
-	});
-
-	function showAddres(id){
-		var element = $(document.getElementById(id));
-		if($(element).is(":visible")){
-			$(element).hide();
-		} else {
-			$(element).show();
-		};
-	};
-</script>
+<script src="${pageContext.request.contextPath}/resources/javascript/addressHiddable.js"></script>
 </trans:template>

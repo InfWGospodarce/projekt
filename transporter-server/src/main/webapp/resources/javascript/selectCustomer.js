@@ -25,8 +25,10 @@
 
       function handleSelect() {
         var $option = $(this);
-        $('#customerId', $el).data($option.val('value'));
+        /*$('#customerId', $el).data($option.val('value'));*/
         $('input[name=customerId]').val($option.data('value'));
+        $("#clientData").html("");
+        clientDataLoaded = false;
         $modal.modal('hide');
       }
     });

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../../template/headers.jsp" %>
 <trans:template>
+<script>
+	var clientDataLoaded = false;
+</script>
+
 <%@ include file="/WEB-INF/jsp/template/sideBar.jsp" %>
 <div class="row">
 	<div class="col-md-6">
@@ -27,13 +31,6 @@
 					<form:errors path="description" cssClass="error" />
 				</div>
 				
-				<%-- <div class="form-group">
-					<form:label path="orderTypeValue">Typ zlecenia</form:label>
-					<form:select class="form-control" path="currencyId">
-					    <form:options items="${orderTypes}" itemValue="value" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
-					</form:select>
-				</div>	 --%>
-				
 				<div class="form-group">
 					<form:label path="currencyId">Waluta</form:label>
 					<form:select class="form-control" path="currencyId">
@@ -44,16 +41,32 @@
 				<div class="form-group">
 					<form:label path="customerId">Klient</form:label>
 					<div class="row js_select" data-target="/transporter-server/seller/customerList?select=true">
-						<form:hidden path="customerId" class="form-control" value="" cssErrorClass="errorBc" />						
-						<input id="customerId" type="text" name="customerId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > 
-						<form:errors path="customerId" cssClass="error" />
-						<div class="col-xs-8">
-			            </div>  
-			            	<div class="col-xs-4">
-			            		<button type="button" class="btn btn-primary js_trigger">Wybierz</button>
-			            </div>
+						<table >
+							<tr>
+								<td>
+									<form:input id="customerId" path="customerId" class="form-control" value="" cssErrorClass="errorBc" />
+									<!-- <input  type="text" name="customerId" disabled class="form-control js_value" value="&hellip;" cssErrorClass="errorBc" > -->
+								</td>
+								<td>
+									<div class="col-xs-4">
+						            	<button type="button" class="btn btn-primary js_trigger">Wybierz</button>
+						            </div>
+								</td>
+								<td>
+									<input class="btn btn-primary" class="form-control" type="button" value="Pokaż dane" onclick="loadClientData()">
+								</td>
+							</tr>
+							<tr>
+								
+								<td><form:errors path="customerId" cssClass="error" /></td>
+							</tr>
+						</table> 
 			        </div>
-				</div>		
+				</div>
+				
+				<div id="clientData">
+				
+				</div>
 				
 				<div class="form-group">
 					<form:label path="deliveryAddressId">Adres</form:label>
@@ -67,6 +80,27 @@
 				
 			</form:form>
 </div></div></div>
+<script>
+	function loadClientData(){
+		var id = $('input[name=customerId]').val();
+		console.log("ID: " + id);
+		if(id === 'undefined') return;
+		console.log("loaded: " + clientDataLoaded);
+		if(clientDataLoaded){
+			var element = $(document.getElementById("#clientData"));
+			console.log("visible: " + $(element).is(":visible"));
+			if(!element.css('visibility') === 'hidden'){
+				$(element).hide();
+			} else {
+				$(element).show();
+			};	
+		} else {
+			clientDataLoaded = true;
+			$(document.getElementById("clientData")).load("/transporter-server/seller/customerSimple?id="+id);
+		}
+		
+	}
+</script>
 <c:set scope="request" value="/resources/javascript/selectCustomer.js" var="modalJsPath" />
 <c:set scope="request" value="selectCustomer" var="modalId" />
 <%@ include file="../../../modals/modalSelect.jsp" %>
