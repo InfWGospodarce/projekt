@@ -8,7 +8,7 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista artykułów</h2>
+		<c:set scope="request" var="modalId" value="selectArticle"></c:set>
 		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
@@ -24,17 +24,15 @@
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="object" items="${articleList}">
 				<c:set var="i" value="${i+1}"></c:set>
-				<tr id="article.id" data-value="${article.id}">
-					<td class="js_option"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td class="js_option"><c:out value="${article.id}"></c:out></td>
-					<td class="js_option"><c:out value="${article.searchKey}"></c:out></td>
-					<td class="js_option"><c:out value="${article.code}"></c:out></td>
-					<td class="js_option"><c:out value="${article.name}"></c:out></td>
-					<td class="js_option"><c:out value="${article.currentPrice}"></c:out></td>
-					<td class="js_option"><c:out value="${article.taxitem.taxPercent}"></c:out></td>
-					<td class="js_option"><c:out value="${article.unit.code}"></c:out></td>
-					<td>
-					</td>
+				<tr>
+					<td  class="js_option" data-value="${object.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.id}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.searchKey}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.code}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.name}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.currentPrice}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.taxitem.taxPercent}"></c:out></td>
+					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.unit.code}"></c:out></td>
 				</tr>
 			</c:forEach>
 		</table>
