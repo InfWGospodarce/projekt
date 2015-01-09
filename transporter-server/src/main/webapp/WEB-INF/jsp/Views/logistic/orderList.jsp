@@ -26,13 +26,7 @@
 					<td><c:out value="${var.customer.id}"></c:out></td>
 					<td><c:out value="${var.deliveryAddress.id}"></c:out></td>
 					
-					<td>
-						<input type="checkbox" disabled="disabled" 
-							<c:if test="${var.active eq 'true'}">
-								checked="checked"
-							</c:if>
-						/>
-					</td>
+				
 				</tr>
 			</c:forEach>
 		</table>

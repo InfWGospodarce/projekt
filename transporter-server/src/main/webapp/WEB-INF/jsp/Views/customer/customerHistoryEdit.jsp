@@ -25,7 +25,13 @@
 			<h3>Adres</h3>
 			<%@ include file="../base/addressEdit.jsp" %>
 
-	
+		
+		<div class="form-group">
+		
+				<form:label path="description">Opis</form:label><br/>
+				<form:textarea path="description" cols="120" rows="5"/>
+				
+				</div>
 	
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/customer/customerHistory'" />

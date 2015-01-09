@@ -78,4 +78,16 @@ public class SalesOrderController extends GenericDocumentController {
 
         return "redirect:../logistic/orderList?page=" + getPage(request);
     }
+    
+    @RequestMapping(value = "/customer/customerHistoryOrder", method = RequestMethod.GET)
+    public String getListBundle(HttpServletRequest request, HttpServletResponse response, Model model) {
+
+//        List<SalesOrder> orderList = getList(salesOrderService, request);
+//        model.addAttribute("orderList", orderList);
+
+    	//return "Views/customer/customerHistory";
+        return "Views/seller/bundleList";
+    }
+    
+    
 }
