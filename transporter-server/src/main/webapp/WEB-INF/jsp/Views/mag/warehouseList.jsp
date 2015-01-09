@@ -18,6 +18,7 @@
 				</c:if>
 			</tr>
 		</table>
+		<c:set scope="request" var="modalId" value="modal"></c:set>
 		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 		
@@ -71,18 +72,5 @@
 		</div>
 	</div>
 </div>
-<script>
-	$( document ).ready(function() {
-		$( ".addresLine" ).hide();
-	});
-
-	function showAddres(id){
-		var element = $(document.getElementById(id));
-		if($(element).is(":visible")){
-			$(element).hide();
-		} else {
-			$(element).show();
-		};
-	};
-</script>
+<script src="${pageContext.request.contextPath}/resources/javascript/addressHiddable.js"></script>
 </trans:template>

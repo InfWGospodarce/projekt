@@ -1,11 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../../../template/headers.jsp" %>
 
 <table class="table">
 	<tr>
 		<th>Dane klienta</th>
-		<th>Adres</th>
+		<th>Adres podstawowy</th>
 	</tr>
 	<tr>
 		<td>
@@ -35,8 +34,8 @@
 			</c:if>
 		</td>
 		<td>
-			<c:set var="addressPrefix" scope="request" value="${object.baseAddress}"/>
-			<%@ include file="../../base/address2.jsp" %>
+						<c:set var="addressPrefix" scope="request" value="${object.baseAddress}"/>
+						<%@ include file="../../base/address2.jsp" %>
 		</td>
 	</tr>
 </table>

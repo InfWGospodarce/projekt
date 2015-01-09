@@ -3,6 +3,11 @@
 <%@ include file="../../template/headers.jsp" %>
 
 	<div class="form-group">
+	<form:label path="${addressPrefix}name">Nazwa</form:label>
+	<form:input disabled="true" path="${addressPrefix}name" class="form-control" cssErrorClass="errorBc"/>
+	</div>	
+
+	<div class="form-group">
 	<form:input disabled="true" path="${addressPrefix}addrStreetPrefix.name" class="form-control" cssErrorClass="errorBc"></form:input>
 	<form:input disabled="true" path="${addressPrefix}street" class="form-control" cssErrorClass="errorBc"></form:input>
 	</div>

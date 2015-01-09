@@ -8,6 +8,7 @@
 <%@ include file="genericSearch.jsp" %>
 <script>
 	$( document ).ready(function() {
+		console.log(window.location.href.search("active="));
 		if(window.location.href.search("active=") == -1){
 			$(document.getElementById("genericSearch")).hide();
 		}

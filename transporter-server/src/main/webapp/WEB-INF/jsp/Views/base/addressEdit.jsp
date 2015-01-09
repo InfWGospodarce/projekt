@@ -6,6 +6,12 @@
 	<form:hidden path="${addressPrefix}active"/>
 	
 	<div class="form-group">
+	<form:label path="${addressPrefix}name">Nazwa</form:label>
+	<form:input path="${addressPrefix}name" class="form-control" cssErrorClass="errorBc"/>
+	<form:errors path="${addressPrefix}name" cssClass="error" />
+	</div>	
+	
+	<div class="form-group">
 	<form:select class="form-control" path="${addressPrefix}addrStreetPrefixId" >
 	    <form:options items="${addrStreetPrefixs}" itemValue="id" itemLabel="name" cssErrorClass="errorBc"/>
 	</form:select>

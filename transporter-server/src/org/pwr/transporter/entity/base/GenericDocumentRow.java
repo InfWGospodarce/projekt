@@ -17,7 +17,6 @@ import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.article.GenericWare;
 
 
-
 /**
  * <pre>
  *     Abstract definition for document row.
@@ -32,93 +31,81 @@ import org.pwr.transporter.entity.article.GenericWare;
 @Table(name = NamesForHibernate.GENERIC_DOCUMENT_ROW)
 public abstract class GenericDocumentRow extends Generic implements Serializable {
 
-    /**  */
-    private static final long serialVersionUID = 8415513351044892188L;
+	/**  */
+	private static final long serialVersionUID = 8415513351044892188L;
 
-    // *******************************************************************************************************************************
-    // ****** FIELDS
-    // *******************************************************************************************************************************
+	// *******************************************************************************************************************************
+	// ****** FIELDS
+	// *******************************************************************************************************************************
 
-    @ManyToOne
-    private GenericWare ware;
+	@ManyToOne
+	private GenericWare ware;
 
-    @Transient
-    private String wareId;
+	@Transient
+	private String wareId;
 
-    @Column(name = "quantity")
-    private BigDecimal quantity;
+	@Column(name = "quantity")
+	private BigDecimal quantity;
 
-    @ManyToOne
-    private Unit unit;
+	@ManyToOne
+	private Unit unit;
 
-    @Transient
-    private Unit unitId;
+	@Transient
+	private Unit unitId;
 
-    @Column(name = "filled")
-    private boolean filled;
+	@Column(name = "filled")
+	private boolean filled;
 
+	// *******************************************************************************************************************************
+	// ****** GETTERS AND SETTERS
+	// *******************************************************************************************************************************
 
-    // *******************************************************************************************************************************
-    // ****** GETTERS AND SETTERS
-    // *******************************************************************************************************************************
+	public GenericWare getWare() {
+		return this.ware;
+	}
 
-    public GenericWare getWare() {
-        return this.ware;
-    }
+	public void setWare( GenericWare ware ) {
+		this.ware = ware;
+	}
 
+	public BigDecimal getQuantity() {
+		return this.quantity;
+	}
 
-    public void setWare(GenericWare ware) {
-        this.ware = ware;
-    }
+	public void setQuantity( BigDecimal quantity ) {
+		this.quantity = quantity;
+	}
 
+	public Unit getUnit() {
+		return this.unit;
+	}
 
-    public BigDecimal getQuantity() {
-        return this.quantity;
-    }
+	public void setUnit( Unit unit ) {
+		this.unit = unit;
+	}
 
+	public Unit getUnitId() {
+		return this.unitId;
+	}
 
-    public void setQuantity(BigDecimal quantity) {
-        this.quantity = quantity;
-    }
+	public void setUnitId( Unit unitId ) {
+		this.unitId = unitId;
+	}
 
+	public boolean isFilled() {
+		return this.filled;
+	}
 
-    public Unit getUnit() {
-        return this.unit;
-    }
+	public void setFilled( boolean filled ) {
+		this.filled = filled;
+	}
 
+	public String getWareId() {
+		return this.wareId;
+	}
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
-    }
-
-
-    public Unit getUnitId() {
-        return this.unitId;
-    }
-
-
-    public void setUnitId(Unit unitId) {
-        this.unitId = unitId;
-    }
-
-
-    public boolean isFilled() {
-        return this.filled;
-    }
-
-
-    public void setFilled(boolean filled) {
-        this.filled = filled;
-    }
-
-
-    public String getWareId() {
-        return this.wareId;
-    }
-
-
-    public void setWareId(String wareId) {
-        this.wareId = wareId;
-    }
+	public void setWareId( String wareId ) {
+		this.wareId = wareId;
+	}
 
 }

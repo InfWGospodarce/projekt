@@ -7,7 +7,7 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<h2>Lista klientów</h2>
+		<c:set scope="request" var="modalId" value="selectCustomer"></c:set>
 		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
 		<table class="table">
 			<tr>
