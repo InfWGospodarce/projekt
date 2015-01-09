@@ -2,6 +2,8 @@ package org.pwr.transporter.server.web.services.sales;
 
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -101,10 +103,13 @@ public class RequestService implements IService {
     	
 
     	Long addresTargetId = addressLogic.insert(entity.getTargetAddress());
-    	entity.setDeliveryAddress(addressLogic.getByID(addresTargetId));
+    	entity.setTargetAddress(addressLogic.getByID(addresTargetId));
 
-        entity.setSearchKey("rrr");
-        Date date = new Date(System.currentTimeMillis());
+        
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    	String date2 = sdf.format(date); 
+        entity.setSearchKey(date2.toString());
         entity.setCreateDate(date);
         entity.setModifyDate(date);
         BigDecimal sum = BigDecimal.ZERO;

@@ -43,13 +43,14 @@
 			<td><c:out value="${var.targetAddress.street} ${var.targetAddress.local} ${var.targetAddress.zipCode} ${var.targetAddress.city}"></c:out></td>
 					   <td>
 							<fmt:formatDate value="${var.createDate}" var="dateString" pattern="dd-MM-yyyy" />
-							<c:out value="${dateString}"></c:out>
+							<c:out value=""></c:out>
 					    </td>
-					    <td><c:out value="${var.targetAddress.street} ${var.targetAddress.local} ${var.targetAddress.zipCode} ${var.targetAddress.city}"></c:out></td>
+					    <td><c:out value="${var.deliveryAddress.street} ${var.deliveryAddress.local} ${var.deliveryAddress.zipCode} ${var.deliveryAddress.city}"></c:out></td>
 					       <td>
 							<fmt:formatDate value="${var.createDate}" var="dateString" pattern="dd-MM-yyyy" />
-							<c:out value="${dateString}"></c:out></td>
-					
+							<c:out value=""></c:out>
+							</td>
+						<td><c:out value="${var.description}"></c:out></td>
 				</tr>
 			</c:forEach>
 		</table>

@@ -16,6 +16,8 @@ import org.pwr.transporter.server.web.validators.documents.sales.RequestValidato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
+import org.pwr.transporter.server.web.services.CountryService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,7 +45,19 @@ public class RequestController extends GenericDocumentController {
 
     @Autowired
     RequestValidator validator;
+    
+    @Autowired
+    AddrStreetPrefixService addrStreetPrefixService;
 
+    @Autowired
+    CountryService countryService;
+
+    @Override
+    public void loadData(Model model) {
+        model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
+        model.addAttribute("countries", countryService.getList());
+
+    }
 
     @RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -68,7 +82,7 @@ public class RequestController extends GenericDocumentController {
          List<Request> list = getListWithCriteria(requestService, request, criteria);
 
          model.addAttribute("list", list);
-         return "Views/customer/customerHist";
+         return "Views/customer/customerHistory";
     }
     
 
@@ -147,7 +161,7 @@ public class RequestController extends GenericDocumentController {
             if(user!=null && user.getCustomer()!=null){
             	requestService.insertUserRequest(requestOBJ, user.getCustomer());
             	LOGGER.debug("2:Insert");
-            	return "redirect:../customer/customerHist";
+            	return "redirect:../customer/customerHistory";
             }
         }
         LOGGER.debug("3");
@@ -155,16 +169,5 @@ public class RequestController extends GenericDocumentController {
     }
 
 
-    @RequestMapping(value = "/customer/customerMonitorList", method = RequestMethod.GET)
-    public String getListMonitList(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-        return "Views/customer/customerMonitorList";
-    }
-
-
-    @RequestMapping(value = "/customer/customerMonit/0001", method = RequestMethod.GET)
-    public String getListMonitNr(HttpServletRequest request, HttpServletResponse response, Model model) {
-
-        return "Views/customer/customerMonit";
-    }
+   
 }
