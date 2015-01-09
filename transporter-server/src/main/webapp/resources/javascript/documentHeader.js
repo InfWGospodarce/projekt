@@ -4,7 +4,7 @@ var selectedAddresLoaded = false;
 $( document ).ready(function() {
 	$( "#clientData" ).hide();
 	$( "#customerSelectedAddress").hide();
-	loadClientDetails($("#customerId").val())
+	loadClientDetails($("#customerId").val());
 });
 
 function showClient(){

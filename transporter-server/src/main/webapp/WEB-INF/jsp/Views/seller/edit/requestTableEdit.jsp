@@ -21,9 +21,11 @@
 							</div>
 						</td>
 						<td>
-							<div class="col-xs-4">
-			            		<button type="button" class="btn btn-primary js_trigger">Wybierz</button>
-				            </div>
+							<div class="row js_select" data-target="/transporter-server/seller/articleList?select=true">
+								<div class="col-xs-4">
+				            		<button id="1" type="button" class="btn btn-primary js_triggerART">Wybierz</button>
+					            </div>
+					        </div>
 						</td>
 						<td>
 							<div class="form-group">

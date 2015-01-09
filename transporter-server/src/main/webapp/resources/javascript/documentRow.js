@@ -1,6 +1,6 @@
 $get_lastID = function(){
-    var $id = $('#documentTable tr:last-child td:first-child input').attr("name");
-    $lastChar = parseInt($id.substr($id.length - 2), 10);
+    var $id = $('#documentTable tr:last-child td:first-child input').attr("id");
+    $lastChar = parseInt($id);
     $lastChar = $lastChar + 1;
     $newRow = "<tr> \
                 <td><input type='text' name='reg_no_0"+$lastChar+"' maxlength='255' /></td> \
@@ -10,11 +10,12 @@ $get_lastID = function(){
                 <td><input type='text' name='precentage_0"+$lastChar+"' maxlength='255' /></td> \
                 <td><input type='text' name='attempts_0"+$lastChar+"' maxlength='255' /></td> \
                 <td><input type='text' name='exam_year_0"+$lastChar+"' maxlength='255' /></td> \
-                <td><input type='button' value='Delete' class='btn btn-primary' class='form-control' class='delRow' /></td> \
-            </tr>"
+                <td><input type='button' value='Usuń' class='btn btn-primary' class='form-control' class='delRow' /></td> \
+            </tr>";
     return $newRow;
-}
-$('#addRow').live("click", function(){
+};
+
+$('#addRow').on("click", function(){
     if($('#documentTable tr').size() <= 100){
         $get_lastID();
         $('#documentTable tbody').append($newRow);
@@ -23,8 +24,49 @@ $('#addRow').live("click", function(){
     };
 });
 
-$(".delRow").live("click", function(){
+$(".delRow").on("click", function(){
     $(this).closest('tr').remove();
     $lastChar = $lastChar-2;
 });
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
+(function ($) {
+  'use strict';
+
+  $.fn.select = function () {
+    var $modal = $('#selectArticle');
+
+    $modal.on('hide.bs.modal', function () {
+      $('.modal-body', $modal).off('.modal');
+    });
+
+    return this.each(function () {
+      var $el = $(this);
+
+      $el.on('click', '.js_triggerART', handleClick);
+
+      function handleClick() {
+    	  console.log("CLICK");
+        $modal.modal('show');
+
+        $('.modal-body', $modal).load($el.data('target'), bindEvents);
+      }
+
+      function bindEvents() {
+        $(this).on('click.modal', '.js_option', handleSelect);
+      }
+
+      function handleSelect() {
+        var $option = $(this);
+        $('input[name=customerId]').val($option.data('value'));
+        dataCustomerLoaded = false;
+        selectedAddresLoaded = false;
+        var id = $option.data('value');
+		console.log("ID: " + id);
+        
+        $modal.modal('hide');
+      }
+    });
+
+  };
+}(jQuery));

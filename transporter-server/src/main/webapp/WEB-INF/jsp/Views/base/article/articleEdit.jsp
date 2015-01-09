@@ -31,6 +31,52 @@
 					<form:input path="code" class="form-control" cssErrorClass="errorBc"/> 
 					<form:errors path="code" cssClass="error" />
 				</div>
+				
+				<div class="form-group">
+					<form:select class="form-control" path="unitId">
+					    <form:options items="${units}" itemValue="id" class="form-control" itemLabel="code" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
+				
+				<div class="form-group">
+					<form:select class="form-control" path="taxItemId">
+					    <form:options items="${taxItems}" itemValue="id" class="form-control" itemLabel="taxPercent" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
+				
+				<div class="form-group">
+					<form:select class="form-control" path="articleTypeValue">
+					    <form:options items="${articleTypes}" itemValue="value" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
+				
+				<div class="form-group">
+					<form:label path="height">Wysokość</form:label>
+					<form:input path="height" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="height" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="width">Szerokość</form:label>
+					<form:input path="width" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="width" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="depth">Głębokość</form:label>
+					<form:input path="depth" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="depth" cssClass="error" />
+				</div>
+				
+				<div class="form-group">
+					<form:label path="weight">Waga</form:label>
+					<form:input path="weight" class="form-control" cssErrorClass="errorBc"/> 
+					<form:errors path="weight" cssClass="error" />
+				</div>
+				
+
+
+
 			
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/mag/articleList?page=${page}'" />

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.pwr.transporter.entity.article.Article;
+import org.pwr.transporter.entity.enums.article.ArticleType;
+import org.pwr.transporter.server.business.TaxItemLogic;
+import org.pwr.transporter.server.business.UnitLogic;
 import org.pwr.transporter.server.business.article.ArticleLogic;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.services.IService;
@@ -17,6 +20,12 @@ public class ArticleService implements IService {
     @Autowired
     ArticleLogic articleLogic;
 
+    @Autowired
+    UnitLogic unitLogic;
+
+    @Autowired
+    TaxItemLogic taxItemLogic;
+
 
     public Article getByID(Long id) {
         return this.articleLogic.getByID(id);
@@ -24,12 +33,21 @@ public class ArticleService implements IService {
 
 
     public Long insert(Article entity) {
+        fixIds(entity);
         return this.articleLogic.insert(entity);
     }
 
 
     public void update(Article entity) {
+        fixIds(entity);
         this.articleLogic.update(entity);
+    }
+
+
+    private void fixIds(Article entity) {
+        entity.setArticleType(ArticleType.getByValue(Integer.valueOf(entity.getArticleTypeValue())));
+        entity.setUnit(unitLogic.getByID(Long.valueOf(entity.getUnitId())));
+        entity.setTaxItem(taxItemLogic.getByID(Long.valueOf(entity.getTaxItemId())));
     }
 
 

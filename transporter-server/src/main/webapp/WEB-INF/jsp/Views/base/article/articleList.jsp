@@ -26,21 +26,23 @@
 				<th>Klucz</th>
 				<th>Kod</th>
 				<th>Nazwa</th>
+				<th>Jednostka</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
 			<c:forEach var="object" items="${articleList}">
 				<c:set var="i" value="${i+1}"></c:set>
-				<tr>
-					<td class="js_option" data-value="${article.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td class="js_option" data-value="${article.id}"><c:out value="${article.id}"></c:out></td>
-					<td class="js_option" data-value="${article.id}"><c:out value="${article.searchKey}"></c:out></td>
-					<td class="js_option" data-value="${article.id}"><c:out value="${article.code}"></c:out></td>
-					<td> class="js_option" data-value="${article.id}"<c:out value="${article.name}"></c:out></td>
+				<tr >
+					<td ><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
+					<td ><c:out value="${object.id}"></c:out></td>
+					<td ><c:out value="${object.searchKey}"></c:out></td>
+					<td ><c:out value="${object.code}"></c:out></td>
+					<td ><c:out value="${object.name}"></c:out></td>
+					<td ><c:out value="${object.unit.code}"></c:out></td>
 					<td>
 						<c:if test="${empty param.select}">
 							<form action="/transporter-server/mag/articleEdit" method="get">
 								<input type="hidden" value="${page}" name="page">
-								<input type="hidden" value="${article.id}" name="id">
+								<input type="hidden" value="${object.id}" name="id">
 							    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
 							</form>
 						</c:if>
