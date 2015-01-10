@@ -13,14 +13,10 @@
 							<form:hidden path="rows[0].id"/>
 						<td>
 							<div class="form-group">
-								<div class="row js_select" data-target="/transporter-server/seller/articleList?select=true">
-									<form:input id="wareId0" disabled="true" path="rows[0].wareId" class="form-control" value="" cssErrorClass="errorBc" />
-									<form:errors path='rows[0].wareId' cssClass='error' />
-						        </div>
 							</div>
-						</td>
-						<td>
-							<div class="row js_select" data-target="/transporter-server/seller/articleList?select=true">
+							<div class="row js_optionArt js_select" data-target="/transporter-server/seller/articleList?select=true">
+								<form:input id="wareId0" disabled="true" path="rows[0].wareId" class="form-control" value="" cssErrorClass="errorBc" />
+								<form:errors path='rows[0].wareId' cssClass='error' />
 								<div class="col-xs-4">
 				            		<button id="1" type="button" class="btn btn-primary js_trigger js_triggerART">Wybierz</button>
 					            </div>

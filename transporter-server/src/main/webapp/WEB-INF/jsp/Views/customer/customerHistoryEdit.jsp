@@ -36,6 +36,15 @@
 				<form:textarea path="description" cols="120" rows="5"/>
 				</div>
 				
+<<<<<<< HEAD
+=======
+						<div class="form-group">
+		
+				<form:label path="description">Opis</form:label><br/>
+				<form:textarea path="description" cols="120" rows="5"/>
+				</div>
+				
+>>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 					<div class="form-group">
 	<form:label path="transportServicetypeId">Typ przesyki</form:label>
 	<form:select class="form-control" path="transportServicetypeId">

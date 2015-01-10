@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.core.hb.criteria.Criteria.SortOptions;
 import org.pwr.transporter.server.web.controllers.GenericController;
+import org.pwr.transporter.server.web.services.CountryService;
 import org.pwr.transporter.server.web.services.CurrencyService;
 import org.pwr.transporter.server.web.services.UnitService;
+import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
@@ -20,6 +22,12 @@ public abstract class GenericDocumentController extends GenericController {
 
     @Autowired
     UnitService unitService;
+
+    @Autowired
+    AddrStreetPrefixService addrStreetPrefixService;
+
+    @Autowired
+    CountryService countryService;
 
 
     @Override
@@ -35,6 +43,8 @@ public abstract class GenericDocumentController extends GenericController {
     public void loadData(Model model) {
         model.addAttribute("currencies", currencyService.getList());
         model.addAttribute("units", unitService.getList());
+        model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
+        model.addAttribute("countries", countryService.getList());
     }
 
 }

@@ -53,12 +53,12 @@ function showClientSelectedAddress(){
       }
 
       function bindEvents() {
-        $(this).on('click.modal', '.js_option', handleSelect);
+        $(this).on('click.modal', '.js_optionDOC', handleSelect);
       }
 
       function handleSelect() {
         var $option = $(this);
-        $('input[name=rows[0].warId]').val($option.data('value'));
+        $('input[name=customerId]').val($option.data('value'));
         dataCustomerLoaded = false;
         selectedAddresLoaded = false;
         var id = $option.data('value');

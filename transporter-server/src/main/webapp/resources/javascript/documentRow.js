@@ -11,7 +11,7 @@ $('#addRow').on("click", function(){
     };
 });
 
-function removeRow(){
+/*function removeRow(){
 	console.log("Rows: " + $('#documentTable tr').length);
 	if($('#documentTable tr').length > 1){
 		$(this).parent().parent().remove();
@@ -20,7 +20,7 @@ function removeRow(){
 	} else {
 		alert("Dokument musi posiadać przynajmniej jeden wiersz");
 	}
-};
+};*/
 
 $(document.body).on('click', 'button.delRow', function(){
 	console.log("Rows: " + $('#documentTable tr').length);
@@ -57,14 +57,14 @@ $(document.body).on('click', 'button.delRow', function(){
       }
 
       function bindEvents() {
-          $(this).on('click.modal', '.js_option', handleSelect);
+          $(this).on('click.modal', '.js_optionArt', handleSelect);
         }
       
 
       function handleSelect() {
         var $option = $(this);
         console.log($el.attr('id'));
-        $('input[name=wareId]').val($option.data('value'));
+        $('input[name=rows[0].wareId]').val($option.data('value'));
         dataCustomerLoaded = false;
         selectedAddresLoaded = false;
         var id = $option.data('value');

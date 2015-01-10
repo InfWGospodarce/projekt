@@ -20,15 +20,17 @@ import org.pwr.transporter.server.web.validators.documents.sales.RequestValidato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.pwr.transporter.server.web.services.CountryService;
 import org.pwr.transporter.server.web.services.article.ArticleService;
+=======
+>>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 
 
 /**
@@ -43,20 +45,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class RequestController extends GenericDocumentController {
 
-    private static Logger LOGGER = Logger.getLogger(RequestController.class);
+	private static Logger LOGGER = Logger.getLogger(RequestController.class);
 
-    @Autowired
-    RequestService requestService;
+	@Autowired
+	RequestService requestService;
 
-    @Autowired
-    RequestValidator validator;
-    
-    @Autowired
-    AddrStreetPrefixService addrStreetPrefixService;
+	@Autowired
+	RequestValidator validator;
 
-    @Autowired
-    CountryService countryService;
+	@RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
+	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
+<<<<<<< HEAD
     @Autowired 
     ArticleService articleService;
     
@@ -64,78 +64,70 @@ public class RequestController extends GenericDocumentController {
     public void loadData(Model model) {
         model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
         model.addAttribute("countries", countryService.getList());
+=======
+		Criteria criteria = restoreCriteria(request);
+		List<Request> list = getListWithCriteria(requestService, request, criteria);
+		model.addAttribute("list", list);
+>>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 
-    }
+		String ret = "/Views/seller/requestList";
+		return ret;
+	}
 
-    @RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
-    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
+	@RequestMapping(value = "/customer/customerHistory", method = RequestMethod.GET)
+	public String getListForCustomer( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-        Criteria criteria = restoreCriteria(request);
-        List<Request> list = getListWithCriteria(requestService, request, criteria);
-        model.addAttribute("list", list);
-        
-        String ret = "/Views/seller/requestList";
-        return ret;
-    }
-    
-    @RequestMapping(value = "/customer/customerHistory", method = RequestMethod.GET)
-    public String getListForCustomer(HttpServletRequest request, HttpServletResponse response, Model model) {
-    	
-    	UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-    	
-    	 Criteria criteria = restoreCriteria(request);
-         if(user!=null && user.getCustomer()!=null){
-        	 criteria.getIdsCriteria().put("customer.id", user.getCustomer().getId());
-         }
-         List<Request> list = getListWithCriteria(requestService, request, criteria);
+		UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
 
-         model.addAttribute("list", list);
-         return "Views/customer/customerHistory";
-    }
-    
+		Criteria criteria = restoreCriteria(request);
+		if ( user != null && user.getCustomer() != null ) {
+			criteria.getIdsCriteria().put("customer.id", user.getCustomer().getId());
+		}
+		List<Request> list = getListWithCriteria(requestService, request, criteria);
 
-    @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.GET)
-    public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("list", list);
+		return "Views/customer/customerHistory";
+	}
 
-        Long id = getId(request.getParameter("id"));
-        loadData(model);
-        Request object = null;
-        if( id == null ) {
-            object = new Request();
-        } else {
-            object = requestService.getByID(id);
-            if( object == null || object.getId() == null ) {
-                object = new Request();
-            }
-        }
+	@RequestMapping(value = "/seller/requestEdit", method = RequestMethod.GET)
+	public String get( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-        model.addAttribute("object", object);
+		Long id = getId(request.getParameter("id"));
+		loadData(model);
+		Request object = null;
+		if ( id == null ) {
+			object = new Request();
+		} else {
+			object = requestService.getByID(id);
+			if ( object == null || object.getId() == null ) {
+				object = new Request();
+			}
+		}
 
-        return "Views/seller/edit/requestEdit";
-    }
+		model.addAttribute("object", object);
 
+		return "Views/seller/edit/requestEdit";
+	}
 
-    @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.POST)
-    public String post(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Request object,
-            BindingResult formBindeings, Model model) {
+	@RequestMapping(value = "/seller/requestEdit", method = RequestMethod.POST)
+	public String post( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") @Validated Request object,
+			BindingResult formBindeings, Model model ) {
 
-        if( !validate(object, model, formBindeings, validator) ) {
-            return "/Views/seller/edit/requestEdit";
-        }
+		if ( !validate(object, model, formBindeings, validator) ) {
+			return "/Views/seller/edit/requestEdit";
+		}
 
-        if( object.getId() != null ) {
-            LOGGER.debug("Id not null");
-            requestService.update(object);
-        } else {
-            requestService.insert(object);
-        }
+		if ( object.getId() != null ) {
+			LOGGER.debug("Id not null");
+			requestService.update(object);
+		} else {
+			requestService.insert(object);
+		}
 
-        return "redirect:../seller/requestList?page=" + getPage(request);
-    }
-    
-    @RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.GET)
-    public String getEdit(HttpServletRequest request, HttpServletResponse response, Model model) {
+		return "redirect:../seller/requestList?page=" + getPage(request);
+	}
 
+<<<<<<< HEAD
         Long id = getId(request.getParameter("id"));
         Request requestOBJ = null;
         if( id == null ) {
@@ -154,33 +146,48 @@ public class RequestController extends GenericDocumentController {
       
         model.addAttribute("object", requestOBJ);
         model.addAttribute("art", art);
+=======
+	@RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.GET)
+	public String getEdit( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-        return "Views/customer/customerHistoryEdit";
-        // return "Views/customer/customerHistory";
-    }
+		Long id = getId(request.getParameter("id"));
+		Request requestOBJ = null;
+		if ( id == null ) {
+			requestOBJ = new Request();
+		} else {
+			requestOBJ = requestService.getByID(id);
+			if ( requestOBJ == null || requestOBJ.getId() == null ) {
+				requestOBJ = new Request();
+			}
+		}
+		loadData(model);
+>>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 
+		model.addAttribute("object", requestOBJ);
 
-    @RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.POST)
-    public String postEdit(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") Request requestOBJ,
-            BindingResult formBindeings, Model model) {
+		return "Views/customer/customerHistoryEdit";
+		// return "Views/customer/customerHistory";
+	}
 
-        // FIXME VALIDATION
-        if( requestOBJ.getId() != null ) {
-            LOGGER.debug("Id not null");
-            // requestService.update(requestOBJ);
-            LOGGER.debug("1:Update");
-        } else {
-        	UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-            if(user!=null && user.getCustomer()!=null){
-            	requestService.insertUserRequest(requestOBJ, user.getCustomer());
-            	LOGGER.debug("2:Insert");
-            	return "redirect:../customer/customerHistory";
-            }
-        }
-        LOGGER.debug("3");
-        return "redirect:../log/login";
-    }
+	@RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.POST)
+	public String postEdit( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("object") Request requestOBJ,
+			BindingResult formBindeings, Model model ) {
 
+		// FIXME VALIDATION
+		if ( requestOBJ.getId() != null ) {
+			LOGGER.debug("Id not null");
+			// requestService.update(requestOBJ);
+			LOGGER.debug("1:Update");
+		} else {
+			UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
+			if ( user != null && user.getCustomer() != null ) {
+				requestService.insertUserRequest(requestOBJ, user.getCustomer());
+				LOGGER.debug("2:Insert");
+				return "redirect:../customer/customerHistory";
+			}
+		}
+		LOGGER.debug("3");
+		return "redirect:../log/login";
+	}
 
-   
 }

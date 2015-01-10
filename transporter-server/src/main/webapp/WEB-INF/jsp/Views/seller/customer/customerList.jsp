@@ -21,10 +21,10 @@
 			<c:forEach var="var" items="${list}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
-					<td class="js_option" data-value="${var.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td class="js_option" data-value="${var.id}"><c:out value="${var.searchKey}"></c:out></td>
-					<td class="js_option" data-value="${var.id}"><c:out value="${var.name}"></c:out></td>
-					<td class="js_option" data-value="${var.id}"><c:out value="${var.surname}"></c:out></td>
+					<td class="js_optionDOC" data-value="${var.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
+					<td class="js_optionDOC" data-value="${var.id}"><c:out value="${var.searchKey}"></c:out></td>
+					<td class="js_optionDOC" data-value="${var.id}"><c:out value="${var.name}"></c:out></td>
+					<td class="js_optionDOC" data-value="${var.id}"><c:out value="${var.surname}"></c:out></td>
 					<td>
 						<input type="checkbox" disabled="disabled" 
 							<c:if test="${var.active eq 'true'}">
