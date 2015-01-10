@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+//import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -15,6 +16,7 @@ import javax.persistence.Transient;
 import org.pwr.transporter.entity.NamesForHibernate;
 import org.pwr.transporter.entity.base.GenericDocumentRow;
 import org.pwr.transporter.entity.base.TaxItem;
+//import org.pwr.transporter.entity.article.Bundle;
 
 
 
@@ -42,6 +44,9 @@ public class RequestRow extends GenericDocumentRow {
 
     @ManyToOne
     private Request request;
+    
+//    @OneToMany 
+//    private Bundle bundle;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
@@ -55,6 +60,7 @@ public class RequestRow extends GenericDocumentRow {
     @Transient
     private String taxItemId;
 
+  
 
     // *******************************************************************************************************************************
     // ****** GETTERS AND SETTERS

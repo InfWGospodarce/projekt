@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public enum ArticleType {
 
-    Article("ART", 0, "Artykuł"), Service("SERVICE", 1, "Usługa"), TransportService("TRANSPORT_SERVICE", 1, "Usługa transportowa");
+    Article("ART", 0, "Artykuł"), Service("SERVICE", 1, "Usługa"), TransportService("TRANSPORT_SERVICE", 2, "Usługa transportowa");
 
     private static final Map<String, ArticleType> codeMap = new HashMap<String, ArticleType>();
     private static final Map<Integer, ArticleType> valueMap = new HashMap<Integer, ArticleType>();
