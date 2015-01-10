@@ -11,8 +11,6 @@ import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.entity.sales.Request;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
-import org.pwr.transporter.server.web.services.CountryService;
-import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.pwr.transporter.server.web.services.sales.RequestService;
 import org.pwr.transporter.server.web.validators.documents.sales.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,19 +42,6 @@ public class RequestController extends GenericDocumentController {
 
 	@Autowired
 	RequestValidator validator;
-
-	@Autowired
-	AddrStreetPrefixService addrStreetPrefixService;
-
-	@Autowired
-	CountryService countryService;
-
-	@Override
-	public void loadData( Model model ) {
-		model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
-		model.addAttribute("countries", countryService.getList());
-
-	}
 
 	@RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {

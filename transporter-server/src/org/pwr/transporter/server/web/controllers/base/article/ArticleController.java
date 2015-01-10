@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-
 /**
  * <pre>
  * </pre>
@@ -37,81 +36,77 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ArticleController extends GenericController {
 
-    private static Logger LOGGER = Logger.getLogger(ArticleController.class);
+	private static Logger LOGGER = Logger.getLogger(ArticleController.class);
 
-    @Autowired
-    ArticleService articleService;
+	@Autowired
+	ArticleService articleService;
 
-    @Autowired
-    ArticleValidator validator;
+	@Autowired
+	ArticleValidator validator;
 
-    @Autowired
-    UnitService unitService;
+	@Autowired
+	UnitService unitService;
 
-    @Autowired
-    TaxItemService taxItemService;
+	@Autowired
+	TaxItemService taxItemService;
 
+	@RequestMapping(value = { "/mag/articleList", "/seller/articleList" }, method = RequestMethod.GET)
+	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-    @RequestMapping(value = { "/mag/articleList", "/seller/articleList" }, method = RequestMethod.GET)
-    public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
+		Criteria criteria = restoreCriteria(request);
+		List<Article> articleList = getListWithCriteria(articleService, request, criteria);
+		request.setAttribute("articleList", articleList);
 
-        Criteria criteria = restoreCriteria(request);
-        List<Article> articleList = getListWithCriteria(articleService, request, criteria);
-        request.setAttribute("articleList", articleList);
+		String ret = "Views/base/article/articleList";
+		if ( request.getContextPath().startsWith("/seller") ) {
+			ret = "Views/base/seller/customer/articleList";
+		}
+		return ret;
+	}
 
-        String ret = "Views/base/article/articleList";
-        if( request.getContextPath().startsWith("/seller") ) {
-            ret = "Views/base/seller/customer/articleList";
-        }
-        return ret;
-    }
+	@RequestMapping(value = { "/mag/articleEdit", "/seller/articleEdit" }, method = RequestMethod.GET)
+	public String getArticle( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
+		Long id = getId(request.getParameter("id"));
+		Article article = null;
+		loadData(model);
+		if ( id == null ) {
+			article = new Article();
+		} else {
+			article = articleService.getByID(id);
+			if ( article == null || article.getId() == null ) {
+				article = new Article();
+			}
+		}
 
-    @RequestMapping(value = "/mag/articleEdit", method = RequestMethod.GET)
-    public String getArticle(HttpServletRequest request, HttpServletResponse response, Model model) {
+		model.addAttribute("article", article);
 
-        Long id = getId(request.getParameter("id"));
-        Article article = null;
-        loadData(model);
-        if( id == null ) {
-            article = new Article();
-        } else {
-            article = articleService.getByID(id);
-            if( article == null || article.getId() == null ) {
-                article = new Article();
-            }
-        }
+		return "Views/base/article/articleEdit";
+	}
 
-        model.addAttribute("article", article);
+	@RequestMapping(value = { "/mag/articleEdit", "/seller/articleEdit" }, method = RequestMethod.POST)
+	public String postPrefix( HttpServletRequest request, HttpServletResponse response, @ModelAttribute("article") @Validated Article article,
+			BindingResult formBindeings, Model model ) {
 
-        return "Views/base/article/articleEdit";
-    }
+		if ( !validate(article, model, formBindeings, validator) ) {
+			return "/Views/mag/articleEdit";
+		}
 
+		if ( article.getId() != null ) {
+			LOGGER.debug("Id not null");
+			articleService.update(article);
+		} else {
+			articleService.insert(article);
+		}
 
-    @RequestMapping(value = "/mag/articleEdit", method = RequestMethod.POST)
-    public String postPrefix(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("article") @Validated Article article,
-            BindingResult formBindeings, Model model) {
+		return "redirect:../mag/articleList?page=" + getPage(request);
+	}
 
-        if( !validate(article, model, formBindeings, validator) ) {
-            return "/Views/mag/articleEdit";
-        }
-
-        if( article.getId() != null ) {
-            LOGGER.debug("Id not null");
-            articleService.update(article);
-        } else {
-            articleService.insert(article);
-        }
-
-        return "redirect:../mag/articleList?page=" + getPage(request);
-    }
-
-
-    @Override
-    public void loadData(Model model) {
-        model.addAttribute("units", unitService.getList());
-        model.addAttribute("taxItems", taxItemService.getList());
-        model.addAttribute("articleTypes", ArticleType.values());
-    }
+	@Override
+	public void loadData( Model model ) {
+		model.addAttribute("units", unitService.getList());
+		model.addAttribute("taxItems", taxItemService.getList());
+		model.addAttribute("articleTypes", ArticleType.values());
+	}
 
 }
