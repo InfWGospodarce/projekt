@@ -227,6 +227,8 @@ public abstract class GenericDAOImpl<T extends Generic> implements GenericDAO<T>
                 criteria.add(Restrictions.eq(field, value));
             } else if( value instanceof Long ) {
                 criteria.add(Restrictions.eq(field, value));
+            } else if( value instanceof Enum ) {
+                criteria.add(Restrictions.eq(field, value));
             } else {
                 criteria.add(Restrictions.ilike(field, value));
             }

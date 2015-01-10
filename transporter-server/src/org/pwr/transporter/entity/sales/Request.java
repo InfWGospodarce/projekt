@@ -19,6 +19,7 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.pwr.transporter.entity.NamesForHibernate;
+import org.pwr.transporter.entity.article.Article;
 import org.pwr.transporter.entity.base.Address;
 import org.pwr.transporter.entity.base.GenericDocument;
 import org.pwr.transporter.entity.enums.documents.OrderType;
@@ -65,6 +66,9 @@ public class Request extends GenericDocument {
 
     @OneToOne
     private Address targetAddress;
+    
+    @Transient
+    private String transportServicetypeId;
 
     @Transient
     private String targetAddressId;
@@ -166,4 +170,13 @@ public class Request extends GenericDocument {
         this.orderTypeValue = orderTypeValue;
     }
 
+    public String getTransportServicetypeId() {
+		return transportServicetypeId;
+	}
+    
+    public void setTransportServicetypeId(String transportServicetypeId) {
+		this.transportServicetypeId = transportServicetypeId;
+	}
+    
+    
 }

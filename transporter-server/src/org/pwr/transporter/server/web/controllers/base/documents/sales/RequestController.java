@@ -1,7 +1,9 @@
 package org.pwr.transporter.server.web.controllers.base.documents.sales;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.entity.sales.Request;
+import org.pwr.transporter.entity.article.Article;
+import org.pwr.transporter.entity.enums.article.ArticleType;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
 import org.pwr.transporter.server.web.services.sales.RequestService;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
 import org.pwr.transporter.server.web.services.CountryService;
+import org.pwr.transporter.server.web.services.article.ArticleService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,6 +57,9 @@ public class RequestController extends GenericDocumentController {
     @Autowired
     CountryService countryService;
 
+    @Autowired 
+    ArticleService articleService;
+    
     @Override
     public void loadData(Model model) {
         model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
@@ -139,8 +147,13 @@ public class RequestController extends GenericDocumentController {
             }
         }
         loadData(model);
-
+        
+        Map<String, Object> criteria = new HashMap<String, Object>();
+        criteria.put("articleType", ArticleType.TransportService);
+        List<Article> art = articleService.search(criteria);  
+      
         model.addAttribute("object", requestOBJ);
+        model.addAttribute("art", art);
 
         return "Views/customer/customerHistoryEdit";
         // return "Views/customer/customerHistory";

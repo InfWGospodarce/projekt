@@ -54,7 +54,7 @@ public class Article extends GenericWare {
 
     @Column(name = "name")
     private String name;
-
+    
     @Column(name = "mixed_price")
     private BigDecimal mixedPrice;
 

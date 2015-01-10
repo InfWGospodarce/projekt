@@ -20,18 +20,34 @@
 			
 			<c:set var="addressPrefix" scope="request" value="targetAddress."/>
 		
-		<!-- strane z edycja i wyswiatleniem adresu przygotowalem juz wczesniej  -->
-		<!--  -->
+	
 			<h3>Adres</h3>
 			<%@ include file="../base/addressEdit.jsp" %>
 
+
+				
+	
 		
 		<div class="form-group">
 		
 				<form:label path="description">Opis</form:label><br/>
 				<form:textarea path="description" cols="120" rows="5"/>
-				
 				</div>
+				
+						<div class="form-group">
+		
+				<form:label path="description">Opis</form:label><br/>
+				<form:textarea path="description" cols="120" rows="5"/>
+				</div>
+				
+					<div class="form-group">
+	<form:label path="transportServicetypeId">Typ przesyki</form:label>
+	<form:select class="form-control" path="transportServicetypeId">
+	    <form:options items="${art}" itemValue="id" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+	</form:select>
+	</div>
+				
+				
 	
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/customer/customerHistory'" />
