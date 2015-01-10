@@ -56,8 +56,8 @@
 function fillHref(pager) {
    var href = $("#" + pager).val();
    var ref = "${requestScope['javax.servlet.forward.request_uri']}?select=true&page=" + href.toString();
-   $("#modal .modal-body").load(ref, function() { 
-       $("#modal").modal("show"); 
+   $("#<c:out value="${modalId}"/> .modal-body").load(ref, function() { 
+       $("#<c:out value="${modalId}"/>").modal("show"); 
   });
 }
 </script>

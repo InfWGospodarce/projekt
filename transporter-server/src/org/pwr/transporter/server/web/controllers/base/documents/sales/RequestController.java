@@ -16,8 +16,6 @@ import org.pwr.transporter.server.web.validators.documents.sales.RequestValidato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
-import org.pwr.transporter.server.web.services.CountryService;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -45,19 +43,7 @@ public class RequestController extends GenericDocumentController {
 
     @Autowired
     RequestValidator validator;
-    
-    @Autowired
-    AddrStreetPrefixService addrStreetPrefixService;
 
-    @Autowired
-    CountryService countryService;
-
-    @Override
-    public void loadData(Model model) {
-        model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
-        model.addAttribute("countries", countryService.getList());
-
-    }
 
     @RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
     public String getList(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -65,26 +51,27 @@ public class RequestController extends GenericDocumentController {
         Criteria criteria = restoreCriteria(request);
         List<Request> list = getListWithCriteria(requestService, request, criteria);
         model.addAttribute("list", list);
-        
+
         String ret = "/Views/seller/requestList";
         return ret;
     }
-    
+
+
     @RequestMapping(value = "/customer/customerHistory", method = RequestMethod.GET)
     public String getListForCustomer(HttpServletRequest request, HttpServletResponse response, Model model) {
-    	
-    	UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-    	
-    	 Criteria criteria = restoreCriteria(request);
-         if(user!=null && user.getCustomer()!=null){
-        	 criteria.getIdsCriteria().put("customer.id", user.getCustomer().getId());
-         }
-         List<Request> list = getListWithCriteria(requestService, request, criteria);
 
-         model.addAttribute("list", list);
-         return "Views/customer/customerHistory";
+        UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
+
+        Criteria criteria = restoreCriteria(request);
+        if( user != null && user.getCustomer() != null ) {
+            criteria.getIdsCriteria().put("customer.id", user.getCustomer().getId());
+        }
+        List<Request> list = getListWithCriteria(requestService, request, criteria);
+
+        model.addAttribute("list", list);
+        return "Views/customer/customerHistory";
     }
-    
+
 
     @RequestMapping(value = "/seller/requestEdit", method = RequestMethod.GET)
     public String get(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -124,7 +111,8 @@ public class RequestController extends GenericDocumentController {
 
         return "redirect:../seller/requestList?page=" + getPage(request);
     }
-    
+
+
     @RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.GET)
     public String getEdit(HttpServletRequest request, HttpServletResponse response, Model model) {
 
@@ -157,17 +145,15 @@ public class RequestController extends GenericDocumentController {
             // requestService.update(requestOBJ);
             LOGGER.debug("1:Update");
         } else {
-        	UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
-            if(user!=null && user.getCustomer()!=null){
-            	requestService.insertUserRequest(requestOBJ, user.getCustomer());
-            	LOGGER.debug("2:Insert");
-            	return "redirect:../customer/customerHistory";
+            UserAcc user = (UserAcc) request.getSession().getAttribute("userctx");
+            if( user != null && user.getCustomer() != null ) {
+                requestService.insertUserRequest(requestOBJ, user.getCustomer());
+                LOGGER.debug("2:Insert");
+                return "redirect:../customer/customerHistory";
             }
         }
         LOGGER.debug("3");
         return "redirect:../log/login";
     }
 
-
-   
 }

@@ -41,7 +41,7 @@
 				
 				<div class="form-group">
 					<form:label path="customerId">Klient</form:label>
-					<div class="row js_select" data-target="/transporter-server/seller/customerList?select=true">
+					<div class="row js_select js_optionDOC" data-target="/transporter-server/seller/customerList?select=true">
 						<table >
 							<tr>
 								<td>

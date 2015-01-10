@@ -2,6 +2,7 @@
 <%@ include file="/WEB-INF/jsp/template/headers.jsp" %>
 <div id="genericSearch">
 	<form action="${requestScope['javax.servlet.forward.request_uri']}" method="get">
+		<c:out value="${modalId}"></c:out>
 		<input type="hidden" name="page" id="page" value="1">
 		<table class="table">
 			<tr>

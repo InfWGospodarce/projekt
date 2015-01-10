@@ -25,14 +25,14 @@
 			<c:forEach var="object" items="${articleList}">
 				<c:set var="i" value="${i+1}"></c:set>
 				<tr>
-					<td  class="js_option" data-value="${object.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.id}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.searchKey}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.code}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.name}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.currentPrice}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.taxitem.taxPercent}"></c:out></td>
-					<td  class="js_option" id="${object.id}" data-value="${object.id}"><c:out value="${object.unit.code}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${i+(page-1)*userctx.rowsPerPage}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.id}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.searchKey}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.code}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.name}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.currentPrice}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.taxitem.taxPercent}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.unit.code}"></c:out></td>
 				</tr>
 			</c:forEach>
 		</table>
