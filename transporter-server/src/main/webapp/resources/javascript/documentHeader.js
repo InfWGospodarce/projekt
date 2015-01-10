@@ -44,7 +44,7 @@ function showClientSelectedAddress(){
     return this.each(function () {
       var $el = $(this);
 
-      $el.on('click', '.js_trigger', handleClick);
+      $el.on('click', '.js_triggerDOC', handleClick);
 
       function handleClick() {
         $modal.modal('show');
@@ -58,7 +58,7 @@ function showClientSelectedAddress(){
 
       function handleSelect() {
         var $option = $(this);
-        $('input[name=customerId]').val($option.data('value'));
+        $('input[name=rows[0].warId]').val($option.data('value'));
         dataCustomerLoaded = false;
         selectedAddresLoaded = false;
         var id = $option.data('value');

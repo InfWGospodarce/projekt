@@ -50,7 +50,7 @@
 								</td>
 								<td>
 									<div class="col-xs-4">
-						            	<button type="button" class="btn btn-primary js_trigger">Wybierz</button>
+						            	<button type="button" class="btn btn-primary js_triggerDOC js_trigger">Wybierz</button>
 						            </div>
 								</td>
 								<td>
