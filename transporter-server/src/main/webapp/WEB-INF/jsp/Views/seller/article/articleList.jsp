@@ -17,8 +17,9 @@
 				<th>Klucz</th>
 				<th>Kod</th>
 				<th>Nazwa</th>
-				<th>Cena</th>
-				<th>Podatek</th>
+				<th>Cena netto</th>
+				<th>Cena brutto</th>
+				<th>Stawka VAT</th>
 				<th>Jednostka</th>
 			</tr>
 			<c:set var="i" value="0"></c:set>
@@ -30,7 +31,8 @@
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.searchKey}"></c:out></td>
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.code}"></c:out></td>
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.name}"></c:out></td>
-					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.currentPrice}"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.currentPrice"></c:out></td>
+					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.currentPrice*object.taxitem.taxPercent/100}"></c:out></td>
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.taxitem.taxPercent}"></c:out></td>
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.unit.code}"></c:out></td>
 				</tr>

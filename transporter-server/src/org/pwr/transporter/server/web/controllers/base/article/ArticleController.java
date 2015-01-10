@@ -59,7 +59,7 @@ public class ArticleController extends GenericController {
 
 		String ret = "Views/base/article/articleList";
 		if ( request.getContextPath().startsWith("/seller") ) {
-			ret = "Views/base/seller/customer/articleList";
+			ret = "Views/base/seller/article/articleList";
 		}
 		return ret;
 	}
@@ -81,7 +81,11 @@ public class ArticleController extends GenericController {
 
 		model.addAttribute("article", article);
 
-		return "Views/base/article/articleEdit";
+		String ret = "Views/base/article/articleEdit";
+		if ( request.getContextPath().startsWith("/seller") ) {
+			ret = "Views/base/seller/article/articleEdit";
+		}
+		return ret;
 	}
 
 	@RequestMapping(value = { "/mag/articleEdit", "/seller/articleEdit" }, method = RequestMethod.POST)
@@ -89,7 +93,11 @@ public class ArticleController extends GenericController {
 			BindingResult formBindeings, Model model ) {
 
 		if ( !validate(article, model, formBindeings, validator) ) {
-			return "/Views/mag/articleEdit";
+			String ret = "Views/base/article/articleEdit";
+			if ( request.getContextPath().startsWith("/seller") ) {
+				ret = "Views/base/seller/article/articleEdit";
+			}
+			return ret;
 		}
 
 		if ( article.getId() != null ) {

@@ -1,9 +1,7 @@
 package org.pwr.transporter.server.web.controllers.base.documents.sales;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.pwr.transporter.entity.base.UserAcc;
 import org.pwr.transporter.entity.sales.Request;
-import org.pwr.transporter.entity.article.Article;
-import org.pwr.transporter.entity.enums.article.ArticleType;
 import org.pwr.transporter.server.core.hb.criteria.Criteria;
 import org.pwr.transporter.server.web.controllers.base.documents.GenericDocumentController;
 import org.pwr.transporter.server.web.services.sales.RequestService;
@@ -20,12 +16,6 @@ import org.pwr.transporter.server.web.validators.documents.sales.RequestValidato
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-<<<<<<< HEAD
-import org.pwr.transporter.server.web.services.enums.AddrStreetPrefixService;
-import org.pwr.transporter.server.web.services.CountryService;
-import org.pwr.transporter.server.web.services.article.ArticleService;
-=======
->>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,19 +46,9 @@ public class RequestController extends GenericDocumentController {
 	@RequestMapping(value = "/seller/requestList", method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
-<<<<<<< HEAD
-    @Autowired 
-    ArticleService articleService;
-    
-    @Override
-    public void loadData(Model model) {
-        model.addAttribute("addrStreetPrefixs", addrStreetPrefixService.getList());
-        model.addAttribute("countries", countryService.getList());
-=======
 		Criteria criteria = restoreCriteria(request);
 		List<Request> list = getListWithCriteria(requestService, request, criteria);
 		model.addAttribute("list", list);
->>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 
 		String ret = "/Views/seller/requestList";
 		return ret;
@@ -127,26 +107,6 @@ public class RequestController extends GenericDocumentController {
 		return "redirect:../seller/requestList?page=" + getPage(request);
 	}
 
-<<<<<<< HEAD
-        Long id = getId(request.getParameter("id"));
-        Request requestOBJ = null;
-        if( id == null ) {
-            requestOBJ = new Request();
-        } else {
-            requestOBJ = requestService.getByID(id);
-            if( requestOBJ == null || requestOBJ.getId() == null ) {
-                requestOBJ = new Request();
-            }
-        }
-        loadData(model);
-        
-        Map<String, Object> criteria = new HashMap<String, Object>();
-        criteria.put("articleType", ArticleType.TransportService);
-        List<Article> art = articleService.search(criteria);  
-      
-        model.addAttribute("object", requestOBJ);
-        model.addAttribute("art", art);
-=======
 	@RequestMapping(value = "/customer/customerHistoryEdit", method = RequestMethod.GET)
 	public String getEdit( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
@@ -161,7 +121,6 @@ public class RequestController extends GenericDocumentController {
 			}
 		}
 		loadData(model);
->>>>>>> branch 'master' of https://github.com/InfWGospodarce/projekt.git
 
 		model.addAttribute("object", requestOBJ);
 
