@@ -59,9 +59,6 @@ public class ArticleController extends GenericController {
         List<Article> articleList = getListWithCriteria(articleService, request, criteria);
         request.setAttribute("articleList", articleList);
 
-        Article art = articleList.get(0);
-        LOGGER.debug(art.getName() + " " + art.getSearchKey() + " " + art.getId());
-
         String ret = "Views/base/article/articleList";
         if( request.getContextPath().startsWith("/seller") ) {
             ret = "Views/base/seller/customer/articleList";
