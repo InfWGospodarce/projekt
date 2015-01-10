@@ -28,11 +28,7 @@
 				
 	
 		
-		<div class="form-group">
 		
-				<form:label path="description">Opis</form:label><br/>
-				<form:textarea path="description" cols="120" rows="5"/>
-				</div>
 				
 						<div class="form-group">
 		

@@ -26,6 +26,7 @@
 				<th>Data Odbioru</th>
 				<th>Adres Docelowy</th>
 				<th>Data Dostarczenia</th>
+				<th>Typ przesyki</th>
 				<th>Opis</th>
 				
 			</tr>
@@ -51,6 +52,7 @@
 							<c:out value=""></c:out>
 							</td>
 						<td><c:out value="${var.description}"></c:out></td>
+									<td><c:out value="${var.description}"></c:out></td>
 				</tr>
 			</c:forEach>
 		</table>
