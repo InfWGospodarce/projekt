@@ -50,21 +50,28 @@ public class ArticleController extends GenericController {
 	@Autowired
 	TaxItemService taxItemService;
 
-	@RequestMapping(value = { "/mag/articleList", "/seller/articleList" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/seller/articleList" }, method = RequestMethod.GET)
 	public String getList( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
 		Criteria criteria = restoreCriteria(request);
 		List<Article> articleList = getListWithCriteria(articleService, request, criteria);
 		request.setAttribute("articleList", articleList);
 
+		return "Views/seller/article/articleList";
+	}
+
+	@RequestMapping(value = { "/mag/articleList" }, method = RequestMethod.GET)
+	public String getListMag( HttpServletRequest request, HttpServletResponse response, Model model ) {
+
+		Criteria criteria = restoreCriteria(request);
+		List<Article> articleList = getListWithCriteria(articleService, request, criteria);
+		request.setAttribute("articleList", articleList);
+
 		String ret = "Views/base/article/articleList";
-		if ( request.getContextPath().startsWith("/seller") ) {
-			ret = "Views/base/seller/article/articleList";
-		}
 		return ret;
 	}
 
-	@RequestMapping(value = { "/mag/articleEdit", "/seller/articleEdit" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/seller/articleEdit" }, method = RequestMethod.GET)
 	public String getArticle( HttpServletRequest request, HttpServletResponse response, Model model ) {
 
 		Long id = getId(request.getParameter("id"));
@@ -81,10 +88,28 @@ public class ArticleController extends GenericController {
 
 		model.addAttribute("article", article);
 
-		String ret = "Views/base/article/articleEdit";
-		if ( request.getContextPath().startsWith("/seller") ) {
-			ret = "Views/base/seller/article/articleEdit";
+		return "Views/seller/article/articleEdit";
+	}
+
+	@RequestMapping(value = { "/mag/articleEdit" }, method = RequestMethod.GET)
+	public String getArticleMag( HttpServletRequest request, HttpServletResponse response, Model model ) {
+
+		Long id = getId(request.getParameter("id"));
+		Article article = null;
+		loadData(model);
+		if ( id == null ) {
+			article = new Article();
+		} else {
+			article = articleService.getByID(id);
+			if ( article == null || article.getId() == null ) {
+				article = new Article();
+			}
 		}
+
+		article.setArticleTypeValue(String.valueOf(ArticleType.Article.getValue()));
+		model.addAttribute("article", article);
+
+		String ret = "Views/base/article/articleEdit";
 		return ret;
 	}
 
@@ -94,8 +119,10 @@ public class ArticleController extends GenericController {
 
 		if ( !validate(article, model, formBindeings, validator) ) {
 			String ret = "Views/base/article/articleEdit";
-			if ( request.getContextPath().startsWith("/seller") ) {
-				ret = "Views/base/seller/article/articleEdit";
+			if ( request.getContextPath().contains("seller") ) {
+				ret = "Views/seller/article/articleEdit";
+			} else {
+				article.setArticleTypeValue(String.valueOf(ArticleType.Article.getValue()));
 			}
 			return ret;
 		}
@@ -106,8 +133,11 @@ public class ArticleController extends GenericController {
 		} else {
 			articleService.insert(article);
 		}
-
-		return "redirect:../mag/articleList?page=" + getPage(request);
+		String ret = "redirect:../mag/articleList?page=" + getPage(request);
+		if ( request.getContextPath().startsWith("/seller") ) {
+			ret = "redirect:../seller/articleList?page=" + getPage(request);
+		}
+		return ret;
 	}
 
 	@Override
@@ -115,6 +145,7 @@ public class ArticleController extends GenericController {
 		model.addAttribute("units", unitService.getList());
 		model.addAttribute("taxItems", taxItemService.getList());
 		model.addAttribute("articleTypes", ArticleType.values());
+		model.addAttribute("articleTypeArticle", ArticleType.Article.getName());
 	}
 
 }

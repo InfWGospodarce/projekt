@@ -40,9 +40,28 @@
 				</div>
 				
 				<div class="form-group">
+					<form:label path="taxItemId">Stawka opodatkowania</form:label>
+					<form:select class="form-control" path="taxItemId">
+					    <form:options items="${taxItems}" itemValue="id" class="form-control" itemLabel="taxPercent" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
+				
+				<div class="form-group">
 					<form:label path="articleTypeValue">Typ artykułu</form:label>
-					<form:hidden path="articleTypeValue"/>
-					<input class="form-control" disabled="disabled" value="${articleTypeArticle}">
+					<form:select class="form-control" path="articleTypeValue">
+					    <form:options items="${articleTypes}" itemValue="value" class="form-control" itemLabel="name" cssErrorClass="errorBc"/>
+					</form:select>
+				</div>
+				
+				<div class="form-group">
+					<form:label path="currentPrice">Cena netto</form:label>
+					<c:if test="${empty id}">
+						<form:input path="currentPrice" class="form-control" cssErrorClass="errorBc"/>
+					</c:if>
+					<c:if test="${not empty id}">
+						<form:input disabled="true" path="currentPrice" class="form-control" cssErrorClass="errorBc"/>
+					</c:if> 
+					<form:errors path="currentPrice" cssClass="error" />
 				</div>
 				
 				<div class="form-group">
@@ -70,9 +89,6 @@
 				</div>
 				
 
-
-
-			
 				<input class="btn btn-primary" class="form-control" type="submit" value="Zapisz"/>
 				<input class="btn btn-primary" class="form-control" type="button" name="cancel" value="Anuluj" onclick="window.location='/transporter-server/mag/articleList?page=${page}'" />
 				

@@ -8,8 +8,17 @@
 <div class="row">
 <div class="col-md-8">
 	<div class="well">	
-		<c:set scope="request" var="modalId" value="selectArticle"></c:set>
-		<%@ include file="/WEB-INF/jsp/template/searchBar/toggleSearch.jsp" %>
+	<table class="table">
+			<tr>
+				<td><h2>Lista artykułów</h2></td>
+				<c:if test="${empty param.select}">
+					<td><form action="/transporter-server/seller/articleEdit" method="get">
+					    <input class="btn btn-primary" class="form-control" type="submit" value="Utwórz nowy">
+					</form></td>
+				</c:if>
+			</tr>
+		</table>
+		<c:set scope="request" var="modalId" value="modal"></c:set>
 		<table class="table">
 			<tr>
 				<th>Lp.</th>
@@ -35,6 +44,13 @@
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.currentPrice*object.taxitem.taxPercent/100}"></c:out></td>
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.taxitem.taxPercent}"></c:out></td>
 					<td  class="js_optionArt" data-value="${object.id}"><c:out value="${object.unit.code}"></c:out></td>
+					<c:if test="${empty param.select}">
+						<form action="/transporter-server/seller/articleEdit" method="get">
+							<input type="hidden" value="${page}" name="page">
+							<input type="hidden" value="${object.id}" name="id">
+						    <input class="btn btn-primary" class="form-control" type="submit" value="Edytuj">
+						</form>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</table>
